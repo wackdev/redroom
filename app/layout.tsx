@@ -5,6 +5,7 @@ import CommandPalette from "@/components/CommandPalette";
 import FocusSanctuaryModal from "@/components/FocusSanctuaryModal";
 import RedroomCursor from "@/components/RedroomCursor";
 import PWAClientInitializer from "@/components/PWAClientInitializer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "WHYNOTUPSC | Why Not You?",
@@ -30,6 +31,7 @@ export default function RootLayout({
         <CommandPalette />
         <FocusSanctuaryModal />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
