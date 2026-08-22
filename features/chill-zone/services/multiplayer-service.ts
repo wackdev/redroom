@@ -154,14 +154,13 @@ export class QuickDuelChannelManager {
 
   private simulateMatchmaking(isHost: boolean) {
     this.onStateChange?.({ status: "searching" });
-    const delay = isHost ? 2200 : 1500;
-    const peerNames = [
-      "IAS Aspirant (AIR 14)",
-      "Cadet Vikram (LBSNAA Bound)",
-      "Ananya (Polity Ace)",
-      "Kavya (GS Master)",
+    const delay = isHost ? 1200 : 800;
+    const botOpponents = [
+      "Practice Neural AI (Target: ~240ms)",
+      "Reflex Calibration Bot (Target: ~220ms)",
+      "Focus Trainer AI (Target: ~260ms)",
     ];
-    const opponent = peerNames[Math.floor(Math.random() * peerNames.length)];
+    const opponent = botOpponents[Math.floor(Math.random() * botOpponents.length)];
 
     setTimeout(() => {
       this.onStateChange?.({
@@ -171,6 +170,7 @@ export class QuickDuelChannelManager {
       });
     }, delay);
   }
+
 
   private simulateRoundStart() {
     const randomDelay = Math.floor(2000 + Math.random() * 2500);

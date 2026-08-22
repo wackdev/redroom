@@ -16,8 +16,10 @@ import {
   parseRawModulePayload,
   getSubjectTheme,
 } from "@/lib/mock-tests/module-engine";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
+
 
 export default function TestsPage() {
   const router = useRouter();
@@ -303,92 +305,94 @@ export default function TestsPage() {
     const theme = getSubjectTheme(selectedTest.subject);
 
     return (
-      <main className="min-h-screen bg-[#07040e] text-white flex flex-col font-sans">
-        {/* TEST HEADER */}
-        <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0d071a]/95 backdrop-blur-xl px-4 py-3 sm:px-6">
-          <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-            <div className="flex items-center gap-3 min-w-0">
-              <span className={`rounded-xl px-2.5 py-1 text-xs font-black uppercase ${theme.badgeBg} ${theme.badgeText} border ${theme.badgeBorder}`}>
-                {selectedTest.subject} · Module {selectedTest.moduleNumber || "01"}
-              </span>
-              <h2 className="truncate text-xs sm:text-sm font-bold text-white/90">
-                {selectedTest.topic || selectedTest.title}
-              </h2>
-            </div>
-
-            {/* COUNTDOWN & CONTROLS */}
-            <div className="flex items-center gap-3">
-              <div
-                className={`flex items-center gap-2 rounded-xl px-3 py-1.5 font-mono text-xs sm:text-sm font-black border transition ${
-                  timeLeft <= 120
-                    ? "border-red-500 bg-red-500/20 text-red-300 animate-pulse"
-                    : "border-purple-500/40 bg-purple-500/10 text-purple-200"
-                }`}
-              >
-                <span>⏱️</span>
-                <span>{formatTime(timeLeft)}</span>
+      <AuthGuard>
+        <main className="min-h-screen bg-[#07040e] text-white flex flex-col font-sans">
+          {/* TEST HEADER */}
+          <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0d071a]/95 backdrop-blur-xl px-4 py-3 sm:px-6">
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                <span className={`rounded-xl px-2.5 py-1 text-xs font-black uppercase ${theme.badgeBg} ${theme.badgeText} border ${theme.badgeBorder}`}>
+                  {selectedTest.subject} · Module {selectedTest.moduleNumber || "01"}
+                </span>
+                <h2 className="truncate text-xs sm:text-sm font-bold text-white/90">
+                  {selectedTest.topic || selectedTest.title}
+                </h2>
               </div>
 
-              <button
-                onClick={() => void submitTest(false)}
-                className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-1.5 text-xs font-bold text-white shadow-lg shadow-emerald-900/40 hover:opacity-90 transition"
-              >
-                Submit Test
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {/* TEST WORKSPACE */}
-        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col p-4 sm:p-6 lg:grid lg:grid-cols-[1fr_320px] lg:gap-6">
-          {/* MAIN QUESTION VIEW */}
-          {q ? (
-            <div className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-7 shadow-2xl">
-              <div>
-                {/* QUESTION METADATA BAR */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-lg bg-white/10 px-2.5 py-1 text-xs font-black text-purple-300">
-                      Q {currentQuestion + 1} of {qList.length}
-                    </span>
-                    {q.syllabusSubtopic && (
-                      <span className="rounded-lg bg-pink-500/10 px-2.5 py-1 text-[11px] font-semibold text-pink-300 border border-pink-500/20">
-                        📌 {q.syllabusSubtopic}
-                      </span>
-                    )}
-                    {q.patternType && (
-                      <span className="rounded-lg bg-white/5 px-2 py-1 text-[11px] font-medium text-white/50">
-                        {q.patternType}
-                      </span>
-                    )}
-                    {q.difficulty && (
-                      <span className="text-[10px] font-bold text-amber-300">
-                        ⭐ {q.difficulty}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-mono text-emerald-400 font-bold">
-                      +{selectedTest.marksPerQuestion} / -{selectedTest.negativeMarking}
-                    </span>
-                    <button
-                      onClick={() =>
-                        setMarked((prev) => ({ ...prev, [q.id]: !prev[q.id] }))
-                      }
-                      className={`rounded-lg px-2.5 py-1 text-xs font-bold transition border ${
-                        marked[q.id]
-                          ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                          : "bg-white/5 text-white/40 border-white/10 hover:text-white"
-                      }`}
-                    >
-                      {marked[q.id] ? "★ Flagged" : "☆ Flag"}
-                    </button>
-                  </div>
+              {/* COUNTDOWN & CONTROLS */}
+              <div className="flex items-center gap-3">
+                <div
+                  className={`flex items-center gap-2 rounded-xl px-3 py-1.5 font-mono text-xs sm:text-sm font-black border transition ${
+                    timeLeft <= 120
+                      ? "border-red-500 bg-red-500/20 text-red-300 animate-pulse"
+                      : "border-purple-500/40 bg-purple-500/10 text-purple-200"
+                  }`}
+                >
+                  <span>⏱️</span>
+                  <span>{formatTime(timeLeft)}</span>
                 </div>
 
-                {/* QUESTION TEXT */}
-                <div className="mt-5 text-sm sm:text-base font-semibold leading-relaxed text-white/95 whitespace-pre-line">
+                <button
+                  onClick={() => void submitTest(false)}
+                  className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-1.5 text-xs font-bold text-white shadow-lg shadow-emerald-900/40 hover:opacity-90 transition"
+                >
+                  Submit Test
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* TEST WORKSPACE */}
+          <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col p-4 sm:p-6 lg:grid lg:grid-cols-[1fr_320px] lg:gap-6">
+            {/* MAIN QUESTION VIEW */}
+            {q ? (
+              <div className="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-7 shadow-2xl">
+                <div>
+                  {/* QUESTION METADATA BAR */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-lg bg-white/10 px-2.5 py-1 text-xs font-black text-purple-300">
+                        Q {currentQuestion + 1} of {qList.length}
+                      </span>
+                      {q.syllabusSubtopic && (
+                        <span className="rounded-lg bg-pink-500/10 px-2.5 py-1 text-[11px] font-semibold text-pink-300 border border-pink-500/20">
+                          📌 {q.syllabusSubtopic}
+                        </span>
+                      )}
+                      {q.patternType && (
+                        <span className="rounded-lg bg-white/5 px-2 py-1 text-[11px] font-medium text-white/50">
+                          {q.patternType}
+                        </span>
+                      )}
+                      {q.difficulty && (
+                        <span className="text-[10px] font-bold text-amber-300">
+                          ⭐ {q.difficulty}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-mono text-emerald-400 font-bold">
+                        +{selectedTest.marksPerQuestion} / -{selectedTest.negativeMarking}
+                      </span>
+                      <button
+                        onClick={() =>
+                          setMarked((prev) => ({ ...prev, [q.id]: !prev[q.id] }))
+                        }
+                        className={`rounded-lg px-2.5 py-1 text-xs font-bold transition border ${
+                          marked[q.id]
+                            ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
+                            : "bg-white/5 text-white/40 border-white/10 hover:text-white"
+                        }`}
+                      >
+                        {marked[q.id] ? "★ Flagged" : "☆ Flag"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* QUESTION TEXT */}
+                  <div className="mt-5 text-sm sm:text-base font-semibold leading-relaxed text-white/95 whitespace-pre-line">
+
                   {q.question}
                 </div>
 
@@ -544,8 +548,10 @@ export default function TestsPage() {
           </aside>
         </div>
       </main>
+      </AuthGuard>
     );
   }
+
 
   // ============================================================================
   // VIEW 2: POST-TEST DETAILED REVIEW & SCORECARD HUD
@@ -555,41 +561,43 @@ export default function TestsPage() {
     const theme = getSubjectTheme(selectedTest.subject);
 
     return (
-      <main className="min-h-screen bg-[#07040e] text-white p-4 sm:p-6 font-sans">
-        <div className="mx-auto max-w-5xl space-y-6">
-          {/* SCORECARD HERO BANNER */}
-          <div className="rounded-3xl border border-purple-500/30 bg-gradient-to-r from-[#170929] via-[#240c42] to-[#120520] p-6 sm:p-8 shadow-2xl">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <span className={`rounded-full px-3 py-1 text-xs font-extrabold uppercase ${theme.badgeBg} ${theme.badgeText} border ${theme.badgeBorder}`}>
-                  {selectedTest.subject} · Module {selectedTest.moduleNumber || "01"}
-                </span>
-                <h1 className="mt-2 text-2xl sm:text-3xl font-black text-white">
-                  Test Performance Scorecard
-                </h1>
-                <p className="mt-1 text-xs sm:text-sm text-white/60">
-                  {selectedTest.topic || selectedTest.title}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-center">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">Score</p>
-                  <p className="text-2xl sm:text-3xl font-black text-purple-300">
-                    {result.score} <span className="text-xs text-white/40">/ {result.maxScore || result.total * 2}</span>
+      <AuthGuard>
+        <main className="min-h-screen bg-[#07040e] text-white p-4 sm:p-6 font-sans">
+          <div className="mx-auto max-w-5xl space-y-6">
+            {/* SCORECARD HERO BANNER */}
+            <div className="rounded-3xl border border-purple-500/30 bg-gradient-to-r from-[#170929] via-[#240c42] to-[#120520] p-6 sm:p-8 shadow-2xl">
+              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <span className={`rounded-full px-3 py-1 text-xs font-extrabold uppercase ${theme.badgeBg} ${theme.badgeText} border ${theme.badgeBorder}`}>
+                    {selectedTest.subject} · Module {selectedTest.moduleNumber || "01"}
+                  </span>
+                  <h1 className="mt-2 text-2xl sm:text-3xl font-black text-white">
+                    Test Performance Scorecard
+                  </h1>
+                  <p className="mt-1 text-xs sm:text-sm text-white/60">
+                    {selectedTest.topic || selectedTest.title}
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-center">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">Accuracy</p>
-                  <p className="text-2xl sm:text-3xl font-black text-emerald-400">
-                    {accuracy}%
-                  </p>
+                <div className="flex items-center gap-4">
+                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">Score</p>
+                    <p className="text-2xl sm:text-3xl font-black text-purple-300">
+                      {result.score} <span className="text-xs text-white/40">/ {result.maxScore || result.total * 2}</span>
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4 text-center">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">Accuracy</p>
+                    <p className="text-2xl sm:text-3xl font-black text-emerald-400">
+                      {accuracy}%
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
             {/* METRICS ROW */}
+
             <div className="mt-6 grid grid-cols-3 gap-3 border-t border-white/10 pt-5 text-center text-xs">
               <div className="rounded-xl bg-emerald-500/10 p-3 border border-emerald-500/20">
                 <span className="text-emerald-300 font-extrabold text-base sm:text-lg">✓ {result.correct}</span>
@@ -801,6 +809,7 @@ export default function TestsPage() {
           </div>
         </div>
       </main>
+      </AuthGuard>
     );
   }
 
@@ -808,17 +817,19 @@ export default function TestsPage() {
   // VIEW 3: SUBJECT-WISE MODULES EXPLORER DASHBOARD
   // ============================================================================
   return (
-    <main className="min-h-screen bg-[#07040e] text-white">
-      {/* HEADER */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d071a]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="text-xs font-bold text-purple-300 transition hover:text-white"
-            >
-              ← Command Centre
-            </button>
+    <AuthGuard>
+      <main className="min-h-screen bg-[#07040e] text-white">
+        {/* HEADER */}
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d071a]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push("/dashboard")}
+                className="text-xs font-bold text-purple-300 transition hover:text-white"
+              >
+                ← Command Centre
+              </button>
+
             <span className="text-white/20">/</span>
             <span className="text-xs font-black uppercase tracking-wider text-white/70">
               Mock Test Arena · Subject Modules
@@ -1079,5 +1090,7 @@ export default function TestsPage() {
         </div>
       )}
     </main>
+    </AuthGuard>
   );
 }
+

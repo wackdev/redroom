@@ -112,6 +112,8 @@ export function subscribeToSyncChanges(callback: (type: SyncEntityType) => void)
   };
 }
 
+import { UserSessionManager } from "../core/user-context";
+
 /**
  * Pushes all current local state to the cloud (Supabase backend).
  */
@@ -119,6 +121,7 @@ export async function pushStateToCloud(): Promise<boolean> {
   if (typeof window === "undefined") return false;
 
   try {
+    const activeUser = UserSessionManager.getActiveUser();
     const plansRaw = localStorage.getItem(STORAGE_KEYS.STUDY_PLAN);
     const notesRaw = localStorage.getItem(STORAGE_KEYS.NOTES);
     const testsRaw = localStorage.getItem(STORAGE_KEYS.TEST_RESULTS);
@@ -133,10 +136,19 @@ export async function pushStateToCloud(): Promise<boolean> {
     const revisionItems = revisionRaw ? JSON.parse(revisionRaw) : [];
     const pyqProgress = pyqRaw ? JSON.parse(pyqRaw) : [];
 
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    if (activeUser?.id) {
+      headers["x-cadet-id"] = activeUser.id;
+    }
+    if (activeUser?.email) {
+      headers["x-cadet-email"] = activeUser.email;
+    }
+
     const res = await fetch("/api/sync", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify({
+        userId: activeUser?.id,
         plans,
         notes,
         testResults,
@@ -165,8 +177,17 @@ export async function pullStateFromCloud(): Promise<boolean> {
   if (typeof window === "undefined") return false;
 
   try {
-    const res = await fetch("/api/sync");
+    const activeUser = UserSessionManager.getActiveUser();
+    const headers: Record<string, string> = {};
+    if (activeUser?.id) {
+      headers["x-cadet-id"] = activeUser.id;
+    }
+
+    const res = await fetch(`/api/sync${activeUser?.id ? `?userId=${encodeURIComponent(activeUser.id)}` : ""}`, {
+      headers,
+    });
     const json = await res.json();
+
 
     if (json.success && json.data) {
       const { plans, notes, testResults, syllabusProgress, revisionItems, pyqProgress } = json.data;

@@ -226,24 +226,29 @@ function updateGamingStats(durationMs: number, _score: number, isPb: boolean) {
   } catch {}
 }
 
+import { UserSessionManager } from "@/lib/core/user-context";
+
 /**
- * Generates initial realistic leaderboards with peer aspirant benchmarks
+ * Fetches real platform leaderboards without fake mock profiles
  */
 export async function getGameLeaderboard(
   gameSlug: GameSlug,
   timeframe: "global" | "weekly" | "monthly" = "global"
 ): Promise<LeaderboardEntry[]> {
   const game = CHILL_GAMES.find((g) => g.slug === gameSlug);
+  const activeUser = UserSessionManager.getActiveUser();
   const pbs = getLocalPersonalBests();
   const userScore = pbs[gameSlug];
 
-  // Try Supabase first if available
+  const entries: LeaderboardEntry[] = [];
+
+  // 1. Try Supabase first if available
   if (isSupabaseConfigured()) {
     try {
       const supabase = getBrowserClient();
       const { data, error } = await supabase
         .from("game_scores")
-        .select("score, score_display, accuracy, created_at, user_id, profiles(full_name, username)")
+        .select("score, score_display, accuracy, created_at, user_id, profiles(full_name, email)")
         .eq("game_slug", gameSlug)
         .order("score", { ascending: game?.scoringType === "ASCENDING_TIME" })
         .limit(20);
@@ -251,88 +256,52 @@ export async function getGameLeaderboard(
       if (!error && data && data.length > 0) {
         return data.map((item: any, idx: number) => ({
           rank: idx + 1,
-          displayName: item.profiles?.full_name || item.profiles?.username || `Aspirant-${idx + 101}`,
+          displayName: item.profiles?.full_name || (item.profiles?.email ? item.profiles.email.split("@")[0] : `Cadet-${idx + 1}`),
           score: item.score,
-          scoreDisplay: item.score_display || `${item.score}`,
+          scoreDisplay: item.score_display || (game ? game.bestScoreFormat(item.score) : `${item.score}`),
           accuracy: item.accuracy,
           achievedAt: new Date(item.created_at).toLocaleDateString(),
-          isCurrentUser: false,
+          isCurrentUser: activeUser ? item.user_id === activeUser.id : false,
           verified: true,
         }));
       }
     } catch {}
   }
 
-  // Baseline peer benchmarks for instant immersion & competitive drive
-  const mockBenchmarks: Record<GameSlug, { name: string; score: number }[]> = {
-    react: [
-      { name: "Aarav K. (AIR 42 Hopeful)", score: 184 },
-      { name: "Divya M. (IPS Aspirant)", score: 198 },
-      { name: "Rohan S. (GS Ranker)", score: 212 },
-      { name: "Pooja V. (IFS Focus)", score: 226 },
-      { name: "Aditya T.", score: 239 },
-      { name: "Kavya N.", score: 254 },
-      { name: "Vikram R.", score: 268 },
-    ],
-    "memory-vault": [
-      { name: "Ananya B. (Memory Titan)", score: 12450 },
-      { name: "Harsh V. (GS-1 Focus)", score: 11200 },
-      { name: "Nisha P.", score: 9850 },
-      { name: "Sameer K.", score: 8900 },
-      { name: "Tanvi S.", score: 7650 },
-    ],
-    "focus-flow": [
-      { name: "Siddharth J. (Flow State)", score: 18920 },
-      { name: "Meera D. (Top Ranker)", score: 16450 },
-      { name: "Rajesh G.", score: 13200 },
-      { name: "Priya C.", score: 10840 },
-      { name: "Arjun L.", score: 8950 },
-    ],
-    "quick-duel": [
-      { name: "Kartik N. (Duel Master)", score: 172 },
-      { name: "Sneha R.", score: 189 },
-      { name: "Manish K.", score: 205 },
-      { name: "Ritu M.", score: 220 },
-    ],
-    "word-rush": [
-      { name: "Devansh S. (Lexicon King)", score: 8400 },
-      { name: "Kritika B.", score: 7200 },
-      { name: "Akash D.", score: 6150 },
-      { name: "Shreya V.", score: 5400 },
-    ],
-    blink: [
-      { name: "Rahul M. (19 Sequence)", score: 19 },
-      { name: "Ishita P. (17 Sequence)", score: 17 },
-      { name: "Gaurav S. (15 Sequence)", score: 15 },
-      { name: "Bhavna T.", score: 13 },
-      { name: "Kunal R.", score: 11 },
-    ],
-  };
-
-  const benchmarks = mockBenchmarks[gameSlug] || [];
-  const entries: LeaderboardEntry[] = benchmarks.map((b, i) => ({
-    rank: i + 1,
-    displayName: b.name,
-    score: b.score,
-    scoreDisplay: game ? game.bestScoreFormat(b.score) : `${b.score}`,
-    achievedAt: "Recently",
-    isCurrentUser: false,
-    verified: true,
-  }));
-
-  // Insert Current User if they have a PB
+  // 2. Fetch real local scores for current authenticated user
   if (userScore !== undefined && userScore > 0 && game) {
+    const userName = activeUser ? `${activeUser.fullName} (You)` : "You (Cadet)";
     const userEntry: LeaderboardEntry = {
-      rank: 0,
-      displayName: "YOU (Cadet)",
+      rank: 1,
+      displayName: userName,
       score: userScore,
       scoreDisplay: game.bestScoreFormat(userScore),
-      achievedAt: "Today",
+      achievedAt: "Active Record",
       isCurrentUser: true,
       verified: true,
     };
-
     entries.push(userEntry);
+  }
+
+  // 3. Check local score history for other legitimate local runs
+  const history = getLocalScoreHistory().filter((h) => h.gameSlug === gameSlug && h.score > 0);
+  if (history.length > 1 && game) {
+    // Group best score per session if distinct
+    const distinctScores = Array.from(new Set(history.map((h) => h.score)));
+    distinctScores.slice(0, 5).forEach((sc) => {
+      if (sc !== userScore) {
+        entries.push({
+          rank: 0,
+          displayName: activeUser ? `${activeUser.fullName} (Past Session)` : "Past Personal Run",
+          score: sc,
+          scoreDisplay: game.bestScoreFormat(sc),
+          achievedAt: "Previous Session",
+          isCurrentUser: true,
+          verified: true,
+        });
+      }
+    });
+
     if (game.scoringType === "ASCENDING_TIME") {
       entries.sort((a, b) => a.score - b.score);
     } else {
@@ -344,5 +313,6 @@ export async function getGameLeaderboard(
     });
   }
 
-  return entries.slice(0, 15);
+  return entries;
 }
+

@@ -19,8 +19,10 @@ import {
 import { idb, DB_STORES } from "@/lib/db/indexed-db";
 import { sound } from "@/lib/audio/sound-engine";
 import MainsDiagramStudio from "@/components/MainsDiagramStudio";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 const LOCAL_STORAGE_MAINS_KEY = "redroom_mains_pyqs_custom";
+
 const LOCAL_STORAGE_MAINS_DRAFTS_KEY = "redroom_mains_drafts";
 const LOCAL_STORAGE_MAINS_BOOKMARKS_KEY = "redroom_mains_bookmarks";
 const LOCAL_STORAGE_MAINS_PRACTICED_KEY = "redroom_mains_practiced";
@@ -461,17 +463,19 @@ export default function MainsPYQCommandCenter() {
   ).padStart(2, "0")}`;
 
   return (
-    <main className="min-h-screen bg-[#07040e] text-white">
-      {/* TOP BAR */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#090414]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="text-xs font-semibold text-purple-300 transition hover:text-white"
-            >
-              ← Command Centre
-            </button>
+    <AuthGuard>
+      <main className="min-h-screen bg-[#07040e] text-white">
+        {/* TOP BAR */}
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#090414]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push("/dashboard")}
+                className="text-xs font-semibold text-purple-300 transition hover:text-white"
+              >
+                ← Command Centre
+              </button>
+
             <span className="text-white/20">|</span>
             <div className="flex items-center gap-2">
               <span className="text-base">✍️</span>
@@ -1378,5 +1382,7 @@ export default function MainsPYQCommandCenter() {
         />
       )}
     </main>
+    </AuthGuard>
   );
 }
+

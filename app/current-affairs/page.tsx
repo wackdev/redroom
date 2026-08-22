@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CurrentAffairsArticle, CurrentAffairsQuizQuestion } from "@/lib/core/types";
 import { formatDate, safeArray } from "@/lib/core/utils";
 import DailyAudioBrief from "@/components/DailyAudioBrief";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 export default function CurrentAffairsPage() {
   const router = useRouter();
@@ -133,37 +134,39 @@ export default function CurrentAffairsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#080510] text-white">
-      {/* HEADER */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="text-sm text-purple-300 transition hover:text-white"
-            >
-              ← Command Centre
-            </button>
-            <span className="text-white/20">|</span>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">📰</span>
-              <span className="font-bold tracking-tight">Daily Current Affairs</span>
-              <span className="rounded-full bg-purple-500/15 px-2.5 py-0.5 text-xs font-semibold text-purple-300">
-                NextIAS Integration
-              </span>
+    <AuthGuard>
+      <main className="min-h-screen bg-[#080510] text-white">
+        {/* HEADER */}
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push("/dashboard")}
+                className="text-sm text-purple-300 transition hover:text-white"
+              >
+                ← Command Centre
+              </button>
+              <span className="text-white/20">|</span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg">📰</span>
+                <span className="font-bold tracking-tight">Daily Current Affairs</span>
+                <span className="rounded-full bg-purple-500/15 px-2.5 py-0.5 text-xs font-semibold text-purple-300">
+                  NextIAS Integration
+                </span>
+              </div>
             </div>
+            <button
+              onClick={loadArticles}
+              disabled={loading}
+              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold transition hover:bg-white/10 disabled:opacity-50"
+            >
+              ↻ Refresh Daily News
+            </button>
           </div>
-          <button
-            onClick={loadArticles}
-            disabled={loading}
-            className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold transition hover:bg-white/10 disabled:opacity-50"
-          >
-            ↻ Refresh Daily News
-          </button>
-        </div>
-      </header>
+        </header>
 
-      <div className="mx-auto max-w-7xl px-5 py-8">
+        <div className="mx-auto max-w-7xl px-5 py-8">
+
         {/* HERO TITLE */}
         <section className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
@@ -604,5 +607,7 @@ export default function CurrentAffairsPage() {
         </div>
       )}
     </main>
+    </AuthGuard>
   );
 }
+

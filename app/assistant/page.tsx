@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { safeArray } from "@/lib/core/utils";
 import { sound } from "@/lib/audio/sound-engine";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 interface ChatMessage {
+
   id: string;
   role: "user" | "assistant";
   content: string;
@@ -105,33 +107,35 @@ export default function AssistantPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans flex flex-col selection:bg-[#D8A63A] selection:text-black">
-      {/* HEADER */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 w-full">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => router.push("/dashboard")}
-              data-cursor="BACK"
-              className="font-mono text-xs text-[#F4C95D] transition hover:underline"
-            >
-              ← Command Centre
-            </button>
-            <span className="text-white/20">|</span>
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A] font-mono text-xs font-black text-black">
-                ↑
-              </span>
-              <span className="font-mono font-black tracking-widest text-sm text-white uppercase">
-                AI STRATEGIST // WHY
-              </span>
+    <AuthGuard>
+      <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans flex flex-col selection:bg-[#D8A63A] selection:text-black">
+        {/* HEADER */}
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 w-full">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push("/dashboard")}
+                data-cursor="BACK"
+                className="font-mono text-xs text-[#F4C95D] transition hover:underline"
+              >
+                ← Command Centre
+              </button>
+              <span className="text-white/20">|</span>
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A] font-mono text-xs font-black text-black">
+                  ↑
+                </span>
+                <span className="font-mono font-black tracking-widest text-sm text-white uppercase">
+                  AI STRATEGIST // WHY
+                </span>
+              </div>
             </div>
+            <span className="rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3 py-1 font-mono text-[10px] font-bold text-[#F4C95D] animate-pulse">
+              ● STRATEGIST ONLINE
+            </span>
           </div>
-          <span className="rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3 py-1 font-mono text-[10px] font-bold text-[#F4C95D] animate-pulse">
-            ● STRATEGIST ONLINE
-          </span>
-        </div>
-      </header>
+        </header>
+
 
       {/* BODY CONTENT */}
       <div className="mx-auto max-w-4xl w-full flex-1 flex flex-col px-4 py-6 space-y-6">
@@ -229,5 +233,7 @@ export default function AssistantPage() {
         </div>
       </div>
     </main>
+    </AuthGuard>
   );
 }
+

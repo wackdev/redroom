@@ -17,8 +17,10 @@ import {
   pushStateToCloud,
   useCloudSync,
 } from "@/lib/sync/sync-engine";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 const NOTES_STORAGE_KEY = "redroom_notes_data";
+
 const STUDY_PLAN_STORAGE_KEY = "redroom_study_plan";
 
 const DEFAULT_SEED_NOTES: NoteItem[] = [
@@ -274,17 +276,19 @@ export default function NotesPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#080510] text-white">
-      {/* HEADER */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="text-sm text-purple-300 transition hover:text-white"
-            >
-              ← Command Centre
-            </button>
+    <AuthGuard>
+      <main className="min-h-screen bg-[#080510] text-white">
+        {/* HEADER */}
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push("/dashboard")}
+                className="text-sm text-purple-300 transition hover:text-white"
+              >
+                ← Command Centre
+              </button>
+
             <span className="text-white/20">|</span>
             <div className="flex items-center gap-2">
               <span className="text-lg">✍️</span>
@@ -747,5 +751,7 @@ export default function NotesPage() {
         </div>
       )}
     </main>
+    </AuthGuard>
   );
 }
+

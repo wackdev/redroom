@@ -20,6 +20,8 @@ import { sound } from "@/lib/audio/sound-engine";
 import NeuralKnowledgeGraph from "@/components/NeuralKnowledgeGraph";
 import HistoryTimeTunnel from "@/components/HistoryTimeTunnel";
 import GeographyGlobe3D from "@/components/GeographyGlobe3D";
+import AuthGuard from "@/components/auth/AuthGuard";
+
 
 
 const LOCAL_STORAGE_PROGRESS_KEY = "redroom_pyq_progress";
@@ -432,8 +434,22 @@ export default function PYQCommandCenter() {
     });
   };
 
+  // Select Option in Daily Sprint
+  const handleSelectDailyOption = (q: PYQQuestion, optId: string) => {
+    const strId = String(q.id);
+    setDailyAnswered((prev) => ({ ...prev, [strId]: optId }));
+    const isRight = optId === q.correctAnswer;
+    if (isRight) {
+      sound.playCorrect();
+    } else {
+      sound.playWrong();
+    }
+  };
+
+
   // Start Daily 5-MCQ Challenge
   const handleStartDailyChallenge = () => {
+
     const pool = questions.length > 0 ? questions : STATIC_PYQ_DATASET;
     const shuffled = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
     setDailyQuestions(shuffled);
@@ -464,133 +480,148 @@ export default function PYQCommandCenter() {
     const completedDailyCount = Object.keys(dailyAnswered).length;
 
     return (
-      <main className="min-h-screen bg-[#07040e] text-white">
-        <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
-          <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
-            <button
-              onClick={() => setViewMode("list")}
-              className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-bold text-purple-300 hover:bg-white/10 hover:text-white"
-            >
-              ← Exit Challenge
-            </button>
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1 rounded-full bg-amber-500/20 px-3 py-1 text-xs font-black text-amber-300">
-                <span>🔥</span>
-                <span>{dailyStreak} Day Streak</span>
-              </span>
-              <span className="text-xs text-white/50">
-                Question <strong className="text-white">{dailyIndex + 1}</strong> of {dailyQuestions.length}
-              </span>
-            </div>
-          </div>
+      <AuthGuard>
+        <main className="min-h-screen bg-[#07040e] text-white">
+          <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+            {/* Top Bar */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setViewMode("list")}
+                  className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-white/70 hover:bg-white/10 hover:text-white"
+                >
+                  ← Exit Daily
+                </button>
+                <h1 className="font-mono text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                  Prelims 5-MCQ Sprint
+                </h1>
+              </div>
 
-          <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-amber-500 to-pink-500 transition-all duration-300"
-              style={{ width: `${(completedDailyCount / dailyQuestions.length) * 100}%` }}
-            />
-          </div>
-
-          <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-xl sm:p-8">
-            <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-4">
-              <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
-                {currentQ.subject} · {currentQ.year}
-              </span>
-              <span className="text-xs font-semibold text-white/40">{currentQ.topic}</span>
+              <div className="flex items-center gap-2 font-mono text-xs text-[#F4C95D]">
+                <span>🔥 {dailyStreak} Day Streak</span>
+              </div>
             </div>
 
-            <p className="mt-6 text-base font-semibold leading-relaxed text-white/95 sm:text-lg">
-              {currentQ.question}
-            </p>
-
-            <div className="mt-6 space-y-3">
-              {safeArray(currentQ.options).map((opt) => {
-                const isSelected = chosenOption === opt.id;
-                const isRight = currentQ.correctAnswer === opt.id;
-
-                let optClass = "border-white/10 bg-white/5 hover:border-purple-500/50 hover:bg-white/10 text-white/90";
-                if (isAnswered) {
-                  if (isRight) {
-                    optClass = "border-emerald-500 bg-emerald-500/20 text-emerald-200 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
-                  } else if (isSelected && !isRight) {
-                    optClass = "border-red-500 bg-red-500/20 text-red-200";
-                  } else {
-                    optClass = "border-white/5 bg-white/[0.02] text-white/40 opacity-60";
-                  }
-                }
-
+            {/* Daily Progress Dots */}
+            <div className="my-6 flex items-center justify-between gap-2">
+              {dailyQuestions.map((_, idx) => {
+                const isCur = idx === dailyIndex;
+                const isDone = Boolean(dailyAnswered[String(dailyQuestions[idx].id)]);
                 return (
-                  <button
-                    key={opt.id}
-                    disabled={isAnswered}
-                    onClick={() => {
-                      const next = { ...dailyAnswered, [strId]: opt.id };
-                      setDailyAnswered(next);
-                      handleSelectOption(currentQ, opt.id);
-                    }}
-                    className={`flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition-all ${optClass}`}
-                  >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xs font-bold">
-                      {opt.id}
-                    </span>
-                    <span className="pt-0.5 text-sm sm:text-base">{opt.text}</span>
-                  </button>
+                  <div
+                    key={idx}
+                    className={`h-2 flex-1 rounded-full transition-all ${
+                      isCur
+                        ? "bg-[#D8A63A] ring-2 ring-[#D8A63A]/40"
+                        : isDone
+                        ? "bg-emerald-500"
+                        : "bg-white/10"
+                    }`}
+                  />
                 );
               })}
             </div>
 
-            {isAnswered && (
-              <div
-                className={`mt-6 rounded-2xl border p-5 ${
-                  isCorrect
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-100"
-                    : "border-red-500/30 bg-red-500/10 text-red-100"
-                }`}
-              >
-                <p className="font-bold text-sm sm:text-base">
-                  {isCorrect ? "✓ Excellent! (+2.00 Marks)" : `✕ Incorrect (-0.66 Marks). Official Answer: ${currentQ.correctAnswer}`}
-                </p>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/90 border-t border-white/10 pt-2">
-                  {currentQ.explanation}
-                </p>
+            {/* Question Card */}
+            <article className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-6 sm:p-8 shadow-2xl">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <span className="rounded-full bg-[#D8A63A]/20 px-3 py-1 font-mono text-[10px] font-bold text-[#F4C95D]">
+                  {currentQ.subject} · {currentQ.year}
+                </span>
+                <span className="text-xs font-semibold text-white/40">{currentQ.topic}</span>
               </div>
-            )}
 
-            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
-              <button
-                disabled={dailyIndex === 0}
-                onClick={() => setDailyIndex((i) => i - 1)}
-                className="rounded-xl border border-white/10 px-4 py-2 text-xs font-bold disabled:opacity-30"
-              >
-                ← Prev
-              </button>
+              <p className="mt-6 text-base font-semibold leading-relaxed text-white/95 sm:text-lg">
+                {currentQ.question}
+              </p>
 
-              {dailyIndex < dailyQuestions.length - 1 ? (
-                <button
-                  onClick={() => setDailyIndex((i) => i + 1)}
-                  className="rounded-xl bg-purple-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-purple-500"
-                >
-                  Next Question →
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    const newStreak = dailyStreak + 1;
-                    setDailyStreak(newStreak);
-                    try {
-                      localStorage.setItem(LOCAL_STORAGE_STREAK_KEY, String(newStreak));
-                    } catch {}
-                    setViewMode("list");
-                  }}
-                  className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-2.5 text-xs font-bold text-white shadow-lg"
-                >
-                  Complete Challenge (+5 XP) ✓
-                </button>
+              <div className="mt-6 space-y-3">
+                {safeArray(currentQ.options).map((opt) => {
+                  const isSelected = chosenOption === opt.id;
+                  const isRight = currentQ.correctAnswer === opt.id;
+
+                  let optClass = "border-white/10 bg-white/5 hover:border-purple-500/50 hover:bg-white/10 text-white/90";
+                  if (isAnswered) {
+                    if (isRight) {
+                      optClass = "border-emerald-500 bg-emerald-500/20 text-emerald-200 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
+                    } else if (isSelected && !isRight) {
+                      optClass = "border-red-500 bg-red-500/20 text-red-200";
+                    } else {
+                      optClass = "border-white/5 bg-white/[0.02] text-white/40 opacity-60";
+                    }
+                  }
+
+                  return (
+                    <button
+                      key={opt.id}
+                      disabled={isAnswered}
+                      onClick={() => handleSelectDailyOption(currentQ, opt.id)}
+                      className={`flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition ${optClass}`}
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-white/20 font-mono text-xs font-bold uppercase">
+                        {opt.id}
+                      </span>
+                      <span className="text-xs sm:text-sm font-medium leading-relaxed">
+                        {opt.text}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Explanation Reveal */}
+              {isAnswered && (
+                <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-5 animate-fadeIn">
+                  <div className="flex items-center gap-2">
+                    <span className="text-emerald-400 font-bold">
+                      {isCorrect ? "✓ Correct Deduction" : "✕ Trap Triggered"}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-emerald-200/90 font-sans">
+                    {currentQ.explanation}
+                  </p>
+                </div>
               )}
-            </div>
-          </article>
-        </div>
-      </main>
+
+              {/* Bottom Nav */}
+              <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+                <button
+                  disabled={dailyIndex === 0}
+                  onClick={() => setDailyIndex((i) => i - 1)}
+                  className="rounded-xl border border-white/10 px-4 py-2 text-xs font-bold text-white/70 hover:bg-white/5 disabled:opacity-30"
+                >
+                  ← Prev
+                </button>
+
+                {dailyIndex < dailyQuestions.length - 1 ? (
+                  <button
+                    disabled={!isAnswered}
+                    onClick={() => setDailyIndex((i) => i + 1)}
+                    className="rounded-xl bg-[#D8A63A] px-6 py-2 text-xs font-black text-black hover:bg-[#F4C95D] disabled:opacity-30"
+                  >
+                    Next Question →
+                  </button>
+                ) : (
+                  <button
+                    disabled={completedDailyCount < 5}
+                    onClick={() => {
+                      const newStreak = dailyStreak + 1;
+                      setDailyStreak(newStreak);
+                      try {
+                        localStorage.setItem(LOCAL_STORAGE_STREAK_KEY, String(newStreak));
+                      } catch {}
+                      setViewMode("list");
+                    }}
+                    className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-2.5 text-xs font-bold text-white shadow-lg"
+                  >
+                    Complete Challenge (+5 XP) ✓
+                  </button>
+                )}
+              </div>
+            </article>
+          </div>
+        </main>
+      </AuthGuard>
     );
   }
 
@@ -626,8 +657,10 @@ export default function PYQCommandCenter() {
     }
 
     return (
-      <main className="min-h-screen bg-[#07040e] text-white">
-        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+      <AuthGuard>
+        <main className="min-h-screen bg-[#07040e] text-white">
+          <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl">
             <div className="flex items-center gap-3">
               <button
@@ -798,6 +831,7 @@ export default function PYQCommandCenter() {
           </div>
         </div>
       </main>
+      </AuthGuard>
     );
   }
 
@@ -805,9 +839,11 @@ export default function PYQCommandCenter() {
   // VIEW: MAIN LIST COMMAND CENTRE
   // ==========================================================================
   return (
-    <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+    <AuthGuard>
+      <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push("/dashboard")}
@@ -1386,5 +1422,7 @@ export default function PYQCommandCenter() {
         )}
       </div>
     </main>
+    </AuthGuard>
   );
 }
+

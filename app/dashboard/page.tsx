@@ -13,8 +13,10 @@ import {
 import UniverseCommandCenter from "@/components/UniverseCommandCenter";
 import FutureYouSimulator from "@/components/FutureYouSimulator";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
+
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -91,83 +93,88 @@ export default function DashboardPage() {
   // 3D UNIVERSE MODE
   if (viewMode === "3d_universe") {
     return (
-      <div className="relative min-h-screen bg-[#050505]">
-        <UniverseCommandCenter />
+      <AuthGuard>
+        <div className="relative min-h-screen bg-[#050505]">
+          <UniverseCommandCenter />
 
-        {/* FLOATING HUD VIEW TOGGLE */}
-        <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-2xl border border-[#D8A63A]/40 bg-[#0d0d0d]/90 p-1.5 backdrop-blur-xl shadow-[0_0_20px_rgba(216,166,58,0.3)]">
-          <button
-            onClick={() => setViewMode("3d_universe")}
-            className="rounded-xl bg-[#D8A63A] px-3.5 py-1.5 font-mono text-xs font-black text-[#050505] shadow"
-          >
-            🌌 3D UNIVERSE
-          </button>
-          <button
-            onClick={() => setViewMode("tactical_hud")}
-            className="rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold text-white/70 hover:text-white transition"
-          >
-            📊 TACTICAL HUD
-          </button>
+          {/* FLOATING HUD VIEW TOGGLE */}
+          <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-2xl border border-[#D8A63A]/40 bg-[#0d0d0d]/90 p-1.5 backdrop-blur-xl shadow-[0_0_20px_rgba(216,166,58,0.3)]">
+            <button
+              onClick={() => setViewMode("3d_universe")}
+              className="rounded-xl bg-[#D8A63A] px-3.5 py-1.5 font-mono text-xs font-black text-[#050505] shadow"
+            >
+              🌌 3D UNIVERSE
+            </button>
+            <button
+              onClick={() => setViewMode("tactical_hud")}
+              className="rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold text-white/70 hover:text-white transition"
+            >
+              📊 TACTICAL HUD
+            </button>
+          </div>
         </div>
-      </div>
+      </AuthGuard>
     );
   }
 
+
   // TACTICAL 2.5D COMMAND HUD
   return (
-    <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-      {/* COMMAND HEADER */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#D8A63A] font-mono font-black text-black shadow-[0_0_15px_rgba(216,166,58,0.4)]">
-              ↑
+    <AuthGuard>
+      <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+        {/* COMMAND HEADER */}
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#D8A63A] font-mono font-black text-black shadow-[0_0_15px_rgba(216,166,58,0.4)]">
+                ↑
+              </div>
+              <div>
+                <span className="font-mono font-black tracking-widest text-base sm:text-lg text-white uppercase">
+                  WHYNOTUPSC <span className="text-[#F4C95D]">COMMAND</span>
+                </span>
+                <span className="ml-2 hidden rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[9px] font-bold text-[#F4C95D] sm:inline-block">
+                  WHY NOT YOU?
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="font-mono font-black tracking-widest text-base sm:text-lg text-white uppercase">
-                WHYNOTUPSC <span className="text-[#F4C95D]">COMMAND</span>
-              </span>
-              <span className="ml-2 hidden rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[9px] font-bold text-[#F4C95D] sm:inline-block">
-                WHY NOT YOU?
-              </span>
+
+            <div className="flex items-center gap-3 font-mono text-xs">
+              <button
+                onClick={() => setViewMode("3d_universe")}
+                className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition"
+              >
+                <span>🌌</span>
+                <span>3D UNIVERSE</span>
+              </button>
+
+              <button
+                onClick={() => void triggerManualSync()}
+                title="Click to sync data with cloud"
+                className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-semibold transition ${
+                  isSyncing
+                    ? "border-[#D8A63A]/50 bg-[#D8A63A]/10 text-[#F4C95D] animate-pulse"
+                    : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                <span>🔄</span>
+                <span className="hidden sm:inline">
+                  {isSyncing ? "SYNCING..." : lastSyncTime ? `SYNCED (${lastSyncTime})` : "SYNC CLOUD"}
+                </span>
+              </button>
+
+              <button
+                onClick={logout}
+                className="rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-white/70 hover:bg-white/10 hover:text-white transition"
+              >
+                Exit
+              </button>
             </div>
           </div>
+        </header>
 
-          <div className="flex items-center gap-3 font-mono text-xs">
-            <button
-              onClick={() => setViewMode("3d_universe")}
-              className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition"
-            >
-              <span>🌌</span>
-              <span>3D UNIVERSE</span>
-            </button>
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
 
-            <button
-              onClick={() => void triggerManualSync()}
-              title="Click to sync data with cloud"
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-semibold transition ${
-                isSyncing
-                  ? "border-[#D8A63A]/50 bg-[#D8A63A]/10 text-[#F4C95D] animate-pulse"
-                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <span>{isSyncing ? "🔄" : "☁️"}</span>
-              <span className="hidden sm:inline">
-                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
-              </span>
-            </button>
-
-            <button
-              onClick={logout}
-              className="rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-white/70 hover:bg-white/10 hover:text-white transition"
-            >
-              Exit
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
         {/* HERO TITLE */}
         <section>
           <p className="font-mono text-[11px] font-black uppercase tracking-[0.25em] text-[#F4C95D]">
@@ -366,5 +373,7 @@ export default function DashboardPage() {
         </section>
       </div>
     </main>
+    </AuthGuard>
   );
 }
+

@@ -4,6 +4,7 @@ import { ApiResponse, DayPlan, NoteItem, TestResultRecord, RevisionItem } from "
 import { safeArray } from "@/lib/core/utils";
 
 interface FullUserDataPayload {
+  userId?: string;
   plans?: Record<string, DayPlan>;
   notes?: NoteItem[];
   testResults?: TestResultRecord[];
@@ -20,14 +21,26 @@ export async function GET(
   request: NextRequest
 ): Promise<NextResponse<ApiResponse<FullUserDataPayload>>> {
   try {
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    let userId: string | undefined;
 
-    const userId = user?.id;
+    // 1. Check Supabase Auth
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user?.id) userId = user.id;
+    } catch {}
 
+    // 2. Check Custom Headers / Query Params
     if (!userId) {
+      userId =
+        request.headers.get("x-cadet-id") ||
+        request.nextUrl.searchParams.get("userId") ||
+        undefined;
+    }
+
+    if (!userId || userId === "local-user") {
       return NextResponse.json({
         success: true,
         data: {
@@ -42,6 +55,7 @@ export async function GET(
     }
 
     const admin = createAdminClient();
+
 
     // 1. Fetch Study Plans & Tasks
     const { data: dbPlans } = await admin
@@ -203,13 +217,25 @@ export async function POST(
 ): Promise<NextResponse<ApiResponse<{ syncedAt: string; status: string }>>> {
   try {
     const body: FullUserDataPayload = await request.json();
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    let userId: string | undefined;
 
-    const userId = user?.id || "local-user";
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user?.id) userId = user.id;
+    } catch {}
+
+    if (!userId) {
+      userId =
+        request.headers.get("x-cadet-id") ||
+        body.userId ||
+        "local-user";
+    }
+
     const admin = createAdminClient();
+
 
     // 1. Sync Study Plans & Tasks
     if (body.plans && typeof body.plans === "object") {

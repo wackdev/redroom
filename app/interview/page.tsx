@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { sound } from "@/lib/audio/sound-engine";
 import { idb, DB_STORES } from "@/lib/db/indexed-db";
 import { queryAI } from "@/lib/ai/client";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 interface DAFProfile {
+
   name: string;
   cadrePreference: string;
   homeState: string;
@@ -308,19 +310,21 @@ Evaluate the candidate's last answer and ask a crisp, probing, highly intellectu
   };
 
   return (
-    <main className="relative flex min-h-screen w-full flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-      {/* TOP HEADER */}
-      <header className="sticky top-0 z-30 flex w-full flex-wrap items-center justify-between border-b border-white/10 bg-[#090909]/95 px-6 py-4 backdrop-blur-xl sm:px-10">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              sound.playHover();
-              router.push("/dashboard");
-            }}
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono text-xs text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
-          >
-            ←
-          </button>
+    <AuthGuard>
+      <main className="relative flex min-h-screen w-full flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+        {/* TOP HEADER */}
+        <header className="sticky top-0 z-30 flex w-full flex-wrap items-center justify-between border-b border-white/10 bg-[#090909]/95 px-6 py-4 backdrop-blur-xl sm:px-10">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                sound.playHover();
+                router.push("/dashboard");
+              }}
+              className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono text-xs text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
+            >
+              ←
+            </button>
+
           <div>
             <h1 className="font-mono text-xs sm:text-sm font-black tracking-widest text-white uppercase flex items-center gap-2">
               <span>🎙️</span>
@@ -651,5 +655,7 @@ Evaluate the candidate's last answer and ask a crisp, probing, highly intellectu
         )}
       </div>
     </main>
+    </AuthGuard>
   );
 }
+

@@ -16,6 +16,7 @@ import QuickDuel from "@/features/chill-zone/games/quick-duel/QuickDuel";
 import WordRush from "@/features/chill-zone/games/word-rush/WordRush";
 import BlinkGame from "@/features/chill-zone/games/blink/BlinkGame";
 import { sound } from "@/lib/audio/sound-engine";
+import AuthGuard from "@/components/auth/AuthGuard";
 
 export default function ChillZonePage() {
   const { stats, refreshStats } = useChillStats();
@@ -34,7 +35,9 @@ export default function ChillZonePage() {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A]/30">
+    <AuthGuard>
+      <div className="relative flex min-h-screen w-full flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A]/30">
+
       {/* Top Header Navigation */}
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-white/10 bg-[#050505]/80 px-4 py-3.5 backdrop-blur-xl sm:px-8">
         <div className="flex items-center gap-3">
@@ -211,5 +214,7 @@ export default function ChillZonePage() {
         <ChillStatsModal onClose={() => setShowStatsModal(false)} />
       )}
     </div>
+    </AuthGuard>
   );
 }
+
