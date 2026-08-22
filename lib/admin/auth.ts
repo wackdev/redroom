@@ -1,5 +1,6 @@
 import { AdminRole, AdminUserSession } from "./types";
 import { createAdminClient, isSupabaseConfigured } from "@/lib/db/supabase";
+import { SINGLE_ADMIN_CREDENTIALS } from "@/lib/core/user-context";
 
 export const ROLE_PERMISSIONS: Record<AdminRole, {
   canManageUsers: boolean;
@@ -48,13 +49,16 @@ export const ROLE_PERMISSIONS: Record<AdminRole, {
 /**
  * Server-side helper to verify user admin privileges
  */
-export async function verifyAdminSession(userId?: string): Promise<AdminUserSession | null> {
-  // If no Supabase configured (local mode), allow master local super-admin
-  if (!isSupabaseConfigured() || !userId) {
+export async function verifyAdminSession(userId?: string, userEmail?: string): Promise<AdminUserSession | null> {
+  // Check if this matches the single master admin
+  if (
+    userEmail?.toLowerCase() === SINGLE_ADMIN_CREDENTIALS.email.toLowerCase() ||
+    userId === SINGLE_ADMIN_CREDENTIALS.id
+  ) {
     return {
-      userId: "local_super_admin",
-      email: "command@whynotupsc.org",
-      displayName: "Master Commander",
+      userId: SINGLE_ADMIN_CREDENTIALS.id,
+      email: SINGLE_ADMIN_CREDENTIALS.email,
+      displayName: SINGLE_ADMIN_CREDENTIALS.fullName,
       role: "SUPER_ADMIN",
       isSuperAdmin: true,
       canManageUsers: true,
@@ -64,33 +68,39 @@ export async function verifyAdminSession(userId?: string): Promise<AdminUserSess
     };
   }
 
-  try {
-    const supabase = createAdminClient();
-    const { data: roleData, error } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .single();
+  // If Supabase is configured, check database role
+  if (isSupabaseConfigured() && userId) {
+    try {
+      const supabase = createAdminClient();
+      const { data: roleData, error } = await supabase
+        .from("user_roles")
+        .select("role, email")
+        .eq("user_id", userId)
+        .single();
 
-    if (error || !roleData) {
+      if (error || !roleData) {
+        return null;
+      }
+
+      const role = (roleData.role as AdminRole) || "ANALYST";
+      const perms = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.ANALYST;
+
+      return {
+        userId,
+        email: roleData.email || SINGLE_ADMIN_CREDENTIALS.email,
+        displayName: "Authorized Admin",
+        role,
+        isSuperAdmin: role === "SUPER_ADMIN",
+        canManageUsers: perms.canManageUsers,
+        canManageContent: perms.canManageContent,
+        canManageGames: perms.canManageGames,
+        canManageSystem: perms.canManageSystem,
+      };
+    } catch {
       return null;
     }
-
-    const role = (roleData.role as AdminRole) || "ANALYST";
-    const perms = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.ANALYST;
-
-    return {
-      userId,
-      email: "admin@whynotupsc.org",
-      displayName: "Authorized Admin",
-      role,
-      isSuperAdmin: role === "SUPER_ADMIN",
-      canManageUsers: perms.canManageUsers,
-      canManageContent: perms.canManageContent,
-      canManageGames: perms.canManageGames,
-      canManageSystem: perms.canManageSystem,
-    };
-  } catch {
-    return null;
   }
+
+  return null;
 }
+

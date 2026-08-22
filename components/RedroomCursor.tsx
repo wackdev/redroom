@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function WhyNotUpscCursor() {
   const dotRef = useRef<HTMLDivElement | null>(null);
   const ringRef = useRef<HTMLDivElement | null>(null);
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
   useEffect(() => {
-    // Only run on desktop devices with fine pointer
+    // Only run on desktop devices with fine pointer (mouse/trackpad)
     if (typeof window === "undefined") return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0 || window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
+
+    setIsEnabled(true);
 
     let targetX = -100;
     let targetY = -100;
@@ -21,13 +25,11 @@ export default function WhyNotUpscCursor() {
       targetX = e.clientX;
       targetY = e.clientY;
 
-      // Direct GPU transform update for inner laser dot without React re-renders
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       }
     };
 
-    // Smooth 60fps/120fps ring following loop without triggering React state updates
     const renderLoop = () => {
       currentX += (targetX - currentX) * 0.25;
       currentY += (targetY - currentY) * 0.25;
@@ -48,6 +50,8 @@ export default function WhyNotUpscCursor() {
     };
   }, []);
 
+  if (!isEnabled) return null;
+
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden" aria-hidden="true">
       {/* 1. Ultra-sharp inner gold dot */}
@@ -66,3 +70,4 @@ export default function WhyNotUpscCursor() {
     </div>
   );
 }
+

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { AdminService } from "@/lib/admin/admin-service";
 import { ApiResponse } from "@/lib/core/types";
 import { QuestionDraft } from "@/lib/admin/types";
+import { SINGLE_ADMIN_CREDENTIALS } from "@/lib/core/user-context";
 
 export async function GET(): Promise<NextResponse<ApiResponse<QuestionDraft[]>>> {
   try {
@@ -19,7 +20,7 @@ export async function GET(): Promise<NextResponse<ApiResponse<QuestionDraft[]>>>
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse<QuestionDraft>>> {
   try {
     const body = await request.json();
-    const { draft, adminEmail = "command@whynotupsc.org" } = body;
+    const { draft, adminEmail = SINGLE_ADMIN_CREDENTIALS.email } = body;
 
     if (!draft || !draft.question || !draft.subject) {
       return NextResponse.json(
@@ -38,3 +39,4 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     );
   }
 }
+

@@ -9,7 +9,7 @@ import {
   AdminRole,
 } from "./types";
 import { createAdminClient, isSupabaseConfigured } from "@/lib/db/supabase";
-import { UserSessionManager, CadetProfile } from "@/lib/core/user-context";
+import { UserSessionManager, CadetProfile, SINGLE_ADMIN_CREDENTIALS } from "@/lib/core/user-context";
 
 // Live Real Stores
 let auditLogsStore: AdminAuditRecord[] = [];
@@ -91,7 +91,7 @@ export class AdminService {
           supabase.from("test_results").select("id", { count: "exact" }),
         ]);
 
-        userCount = usersRes.count || 1;
+        userCount = Math.max(1, usersRes.count || 1);
         chillGamesCount = scoresRes.count || 0;
         mockTestsTaken = testRes.count || 0;
       } catch {}
@@ -100,7 +100,7 @@ export class AdminService {
       if (typeof window !== "undefined") {
         try {
           const cadets = UserSessionManager.getAllRegisteredCadets();
-          userCount = cadets.length;
+          userCount = Math.max(1, cadets.length + 1); // Cadets + single admin
 
           const pyqProg = localStorage.getItem("redroom_pyq_progress");
           if (pyqProg) pyqsAttempted = JSON.parse(pyqProg).length || 0;
@@ -134,7 +134,7 @@ export class AdminService {
       revisionsDoneToday: revisionsDone,
       mockTestsActive: 10,
       chillZoneActivePlayers: chillGamesCount > 0 ? Math.min(chillGamesCount, 12) : 0,
-      platformHealthPercent: 99.8,
+      platformHealthPercent: 99.9,
       healthStatus: "EXCELLENT",
       dbLatencyMs: latency,
     };
@@ -154,6 +154,7 @@ export class AdminService {
     const newRecord: AdminAuditRecord = {
       id: `audit_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
       ...record,
+      adminEmail: record.adminEmail || SINGLE_ADMIN_CREDENTIALS.email,
       timestamp: new Date().toISOString(),
     };
 
@@ -164,7 +165,7 @@ export class AdminService {
         const supabase = createAdminClient();
         await supabase.from("admin_audit_logs").insert({
           admin_id: record.adminId,
-          admin_email: record.adminEmail,
+          admin_email: record.adminEmail || SINGLE_ADMIN_CREDENTIALS.email,
           admin_role: record.adminRole,
           action: record.action,
           target_type: record.targetType,
@@ -183,40 +184,42 @@ export class AdminService {
   }
 
   /**
-   * Fetches real registered users without fake dummy mockups
+   * Fetches real registered users with single master admin
    */
   public static async getUsersList(query?: string, roleFilter?: string): Promise<UserAdminSummary[]> {
-    let result: UserAdminSummary[] = [];
+    const adminSummary: UserAdminSummary = {
+      id: SINGLE_ADMIN_CREDENTIALS.id,
+      email: SINGLE_ADMIN_CREDENTIALS.email,
+      fullName: SINGLE_ADMIN_CREDENTIALS.fullName,
+      role: "SUPER_ADMIN",
+      accountStatus: "ACTIVE",
+      joinedAt: "2026-01-01",
+      lastActiveAt: "Active Now",
+      totalStudyHours: 0,
+      pyqsSolved: 0,
+      pyqAccuracy: 100,
+      testsTaken: 0,
+      mainsDraftsCount: 0,
+      revisionsPending: 0,
+      chillGamesCount: 0,
+    };
+
+    let result: UserAdminSummary[] = [adminSummary];
 
     if (typeof window !== "undefined") {
       const cadets: CadetProfile[] = UserSessionManager.getAllRegisteredCadets();
-      result = cadets.map((c) => ({
-        id: c.id,
-        email: c.email,
-        fullName: c.fullName,
-        role: c.role as any,
-        accountStatus: "ACTIVE",
-        joinedAt: c.createdAt ? c.createdAt.split("T")[0] : "2026-01-01",
-        lastActiveAt: c.lastActiveAt ? new Date(c.lastActiveAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "Just now",
-        totalStudyHours: 0,
-        pyqsSolved: 0,
-        pyqAccuracy: 0,
-        testsTaken: 0,
-        mainsDraftsCount: 0,
-        revisionsPending: 0,
-        chillGamesCount: 0,
-      }));
-    } else {
-      // Server fallback to default administrator
-      result = [
-        {
-          id: "cadet_primary",
-          email: "aspirant@whynotupsc.org",
-          fullName: "Primary Cadet",
-          role: "SUPER_ADMIN",
+      const cadetSummaries: UserAdminSummary[] = cadets
+        .filter((c) => c.email.toLowerCase() !== SINGLE_ADMIN_CREDENTIALS.email.toLowerCase())
+        .map((c) => ({
+          id: c.id,
+          email: c.email,
+          fullName: c.fullName,
+          role: c.role as any,
           accountStatus: "ACTIVE",
-          joinedAt: "2026-01-01",
-          lastActiveAt: "Just now",
+          joinedAt: c.createdAt ? c.createdAt.split("T")[0] : "2026-01-01",
+          lastActiveAt: c.lastActiveAt
+            ? new Date(c.lastActiveAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+            : "Recently",
           totalStudyHours: 0,
           pyqsSolved: 0,
           pyqAccuracy: 0,
@@ -224,8 +227,8 @@ export class AdminService {
           mainsDraftsCount: 0,
           revisionsPending: 0,
           chillGamesCount: 0,
-        },
-      ];
+        }));
+      result = [adminSummary, ...cadetSummaries];
     }
 
     if (query) {
@@ -245,7 +248,7 @@ export class AdminService {
     return list.find((u) => u.id === userId) || list[0] || null;
   }
 
-  public static async updateUserRole(userId: string, newRole: AdminRole, adminEmail: string): Promise<boolean> {
+  public static async updateUserRole(userId: string, newRole: AdminRole, adminEmail: string = SINGLE_ADMIN_CREDENTIALS.email): Promise<boolean> {
     await this.logAuditAction({
       adminId: "admin_acting",
       adminEmail,
@@ -258,7 +261,7 @@ export class AdminService {
     return true;
   }
 
-  public static async toggleUserSuspension(userId: string, adminEmail: string): Promise<boolean> {
+  public static async toggleUserSuspension(userId: string, adminEmail: string = SINGLE_ADMIN_CREDENTIALS.email): Promise<boolean> {
     await this.logAuditAction({
       adminId: "admin_acting",
       adminEmail,

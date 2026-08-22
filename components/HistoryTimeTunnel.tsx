@@ -199,6 +199,8 @@ export default function HistoryTimeTunnel() {
   ];
 
   const currentEra = historyTimeline[activeEraIndex];
+  const currentEraRef = useRef<HistoryEra>(currentEra);
+  currentEraRef.current = currentEra;
 
   // 3D Canvas Time Tunnel Wormhole
   useEffect(() => {
@@ -210,6 +212,13 @@ export default function HistoryTimeTunnel() {
     let rafId: number;
     let width = (canvas.width = canvas.parentElement?.clientWidth || 800);
     let height = (canvas.height = canvas.parentElement?.clientHeight || 450);
+
+    const handleResize = () => {
+      if (!canvas || !canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.clientWidth;
+      height = canvas.height = canvas.parentElement.clientHeight;
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
 
     let tunnelTime = 0;
 
@@ -251,7 +260,7 @@ export default function HistoryTimeTunnel() {
       ctx.textAlign = "center";
       ctx.shadowColor = "#FF1B1B";
       ctx.shadowBlur = 20;
-      ctx.fillText(String(currentEra.year), centerX, centerY + 12);
+      ctx.fillText(String(currentEraRef.current.year), centerX, centerY + 12);
       ctx.shadowBlur = 0;
 
       rafId = requestAnimationFrame(render);
@@ -260,9 +269,10 @@ export default function HistoryTimeTunnel() {
     render();
 
     return () => {
+      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(rafId);
     };
-  }, [currentEra]);
+  }, []);
 
   const handleSelectEra = (idx: number) => {
     sound.playLock();
@@ -270,7 +280,7 @@ export default function HistoryTimeTunnel() {
   };
 
   return (
-    <div className="flex flex-col rounded-3xl border border-[#FF1B1B]/30 bg-[#0d0d0d] p-6 backdrop-blur-xl shadow-2xl">
+    <div className="flex flex-col rounded-3xl border border-[#FF1B1B]/30 bg-[#0d0d0d] p-4 sm:p-6 backdrop-blur-xl shadow-2xl">
       {/* HEADER */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
@@ -289,23 +299,21 @@ export default function HistoryTimeTunnel() {
 
         <button
           onClick={() => router.push("/tests")}
-          data-cursor="TEST"
-          className="rounded-xl border border-[#FF1B1B]/50 bg-[#FF1B1B]/10 px-4 py-2 font-mono text-xs font-bold text-[#FF1B1B] hover:bg-[#FF1B1B]/20 transition"
+          className="rounded-xl border border-[#FF1B1B]/50 bg-[#FF1B1B]/10 px-4 py-2 font-mono text-xs font-bold text-[#FF1B1B] hover:bg-[#FF1B1B]/20 transition touch-manipulation cursor-pointer"
         >
           Take Modern History Mock →
         </button>
       </div>
 
       {/* TIMELINE YEAR SELECTOR SCRUBBER */}
-      <div className="my-6 flex items-center justify-between gap-2 overflow-x-auto pb-2">
+      <div className="my-6 flex items-center justify-between gap-2 overflow-x-auto pb-2 touch-pan-x">
         {historyTimeline.map((era, idx) => {
           const isActive = idx === activeEraIndex;
           return (
             <button
               key={era.year}
               onClick={() => handleSelectEra(idx)}
-              data-cursor="WARP"
-              className={`flex shrink-0 flex-col items-center rounded-2xl border px-4 py-3 font-mono transition-all ${
+              className={`flex shrink-0 flex-col items-center rounded-2xl border px-4 py-3 font-mono transition-all touch-manipulation cursor-pointer active:scale-95 ${
                 isActive
                   ? "border-[#FF1B1B] bg-[#FF1B1B] text-black shadow-[0_0_20px_rgba(255,27,27,0.6)] scale-105"
                   : "border-white/10 bg-black/40 text-[#8C8C8C] hover:border-white/30 hover:text-white"
@@ -318,6 +326,7 @@ export default function HistoryTimeTunnel() {
                 {era.codename}
               </span>
             </button>
+
           );
         })}
       </div>

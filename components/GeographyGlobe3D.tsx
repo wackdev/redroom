@@ -17,9 +17,10 @@ export default function GeographyGlobe3D() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("monsoon");
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null);
-  const [rotation, setRotation] = useState<number>(0);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [startX, setStartX] = useState<number>(0);
+  
+  const rotationRef = useRef<number>(0);
+  const isDraggingRef = useRef<boolean>(false);
+  const startXRef = useRef<number>(0);
 
   const geoFeatures: GeoFeature[] = [
     {
@@ -73,6 +74,12 @@ export default function GeographyGlobe3D() {
     (f) => activeCategory === "all" || f.category === activeCategory
   );
 
+  const selectedFeatureRef = useRef<GeoFeature | null>(null);
+  selectedFeatureRef.current = selectedFeature;
+
+  const filteredFeaturesRef = useRef<GeoFeature[]>(filteredFeatures);
+  filteredFeaturesRef.current = filteredFeatures;
+
   // 3D Canvas Globe Engine
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -89,9 +96,7 @@ export default function GeographyGlobe3D() {
       width = canvas.width = canvas.parentElement.clientWidth;
       height = canvas.height = canvas.parentElement.clientHeight;
     };
-    window.addEventListener("resize", handleResize);
-
-    let rot = rotation;
+    window.addEventListener("resize", handleResize, { passive: true });
 
     const render = () => {
       ctx.fillStyle = "#050505";
@@ -101,9 +106,10 @@ export default function GeographyGlobe3D() {
       const centerY = height / 2;
       const radius = Math.min(width * 0.38, 170);
 
-      if (!isDragging) {
-        rot += 0.004;
+      if (!isDraggingRef.current) {
+        rotationRef.current += 0.003;
       }
+      const rot = rotationRef.current;
 
       // Volumetric Atmosphere Glow
       const atmGlow = ctx.createRadialGradient(centerX, centerY, radius * 0.8, centerX, centerY, radius * 1.35);
@@ -163,9 +169,8 @@ export default function GeographyGlobe3D() {
         }
       }
 
-
       // Feature Pinpoints Projection
-      filteredFeatures.forEach((feat) => {
+      filteredFeaturesRef.current.forEach((feat) => {
         const radLng = ((feat.lng + (rot * 180) / Math.PI) * Math.PI) / 180;
         const radLat = (feat.lat * Math.PI) / 180;
 
@@ -178,7 +183,7 @@ export default function GeographyGlobe3D() {
           const pinX = centerX + x3d;
           const pinY = centerY + y3d;
 
-          const isSelected = selectedFeature?.id === feat.id;
+          const isSelected = selectedFeatureRef.current?.id === feat.id;
 
           // Pulse Aura
           ctx.beginPath();
@@ -206,24 +211,30 @@ export default function GeographyGlobe3D() {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(rafId);
     };
-  }, [rotation, filteredFeatures, selectedFeature, isDragging]);
+  }, []);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setStartX(e.clientX);
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const delta = (e.clientX - startX) * 0.01;
-    setRotation((prev) => prev + delta);
-    setStartX(e.clientX);
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current) return;
+    const delta = (e.clientX - startXRef.current) * 0.008;
+    rotationRef.current += delta;
+    startXRef.current = e.clientX;
   };
 
-  const handleMouseUp = () => setIsDragging(false);
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    isDraggingRef.current = false;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {}
+  };
 
   return (
-    <div className="flex flex-col rounded-3xl border border-[#FF1B1B]/30 bg-[#0d0d0d] p-6 backdrop-blur-xl shadow-2xl">
+    <div className="flex flex-col rounded-3xl border border-[#FF1B1B]/30 bg-[#0d0d0d] p-4 sm:p-6 backdrop-blur-xl shadow-2xl">
       {/* HEADER */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
@@ -253,8 +264,7 @@ export default function GeographyGlobe3D() {
                 sound.playHover();
                 setActiveCategory(cat.id);
               }}
-              data-cursor="LAYER"
-              className={`rounded-xl border px-3 py-1.5 font-mono text-xs transition ${
+              className={`rounded-xl border px-3 py-1.5 font-mono text-xs transition touch-manipulation cursor-pointer ${
                 activeCategory === cat.id
                   ? "border-[#FF1B1B] bg-[#FF1B1B] text-black font-black shadow-[0_0_15px_rgba(255,27,27,0.4)]"
                   : "border-white/10 bg-black/40 text-[#8C8C8C] hover:border-white/30 hover:text-white"
@@ -269,15 +279,16 @@ export default function GeographyGlobe3D() {
       {/* 3D GLOBE CONTAINER */}
       <div className="my-6 grid gap-6 lg:grid-cols-12">
         <div
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          className="relative h-[340px] sm:h-[420px] lg:col-span-7 overflow-hidden rounded-2xl border border-white/10 bg-[#050505] cursor-grab active:cursor-grabbing flex items-center justify-center"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          style={{ touchAction: "none" }}
+          className="relative h-[340px] sm:h-[420px] lg:col-span-7 overflow-hidden rounded-2xl border border-white/10 bg-[#050505] cursor-grab active:cursor-grabbing flex items-center justify-center select-none"
         >
-          <canvas ref={canvasRef} className="h-full w-full" />
+          <canvas ref={canvasRef} className="h-full w-full pointer-events-none" />
           <div className="pointer-events-none absolute bottom-4 left-4 text-[10px] font-mono text-white/40">
-            DRAG TO ROTATE PLANETARY SPHERE
+            DRAG / TOUCH TO ROTATE PLANETARY SPHERE
           </div>
         </div>
 
@@ -293,8 +304,7 @@ export default function GeographyGlobe3D() {
                     sound.playLock();
                     setSelectedFeature(feat);
                   }}
-                  data-cursor="INSPECT"
-                  className={`cursor-pointer rounded-xl border p-3 font-mono transition ${
+                  className={`cursor-pointer rounded-xl border p-3 font-mono transition touch-manipulation ${
                     isSelected
                       ? "border-[#FF1B1B] bg-[#FF1B1B]/15 text-white shadow-[0_0_15px_rgba(255,27,27,0.3)]"
                       : "border-white/10 bg-black/40 text-[#8C8C8C] hover:border-white/30 hover:text-white"
@@ -336,3 +346,4 @@ export default function GeographyGlobe3D() {
     </div>
   );
 }
+

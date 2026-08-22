@@ -318,8 +318,33 @@ export default function NeuralKnowledgeGraph({ onSelectSubject, activeSubject }:
       </div>
 
       {/* 3D CANVAS HUD */}
-      <div className="relative my-4 h-[320px] sm:h-[400px] w-full overflow-hidden rounded-2xl border border-white/5 bg-[#050505]">
-        <canvas ref={canvasRef} className="h-full w-full" />
+      <div
+        onClick={(e) => {
+          const canvas = canvasRef.current;
+          if (!canvas) return;
+          const rect = canvas.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const orbitX = Math.min(rect.width * 0.38, 280);
+          const orbitY = Math.min(rect.height * 0.36, 170);
+
+          // Find clicked node
+          for (const n of nodes) {
+            const nodeX = centerX + Math.cos(n.angle) * orbitX;
+            const nodeY = centerY + Math.sin(n.angle) * orbitY;
+            const dist = Math.hypot(x - nodeX, y - nodeY);
+            if (dist < 30) {
+              handleNodeClick(n);
+              break;
+            }
+          }
+        }}
+        style={{ touchAction: "manipulation" }}
+        className="relative my-4 h-[320px] sm:h-[400px] w-full overflow-hidden rounded-2xl border border-white/5 bg-[#050505] cursor-pointer"
+      >
+        <canvas ref={canvasRef} className="h-full w-full pointer-events-none" />
 
         {/* CENTER EMBLEM */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
@@ -343,8 +368,7 @@ export default function NeuralKnowledgeGraph({ onSelectSubject, activeSubject }:
                 sound.playHover();
               }}
               onMouseLeave={() => setHoveredNode(null)}
-              data-cursor="TARGET"
-              className={`flex items-center justify-between rounded-xl border p-2.5 font-mono text-xs transition ${
+              className={`flex items-center justify-between rounded-xl border p-2.5 font-mono text-xs transition touch-manipulation cursor-pointer active:scale-95 ${
                 isSelected
                   ? "border-[#FF1B1B] bg-[#FF1B1B]/15 text-white shadow-[0_0_15px_rgba(255,27,27,0.3)]"
                   : "border-white/10 bg-black/30 text-[#8C8C8C] hover:border-white/30 hover:text-white"
@@ -359,6 +383,7 @@ export default function NeuralKnowledgeGraph({ onSelectSubject, activeSubject }:
           );
         })}
       </div>
+
 
       {/* EXPANDED NODE INTELLIGENCE DRAWER */}
       {selectedNode && (

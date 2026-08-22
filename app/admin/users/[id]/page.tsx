@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { UserAdminSummary } from "@/lib/admin/types";
+import { UserSessionManager } from "@/lib/core/user-context";
 import { sound } from "@/lib/audio/sound-engine";
 
 interface UserDetailPageProps {
@@ -15,28 +16,50 @@ export default function UserDetailPage({ params }: UserDetailPageProps) {
   const resolvedParams = use(params);
   const userId = resolvedParams.id;
 
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [user, setUser] = useState<UserAdminSummary | null>(null);
   const [activeTab, setActiveTab] = useState<UserDetailTab>("OVERVIEW");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user details
-    fetch(`/api/admin/users?query=${encodeURIComponent(userId)}`)
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-          const matched = json.data.find((u: UserAdminSummary) => u.id === userId) || json.data[0];
-          setUser(matched);
-        }
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    const isMaster = UserSessionManager.isMasterAdmin();
+    setIsAdmin(isMaster);
+
+    if (isMaster) {
+      // Fetch user details
+      fetch(`/api/admin/users?query=${encodeURIComponent(userId)}`)
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            const matched = json.data.find((u: UserAdminSummary) => u.id === userId) || json.data[0];
+            setUser(matched);
+          }
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
   }, [userId]);
 
-  if (loading) {
+  if (loading || isAdmin === null) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#050505] font-mono text-xs text-[#8C8C8C]">
         LOADING CADET INTELLIGENCE MATRIX...
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-[#050505] font-mono text-xs text-white p-6 text-center">
+        <h2 className="text-red-400 font-bold text-base mb-2">ACCESS RESTRICTED</h2>
+        <p className="text-[#8C8C8C] max-w-sm mb-4">
+          You must be logged in as the platform administrator to inspect cadet telemetry.
+        </p>
+        <Link href="/login?redirect=/admin" className="rounded-xl border border-[#D8A63A] bg-[#D8A63A] px-5 py-2 font-bold text-black">
+          Admin Sign In →
+        </Link>
       </div>
     );
   }
@@ -58,6 +81,7 @@ export default function UserDetailPage({ params }: UserDetailPageProps) {
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-white/10 bg-[#060606]/90 px-4 py-3.5 backdrop-blur-xl sm:px-8">
         <div className="flex items-center gap-3">
           <Link
+
             href="/admin"
             className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs font-bold text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
           >

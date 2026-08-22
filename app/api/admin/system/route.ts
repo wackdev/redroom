@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AdminService } from "@/lib/admin/admin-service";
 import { ApiResponse } from "@/lib/core/types";
+import { SINGLE_ADMIN_CREDENTIALS } from "@/lib/core/user-context";
 
 export async function GET(): Promise<NextResponse<ApiResponse<{
   flags: any[];
@@ -30,7 +31,7 @@ export async function GET(): Promise<NextResponse<ApiResponse<{
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse<{ updated: boolean }>>> {
   try {
     const body = await request.json();
-    const { action, flagId, isEnabled, maintenanceConfig, adminEmail = "command@whynotupsc.org" } = body;
+    const { action, flagId, isEnabled, maintenanceConfig, adminEmail = SINGLE_ADMIN_CREDENTIALS.email } = body;
 
     if (action === "TOGGLE_FLAG" && flagId !== undefined) {
       const ok = await AdminService.toggleFeatureFlag(flagId, Boolean(isEnabled), adminEmail);
@@ -54,3 +55,4 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     );
   }
 }
+
