@@ -1,803 +1,370 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "../../lib/supabase-client";
+import { createClient, isSupabaseConfigured } from "@/lib/db/supabase";
+import { DailyIntelligence, TestResultRecord } from "@/lib/core/types";
+import { formatDate, safeArray } from "@/lib/core/utils";
+import { APP_ROUTES } from "@/lib/core/constants";
+import {
+  subscribeToSyncChanges,
+  useCloudSync,
+} from "@/lib/sync/sync-engine";
+import UniverseCommandCenter from "@/components/UniverseCommandCenter";
+import FutureYouSimulator from "@/components/FutureYouSimulator";
+import AIStrategistWhy from "@/components/AIStrategistWhy";
 
-type TestResult = {
-  id: number;
-  title: string | null;
-  score: number;
-  correct: number;
-  wrong: number;
-  skipped: number;
-  attempted: number;
-  total: number;
-  date: string;
-};
+const RESULT_STORAGE_KEY = "redroom_test_results";
 
 export default function DashboardPage() {
   const router = useRouter();
-
   const supabase = useMemo(() => createClient(), []);
+  const { isSyncing, lastSyncTime, triggerManualSync } = useCloudSync();
 
+  const [viewMode, setViewMode] = useState<"3d_universe" | "tactical_hud">("3d_universe");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
-  const [results, setResults] = useState<TestResult[]>([]);
+  const [results, setResults] = useState<TestResultRecord[]>([]);
+  const [intelligence, setIntelligence] = useState<DailyIntelligence | null>(null);
 
-  /*
-  |--------------------------------------------------------------------------
-  | LOAD DASHBOARD DATA
-  |--------------------------------------------------------------------------
-  */
-
-  const loadDashboard = useCallback(async () => {
+  const loadDashboardData = useCallback(async () => {
+    setLoading(true);
     try {
-      setLoading(true);
+      // 1. Auth check (only if Supabase credentials exist)
+      if (isSupabaseConfigured()) {
+        try {
+          const {
+            data: { user },
+          } = await supabase.auth.getUser();
 
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        router.push("/login");
-        return;
+          if (user) {
+            setEmail(user.email || "");
+          }
+        } catch {}
       }
 
-      setEmail(user.email || "");
-
-      const { data, error } = await supabase
-        .from("test_results")
-        .select(
-          "id,title,score,correct,wrong,skipped,attempted,total,date"
-        )
-        .eq("user_id", user.id)
-        .order("date", { ascending: false });
-
-      if (error) {
-        console.error(
-          "Dashboard test results error:",
-          error
-        );
-
-        setResults([]);
-        return;
+      // 2. Fetch Master Intelligence
+      try {
+        const intelRes = await fetch("/api/dashboard/intelligence");
+        const intelJson = await intelRes.json();
+        if (intelJson.success && intelJson.data) {
+          setIntelligence(intelJson.data);
+        }
+      } catch (err) {
+        console.warn("Could not load intelligence:", err);
       }
 
-      setResults((data as TestResult[]) || []);
-    } catch (error) {
-      console.error("Dashboard error:", error);
+      // 3. Load Test Results from localStorage / Supabase
+      try {
+        const saved = localStorage.getItem(RESULT_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            setResults(parsed);
+          }
+        }
+      } catch {}
+    } catch (err) {
+      console.warn("Dashboard load error:", err);
     } finally {
       setLoading(false);
     }
-  }, [router, supabase]);
+  }, [supabase]);
 
   useEffect(() => {
-    const loadTimer = window.setTimeout(() => {
-      void loadDashboard();
-    }, 0);
+    void loadDashboardData();
 
-    return () => window.clearTimeout(loadTimer);
-  }, [loadDashboard]);
+    const unsubscribe = subscribeToSyncChanges(() => {
+      void loadDashboardData();
+    });
 
-  /*
-  |--------------------------------------------------------------------------
-  | STATISTICS
-  |--------------------------------------------------------------------------
-  */
+    return unsubscribe;
+  }, [loadDashboardData]);
 
-  const statistics = useMemo(() => {
-    if (results.length === 0) {
-      return {
-        tests: 0,
-        averageScore: 0,
-        bestScore: 0,
-        accuracy: 0,
-        correct: 0,
-        wrong: 0,
-        skipped: 0,
-        attempted: 0,
-        questions: 0,
-      };
-    }
-
-    const correct = results.reduce(
-      (sum, item) => sum + Number(item.correct || 0),
-      0
-    );
-
-    const wrong = results.reduce(
-      (sum, item) => sum + Number(item.wrong || 0),
-      0
-    );
-
-    const skipped = results.reduce(
-      (sum, item) => sum + Number(item.skipped || 0),
-      0
-    );
-
-    const attempted = results.reduce(
-      (sum, item) => sum + Number(item.attempted || 0),
-      0
-    );
-
-    const questions = results.reduce(
-      (sum, item) => sum + Number(item.total || 0),
-      0
-    );
-
-    const totalScore = results.reduce(
-      (sum, item) => sum + Number(item.score || 0),
-      0
-    );
-
-    const averageScore =
-      results.length > 0
-        ? totalScore / results.length
-        : 0;
-
-    const bestScore = Math.max(
-      ...results.map((item) => Number(item.score || 0))
-    );
-
-    const accuracy =
-      attempted > 0
-        ? (correct / attempted) * 100
-        : 0;
-
-    return {
-      tests: results.length,
-      averageScore,
-      bestScore,
-      accuracy,
-      correct,
-      wrong,
-      skipped,
-      attempted,
-      questions,
-    };
-  }, [results]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | LOGOUT
-  |--------------------------------------------------------------------------
-  */
-
-  async function logout() {
+  const logout = async () => {
     await supabase.auth.signOut();
-
     router.push("/login");
+  };
+
+  const recentResults = safeArray(results).slice(0, 4);
+
+  // 3D UNIVERSE MODE
+  if (viewMode === "3d_universe") {
+    return (
+      <div className="relative min-h-screen bg-[#050505]">
+        <UniverseCommandCenter />
+
+        {/* FLOATING HUD VIEW TOGGLE */}
+        <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-2xl border border-[#D8A63A]/40 bg-[#0d0d0d]/90 p-1.5 backdrop-blur-xl shadow-[0_0_20px_rgba(216,166,58,0.3)]">
+          <button
+            onClick={() => setViewMode("3d_universe")}
+            className="rounded-xl bg-[#D8A63A] px-3.5 py-1.5 font-mono text-xs font-black text-[#050505] shadow"
+          >
+            🌌 3D UNIVERSE
+          </button>
+          <button
+            onClick={() => setViewMode("tactical_hud")}
+            className="rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold text-white/70 hover:text-white transition"
+          >
+            📊 TACTICAL HUD
+          </button>
+        </div>
+      </div>
+    );
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | FORMAT DATE
-  |--------------------------------------------------------------------------
-  */
-
-  function formatDate(date: string) {
-    try {
-      return new Date(date).toLocaleDateString("en-IN", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    } catch {
-      return date;
-    }
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | RECENT RESULTS
-  |--------------------------------------------------------------------------
-  */
-
-  const recentResults = results.slice(0, 5);
-
-  /*
-  |--------------------------------------------------------------------------
-  | PAGE
-  |--------------------------------------------------------------------------
-  */
-
+  // TACTICAL 2.5D COMMAND HUD
   return (
-    <main className="min-h-screen bg-[#080510] text-white">
-
-      {/* HEADER */}
-
-      <header className="border-b border-white/10 bg-[#0b0714]/80 backdrop-blur-xl">
-
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5">
-
-          <div>
-            <p className="text-xl font-black">
-              REDROOM
-            </p>
-
-            <p className="text-xs text-white/40">
-              UPSC Preparation Platform
-            </p>
+    <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+      {/* COMMAND HEADER */}
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#D8A63A] font-mono font-black text-black shadow-[0_0_15px_rgba(216,166,58,0.4)]">
+              ↑
+            </div>
+            <div>
+              <span className="font-mono font-black tracking-widest text-base sm:text-lg text-white uppercase">
+                WHYNOTUPSC <span className="text-[#F4C95D]">COMMAND</span>
+              </span>
+              <span className="ml-2 hidden rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[9px] font-bold text-[#F4C95D] sm:inline-block">
+                WHY NOT YOU?
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 font-mono text-xs">
+            <button
+              onClick={() => setViewMode("3d_universe")}
+              className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition"
+            >
+              <span>🌌</span>
+              <span>3D UNIVERSE</span>
+            </button>
 
-            <span className="hidden text-sm text-white/50 md:block">
-              {email}
-            </span>
+            <button
+              onClick={() => void triggerManualSync()}
+              title="Click to sync data with cloud"
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-semibold transition ${
+                isSyncing
+                  ? "border-[#D8A63A]/50 bg-[#D8A63A]/10 text-[#F4C95D] animate-pulse"
+                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <span>{isSyncing ? "🔄" : "☁️"}</span>
+              <span className="hidden sm:inline">
+                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
+              </span>
+            </button>
 
             <button
               onClick={logout}
-              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold transition hover:bg-white/10"
+              className="rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-white/70 hover:bg-white/10 hover:text-white transition"
             >
-              Logout
+              Exit
             </button>
-
           </div>
-
         </div>
-
       </header>
 
-      <div className="mx-auto max-w-7xl px-5 py-8">
-
-        {/* WELCOME */}
-
-        <section className="mb-8">
-
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-pink-400">
-            UPSC COMMAND CENTRE
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
+        {/* HERO TITLE */}
+        <section>
+          <p className="font-mono text-[11px] font-black uppercase tracking-[0.25em] text-[#F4C95D]">
+            YOUR PERSONAL UPSC OPERATING SYSTEM
           </p>
-
-          <h1 className="mt-2 text-4xl font-black md:text-5xl">
-            Dashboard
+          <h1 className="mt-1 text-2xl sm:text-4xl md:text-5xl font-black text-white">
+            Preparation Command Matrix
           </h1>
-
-          <p className="mt-3 text-white/50">
-            Your preparation progress at a glance.
+          <p className="mt-2 text-xs sm:text-sm text-[#8C8C8C] max-w-3xl font-sans">
+            Every aspirant can dream of UPSC. The real question is — <strong className="text-white">WHY NOT YOU?</strong> Real-time diagnostic intelligence from your syllabus, tests, and active recall.
           </p>
-
         </section>
 
-        {/* MAIN ACTIONS */}
-
-        <section className="mb-8 grid gap-5 md:grid-cols-3">
-
-          <DashboardCard
-            icon="📚"
-            title="Syllabus"
-            description="Track your UPSC syllabus topic by topic."
-            button="Open Syllabus"
-            onClick={() => router.push("/syllabus")}
-          />
-
-          <DashboardCard
-            icon="📝"
-            title="PYQ Command Centre"
-            description="Practice and track Previous Year Questions."
-            button="Open PYQs"
-            onClick={() => router.push("/pyqs")}
-          />
-
-          <DashboardCard
-            icon="🎯"
-            title="Tests"
-            description="Record your test results and scores."
-            button="Take Tests"
-            onClick={() => router.push("/tests")}
-          />
-
-        </section>
-
-        {/* PERFORMANCE */}
-
-        <section className="mb-8">
-
-          <div className="mb-5 flex items-end justify-between">
-
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-purple-400">
-                LIVE DATA
-              </p>
-
-              <h2 className="mt-1 text-2xl font-bold">
-                Test Performance
-              </h2>
-            </div>
-
-            <button
-              onClick={() =>
-                router.push("/performance")
-              }
-              className="text-sm font-semibold text-purple-300 hover:text-white"
-            >
-              View Details →
-            </button>
-
-          </div>
-
-          {/* STAT CARDS */}
-
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-
-            <StatCard
-              icon="📝"
-              label="Tests"
-              value={statistics.tests}
-            />
-
-            <StatCard
-              icon="🎯"
-              label="Average Score"
-              value={statistics.averageScore.toFixed(1)}
-            />
-
-            <StatCard
-              icon="🏆"
-              label="Best Score"
-              value={statistics.bestScore.toFixed(1)}
-            />
-
-            <StatCard
-              icon="📈"
-              label="Accuracy"
-              value={`${statistics.accuracy.toFixed(1)}%`}
-            />
-
-          </div>
-
-        </section>
-
-        {/* ANSWER BREAKDOWN */}
-
-        <section className="mb-8">
-
-          <h2 className="mb-4 text-2xl font-bold">
-            Answer Breakdown
-          </h2>
-
-          <div className="grid grid-cols-3 gap-4">
-
-            <BreakdownCard
-              icon="✅"
-              label="Correct"
-              value={statistics.correct}
-            />
-
-            <BreakdownCard
-              icon="❌"
-              label="Wrong"
-              value={statistics.wrong}
-            />
-
-            <BreakdownCard
-              icon="⏭️"
-              label="Skipped"
-              value={statistics.skipped}
-            />
-
-          </div>
-
-        </section>
-
-        {/* ACCURACY */}
-
-        <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-              <h2 className="text-xl font-bold">
-                Overall Accuracy
-              </h2>
-
-              <p className="mt-1 text-sm text-white/40">
-                Based on all attempted questions
-              </p>
-            </div>
-
-            <p className="text-3xl font-black text-purple-300">
-              {statistics.accuracy.toFixed(1)}%
-            </p>
-
-          </div>
-
-          <div className="mt-5 h-4 overflow-hidden rounded-full bg-white/10">
-
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-500 transition-all duration-700"
-              style={{
-                width: `${Math.min(
-                  statistics.accuracy,
-                  100
-                )}%`,
-              }}
-            />
-
-          </div>
-
-          <div className="mt-3 flex justify-between text-xs text-white/40">
-
-            <span>
-              {statistics.correct} correct
-            </span>
-
-            <span>
-              {statistics.attempted} attempted
-            </span>
-
-          </div>
-
-        </section>
-
-        {/* RECENT TESTS */}
-
-        <section className="mb-8">
-
-          <div className="mb-5 flex items-end justify-between">
-
-            <div>
-              <h2 className="text-2xl font-bold">
-                Recent Tests
-              </h2>
-
-              <p className="mt-1 text-sm text-white/40">
-                Your latest saved test results
-              </p>
-            </div>
-
-            {results.length > 0 && (
-              <button
-                onClick={() =>
-                  router.push("/tests")
-                }
-                className="text-sm text-purple-300 hover:text-white"
-              >
-                All Tests →
-              </button>
-            )}
-
-          </div>
-
-          {loading ? (
-
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-10 text-center text-white/40">
-              Loading dashboard...
-            </div>
-
-          ) : recentResults.length === 0 ? (
-
-            <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-10 text-center">
-
-              <div className="text-5xl">
-                📊
+        {/* 1. MASTER INTELLIGENCE PRIORITY BANNER */}
+        {intelligence && (
+          <section className="overflow-hidden rounded-3xl border border-[#D8A63A]/40 bg-gradient-to-r from-[#171408] via-[#241d0a] to-[#0d0d0d] p-6 sm:p-8 shadow-[0_0_30px_rgba(216,166,58,0.15)]">
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-2xl">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 items-center rounded-full bg-[#D8A63A] px-3 font-mono text-[10px] font-black uppercase text-black tracking-wider shadow">
+                    ⚡ {intelligence.topPriorityTask.urgency} Priority
+                  </span>
+                  <span className="font-mono text-xs font-semibold text-white/70">
+                    Subject: <strong className="text-white">{intelligence.topPriorityTask.subject}</strong>
+                  </span>
+                </div>
+                <h2 className="mt-3 text-xl sm:text-2xl md:text-3xl font-black text-white">
+                  {intelligence.topPriorityTask.title}
+                </h2>
+                <p className="mt-2 text-xs sm:text-sm text-white/80 leading-relaxed font-sans">
+                  {intelligence.topPriorityTask.description}
+                </p>
+                <p className="mt-2 font-mono text-xs text-[#F4C95D]/80 italic">
+                  Strategic reason: {intelligence.topPriorityTask.reason}
+                </p>
               </div>
 
-              <h3 className="mt-4 text-xl font-bold">
-                No tests attempted yet
-              </h3>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row md:flex-col">
+                <button
+                  onClick={() => router.push(intelligence.topPriorityTask.actionRoute)}
+                  className="rounded-2xl bg-gradient-to-r from-[#D8A63A] to-[#B38322] px-6 py-3.5 font-mono text-xs sm:text-sm font-black text-black shadow-xl transition hover:scale-105 active:scale-95"
+                >
+                  Start Priority Mission →
+                </button>
+                <button
+                  onClick={() => router.push("/study-plan")}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-6 py-2.5 font-mono text-xs font-semibold text-white/70 hover:bg-white/10 transition"
+                >
+                  View Full Study Plan
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
 
-              <p className="mt-2 text-sm text-white/40">
-                Complete your first test and your
-                performance will appear here.
+        {/* 2. DIAGNOSTIC RADAR / QUICK SIGNAL CARDS */}
+        {intelligence && (
+          <section className="grid gap-4 sm:grid-cols-3">
+            {/* SPATIAL REVISION SIGNAL */}
+            <div
+              onClick={() => router.push("/revision")}
+              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl">🔄</span>
+                <span
+                  className={`rounded-full px-2.5 py-0.5 font-mono text-[10px] font-bold ${
+                    intelligence.dueRevisionsCount > 0
+                      ? "border border-amber-500/40 bg-amber-500/20 text-amber-300 animate-pulse"
+                      : "bg-emerald-500/20 text-emerald-300"
+                  }`}
+                >
+                  {intelligence.dueRevisionsCount > 0 ? "Time to Reconnect" : "All Connected"}
+                </span>
+              </div>
+              <p className="mt-3 font-mono text-3xl font-black text-white">{intelligence.dueRevisionsCount}</p>
+              <p className="text-xs font-semibold text-white/60">Topics Requiring Active Recall</p>
+              <p className="mt-2 font-mono text-[11px] text-[#F4C95D]">Reconnect memory pathways →</p>
+            </div>
+
+            {/* WEAK TOPIC RADAR */}
+            <div
+              onClick={() => router.push("/pyqs")}
+              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl">⚠️</span>
+                <span className="rounded-full border border-amber-500/40 bg-amber-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-amber-300">
+                  Pattern Detected
+                </span>
+              </div>
+              <p className="mt-3 text-sm font-bold truncate text-white">
+                {intelligence.weakTopics[0]?.topic || "Polity Writs"}
               </p>
+              <p className="text-xs font-semibold text-white/60">
+                {intelligence.weakTopics[0]?.accuracyPercent}% Recent Accuracy
+              </p>
+              <p className="mt-2 font-mono text-[11px] text-[#F4C95D]">Practice targeted MCQs →</p>
+            </div>
 
-              <button
-                onClick={() =>
-                  router.push("/tests")
-                }
-                className="mt-5 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-3 font-bold"
+            {/* DAILY CURRENT AFFAIRS */}
+            <div
+              onClick={() => router.push("/current-affairs")}
+              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl">📡</span>
+                <span className="rounded-full border border-blue-500/40 bg-blue-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-blue-300">
+                  Daily Brief
+                </span>
+              </div>
+              <p className="mt-3 text-sm font-bold truncate text-white">Editorials & GS Dimensions</p>
+              <p className="text-xs font-semibold text-white/60">Prelims Pointers & AI Quiz Ready</p>
+              <p className="mt-2 font-mono text-[11px] text-blue-300">Read daily brief →</p>
+            </div>
+          </section>
+        )}
+
+        {/* 3. FUTURE YOU TRAJECTORY SIMULATOR */}
+        <FutureYouSimulator />
+
+        {/* 4. AI STRATEGIST "WHY" WIDGET */}
+        <AIStrategistWhy />
+
+        {/* 5. CORE SYSTEM SECTOR LAUNCHER */}
+        <section>
+          <h2 className="mb-4 font-mono text-sm font-black uppercase tracking-wider text-white/70">
+            WHYNOTUPSC System Matrix
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {APP_ROUTES.slice(1).map((route) => (
+              <div
+                key={route.path}
+                onClick={() => router.push(route.path)}
+                className="group flex cursor-pointer items-center justify-between rounded-2xl border border-white/10 bg-[#0d0d0d] p-4 transition hover:border-[#D8A63A]/50 hover:bg-[#141414]"
               >
-                Start Tracking →
-              </button>
-
-            </div>
-
-          ) : (
-
-            <div className="space-y-3">
-
-              {recentResults.map((result) => {
-
-                const accuracy =
-                  result.attempted > 0
-                    ? (result.correct /
-                        result.attempted) *
-                      100
-                    : 0;
-
-                return (
-                  <div
-                    key={result.id}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-purple-500/30"
-                  >
-
-                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-
-                      <div className="min-w-0">
-
-                        <h3 className="truncate font-bold">
-                          {result.title ||
-                            "UPSC Test"}
-                        </h3>
-
-                        <p className="mt-1 text-xs text-white/40">
-                          {formatDate(result.date)}
-                        </p>
-
-                      </div>
-
-                      <div className="flex items-center gap-6">
-
-                        <DashboardResultStat
-                          label="Score"
-                          value={Number(
-                            result.score
-                          ).toFixed(1)}
-                        />
-
-                        <DashboardResultStat
-                          label="Accuracy"
-                          value={`${accuracy.toFixed(
-                            1
-                          )}%`}
-                        />
-
-                        <DashboardResultStat
-                          label="Correct"
-                          value={result.correct}
-                        />
-
-                        <DashboardResultStat
-                          label="Wrong"
-                          value={result.wrong}
-                        />
-
-                      </div>
-
-                    </div>
-
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 text-lg group-hover:scale-110 transition">
+                    {route.icon}
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-xs sm:text-sm text-white group-hover:text-[#F4C95D] transition">
+                      {route.label}
+                    </h3>
                   </div>
-                );
-              })}
-
-            </div>
-
-          )}
-
+                </div>
+                <span className="font-mono text-white/30 group-hover:translate-x-1 group-hover:text-[#F4C95D] transition">
+                  →
+                </span>
+              </div>
+            ))}
+          </div>
         </section>
 
-        {/* QUICK NAVIGATION */}
-
-        <section>
-
-          <h2 className="mb-5 text-2xl font-bold">
-            Quick Access
-          </h2>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-
-            <QuickButton
-              icon="📖"
-              title="Syllabus"
-              onClick={() =>
-                router.push("/syllabus")
-              }
-            />
-
-            <QuickButton
-              icon="❓"
-              title="PYQs"
-              onClick={() =>
-                router.push("/pyqs")
-              }
-            />
-
-            <QuickButton
-              icon="📝"
-              title="Tests"
-              onClick={() =>
-                router.push("/tests")
-              }
-            />
-
-            <QuickButton
-              icon="📈"
-              title="Performance"
-              onClick={() =>
-                router.push("/performance")
-              }
-            />
-
+        {/* 6. RECENT TESTS & PERFORMANCE SUMMARY */}
+        <section className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-6 shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="font-mono text-sm font-black uppercase tracking-wider text-white">
+                Recent Simulation Logs
+              </h2>
+              <p className="text-xs text-[#8C8C8C]">Latest mock attempts and score tracking</p>
+            </div>
+            <button
+              onClick={() => router.push("/performance")}
+              className="font-mono text-xs font-bold text-[#F4C95D] hover:underline"
+            >
+              Full Analytics →
+            </button>
           </div>
 
+          {recentResults.length === 0 ? (
+            <div className="rounded-2xl border border-dashed border-white/10 p-8 text-center text-white/40">
+              <p className="text-xs font-mono">No simulations logged yet.</p>
+              <button
+                onClick={() => router.push("/tests")}
+                className="mt-3 rounded-xl bg-[#D8A63A] px-4 py-2 font-mono text-xs font-black text-black hover:opacity-90"
+              >
+                Start First Module Test →
+              </button>
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {recentResults.map((r, i) => (
+                <div key={i} className="rounded-2xl border border-white/5 bg-black/40 p-4">
+                  <span className="font-mono text-[10px] text-[#8C8C8C]">{formatDate(r.date, "short")}</span>
+                  <h4 className="mt-1 font-bold text-xs truncate text-white">{r.title}</h4>
+                  <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2 text-xs">
+                    <span className="text-white/40 font-mono">Score:</span>
+                    <span className="font-mono font-black text-[#F4C95D]">{r.score}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
-
       </div>
-
     </main>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD CARD
-|--------------------------------------------------------------------------
-*/
-
-function DashboardCard({
-  icon,
-  title,
-  description,
-  button,
-  onClick,
-}: {
-  icon: string;
-  title: string;
-  description: string;
-  button: string;
-  onClick: () => void;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:border-purple-500/30 hover:bg-white/[0.06]">
-
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-2xl">
-        {icon}
-      </div>
-
-      <h3 className="mt-5 text-xl font-bold">
-        {title}
-      </h3>
-
-      <p className="mt-2 min-h-[40px] text-sm leading-6 text-white/50">
-        {description}
-      </p>
-
-      <button
-        onClick={onClick}
-        className="mt-5 w-full rounded-xl bg-white/5 px-4 py-3 text-sm font-bold transition hover:bg-purple-600"
-      >
-        {button} →
-      </button>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| STAT CARD
-|--------------------------------------------------------------------------
-*/
-
-function StatCard({
-  icon,
-  label,
-  value,
-}: {
-  icon: string;
-  label: string;
-  value: string | number;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-
-      <div className="text-2xl">
-        {icon}
-      </div>
-
-      <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-white/40">
-        {label}
-      </p>
-
-      <p className="mt-2 text-3xl font-black">
-        {value}
-      </p>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| BREAKDOWN CARD
-|--------------------------------------------------------------------------
-*/
-
-function BreakdownCard({
-  icon,
-  label,
-  value,
-}: {
-  icon: string;
-  label: string;
-  value: number;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-
-      <div className="flex items-center gap-3">
-
-        <span className="text-xl">
-          {icon}
-        </span>
-
-        <span className="text-sm font-semibold text-white/50">
-          {label}
-        </span>
-
-      </div>
-
-      <p className="mt-4 text-3xl font-black">
-        {value}
-      </p>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| RESULT STAT
-|--------------------------------------------------------------------------
-*/
-
-function DashboardResultStat({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number;
-}) {
-  return (
-    <div className="text-center">
-
-      <p className="text-[10px] uppercase tracking-wide text-white/30">
-        {label}
-      </p>
-
-      <p className="mt-1 font-bold">
-        {value}
-      </p>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| QUICK BUTTON
-|--------------------------------------------------------------------------
-*/
-
-function QuickButton({
-  icon,
-  title,
-  onClick,
-}: {
-  icon: string;
-  title: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-left transition hover:border-purple-500/40 hover:bg-white/[0.07]"
-    >
-
-      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/10 text-xl">
-        {icon}
-      </span>
-
-      <span className="font-bold">
-        {title}
-      </span>
-
-      <span className="ml-auto text-white/30">
-        →
-      </span>
-
-    </button>
   );
 }

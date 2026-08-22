@@ -1,0 +1,146 @@
+[
+  {
+    "id": "MOD-GEO-01",
+    "subject": "Geography & Environment",
+    "module_number": 1,
+    "module_title": "Physical Geography, Indian Monsoon & Climate Dynamics",
+    "curriculum": "UPSC Civil Services Examination (CSE)",
+    "stage": "Preliminary Examination (General Studies Paper-I)",
+    "topic": "Atmospheric Layers, Jet Streams, Indian Ocean Dipole (IOD), and Western Disturbances",
+    "total_questions": 5,
+    "questions": [
+      {
+        "id": "GEO_MOD01_001",
+        "syllabus_subtopic": "Indian Ocean Dipole (IOD) Mechanism",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate to High",
+        "question": "With reference to the 'Indian Ocean Dipole' (IOD) and its impact on the Indian Monsoon, consider the following statements:\n\n1. A positive IOD is characterized by warmer sea surface temperatures in the western Indian Ocean (near Arabian Sea) and cooler waters in the eastern Indian Ocean (near Indonesia).\n2. A positive IOD generally aids and enhances the Southwest monsoon rainfall over India, counteracting the adverse effects of an El Niño.\n3. The phenomenon of IOD was discovered and established in the late 19th century by Sir Gilbert Walker.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Positive IOD = Western Indian Ocean warm, Eastern Indian Ocean cool.",
+            "statement_2": "Correct. Positive IOD brings more convection and rainfall to India and can offset El Niño droughts.",
+            "statement_3": "Incorrect. Sir Gilbert Walker discovered Southern Oscillation (ENSO); IOD was identified in 1999."
+          },
+          "elimination_technique": "Walker discovered the Walker Circulation/ENSO in the 1920s; IOD is modern 1999 oceanographic science. Eliminating 3 gives A.",
+          "concept_takeaway": "Positive IOD brings rain to India and East Africa; Negative IOD brings rain to Australia and Indonesia."
+        },
+        "reference_sources": [
+          "Certificate Physical and Human Geography (G.C. Leong)",
+          "NCERT Class XI: Physical Environment"
+        ]
+      },
+      {
+        "id": "GEO_MOD01_002",
+        "syllabus_subtopic": "Western Disturbances in Winter",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate",
+        "question": "Regarding 'Western Disturbances' that cause winter precipitation in Northwest India, consider the following statements:\n\n1. They originate as extra-tropical cyclones over the Mediterranean Sea and Caspian Sea.\n2. They are steered towards the Indian subcontinent by the Westerly Sub-Tropical Jet Stream.\n3. They are highly beneficial for the cultivation of Kharif crops in Punjab and Haryana.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Extra-tropical cyclones developing over Mediterranean/Caspian sea basins.",
+            "statement_2": "Correct. Driven eastward into India by the subtropical westerly jet stream.",
+            "statement_3": "Incorrect. Highly beneficial for Rabi crops (winter wheat/mustard), not monsoon Kharif crops."
+          },
+          "elimination_technique": "Winter precipitation supports winter (Rabi) crops, not summer/monsoon (Kharif) crops. Eliminating 3 gives A.",
+          "concept_takeaway": "Western disturbances provide critical winter rainfall in the plains and snowfall in the Himalayas."
+        },
+        "reference_sources": [
+          "NCERT Class XI: India - Physical Environment"
+        ]
+      },
+      {
+        "id": "GEO_MOD01_003",
+        "syllabus_subtopic": "Plate Tectonics & Earthquake Epicenters",
+        "pattern_type": "Assertion and Reason",
+        "difficulty": "Moderate to High",
+        "question": "Given below are two statements:\n\nAssertion (A): The Himalayas experience frequent deep and shallow earthquakes of high magnitude.\nReason (R): The Indian Plate is continuously subducting northward under the Eurasian Plate along a convergent continental-continental collision boundary.\n\nIn the context of the statements above, which of the following is correct?",
+        "options": {
+          "A": "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "B": "Both (A) and (R) are true but (R) is not the correct explanation of (A)",
+          "C": "(A) is true but (R) is false",
+          "D": "(A) is false but (R) is true"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "assertion_a": "True. The Himalayan arc is one of the most seismically active mountain zones on Earth.",
+            "reason_r": "True. Indian plate convergence (~5 cm/year) into Eurasia creates massive crustal strain released as earthquakes."
+          },
+          "elimination_technique": "Continental collision creates locked thrust faults (Main Central Thrust, Main Boundary Thrust).",
+          "concept_takeaway": "The Himalayas are young fold mountains formed by continent-continent collision."
+        },
+        "reference_sources": [
+          "Physical Geography by Savindra Singh"
+        ]
+      },
+      {
+        "id": "GEO_MOD01_004",
+        "syllabus_subtopic": "Mangroves & Coastal Bio-Shields",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate",
+        "question": "With reference to Mangrove ecosystems in India, consider the following statements:\n\n1. Mangroves exhibit specialized adaptations such as pneumatophores (blind roots for gas exchange) and viviparous germination.\n2. According to the India State of Forest Report (ISFR), the state of West Bengal has the largest mangrove cover, followed by Gujarat and the Andaman & Nicobar Islands.\n3. Mangroves can grow only in purely fresh water riverine environments without any saline tidal influence.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Halophytic adaptations include stilt roots, pneumatophores, and vivipary.",
+            "statement_2": "Correct. ISFR ranking: 1. West Bengal (Sundarbans), 2. Gujarat (Kutch/Khambhat), 3. Andaman & Nicobar.",
+            "statement_3": "Incorrect. Mangroves thrive in saline intertidal zones, not purely freshwater."
+          },
+          "elimination_technique": "Mangroves are halophytic (salt-tolerant) trees; saying they grow only in fresh water is an extreme falsehood.",
+          "concept_takeaway": "Mangroves act as vital coastal buffers against storm surges and tsunamis."
+        },
+        "reference_sources": [
+          "Shankar IAS Environment",
+          "ISFR Latest Report"
+        ]
+      },
+      {
+        "id": "GEO_MOD01_005",
+        "syllabus_subtopic": "International Environmental Conventions",
+        "pattern_type": "Pair Matching",
+        "difficulty": "Moderate",
+        "question": "Consider the following environmental conventions and their primary focus areas:\n\n1. Ramsar Convention : Conservation and sustainable use of Wetlands\n2. Basel Convention : Control of Transboundary Movements of Hazardous Wastes\n3. Rotterdam Convention : Prior Informed Consent Procedure for Certain Hazardous Chemicals\n4. Stockholm Convention : Persistent Organic Pollutants (POPs)\n\nHow many of the pairs given above are correctly matched?",
+        "options": {
+          "A": "Only two pairs",
+          "B": "Only three pairs",
+          "C": "All four pairs",
+          "D": "None of the pairs"
+        },
+        "correct_option": "C",
+        "explanation": {
+          "statement_analysis": {
+            "pair_1": "Ramsar (1971): Wetlands conservation.",
+            "pair_2": "Basel (1989): Transboundary movement and disposal of hazardous waste.",
+            "pair_3": "Rotterdam (1998): Prior Informed Consent for trade in hazardous chemicals/pesticides.",
+            "pair_4": "Stockholm (2001): Eliminating or restricting Persistent Organic Pollutants (the 'dirty dozen')."
+          },
+          "elimination_technique": "All 4 are standard global environmental treaties in the UPSC syllabus.",
+          "concept_takeaway": "Chemical/waste conventions are interconnected: Basel (Movement) -> Rotterdam (Trade PIC) -> Stockholm (Banned POPs).",
+          "reference_sources": [
+            "Shankar IAS Environment - Environmental Conventions"
+          ]
+        }
+      }
+    ]
+  }
+]

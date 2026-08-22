@@ -1,0 +1,432 @@
+[
+  {
+    "id": "MOD-HIST-01",
+    "subject": "Modern Indian History",
+    "module_number": 1,
+    "module_title": "Advent of European Commerce and British Territorial Expansion (1498–1857)",
+    "curriculum": "UPSC Civil Services Examination (CSE)",
+    "stage": "Preliminary Examination (General Studies Paper-I)",
+    "topic": "Advent of Europeans, Anglo-French Rivalry, and Early British Conquests (Bengal & Mysore)",
+    "total_questions": 5,
+    "questions": [
+      {
+        "id": "UPSC_MODHIST_MOD01_001",
+        "syllabus_subtopic": "Portuguese Expansion and Maritime Trade Policy",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate to High",
+        "question": "With reference to the Portuguese rule and commercial dominance in India during the 16th century, consider the following statements:\n\n1. Francisco de Almeida initiated the 'Blue Water Policy' (Cartaze system) to establish naval supremacy over the Indian Ocean.\n2. Alfonso de Albuquerque captured Goa from the Sultan of Golconda in 1510 and banned the practice of Sati in Portuguese territories.\n3. The Portuguese were the first Europeans to establish a press in India and introduce tobacco cultivation.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "1 and 3 only",
+          "C": "3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "B",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Francisco de Almeida (First Portuguese Governor, 1505–1509) introduced the 'Blue Water Policy' (Cartaz system), prioritizing naval supremacy over territorial expansion.",
+            "statement_2": "Incorrect. Alfonso de Albuquerque captured Goa in 1510 from the Sultan of Bijapur (Ismail Adil Shah), not from Golconda. He is noted for abolishing Sati in Portuguese Goa.",
+            "statement_3": "Correct. The Portuguese set up India's first printing press at Goa in 1556 and introduced New World crops (tobacco, potato, tomato, cashew nuts)."
+          },
+          "elimination_technique": "Check regional dynasties: Goa belonged to the Adil Shahi rulers of Bijapur, not the Qutb Shahis of Golconda. Eliminating Statement 2 rules out A and D directly.",
+          "concept_takeaway": "Albuquerque is considered the real founder of Portuguese power in the East, fortifying Malacca, Hormuz, and Goa.",
+          "reference_sources": [
+            "Spectrum's A Brief History of Modern India (Advent of Europeans)",
+            "NCERT Class XII: Themes in Indian History - Part III"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD01_002",
+        "syllabus_subtopic": "Anglo-French Struggle (Carnatic Wars)",
+        "pattern_type": "Pair Matching (New Pattern)",
+        "difficulty": "High",
+        "question": "Consider the following pairs regarding the Carnatic Wars and their concluding treaties:\n\n1. First Carnatic War (1740–48) : Treaty of Aix-la-Chapelle\n2. Second Carnatic War (1749–54) : Treaty of Paris\n3. Third Carnatic War (1758–63) : Treaty of Pondicherry\n\nHow many of the pairs given above are correctly matched?",
+        "options": {
+          "A": "Only one pair",
+          "B": "Only two pairs",
+          "C": "All three pairs",
+          "D": "None of the pairs"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "pair_1": "Correctly matched. The First Carnatic War (linked to War of Austrian Succession) concluded with the Treaty of Aix-la-Chapelle (1748).",
+            "pair_2": "Incorrectly matched. The Second Carnatic War ended with the Treaty of Pondicherry (1754) negotiated by Charles Godeheu.",
+            "pair_3": "Incorrectly matched. The Third Carnatic War concluded with the Treaty of Paris (1763) following the Battle of Wandiwash (1760)."
+          },
+          "elimination_technique": "Treaty sequence: Aix-la-Chapelle (1st) -> Pondicherry (2nd) -> Paris (3rd). Knowing the 2nd and 3rd are swapped yields 'Only one pair'.",
+          "concept_takeaway": "The decisive defeat of Count de Lally by Sir Eyre Coote at Wandiwash (1760) ended French political ambitions in India.",
+          "reference_sources": [
+            "Bipan Chandra: History of Modern India - Struggle for European Supremacy",
+            "Plassey to Partition (Sekhar Bandyopadhyay)"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD01_003",
+        "syllabus_subtopic": "British Commercial Expansion & Farrukhsiyar's Farman of 1717",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate",
+        "question": "The Royal Farman granted by Mughal Emperor Farrukhsiyar to the English East India Company in 1717 is often referred to as the 'Magna Carta' of the Company. Which of the following provisions were included in this Farman?\n\n1. Exemption from all additional customs duties in Bengal for an annual fixed payment of Rs. 3,000.\n2. The Company was permitted to issue 'Dastaks' (trade passes) for the carriage of private trade goods by its servants.\n3. The coins minted by the Company at Bombay were made valid currency throughout the Mughal Empire.\n\nSelect the correct answer using the code given below:",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "1 and 3 only",
+          "C": "2 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "B",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. The Company was exempted from customs in Bengal for an annual token payment of Rs. 3,000.",
+            "statement_2": "Incorrect. The Farman permitted Dastaks only for Company cargo. Company servants were explicitly excluded, though illicit use of Dastaks caused immense conflict.",
+            "statement_3": "Correct. Bombay mint coins of the Company were made legal tender throughout the Mughal Empire."
+          },
+          "elimination_technique": "Private servant trade exemption was never legally authorized by the Mughal crown; eliminating statement 2 directly leaves option B.",
+          "concept_takeaway": "The John Surman mission secured this farman, establishing British commercial hegemony in Bengal before military conquest.",
+          "reference_sources": [
+            "Spectrum's Modern India - British Expansion and Consolidation",
+            "A New Look at Modern Indian History (B.L. Grover)"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD01_004",
+        "syllabus_subtopic": "Battle of Buxar & Treaty of Allahabad (1765)",
+        "pattern_type": "Assertion and Reason / Cause-Effect",
+        "difficulty": "High",
+        "question": "Consider the following statements regarding the Battle of Buxar (1764) and the subsequent administrative settlement:\n\n1. The Battle of Buxar was fought between the combined forces of Mir Qasim, Shuja-ud-Daula, and Shah Alam II on one side, and the British forces led by Robert Clive on the other.\n2. By the Treaty of Allahabad (1765), Mughal Emperor Shah Alam II granted the Diwani rights of Bengal, Bihar, and Orissa to the East India Company in return for an annual tribute.\n3. The Nizamat (administrative and police functions) was completely abolished in Bengal immediately following the Treaty of Allahabad.\n\nWhich of the statements given above is/are correct?",
+        "options": {
+          "A": "2 only",
+          "B": "1 and 2 only",
+          "C": "2 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Incorrect. British forces at Buxar (1764) were led by Major Hector Munro. Clive was in England and returned in 1765 to negotiate the treaty.",
+            "statement_2": "Correct. Shah Alam II granted Diwani of Bengal, Bihar, and Orissa for an annual tribute of Rs. 26 lakhs and districts of Kora and Allahabad.",
+            "statement_3": "Incorrect. The Dual System retained Nizamat nominally under the Nawab until Warren Hastings ended it in 1772."
+          },
+          "elimination_technique": "Distinguish commanders: Hector Munro fought Buxar, while Clive signed Allahabad. That eliminates 1 immediately.",
+          "concept_takeaway": "Buxar was a genuine military victory demonstrating Company tactical superiority over combined North Indian armies.",
+          "reference_sources": [
+            "Bipan Chandra: Modern India - British Conquest of Bengal",
+            "From Plassey to Partition"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD01_005",
+        "syllabus_subtopic": "Anglo-Mysore Wars & Tipu Sultan's Administration",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate to High",
+        "question": "With reference to Tipu Sultan's administrative, military, and diplomatic measures during the late 18th century, consider the following statements:\n\n1. He established embassies in France, Turkey, Iran, and Pegu (Burma) to develop foreign trade and secure military alliances.\n2. He set up a Jacobin Club at Seringapatam and planted the 'Tree of Liberty' to symbolize solidarity with revolutionary France.\n3. Under the Treaty of Seringapatam (1792), Mysore ceded half of its territory to the British and their allies, including the regions of Malabar, Dindigul, and Baramahal.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Tipu dispatched embassies to the Ottoman Empire (Istanbul), France (Paris), Muscat, and Pegu.",
+            "statement_2": "Correct. Inspired by the French Revolution, Tipu established a Jacobin Club in 1797 and planted the Tree of Liberty.",
+            "statement_3": "Correct. The Third Anglo-Mysore War ended with Treaty of Seringapatam (1792), ceding half of Mysore's territories."
+          },
+          "elimination_technique": "All three statements are landmark textbook facts regarding Tipu's modernization drive.",
+          "concept_takeaway": "Tipu attempted to modernize the state apparatus with modern naval boards, standardized weights/measures, and state trading factories.",
+          "reference_sources": [
+            "NCERT Class XII: Themes in Indian History",
+            "Spectrum's Modern India - Expansion in Mysore"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "MOD-HIST-02",
+    "subject": "Modern Indian History",
+    "module_number": 2,
+    "module_title": "British Expansion and Consolidation (1757–1857): Marathas, Sikhs, Treaties, and Frontier Policies",
+    "curriculum": "UPSC Civil Services Examination (CSE)",
+    "stage": "Preliminary Examination (General Studies Paper-I)",
+    "topic": "Anglo-Maratha Wars, Subsidiary Alliance, Doctrine of Lapse, Anglo-Sikh Wars, and Frontier Expansions",
+    "total_questions": 10,
+    "questions": [
+      {
+        "id": "UPSC_MODHIST_MOD02_001",
+        "syllabus_subtopic": "Lord Wellesley and the Subsidiary Alliance System",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate to High",
+        "question": "With reference to the Subsidiary Alliance System institutionalized by Lord Wellesley, consider the following statements:\n\n1. The concept of stationing European troops in an Indian ruler's territory at the ruler's expense was originally initiated by the French Governor Joseph François Dupleix.\n2. Under the terms of the treaty, an Indian ruler could engage in foreign alliances and employ any European national only after informing the British Resident.\n3. The correct chronological sequence of Indian states entering the Subsidiary Alliance was Hyderabad, Mysore, Tanjore, Awadh, and the Peshwa.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "1 and 3 only",
+          "C": "2 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "B",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Dupleix first lent European troops to Indian princes in exchange for revenue. Wellesley institutionalized it into an imperial policy.",
+            "statement_2": "Incorrect. The treaty strictly barred all independent diplomacy and employing any European without prior Company approval.",
+            "statement_3": "Correct. Sequence: Hyderabad (1798), Mysore (1799), Tanjore (1799), Awadh (1801), Peshwa (1802), Bhonsle (1803), Scindia (1804)."
+          },
+          "elimination_technique": "Statement 2 uses lenient language ('informing the British Resident'). The core intent was total surrender of foreign relations. Eliminating 2 leaves B.",
+          "concept_takeaway": "Subsidiary Alliance disarmed Indian rulers and created British paramountcy without administrative costs.",
+          "reference_sources": [
+            "Spectrum's A Brief History of Modern India - Expansion and Consolidation",
+            "A New Look at Modern Indian History (B.L. Grover)"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_002",
+        "syllabus_subtopic": "Anglo-Maratha Wars & Associated Treaties",
+        "pattern_type": "Pair Matching (New Pattern)",
+        "difficulty": "High",
+        "question": "Consider the following pairs of Treaties concluded during the Anglo-Maratha conflicts:\n\n1. Treaty of Salbai (1782) : Warren Hastings and Mahadji Scindia\n2. Treaty of Bassein (1802) : Lord Wellesley and Peshwa Baji Rao II\n3. Treaty of Deogaon (1803) : British and the Bhonsle of Nagpur\n4. Treaty of Poona (1817) : British and the Holkar of Indore\n\nHow many of the pairs given above are correctly matched?",
+        "options": {
+          "A": "Only one pair",
+          "B": "Only two pairs",
+          "C": "Only three pairs",
+          "D": "All four pairs"
+        },
+        "correct_option": "C",
+        "explanation": {
+          "statement_analysis": {
+            "pair_1": "Correctly matched. Treaty of Salbai (1782) ended the First Anglo-Maratha War with 20 years of peace.",
+            "pair_2": "Correctly matched. Treaty of Bassein (1802) brought Peshwa Baji Rao II into the Subsidiary Alliance.",
+            "pair_3": "Correctly matched. Treaty of Deogaon (1803) was concluded with Raghuji Bhonsle of Nagpur, ceding Cuttack.",
+            "pair_4": "Incorrectly matched. Treaty of Poona (1817) was signed with the Peshwa. Treaty with Holkar was Treaty of Mandasor (1818)."
+          },
+          "elimination_technique": "Poona was the Peshwa's capital, not Holkar's (Indore). Identifying this mistake rules out 'All four pairs'.",
+          "concept_takeaway": "The Third Anglo-Maratha War (1817–1818) abolished the office of the Peshwa and dissolved the Maratha Confederacy.",
+          "reference_sources": [
+            "From Plassey to Partition (Sekhar Bandyopadhyay)",
+            "Spectrum's Modern India - Anglo-Maratha Struggle"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_003",
+        "syllabus_subtopic": "Lord Dalhousie's Doctrine of Lapse",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate to High",
+        "question": "With reference to the application of the 'Doctrine of Lapse' under Lord Dalhousie, consider the following statements:\n\n1. The Doctrine drew a distinction between the inheritance of private property and the succession to sovereign political power by an adopted son.\n2. Satara was the first state annexed under this doctrine in 1848, followed by Sambalpur, Jhansi, and Nagpur.\n3. The kingdom of Awadh was annexed in 1856 under the direct application of the Doctrine of Lapse due to the absence of a biological heir to Nawab Wajid Ali Shah.\n\nWhich of the statements given above is/are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. An adopted son could inherit personal property, but could not inherit the political crown without British permission.",
+            "statement_2": "Correct. Annexation order: Satara (1848), Jaitpur/Sambalpur (1849), Baghat (1850), Udaipur (1852), Jhansi (1853), Nagpur (1854).",
+            "statement_3": "Incorrect. Awadh was annexed in 1856 on grounds of misgovernment, based on reports of Sleeman and Outram."
+          },
+          "elimination_technique": "Wajid Ali Shah had biological heirs; Awadh was annexed for 'misgovernance'. Eliminating statement 3 leaves Option A.",
+          "concept_takeaway": "Doctrine of Lapse categorized states into independent, tributary, and British-created, applying strict denial of adoption to the third.",
+          "reference_sources": [
+            "Bipan Chandra: History of Modern India",
+            "Spectrum's A Brief History of Modern India"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_004",
+        "syllabus_subtopic": "Anglo-Sikh Relations and Anglo-Sikh Wars",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "High",
+        "question": "Consider the following statements regarding the British relations with the Sikh Empire and the Anglo-Sikh Wars:\n\n1. By the Treaty of Amritsar (1809), Maharaja Ranjit Singh accepted the Sutlej River as the boundary between his kingdom and the British sphere of influence.\n2. Following the First Anglo-Sikh War, the Treaty of Lahore (1846) transferred Jammu and Kashmir to Maharaja Gulab Singh in exchange for a direct payment of 75 lakh rupees.\n3. The Treaty of Bhaironwal (1846) removed Rani Jindan from the Regency Council and established a British-controlled Council of Regency during the minority of Maharaja Duleep Singh.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "C",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Treaty of Amritsar (1809) signed with Metcalfe demarcated Sutlej as the boundary.",
+            "statement_2": "Incorrect. Treaty of Lahore ceded Kashmir to the British; the British subsequently sold it to Gulab Singh under the Treaty of Amritsar (1846).",
+            "statement_3": "Correct. Treaty of Bhaironwal (Dec 1846) replaced Rani Jindan with an 8-member Council of Regency presided over by Resident Henry Lawrence."
+          },
+          "elimination_technique": "Sale of Kashmir to Gulab Singh was the Treaty of Amritsar (1846) ('Sale Deed of Kashmir'), not Treaty of Lahore.",
+          "concept_takeaway": "The Second Anglo-Sikh War (1848–49) ended with Dalhousie annexing Punjab under a three-member Board of Administration.",
+          "reference_sources": [
+            "Khushwant Singh: A History of the Sikhs (Vol. II)",
+            "Spectrum's Modern India - Conquest of Punjab"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_005",
+        "syllabus_subtopic": "Conquest and Annexation of Sindh (1843)",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate",
+        "question": "Regarding the British conquest and annexation of Sindh in 1843, consider the following statements:\n\n1. Sindh was annexed during the Governor-Generalship of Lord Ellenborough.\n2. The British campaign in Sindh was commanded by Sir Charles Napier, who characterized the conquest as 'a very advantageous, useful, humane piece of rascality'.\n3. The annexation of Sindh was primarily driven by British strategic anxieties following the disaster of the First Anglo-Afghan War.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Lord Ellenborough served as Governor-General (1842–1844) during which Sindh was annexed.",
+            "statement_2": "Correct. Sir Charles Napier commanded the campaign and wrote the famous diary entry ('useful piece of rascality').",
+            "statement_3": "Correct. Afghan war disaster compelled the British to control the Indus waterway and project frontier dominance."
+          },
+          "elimination_technique": "All 3 points are standard historical facts regarding the Sindh campaign.",
+          "concept_takeaway": "Annexation of Sindh was widely condemned even in British parliament as unjustified aggression.",
+          "reference_sources": [
+            "Spectrum's Modern India - Conquest of Sindh",
+            "Bipan Chandra: Modern India"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_006",
+        "syllabus_subtopic": "Anglo-Nepalese War and the Treaty of Sagauli (1816)",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate to High",
+        "question": "The Treaty of Sagauli (1816), concluded after the Anglo-Nepalese War (1814–16), had far-reaching geopolitical implications for British India. Which of the following were direct provisions of this treaty?\n\n1. Nepal ceded the regions of Garhwal and Kumaon, along with most of the Terai lands, to the British.\n2. The Kali River was established as the western boundary between Nepal and British India.\n3. The Kingdom of Nepal agreed to the posting of a permanent British Resident at Kathmandu.\n4. Nepal surrendered all claims over the territory of Sikkim to the East India Company.\n\nSelect the correct answer using the code given below:",
+        "options": {
+          "A": "1, 2 and 3 only",
+          "B": "2, 3 and 4 only",
+          "C": "1, 3 and 4 only",
+          "D": "1, 2, 3 and 4"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Nepal surrendered Kumaon, Garhwal, and fertile Tarai lands to the Company.",
+            "statement_2": "Correct. Kali River became Nepal's western border and Mechi River the eastern border.",
+            "statement_3": "Correct. British Resident was accepted at Kathmandu (first was Edward Gardner).",
+            "statement_4": "Correct. Nepal withdrew from Sikkim and accepted British arbitration."
+          },
+          "elimination_technique": "All four clauses defined the 1816 treaty and opened Gorkha recruitment.",
+          "concept_takeaway": "Kumaon and Garhwal gave the British access to trans-Himalayan trade routes to Tibet and led to hill stations like Simla.",
+          "reference_sources": [
+            "Spectrum's Modern India - Relations with Neighboring Countries",
+            "B.L. Grover: A New Look at Modern Indian History"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_007",
+        "syllabus_subtopic": "Anglo-Burmese Relations & Treaty of Yandabo (1826)",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "High",
+        "question": "With reference to the First Anglo-Burmese War (1824–1826) and the Treaty of Yandabo, consider the following statements:\n\n1. The conflict was triggered by Burmese expansion into Assam, Manipur, and the border clash at Shahpuri Island near Chittagong.\n2. By the Treaty of Yandabo (1826), the King of Burma ceded the coastal provinces of Arakan and Tenasserim to the British.\n3. Under the treaty, Burma recognized Manipur as an independent state and renounced all territorial claims over Assam and Cachar.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Burmese occupation of Assam/Manipur and invasion of Shahpuri Island precipitated the war declared by Lord Amherst.",
+            "statement_2": "Correct. Burma ceded Arakan and Tenasserim (Ye, Tavoy, Mergui) to the Company.",
+            "statement_3": "Correct. Burma recognized Gambhir Singh as raja of Manipur and renounced claims on Assam and Cachar."
+          },
+          "elimination_technique": "Treaty of Yandabo completely checked Burmese westward expansion and initiated British incorporation of the Northeast.",
+          "concept_takeaway": "The Treaty of Yandabo paved the way for British dominance across Northeast India.",
+          "reference_sources": [
+            "Spectrum's Modern India - Relations with Burma",
+            "Plassey to Partition"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_008",
+        "syllabus_subtopic": "British Frontier Policy: Afghanistan & Strategic Doctrines",
+        "pattern_type": "Pair Matching (New Pattern)",
+        "difficulty": "High",
+        "question": "Consider the following pairs regarding British Imperial foreign policies and the Viceroys/Governors-General associated with them:\n\n1. Forward Policy : Lord Auckland\n2. Policy of Masterly Inactivity : Sir John Lawrence\n3. Policy of Proud Reserve : Lord Lytton\n\nHow many of the pairs given above are correctly matched?",
+        "options": {
+          "A": "Only one pair",
+          "B": "Only two pairs",
+          "C": "All three pairs",
+          "D": "None of the pairs"
+        },
+        "correct_option": "C",
+        "explanation": {
+          "statement_analysis": {
+            "pair_1": "Correctly matched. Lord Auckland initiated Forward Policy aiming to place Shah Shuja on the Afghan throne.",
+            "pair_2": "Correctly matched. Sir John Lawrence instituted Masterly Inactivity, opposing internal intervention in Afghanistan.",
+            "pair_3": "Correctly matched. Lord Lytton followed Proud Reserve (scientific frontier policy), precipitating the Second Afghan War."
+          },
+          "elimination_technique": "Chronological sequence: Auckland (Forward) -> Lawrence (Masterly Inactivity) -> Lytton (Proud Reserve).",
+          "concept_takeaway": "The rivalry between British and Russian empires over Afghanistan and Central Asia was known as 'The Great Game'.",
+          "reference_sources": [
+            "Spectrum's Modern India - Northwest Frontier Relations",
+            "B.L. Grover & S.G. Grover"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_009",
+        "syllabus_subtopic": "Anti-Napoleonic Diplomatic Missions (1808–1809)",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "High",
+        "question": "In 1808–1809, apprehending a combined Franco-Russian overland invasion of India following the Treaty of Tilsit (1807), the British Governor-General Lord Minto dispatched several diplomatic missions. In this context, consider the following statements:\n\n1. Charles Metcalfe was sent to Lahore to conclude an alliance with Maharaja Ranjit Singh.\n2. Mountstuart Elphinstone was dispatched to Kabul to negotiate with the Afghan ruler Shah Shuja.\n3. Sir John Malcolm was sent to the court of the Shah of Persia in Tehran.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Metcalfe negotiated the Treaty of Amritsar (1809) with Ranjit Singh.",
+            "statement_2": "Correct. Elphinstone met Shah Shuja at Peshawar in 1809.",
+            "statement_3": "Correct. Malcolm went to Tehran to counter French influence."
+          },
+          "elimination_technique": "Minto's tripartite diplomatic missions in 1808–09 are classic historical touchpoints.",
+          "concept_takeaway": "The Treaty of Tilsit (1807) between Napoleon and Alexander I created strategic alarm in Calcutta.",
+          "reference_sources": [
+            "B.L. Grover: A New Look at Modern Indian History",
+            "Spectrum's Modern India"
+          ]
+        }
+      },
+      {
+        "id": "UPSC_MODHIST_MOD02_010",
+        "syllabus_subtopic": "Internal Structure of the Maratha Confederacy and Collapse",
+        "pattern_type": "Assertion and Reason",
+        "difficulty": "Moderate to High",
+        "question": "Given below are two statements, one labelled as Assertion (A) and the other labelled as Reason (R):\n\nAssertion (A): The Maratha Confederacy failed to present a united front against the British during the Second and Third Anglo-Maratha Wars.\nReason (R): The autonomous Maratha chieftains—Scindias, Holkars, Bhonsles, and Gaekwads—were divided by intense personal rivalries, lack of central coordination from the Peshwa, and distinct regional economic interests.\n\nIn the context of the statements above, which of the following is correct?",
+        "options": {
+          "A": "Both (A) and (R) are true and (R) is the correct explanation of (A)",
+          "B": "Both (A) and (R) are true but (R) is not the correct explanation of (A)",
+          "C": "(A) is true but (R) is false",
+          "D": "(A) is false but (R) is true"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "assertion_a": "True. In both the 2nd and 3rd Anglo-Maratha wars, the British defeated Maratha houses sequentially.",
+            "reason_r": "True. Factionalism between Peshwa, Scindia, Holkar, Bhonsle, and Gaekwad crippled coordinated defense."
+          },
+          "elimination_technique": "The causal link is direct: internal factionalism explains why a united front was impossible.",
+          "concept_takeaway": "The Maratha confederacy lacked unified administrative and financial coherence."
+        },
+        "reference_sources": [
+          "Plassey to Partition (Sekhar Bandyopadhyay)",
+          "NCERT Class XII: Themes in Indian History - Part III"
+        ]
+      }
+    ]
+  }
+]

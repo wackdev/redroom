@@ -1,0 +1,762 @@
+[
+  {
+    "id": "UPSC-PRE-2026-HIST-01",
+    "year": 2026,
+    "subject": "History",
+    "topic": "Peasant, Tribal & Early Uprisings",
+    "subtopic": "Eka Movement vs. Bardoli Satyagraha",
+    "paper": "GS-1",
+    "question": "Which one of the following statements regarding the peasant movements in British India is correct?",
+    "options": [
+      { "id": "A", "text": "The Eka Movement (1921) in Awadh was entirely peaceful and led by Congress leadership throughout, whereas Bardoli Satyagraha was violent." },
+      { "id": "B", "text": "The Eka Movement was initially led by peasant leader Madari Pasi and centered around rent demands exceeding 50% above recorded rates." },
+      { "id": "C", "text": "The Bardoli Satyagraha was initiated by the taluqdars of Gujarat against land tenancy reforms." },
+      { "id": "D", "text": "The Eka Movement resulted in the formation of the All India Kisan Sabha in 1921." }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The Eka (Unity) Movement surfaced in late 1921 in the northern districts of Awadh (Hardoi, Bahraich, Sitapur). It was led by Madari Pasi and other low-caste leaders. The central grievance was the extraction of rent exceeding 50% of the recorded rates, oppression by thekedars (contractors), and practice of sharecropping rents. Bardoli Satyagraha (1928) in Gujarat was led non-violently by Vallabhbhai Patel.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Eka Movement", "Madari Pasi", "Peasant Movements", "Awadh"]
+  },
+  {
+    "id": "UPSC-PRE-2026-HIST-02",
+    "year": 2026,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Awadh Annexation & Summary Settlement of 1856",
+    "paper": "GS-1",
+    "question": "In the context of the 1857 Revolt, what was the primary objective of the Summary Settlement of 1856 introduced in Awadh?",
+    "options": [
+      { "id": "A", "text": "To grant complete proprietary land rights to the Taluqdars of Awadh." },
+      { "id": "B", "text": "To remove the Taluqdars as middlemen and settle revenue directly with the actual tillers/cultivators." },
+      { "id": "C", "text": "To introduce the Permanent Zamindari settlement on the lines of Bengal." },
+      { "id": "D", "text": "To exempt all agricultural lands from revenue for a period of ten years." }
+    ],
+    "correctAnswer": "B",
+    "explanation": "After the annexation of Awadh in 1856 under Lord Dalhousie, the British introduced the Summary Settlement of 1856 based on the belief that taluqdars had acquired power through coercion and had no permanent stake in the land. The settlement aimed to dispossess the taluqdars and settle revenue directly with the actual cultivators, stripping the taluqdars of their forts, armed retainers, and estates, which turned them into major leaders during the 1857 Rebellion.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["1857 Revolt", "Awadh Summary Settlement", "Taluqdars", "Land Revenue"]
+  },
+  {
+    "id": "UPSC-PRE-2026-HIST-03",
+    "year": 2026,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Currency, Finance & Hilton-Young Commission",
+    "paper": "GS-1",
+    "question": "With reference to the Royal Commission on Indian Currency and Finance (Hilton-Young Commission, 1926), consider the following statements:\n1. It recommended the establishment of a central bank to be called the Reserve Bank of India.\n2. It recommended fixing the exchange ratio of the rupee at 1s. 4d. gold.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: The Hilton-Young Commission (1926) recommended the creation of a central bank, which culminated in the Reserve Bank of India Act, 1934. Statement 2 is incorrect: The Commission controversially recommended fixing the Rupee-Sterling exchange ratio at an overvalued rate of 1s. 6d. (instead of the pre-war 1s. 4d.), which was strongly opposed by Indian nationalists and industrialists as it made British imports cheaper and hurt Indian exports.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Hilton Young Commission", "RBI", "Rupee Ratio", "Colonial Finance"]
+  },
+  {
+    "id": "UPSC-PRE-2025-HIST-01",
+    "year": 2025,
+    "subject": "History",
+    "topic": "Socio-Religious Reform Movements",
+    "subtopic": "Raja Ram Mohan Roy & Bengal Renaissance",
+    "paper": "GS-1",
+    "question": "Consider the following statements regarding Raja Ram Mohan Roy:\n1. He possessed great love and respect for the traditional philosophical systems of the East.\n2. He desired his countrymen to accept the rational and scientific approach and the principle of human dignity and social equality of all men and women.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Raja Ram Mohan Roy (1772–1833) sought a synthesis between Eastern spiritual wisdom and Western rationalism. He translated the Upanishads and Vedanta to show that monotheism was fundamental to Hindu scriptures, while staunchly advocating modern scientific education, individual liberty, and social equality for women.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Raja Ram Mohan Roy", "Brahmo Samaj", "Bengal Renaissance", "Social Reforms"]
+  },
+  {
+    "id": "UPSC-PRE-2025-HIST-02",
+    "year": 2025,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "Non-Cooperation Movement Programme",
+    "paper": "GS-1",
+    "question": "Consider the following subjects with regard to the Non-Cooperation Programme:\n1. Boycott of law-courts and foreign cloth.\n2. Observance of strict non-violence.\n3. Retention of titles and honours without using them in public.\n4. Establishment of Panchayats for settling disputes.\nHow many of the above were parts of the Non-Cooperation Programme?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "Only three" },
+      { "id": "D", "text": "All four" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The Non-Cooperation programme adopted at the Nagpur Congress session (1920) mandated:\n- Surrender of titles and honorary offices (Statement 3 is incorrect as it demanded complete surrender, not retention).\n- Boycott of government educational institutions, foreign cloth, and courts.\n- Establishment of national panchayats for resolving civil disputes.\n- Strict adherence to non-violence (Ahimsa).\nThus, exactly three items (1, 2, and 4) were parts of the programme.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Non-Cooperation Movement", "Nagpur Session", "Gandhian Strategy"]
+  },
+  {
+    "id": "UPSC-PRE-2025-HIST-03",
+    "year": 2025,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "Salt Satyagraha & Civil Disobedience",
+    "paper": "GS-1",
+    "question": "\"Sedition has become my religion\" was the famous statement given by Mahatma Gandhi at the time of:",
+    "options": [
+      { "id": "A", "text": "The Champaran Satyagraha (1917)" },
+      { "id": "B", "text": "Publicly violating the Salt Law during the Dandi March (1930)" },
+      { "id": "C", "text": "Attending the Second Round Table Conference in London (1931)" },
+      { "id": "D", "text": "The launch of the Quit India Movement (1942)" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "During the historic Salt March in 1930, Mahatma Gandhi declared that sedition had become his religion when refusing to cooperate with a system that taxed the most basic survival commodity of the impoverished masses.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Dandi March", "Civil Disobedience Movement", "Salt Satyagraha", "Mahatma Gandhi"]
+  },
+  {
+    "id": "UPSC-PRE-2025-HIST-04",
+    "year": 2025,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Vernacular Press Act of 1878",
+    "paper": "GS-1",
+    "question": "With reference to the Vernacular Press Act, 1878, consider the following statements:\n1. It was enacted during the viceroyalty of Lord Lytton.\n2. It did not provide for any right of appeal to a court of law against the decision of the magistrate.\n3. The Amrita Bazar Patrika converted itself into an English weekly overnight to escape the Act.\nHow many of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "All three statements are correct. Lord Lytton passed the Act in 1878 targeting nationalist vernacular papers. Magistrates could confiscate print equipment without any right of appeal. The Bengali newspaper 'Amrita Bazar Patrika' turned into an English weekly overnight to circumvent the law.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Vernacular Press Act", "Lord Lytton", "Amrita Bazar Patrika", "Press Laws"]
+  },
+  {
+    "id": "UPSC-PRE-2024-HIST-01",
+    "year": 2024,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Government of India Act 1935",
+    "paper": "GS-1",
+    "question": "With reference to the Government of India Act, 1935, consider the following statements:\n1. It provided for the establishment of an All India Federation based on the union of the British Indian Provinces and Princely States.\n2. Defence and Foreign Affairs were kept under the control of the federal legislature.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: The GoI Act 1935 provided for an All India Federation comprising British Indian Provinces and acceding Princely States. Statement 2 is incorrect: At the Centre, Dyarchy was introduced where Defence, Foreign Affairs, Ecclesiastical affairs, and Tribal Areas were 'Reserved subjects' controlled exclusively by the Governor-General.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["GoI Act 1935", "All India Federation", "Dyarchy", "Constitutional Acts"]
+  },
+  {
+    "id": "UPSC-PRE-2024-HIST-02",
+    "year": 2024,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Land Revenue Systems (Ryotwari & Permanent Settlement)",
+    "paper": "GS-1",
+    "question": "With reference to revenue collection policies under British rule, consider the following statements:\n1. Under the Ryotwari Settlement of revenue collection, the peasants were exempted from revenue payment in case of bad harvests or natural calamities.\n2. Under the Permanent Settlement in Bengal, if the Zamindar failed to pay his revenues to the state on or before the fixed date, he would be removed from his Zamindari.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: In the Ryotwari settlement, revenue assessments were rigid and cash-based, with no automatic remissions or exemptions for natural calamities. Statement 2 is correct: Under the 'Sunset Law' of the Permanent Settlement (1793), default by the stipulated sunset date led to immediate auction of the zamindari estate.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Permanent Settlement", "Ryotwari System", "Sunset Law", "Land Revenue"]
+  },
+  {
+    "id": "UPSC-PRE-2024-HIST-03",
+    "year": 2024,
+    "subject": "History",
+    "topic": "Important Personalities, Organizations & Literature",
+    "subtopic": "Subhas Chandra Bose & Forward Bloc",
+    "paper": "GS-1",
+    "question": "Consider the following statements regarding the Forward Bloc:\n1. It was formed by Subhas Chandra Bose after he resigned from the Congress Presidentship at the Tripuri session.\n2. The main objective was to rally all left-wing and radical elements within the Congress.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Both statements are correct. Following the leadership crisis after the 1939 Tripuri session, Subhas Chandra Bose resigned from the Congress presidency and formed the Forward Bloc in May 1939 as a faction within the Congress to consolidate leftist and anti-imperialist forces.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Forward Bloc", "Subhas Chandra Bose", "Tripuri Crisis", "INC Sessions"]
+  },
+  {
+    "id": "UPSC-PRE-2024-HIST-04",
+    "year": 2024,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Administrative & Judicial Reforms (Cornwallis)",
+    "paper": "GS-1",
+    "question": "Who among the following Governor Generals introduced the system of civil services in India and separated the commercial and judicial branches of the administration?",
+    "options": [
+      { "id": "A", "text": "Warren Hastings" },
+      { "id": "B", "text": "Lord Cornwallis" },
+      { "id": "C", "text": "Lord Wellesley" },
+      { "id": "D", "text": "Lord William Bentinck" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Lord Cornwallis (1786–1793) professionalized the Covenanted Civil Services, separated executive and judicial functions through the Cornwallis Code of 1793, and established a formalized judicial hierarchy.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Lord Cornwallis", "Cornwallis Code", "Civil Services", "Judicial Reforms"]
+  },
+  {
+    "id": "UPSC-PRE-2023-HIST-01",
+    "year": 2023,
+    "subject": "History",
+    "topic": "Indian National Movement (1885-1919)",
+    "subtopic": "Swadeshi Movement & National Handloom Day",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\nStatement-I: 7th August is declared as the National Handloom Day.\nStatement-II: It was in 1905 that the Swadeshi Movement was launched on the same day.\nWhich one of the following is correct in respect of the above statements?",
+    "options": [
+      { "id": "A", "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I" },
+      { "id": "B", "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I" },
+      { "id": "C", "text": "Statement-I is correct but Statement-II is incorrect" },
+      { "id": "D", "text": "Statement-I is incorrect but Statement-II is correct" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "National Handloom Day is celebrated annually on August 7 to mark the launch of the Swadeshi Movement on August 7, 1905, at Calcutta Town Hall to promote indigenous handlooms and industries.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Swadeshi Movement", "National Handloom Day", "Bengal Partition"]
+  },
+  {
+    "id": "UPSC-PRE-2023-HIST-02",
+    "year": 2023,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Charter Act of 1833",
+    "paper": "GS-1",
+    "question": "By which one of the following Acts was the Governor General of Bengal designated as the Governor General of India?",
+    "options": [
+      { "id": "A", "text": "The Regulating Act, 1773" },
+      { "id": "B", "text": "The Pitt's India Act, 1784" },
+      { "id": "C", "text": "The Charter Act of 1793" },
+      { "id": "D", "text": "The Charter Act of 1833" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "The Charter Act of 1833 designated the Governor-General of Bengal as the 'Governor-General of India' (Lord William Bentinck being the first) and centralized all civil and military authority.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Charter Act 1833", "Governor General of India", "Lord William Bentinck"]
+  },
+  {
+    "id": "UPSC-PRE-2023-HIST-03",
+    "year": 2023,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Wood's Despatch (1854)",
+    "paper": "GS-1",
+    "question": "With reference to educational policy in British India, consider the following statements regarding Wood's Despatch of 1854:\n1. It recommended English as the medium of instruction for primary education.\n2. It emphasized female education and vocational training.\n3. It recommended the establishment of universities in Calcutta, Bombay, and Madras.\nHow many of the above statements are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: Wood's Despatch recommended vernacular languages for primary schooling, Anglo-vernacular for secondary, and English for higher/university level. Statements 2 and 3 are correct: It advocated female education, grants-in-aid, and the creation of universities in Calcutta, Bombay, and Madras (established in 1857).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Wood's Despatch", "Colonial Education", "Female Education", "Universities 1857"]
+  },
+  {
+    "id": "UPSC-PRE-2022-HIST-01",
+    "year": 2022,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Montagu-Chelmsford Reforms (GoI Act 1919)",
+    "paper": "GS-1",
+    "question": "In the Government of India Act 1919, the functions of Provincial Government were divided into 'Reserved' and 'Transferred' subjects. Which of the following were treated as 'Reserved' subjects?\n1. Administration of Justice\n2. Local Self-Government\n3. Land Revenue\n4. Police\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1, 2 and 3" },
+      { "id": "B", "text": "2, 3 and 4" },
+      { "id": "C", "text": "1, 3 and 4" },
+      { "id": "D", "text": "1, 2 and 4" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Under Dyarchy in the provinces (GoI Act 1919), Reserved subjects included Police, Administration of Justice, Land Revenue, and Irrigation. Local Self-Government and Education were Transferred subjects.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["GoI Act 1919", "Dyarchy", "Reserved Subjects", "Transferred Subjects"]
+  },
+  {
+    "id": "UPSC-PRE-2022-HIST-02",
+    "year": 2022,
+    "subject": "History",
+    "topic": "Indian National Movement (1885-1919)",
+    "subtopic": "Ghadar Movement & Revolutionaries",
+    "paper": "GS-1",
+    "question": "Consider the following freedom fighters:\n1. Barindra Kumar Ghosh\n2. Jogesh Chandra Chatterjee\n3. Rash Behari Bose\nWho of the above was/were actively associated with the Ghadar Party?",
+    "options": [
+      { "id": "A", "text": "1 and 2" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "1 and 3" },
+      { "id": "D", "text": "3 only" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Rash Behari Bose was the main Indian coordinator for the 1915 Ghadar armed rebellion. Barindra Ghosh belonged to Jugantar (Bengal) and Jogesh Chandra Chatterjee co-founded HRA.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Rash Behari Bose", "Ghadar Party", "Revolutionary Movement"]
+  },
+  {
+    "id": "UPSC-PRE-2022-HIST-03",
+    "year": 2022,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "Cripps Mission (1942)",
+    "paper": "GS-1",
+    "question": "With reference to the proposals of Cripps Mission, consider the following statements:\n1. The Constituent Assembly would have members nominated by the Provincial Assemblies as well as the Princely States.\n2. Any Province, which is not prepared to accept the new Constitution would have the right to sign a separate agreement with Britain regarding its future status.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: Provincial assembly members were to be elected via proportional representation, while princely states nominated members. Statement 2 is correct: Provinces had the right not to accede and negotiate independent treaties.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Cripps Mission", "Constituent Assembly", "World War II"]
+  },
+  {
+    "id": "UPSC-PRE-2022-HIST-04",
+    "year": 2022,
+    "subject": "History",
+    "topic": "Peasant, Tribal & Early Uprisings",
+    "subtopic": "Santhal Hool (1855-56)",
+    "paper": "GS-1",
+    "question": "With reference to the Santhal Hool of 1855, consider the following statements:\n1. Sidhu and Kanhu were the prominent leaders of this uprising.\n2. The rebellion erupted primarily against British land revenues, mahajans (moneylenders), and zamindars.\n3. Martial law was declared by the British government to suppress the movement.\nHow many of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "All three statements are correct. The Santhal rebellion was led by Sidhu, Kanhu, Chand, and Bhairav against colonial taxation and moneylender exploitation. The British deployed martial law to suppress it.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Santhal Hool", "Sidhu Kanhu", "Tribal Uprisings", "Damin-i-Koh"]
+  },
+  {
+    "id": "UPSC-PRE-2021-HIST-01",
+    "year": 2021,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Franchise & Women's Representation",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\n1. The Montagu-Chelmsford Reforms of 1919 recommended granting voting rights to all women above the age of 21.\n2. The Government of India Act of 1935 gave women reserved seats in the legislature.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: The 1919 Act delegated the decision of women's franchise to provinces without universal suffrage. Statement 2 is correct: The 1935 Act provided reserved seats for women in both federal and provincial assemblies.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Women Franchise", "GoI Act 1935", "Montagu Chelmsford"]
+  },
+  {
+    "id": "UPSC-PRE-2021-HIST-02",
+    "year": 2021,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "Quit India Resolution (1942)",
+    "paper": "GS-1",
+    "question": "In the context of Colonial India, with reference to the 8th August 1942 in Indian history, which one of the following statements is correct?",
+    "options": [
+      { "id": "A", "text": "The Quit India Resolution was adopted by the AICC." },
+      { "id": "B", "text": "The Viceroy's Executive Council was expanded to include more Indians." },
+      { "id": "C", "text": "The Congress ministries resigned in seven provinces." },
+      { "id": "D", "text": "Cripps proposed an Indian Union with full Dominion Status." }
+    ],
+    "correctAnswer": "A",
+    "explanation": "On 8th August 1942, the AICC meeting at Gowalia Tank, Bombay, adopted the historic Quit India Resolution.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Quit India Movement", "8th August 1942", "AICC", "Do or Die"]
+  },
+  {
+    "id": "UPSC-PRE-2021-HIST-03",
+    "year": 2021,
+    "subject": "History",
+    "topic": "Socio-Religious Reform Movements",
+    "subtopic": "Bethune Female School",
+    "paper": "GS-1",
+    "question": "Who among the following was associated as Secretary with Hindu Female School which later came to be known as Bethune Female School?",
+    "options": [
+      { "id": "A", "text": "Annie Besant" },
+      { "id": "B", "text": "Debendranath Tagore" },
+      { "id": "C", "text": "Ishwar Chandra Vidyasagar" },
+      { "id": "D", "text": "Sarojini Naidu" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Ishwar Chandra Vidyasagar served as the honorary secretary of the Bethune School (founded in 1849) and pioneered institutional female education in Bengal.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Ishwar Chandra Vidyasagar", "Bethune School", "Women Education"]
+  },
+  {
+    "id": "UPSC-PRE-2021-HIST-04",
+    "year": 2021,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "INA Trials (1945)",
+    "paper": "GS-1",
+    "question": "In the context of Colonial India, Shah Nawaz Khan, Prem Kumar Sehgal and Gurbaksh Singh Dhillon are remembered as:",
+    "options": [
+      { "id": "A", "text": "Leaders of Swadeshi and Boycott Movement" },
+      { "id": "B", "text": "Members of the Interim Government in 1946" },
+      { "id": "C", "text": "Members of the Drafting Committee in the Constituent Assembly" },
+      { "id": "D", "text": "Officers of the Indian National Army" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Colonel Sehgal, Colonel Dhillon, and Major General Shah Nawaz Khan were the three INA officers tried at the Red Fort in late 1945.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["INA Trials", "Red Fort Trials", "Subhas Chandra Bose", "Shah Nawaz Khan"]
+  },
+  {
+    "id": "UPSC-PRE-2021-HIST-05",
+    "year": 2021,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "CF Andrews & Independent Congress Party",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\n1. The St. Stephen's College teacher C.F. Andrews was closely associated with Mahatma Gandhi.\n2. In the 1920s, Madan Mohan Malaviya and Lala Lajpat Rai formed the Independent Congress Party.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Both statements are correct. C.F. Andrews was a key companion of Gandhi in South Africa and India. Malaviya and Lajpat Rai founded the Independent Congress Party in 1926.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["CF Andrews", "Independent Congress Party", "Madan Mohan Malaviya"]
+  },
+  {
+    "id": "UPSC-PRE-2020-HIST-01",
+    "year": 2020,
+    "subject": "History",
+    "topic": "Socio-Religious Reform Movements",
+    "subtopic": "Rakhmabai Case (1884)",
+    "paper": "GS-1",
+    "question": "In the context of Indian history, the Rakhmabai case of 1884 revolved around:\n1. Women's right to gain education\n2. Age of consent\n3. Restitution of conjugal rights\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 and 2 only" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "1 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The Rakhmabai case dealt with restitution of conjugal rights and child marriage, contributing directly to the Age of Consent Act 1891.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Rakhmabai Case", "Age of Consent Act 1891", "Conjugal Rights"]
+  },
+  {
+    "id": "UPSC-PRE-2020-HIST-02",
+    "year": 2020,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "Gandhi-Irwin Pact (1931)",
+    "paper": "GS-1",
+    "question": "Which of the following statements is/are correct regarding the Gandhi-Irwin Pact of 1931?\n1. Congress agreed to participate in the Round Table Conference.\n2. British Government agreed to withdraw all ordinances.\n3. British Government agreed to release all political prisoners not convicted of violence.\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 and 2 only" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "All three are correct: The Gandhi-Irwin Pact resulted in withdrawal of ordinances, release of non-violent prisoners, and Congress agreeing to join the 2nd Round Table Conference.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Gandhi-Irwin Pact", "Civil Disobedience", "Round Table Conference"]
+  },
+  {
+    "id": "UPSC-PRE-2020-HIST-03",
+    "year": 2020,
+    "subject": "History",
+    "topic": "Socio-Religious Reform Movements",
+    "subtopic": "Vital-Vidhvansak (Walangkar)",
+    "paper": "GS-1",
+    "question": "Who among the following wrote the monthly journal 'Vital-Vidhvansak' (Destroyer of Brahmanical pollution)?",
+    "options": [
+      { "id": "A", "text": "Gopal Baba Walangkar" },
+      { "id": "B", "text": "Jyotirao Phule" },
+      { "id": "C", "text": "Mohandas Karamchand Gandhi" },
+      { "id": "D", "text": "Dr. B.R. Ambedkar" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Gopal Baba Walangkar founded and published 'Vital-Vidhvansak' in 1888, highlighting Dalit rights in Maharashtra.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Vital-Vidhvansak", "Gopal Baba Walangkar", "Dalit Movements"]
+  },
+  {
+    "id": "UPSC-PRE-2020-HIST-04",
+    "year": 2020,
+    "subject": "History",
+    "topic": "Peasant, Tribal & Early Uprisings",
+    "subtopic": "Decline of Natural Indigo",
+    "paper": "GS-1",
+    "question": "Indigo cultivation in India declined by the beginning of the 20th century because of:",
+    "options": [
+      { "id": "A", "text": "Peasant resistance to the oppressive conduct of planters" },
+      { "id": "B", "text": "Its unprofitability in the world market because of new synthetic dye inventions" },
+      { "id": "C", "text": "National leaders' severe opposition to the cultivation of indigo" },
+      { "id": "D", "text": "Government control over the production of crops" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The discovery of synthetic chemical dyes in Germany in the late 19th century made natural indigo commercially non-viable.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Indigo Cultivation", "Synthetic Dyes", "Commercial Agriculture"]
+  },
+  {
+    "id": "UPSC-PRE-2020-HIST-05",
+    "year": 2020,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Wellesley's Fort William College",
+    "paper": "GS-1",
+    "question": "Wellesley established the Fort William College at Calcutta because:",
+    "options": [
+      { "id": "A", "text": "He was asked by the Board of Directors at London to do so" },
+      { "id": "B", "text": "He wanted to revive interest in oriental learning in India" },
+      { "id": "C", "text": "He wanted to provide William Carey and his associates with employment" },
+      { "id": "D", "text": "He wanted to train British civilians for administrative purpose in India" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Lord Wellesley established Fort William College in 1800 to instruct British civil servants in Indian languages, laws, and administrative systems.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Fort William College", "Lord Wellesley", "Civil Service Training"]
+  },
+  {
+    "id": "UPSC-PRE-2019-HIST-01",
+    "year": 2019,
+    "subject": "History",
+    "topic": "Important Personalities, Organizations & Literature",
+    "subtopic": "Socio-Political Organizations",
+    "paper": "GS-1",
+    "question": "Consider the following pairs:\n1. All India Anti-Untouchability League : Mahatma Gandhi\n2. All India Kisan Sabha : Swami Sahajanand Saraswati\n3. Self-Respect Movement : E.V. Ramaswamy Naicker\nWhich of the pairs given above is/are correctly matched?",
+    "options": [
+      { "id": "A", "text": "1 and 2 only" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "1 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "All three pairs are correct: Gandhi founded the Anti-Untouchability League (1932), Swami Sahajanand formed AIKS (1936), and Periyar launched the Self-Respect Movement (1925).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["AIKS", "Self-Respect Movement", "Mahatma Gandhi", "Swami Sahajanand"]
+  },
+  {
+    "id": "UPSC-PRE-2019-HIST-02",
+    "year": 2019,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Charter Act of 1813",
+    "paper": "GS-1",
+    "question": "Consider the following statements about the Charter Act of 1813:\n1. It ended the trade monopoly of the East India Company in India except for trade in tea and trade with China.\n2. It asserted the sovereignty of the British Crown over the Indian territories held by the Company.\n3. The revenues of India were now controlled by the British Parliament.\nWhich of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "1 and 2 only" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "1 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statements 1 and 2 are correct. Statement 3 is incorrect because Indian revenues came under direct parliamentary control only after the GoI Act 1858.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Charter Act 1813", "Trade Monopoly", "Crown Sovereignty"]
+  },
+  {
+    "id": "UPSC-PRE-2019-HIST-03",
+    "year": 2019,
+    "subject": "History",
+    "topic": "Indian National Movement (1885-1919)",
+    "subtopic": "Rowlatt Satyagraha (1919)",
+    "paper": "GS-1",
+    "question": "With reference to Rowlatt Satyagraha, which of the following statements is/are correct?\n1. The Rowlatt Act was based on the recommendations of the 'Sedition Committee'.\n2. In Rowlatt Satyagraha, Gandhiji tried to utilize the Home Rule League.\n3. Demonstrations against the arrival of Simon Commission coincided with Rowlatt Satyagraha.\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "1 and 2 only" },
+      { "id": "C", "text": "2 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 1 and 2 are correct. Statement 3 is incorrect as the Simon Commission arrived in 1928, nine years after the 1919 Rowlatt Act.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Rowlatt Satyagraha", "Sedition Committee", "Home Rule League"]
+  },
+  {
+    "id": "UPSC-PRE-2019-HIST-04",
+    "year": 2019,
+    "subject": "History",
+    "topic": "Indian National Movement (1885-1919)",
+    "subtopic": "Swadeshi Movement & National Education",
+    "paper": "GS-1",
+    "question": "With reference to the Swadeshi Movement, consider the following statements:\n1. It contributed to the revival of the indigenous artisan crafts and industries.\n2. The National Council of Education was established as a part of Swadeshi Movement.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Both statements are correct. Swadeshi fostered indigenous enterprises and led to the founding of the National Council of Education in 1906.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Swadeshi Movement", "National Council of Education", "Bengal Partition"]
+  },
+  {
+    "id": "UPSC-PRE-2019-HIST-05",
+    "year": 2019,
+    "subject": "History",
+    "topic": "Gandhian Era & Mass Movements (1919-1947)",
+    "subtopic": "Cabinet Mission Plan (1946)",
+    "paper": "GS-1",
+    "question": "Which of the following was NOT recommended by the Cabinet Mission Plan (1946)?",
+    "options": [
+      { "id": "A", "text": "A loose three-tier federation of British provinces and princely states" },
+      { "id": "B", "text": "Grouping of provincial assemblies into Sections A, B, and C" },
+      { "id": "C", "text": "Immediate creation of a fully sovereign separate state of Pakistan" },
+      { "id": "D", "text": "Formation of an Interim Government representing major political parties" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The Cabinet Mission rejected the demand for an independent Pakistan, proposing instead a united Indian federation with provincial groups.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Cabinet Mission Plan", "1946", "Federation", "Interim Government"]
+  },
+  {
+    "id": "UPSC-PRE-2018-HIST-01",
+    "year": 2018,
+    "subject": "History",
+    "topic": "Peasant, Tribal & Early Uprisings",
+    "subtopic": "Santhal Parganas Non-Regulation District",
+    "paper": "GS-1",
+    "question": "After the Santhal Uprising subsided, what was/were the measure/measures taken by the colonial government?\n1. The territories called 'Santhal Parganas' were created.\n2. It became illegal for a Santhal to transfer land to a non-Santhal.\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Both statements are correct. The British created the Santhal Parganas district and passed tenancy laws barring transfer of tribal land to outsiders.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Santhal Parganas", "Tribal Land Protection", "Santhal Rebellion"]
+  },
+  {
+    "id": "UPSC-PRE-2018-HIST-02",
+    "year": 2018,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Factories Act 1881 & N.M. Lokhande",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\n1. The Factories Act, 1881 was passed with a view to fix the wages of industrial workers and to allow the workers to form trade unions.\n2. N.M. Lokhande was a pioneer in organizing the labour movement in British India.\nWhich of the above statements is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: The 1881 Act regulated child labour only, without touching adult wages or union rights. Statement 2 is correct: Lokhande founded the Bombay Mill Hands Association (1890).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Factories Act 1881", "NM Lokhande", "Labor Movement"]
+  },
+  {
+    "id": "UPSC-PRE-2018-HIST-03",
+    "year": 2018,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Ryotwari Settlement Pioneers",
+    "paper": "GS-1",
+    "question": "Who among the following was/were associated with the introduction of Ryotwari Settlement in India during the British rule?\n1. Lord Cornwallis\n2. Alexander Read\n3. Thomas Munro\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "1 and 3 only" },
+      { "id": "C", "text": "2 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Captain Alexander Read and Sir Thomas Munro introduced and formalized the Ryotwari system in the Madras Presidency.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Ryotwari Settlement", "Thomas Munro", "Alexander Read"]
+  },
+  {
+    "id": "UPSC-PRE-2018-HIST-04",
+    "year": 2018,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "English Education Controversy",
+    "paper": "GS-1",
+    "question": "Which of the following led to the introduction of English Education in India?\n1. Charter Act of 1813\n2. General Committee of Public Instruction, 1823\n3. Orientalist and Anglicist Controversy\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 and 2 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "1 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "All three elements contributed directly to the institutionalization of English education (culminating in Macaulay's Minute 1835).",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["English Education", "Charter Act 1813", "Anglicist-Orientalist", "Macaulay Minute"]
+  },
+  {
+    "id": "UPSC-PRE-2018-HIST-05",
+    "year": 2018,
+    "subject": "History",
+    "topic": "British Expansion, Administration & Constitutional Acts",
+    "subtopic": "Subsidiary Alliance System",
+    "paper": "GS-1",
+    "question": "Which one of the following is NOT a feature of the Subsidiary Alliance system devised by Lord Wellesley?",
+    "options": [
+      { "id": "A", "text": "The Indian ruler had to maintain a British subsidiary force within his territory." },
+      { "id": "B", "text": "The Indian ruler could declare war or enter into negotiations with any other state with British consent." },
+      { "id": "C", "text": "The British promised not to interfere in the internal affairs of the allied state." },
+      { "id": "D", "text": "The allied state was free to employ Europeans without consulting the British." }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Under the Subsidiary Alliance, allied Indian rulers were strictly prohibited from employing Europeans in their service without British approval.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Subsidiary Alliance", "Lord Wellesley", "British Expansion"]
+  }
+]

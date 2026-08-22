@@ -1,0 +1,81 @@
+[
+  {
+    "id": "UPSC-MAINS-2025-GS3-01",
+    "year": 2025,
+    "paper": "GS-3",
+    "subject": "Indian Economy",
+    "topic": "Inclusive Growth & Digital Economy",
+    "subtopic": "Digital Public Infrastructure",
+    "question": "Digital Public Infrastructure (DPI) has emerged as India's transformative export for financial inclusion and public service delivery. Discuss the socio-economic dividends and the emerging challenges of the DPI model.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Discuss",
+    "directiveGuidance": "Cover both transformative achievements (JAM, UPI, ONDC) and structural risks (digital divide, data privacy, cybersecurity).",
+    "framework": {
+      "introduction": "India's Digital Public Infrastructure (DPI)—anchored on the India Stack (Aadhaar identity, UPI interoperable payments, and DigiLocker/Account Aggregator data exchange)—has achieved in under a decade what would have taken 47 years using conventional brick-and-mortar financial inclusion.",
+      "dimensions": [
+        {
+          "heading": "Socio-Economic Dividends of India's DPI",
+          "points": [
+            "Financial Inclusion: Jan Dhan-Aadhaar-Mobile (JAM) trinity enabled 500M+ bank accounts with direct benefit transfer (DBT), plugging leakages worth ₹2.7 lakh crore+.",
+            "Democratizing Commerce: Open Network for Digital Commerce (ONDC) and UPI unbundling monopolistic e-commerce and merchant payments.",
+            "Credit Democratization: Account Aggregator framework enabling collateral-free flow-based lending for MSMEs."
+          ]
+        },
+        {
+          "heading": "Emerging Challenges & Vulnerabilities",
+          "points": [
+            "Digital & Gender Divide: Disparities in smartphone access and digital literacy in rural/tribal belts.",
+            "Data Privacy & Surveillance: Ensuring consent management and DPDP Act 2023 compliance across distributed APIs.",
+            "Systemic Cybersecurity Risks: UPI fraud, identity theft, and algorithmic bias in credit underwriting."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "DPI Layer Stack: Identity (Aadhaar) -> Payments (UPI) -> Data Governance (DEPA/Account Aggregator) -> Open Rails (ONDC)",
+      "caseLawsOrArticlesOrCommittees": ["Bank for International Settlements (BIS) Report 2023", "World Bank G20 DPI Policy Recommendations"],
+      "conclusion": "India's DPI represents a citizen-centric, open-source technological architecture that must now be reinforced with robust grievance redressal and AI-driven cyber defense to sustain universal digital trust.",
+      "keywords": ["Digital Public Infrastructure", "India Stack", "Account Aggregator", "JAM Trinity", "ONDC", "DPDP Act 2023", "Flow-based Lending"]
+    },
+    "important": true,
+    "syllabusTags": ["Indian Economy", "Digital Public Infrastructure", "Financial Inclusion", "Inclusive Growth"]
+  },
+  {
+    "id": "UPSC-MAINS-2025-GS3-02",
+    "year": 2025,
+    "paper": "GS-3",
+    "subject": "Environment & Disaster Management",
+    "topic": "Renewable Energy Transition",
+    "subtopic": "Green Hydrogen Mission",
+    "question": "National Green Hydrogen Mission is pivotal to decarbonizing India's hard-to-abate industrial sectors. Examine the technological, economic, and infrastructure bottlenecks in achieving the 5 MMT target by 2030.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Examine",
+    "directiveGuidance": "Critically analyze electrolyzer manufacturing, renewable electricity cost, water availability, and storage/transport logistics.",
+    "framework": {
+      "introduction": "Launched with an outlay of ₹19,744 crore, the National Green Hydrogen Mission aims to establish India as a global green hydrogen production and export hub, targeting 5 MMT annual capacity by 2030 and abating 50 MMT CO2 emissions.",
+      "dimensions": [
+        {
+          "heading": "Strategic Imperative in Hard-to-Abate Sectors",
+          "points": [
+            "Decarbonizing steel manufacturing, ammonia/fertilizers, oil refineries, and heavy long-haul transportation where direct electrification is unviable."
+          ]
+        },
+        {
+          "heading": "Technological & Economic Bottlenecks",
+          "points": [
+            "Electrolyzer Supply Chain: Dependency on imported critical minerals (iridium, platinum) and domestic stack manufacturing deficits (SIGHT scheme aims to mitigate).",
+            "Cost Disparity: Green hydrogen costs ($4-6/kg) compared to fossil grey hydrogen ($1.5-2/kg); requires low-cost RTC renewable power (<₹2.5/kWh).",
+            "Water Scarcity: Production requires ~9 liters demineralized water per kg H2, creating ecological competition in arid renewable energy belts.",
+            "Storage & Logistics: High embrittlement risks requiring cryogenic liquid tanks or ammonia pipeline blending."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Green H2 Value Chain: RTC RE -> Electrolyzer (SIGHT) -> Cryogenic/Ammonia Transport -> Hard-to-Abate Sinks (Steel/Fertilizer)",
+      "caseLawsOrArticlesOrCommittees": ["NITI Aayog Harnessing Green Hydrogen Report", "SIGHT Scheme (Strategic Interventions for Green Hydrogen Transition)"],
+      "conclusion": "Scaling green hydrogen demands integrated demand mandates, public-private pilot financing, and green export corridors, turning India from an energy importer to a clean energy superpower.",
+      "keywords": ["Green Hydrogen Mission", "SIGHT Scheme", "Electrolyzers", "Hard-to-Abate Sectors", "Decarbonization", "Net Zero 2070"]
+    },
+    "important": true,
+    "syllabusTags": ["Green Hydrogen", "Energy Security", "Climate Change Mitigation", "Infrastructure"]
+  }
+]

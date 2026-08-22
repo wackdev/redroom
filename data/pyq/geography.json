@@ -1,0 +1,622 @@
+[
+  {
+    "id": "UPSC-PRE-2026-GEO-01",
+    "year": 2026,
+    "subject": "Geography",
+    "topic": "Climatology & Meteorology",
+    "subtopic": "Jet Streams & Planetary Wind Systems",
+    "paper": "GS-1",
+    "question": "With reference to the atmospheric circulation and Jet Streams, consider the following statements:\n1. Jet streams are narrow bands of strong winds that flow from east to west in the upper troposphere.\n2. The Polar Front Jet Stream is generally stronger and more continuous during the winter season than during summer.\n3. The Tropical Easterly Jet stream plays a crucial role in establishing the southwest monsoon over the Indian subcontinent.\nHow many of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 2 and 3 are correct:\n- Statement 1 is incorrect: Jet streams are high-altitude geostrophic winds that blow predominantly from West to East in the upper troposphere due to the Coriolis effect.\n- Statement 2 is correct: Temperature gradients between polar and tropical air masses are steepest during winter, making the Polar Jet Stream significantly faster and stronger in winter.\n- Statement 3 is correct: The Tropical Easterly Jet (TEJ), steered by the intense heating of the Tibetan Plateau, induces low-level cross-equatorial flow that strengthens the Southwest Monsoon.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Jet Streams", "TEJ", "Monsoon", "Climatology"]
+  },
+  {
+    "id": "UPSC-PRE-2026-GEO-02",
+    "year": 2026,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Peninsular River Drainage & Estuaries",
+    "paper": "GS-1",
+    "question": "Consider the following rivers of India:\n1. Narmada\n2. Tapi\n3. Sharavati\n4. Bharathapuzha\nHow many of the above rivers flow westward and form estuaries instead of deltas?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "Only three" },
+      { "id": "D", "text": "All four" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "All four rivers flow westward into the Arabian Sea:\n- Narmada and Tapi flow through structural rift valleys between the Satpura and Vindhya ranges.\n- Sharavati (Karnataka) and Bharathapuzha (Kerala) originate on the steep western slopes of the Western Ghats.\nDue to steep gradients, short courses, and hard rocky terrain, west-flowing rivers do not carry massive sediment loads and thus form estuaries rather than extensive depositional deltas.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Indian Drainage", "West Flowing Rivers", "Narmada", "Estuaries"]
+  },
+  {
+    "id": "UPSC-PRE-2026-GEO-03",
+    "year": 2026,
+    "subject": "Geography",
+    "topic": "World Mapping & Regional Geography",
+    "subtopic": "Critical Mineral Belts & Lithium Triangle",
+    "paper": "GS-1",
+    "question": "The region known as the 'Lithium Triangle', which contains more than half of the world's identified lithium reserves, spans across which of the following groups of countries?",
+    "options": [
+      { "id": "A", "text": "Argentina, Bolivia, and Chile" },
+      { "id": "B", "text": "Chile, Peru, and Ecuador" },
+      { "id": "C", "text": "Brazil, Argentina, and Paraguay" },
+      { "id": "D", "text": "Bolivia, Colombia, and Venezuela" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The 'Lithium Triangle' is an intersection of high-altitude salt flats (Salars like Salar de Uyuni and Salar de Atacama) located in the Andes mountains spanning Argentina, Bolivia, and Chile, holding roughly 54% of global lithium resources.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Lithium Triangle", "World Geography", "Critical Minerals", "South America"]
+  },
+  {
+    "id": "UPSC-PRE-2025-GEO-01",
+    "year": 2025,
+    "subject": "Geography",
+    "topic": "Climatology & Meteorology",
+    "subtopic": "Mediterranean Climate Characteristics",
+    "paper": "GS-1",
+    "question": "Consider the following climatic characteristics:\n1. Dry, warm summers and mild, wet winters.\n2. Precipitation predominantly caused by shifting Westerlies in winter.\n3. Native vegetation characterized by sclerophyllous, drought-resistant scrublands (Maquis / Chaparral).\nWhich climatic region of the world exhibits all the characteristics mentioned above?",
+    "options": [
+      { "id": "A", "text": "Tropical Monsoon Climate" },
+      { "id": "B", "text": "Mediterranean Climate" },
+      { "id": "C", "text": "Steppe Climate" },
+      { "id": "D", "text": "China Type Climate" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The Mediterranean Climate (Cs type in Köppen classification) found on western continental margins between 30° and 45° latitudes is marked by dry summer trade wind influence, winter cyclonic westerlies bringing rainfall, and sclerophyllous evergreen vegetation (olives, citrus fruits, cork oak, chaparral).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Mediterranean Climate", "Koppen Classification", "Chaparral", "Westerlies"]
+  },
+  {
+    "id": "UPSC-PRE-2025-GEO-02",
+    "year": 2025,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Himalayan Passes & Connectivity",
+    "paper": "GS-1",
+    "question": "Consider the following pairs of Mountain Passes and the regions they connect:\n1. Zoji La : Srinagar and Leh\n2. Shipki La : Himachal Pradesh and Tibet\n3. Nathu La : Sikkim and Tibet\n4. Lipulekh : Uttarakhand and Tibet\nHow many of the pairs given above are correctly matched?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "Only three" },
+      { "id": "D", "text": "All four" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "All four pairs are correctly matched:\n1. Zoji La (Great Himalayas) links Srinagar with Leh and Kargil.\n2. Shipki La (Himachal Pradesh) is the gorge where the Sutlej river enters India from Tibet.\n3. Nathu La (Sikkim) connects Gangtok with the Chumbi Valley in Tibet (ancient Silk Route branch).\n4. Lipulekh (Pithoragarh, Uttarakhand) sits at the tri-junction connecting India, Nepal, and Tibet, serving the Kailash Mansarovar Yatra.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Himalayan Passes", "Zoji La", "Nathu La", "Lipulekh", "Shipki La"]
+  },
+  {
+    "id": "UPSC-PRE-2025-GEO-03",
+    "year": 2025,
+    "subject": "Geography",
+    "topic": "Geomorphology & Earth's Crust",
+    "subtopic": "Intrusive Volcanic Landforms",
+    "paper": "GS-1",
+    "question": "With reference to intrusive volcanic landforms, consider the following statements:\n1. Batholiths are large granitic bodies formed due to the cooling and solidification of magma deep inside the crust.\n2. Dykes are horizontal sheets of igneous rock that run parallel to the bedding planes.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: Batholiths are huge plutonic igneous bodies forming the core of mountain systems when magma cools at massive depths.\nStatement 2 is incorrect: Dykes (dikes) are discordant, near-vertical wall-like igneous intrusions that cut across bedding planes. Sills (or sheets) are horizontal intrusions that lie concordant/parallel to the bedding planes.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Volcanism", "Batholiths", "Dykes", "Geomorphology"]
+  },
+  {
+    "id": "UPSC-PRE-2024-GEO-01",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "World Mapping & Regional Geography",
+    "subtopic": "Red Sea Bordering Countries",
+    "paper": "GS-1",
+    "question": "Which of the following countries border the Red Sea?\n1. Saudi Arabia\n2. Yemen\n3. Egypt\n4. Sudan\n5. Eritrea\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1, 2, 3 and 4 only" },
+      { "id": "B", "text": "1, 3 and 5 only" },
+      { "id": "C", "text": "2, 4 and 5 only" },
+      { "id": "D", "text": "1, 2, 3, 4 and 5" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "The six countries bordering the Red Sea are Saudi Arabia and Yemen (Asian coast/East), and Egypt, Sudan, Eritrea, and Djibouti (African coast/West). All five listed countries share shorelines with the Red Sea.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Red Sea", "Middle East Mapping", "World Geography"]
+  },
+  {
+    "id": "UPSC-PRE-2024-GEO-02",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Waterfalls and Rivers in India",
+    "paper": "GS-1",
+    "question": "Consider the following pairs of Waterfalls and Rivers:\n1. Dhuandhar Falls : Narmada\n2. Hundru Falls : Subarnarekha\n3. Gersoppa (Jog) Falls : Sharavati\nHow many of the pairs given above are correctly matched?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "All three pairs are correct:\n1. Dhuandhar Falls is located on the Narmada River at Bhedaghat (Jabalpur, MP).\n2. Hundru Falls is located on the Subarnarekha River in Ranchi district, Jharkhand.\n3. Jog / Gersoppa Falls is created by the Sharavati River in Shivamogga district, Karnataka.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Waterfalls", "Jog Falls", "Narmada", "Subarnarekha"]
+  },
+  {
+    "id": "UPSC-PRE-2024-GEO-03",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Natural Vegetation, Soils & Agriculture Geography",
+    "subtopic": "Peat and Organic Soils",
+    "paper": "GS-1",
+    "question": "With reference to Peaty Soils in India, consider the following statements:\n1. They occur widely in areas of heavy rainfall and high humidity.\n2. They are rich in organic matter and humus content.\n3. They are generally light, porous, and highly alkaline in nature.\nHow many of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 1 and 2 are correct: Peaty soils develop in areas of heavy rainfall and high humidity (e.g. northern Bihar, coastal Odisha, Sundarbans, Kottayam/Alappuzha in Kerala). Organic matter reaches 40-50%.\nStatement 3 is incorrect: Peaty soils are heavy, dark/black, compact, and typically strongly acidic (low pH), not light, porous, or alkaline.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Peaty Soil", "Indian Soils", "Humus Content"]
+  },
+  {
+    "id": "UPSC-PRE-2023-GEO-01",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Geomorphology & Earth's Crust",
+    "subtopic": "Earthquake Waves & Shadow Zones",
+    "paper": "GS-1",
+    "question": "Consider the following statements regarding Earthquake Waves:\n1. P-waves are longitudinal waves and can travel through gaseous, liquid, and solid materials.\n2. S-waves are transverse waves and can travel only through solid materials.\n3. The shadow zone of S-waves is much larger than that of P-waves.\nHow many of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "All three statements are correct:\n1. Primary (P) waves are compressional/longitudinal waves that penetrate solids, liquids, and gases.\n2. Secondary (S) waves are shear/transverse waves unable to pass through liquid media (stopping at the outer core).\n3. The S-wave shadow zone spans the entire earth beyond 105° from the epicenter (>40% of Earth's surface), whereas the P-wave shadow zone forms a band between 105° and 145°.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Seismic Waves", "P-waves", "S-waves", "Shadow Zone", "Interior of Earth"]
+  },
+  {
+    "id": "UPSC-PRE-2023-GEO-02",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Indian Rivers & Lakes Interaction",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\n1. Jhelum River passes through Wular Lake.\n2. Krishna River directly feeds Kolleru Lake.\n3. Meandering of Gandak River formed Kanwar Lake.\nHow many of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 1 and 3 are correct:\n- Jhelum river flows through the Wular freshwater lake in Jammu & Kashmir.\n- Kanwar (Kabar) Lake in Bihar is Asia's largest freshwater oxbow lake formed by the meander cutoff of the Gandak river.\n- Statement 2 is incorrect: Kolleru Lake in Andhra Pradesh is fed directly by seasonal streams Budameru and Tammileru, not directly by the main stem of the Krishna River.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Wular Lake", "Kanwar Lake", "Kolleru Lake", "Indian Rivers"]
+  },
+  {
+    "id": "UPSC-PRE-2023-GEO-03",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "World Mapping & Regional Geography",
+    "subtopic": "Congo Basin Countries",
+    "paper": "GS-1",
+    "question": "Which one of the following is a part of the Congo Basin?",
+    "options": [
+      { "id": "A", "text": "Cameroon" },
+      { "id": "B", "text": "Nigeria" },
+      { "id": "C", "text": "South Sudan" },
+      { "id": "D", "text": "Uganda" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The Congo Basin extends across six central African countries: Cameroon, Central African Republic, Democratic Republic of the Congo, Republic of the Congo, Equatorial Guinea, and Gabon.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Congo Basin", "Africa Mapping", "World Drainage"]
+  },
+  {
+    "id": "UPSC-PRE-2023-GEO-04",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Minerals, Energy & Economic Geography",
+    "subtopic": "Ilmenite and Rutile Coastal Deposits",
+    "paper": "GS-1",
+    "question": "With reference to the coastal sands of India, 'Ilmenite' and 'Rutile', abundantly available in certain coastal tracts of India, are rich sources of which one of the following?",
+    "options": [
+      { "id": "A", "text": "Aluminium" },
+      { "id": "B", "text": "Copper" },
+      { "id": "C", "text": "Iron" },
+      { "id": "D", "text": "Titanium" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Ilmenite (FeTiO3) and Rutile (TiO2) are heavy minerals extracted from the placer beach sands of Kerala (Chavara), Tamil Nadu, and Odisha. They are principal mineral ores of Titanium.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Ilmenite", "Rutile", "Titanium", "Mineral Resources"]
+  },
+  {
+    "id": "UPSC-PRE-2023-GEO-05",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Natural Vegetation, Soils & Agriculture Geography",
+    "subtopic": "Deciduous Forest Species",
+    "paper": "GS-1",
+    "question": "Consider the following trees:\n1. Jackfruit (Artocarpus heterophyllus)\n2. Mahua (Madhuca indica)\n3. Teak (Tectona grandis)\nHow many of the above are deciduous trees?",
+    "options": [
+      { "id": "A", "text": "Only one" },
+      { "id": "B", "text": "Only two" },
+      { "id": "C", "text": "All three" },
+      { "id": "D", "text": "None" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Mahua and Teak are characteristic species of Tropical Moist and Dry Deciduous forests of India. Jackfruit is an evergreen / semi-evergreen tree native to the Western Ghats and humid tropical zones.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Deciduous Forest", "Teak", "Mahua", "Indian Vegetation"]
+  },
+  {
+    "id": "UPSC-PRE-2022-GEO-01",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Gandikota Grand Canyon",
+    "paper": "GS-1",
+    "question": "The Gandikota canyon of South India was created by which one of the following rivers?",
+    "options": [
+      { "id": "A", "text": "Cauvery" },
+      { "id": "B", "text": "Manjira" },
+      { "id": "C", "text": "Pennar" },
+      { "id": "D", "text": "Tungabhadra" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The Gandikota Grand Canyon (also known as the Grand Canyon of India) is carved by the Pennar River through the Erramala Hills in Kadapa district of Andhra Pradesh.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Gandikota", "Pennar River", "Canyons", "Peninsular Landforms"]
+  },
+  {
+    "id": "UPSC-PRE-2022-GEO-02",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Mountain Peaks and Ranges Matching",
+    "paper": "GS-1",
+    "question": "Consider the following pairs of Peak and Mountain Range:\n1. Namcha Barwa : Garhwal Himalaya\n2. Nanda Devi : Kumaon Himalaya\n3. Nokrek : Garo Hills\nWhich of the pairs given above is/are correctly matched?",
+    "options": [
+      { "id": "A", "text": "1 and 2" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "2 and 3" },
+      { "id": "D", "text": "3 only" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Pairs 2 and 3 are correct:\n- Nanda Devi is located in Chamoli/Kumaon-Garhwal Himalaya (Uttarakhand).\n- Nokrek is the highest peak in the Garo Hills (Meghalaya Plateau).\n- Pair 1 is incorrect: Namcha Barwa is located in the Eastern Himalayas (Arunachal Pradesh / Tibet border where the Tsangpo bends south), not Garhwal.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Himalayan Peaks", "Nanda Devi", "Nokrek", "Namcha Barwa"]
+  },
+  {
+    "id": "UPSC-PRE-2022-GEO-03",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "World Mapping & Regional Geography",
+    "subtopic": "Levant Region Geopolitics & Geography",
+    "paper": "GS-1",
+    "question": "The term 'Levant' often heard in the news roughly corresponds to which of the following regions?",
+    "options": [
+      { "id": "A", "text": "Region along the eastern Mediterranean shores" },
+      { "id": "B", "text": "Region along North African shores stretching from Egypt to Morocco" },
+      { "id": "C", "text": "Region along Persian Gulf and Horn of Africa" },
+      { "id": "D", "text": "The entire coastal areas of Mediterranean Sea" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The 'Levant' is a historical geographic term referring to the large area along the eastern shores of the Mediterranean Sea (comprising modern-day Syria, Lebanon, Jordan, Israel, Palestine, and parts of southern Turkey).",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Levant", "Mediterranean", "Middle East Mapping"]
+  },
+  {
+    "id": "UPSC-PRE-2022-GEO-04",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Minerals, Energy & Economic Geography",
+    "subtopic": "Monazite & Rare Earth Elements",
+    "paper": "GS-1",
+    "question": "With reference to 'Monazite' in India, consider the following statements:\n1. Monazite is a source of rare earths.\n2. Monazite contains thorium.\n3. Monazite occurs naturally in the entire Indian coastal sands in India.\n4. In India, Government authorities only can process or export monazite.\nWhich of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "1, 2 and 3 only" },
+      { "id": "B", "text": "1, 2 and 4 only" },
+      { "id": "C", "text": "3 and 4 only" },
+      { "id": "D", "text": "1, 2, 3 and 4" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 1, 2, and 4 are correct:\n- Monazite is a phosphate mineral containing rare earth elements and significant Thorium.\n- Monazite is a prescribed atomic substance managed exclusively by Indian Rare Earths Ltd. (IREL) under the Department of Atomic Energy.\n- Statement 3 is incorrect because Monazite does not occur along the entire coastline; it occurs in specific placer deposits (primarily Kerala, Tamil Nadu, Andhra Pradesh, Odisha).",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Monazite", "Thorium", "Rare Earths", "Beach Placer Minerals"]
+  },
+  {
+    "id": "UPSC-PRE-2022-GEO-05",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Climatology & Meteorology",
+    "subtopic": "Summer Solstice & Day Length",
+    "paper": "GS-1",
+    "question": "On 21st June, the Sun:",
+    "options": [
+      { "id": "A", "text": "Does not set below the horizon at the Arctic Circle" },
+      { "id": "B", "text": "Does not set below the horizon at Antarctic Circle" },
+      { "id": "C", "text": "Shines vertically overhead at noon on the Equator" },
+      { "id": "D", "text": "Shines vertically overhead at the Tropic of Capricorn" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "During the Summer Solstice in the Northern Hemisphere (June 21), the Sun is directly overhead at the Tropic of Cancer (23.5° N). The entire area north of the Arctic Circle (66.5° N) experiences 24 hours of continuous daylight (the Sun does not sink below the horizon — 'Midnight Sun').",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Summer Solstice", "Arctic Circle", "Midnight Sun", "Earth Motion"]
+  },
+  {
+    "id": "UPSC-PRE-2021-GEO-01",
+    "year": 2021,
+    "subject": "Geography",
+    "topic": "Natural Vegetation, Soils & Agriculture Geography",
+    "subtopic": "Savanna Biome Dynamics",
+    "paper": "GS-1",
+    "question": "The vegetation of savanna consists of grassland with scattered small trees, but extensive areas have no trees. The forest development in such areas is generally kept in check by one or more or a combination of some conditions. Which of the following are such conditions?\n1. Burrowing animals and termites\n2. Fire\n3. Grazing herbivores\n4. Seasonal rainfall\n5. Soil properties\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 and 2" },
+      { "id": "B", "text": "4 and 5" },
+      { "id": "C", "text": "2, 3 and 4" },
+      { "id": "D", "text": "1, 3 and 5" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Tree growth in the Savanna ecosystem is restricted primarily by severe dry seasons (seasonal rainfall), recurrent natural/anthropogenic bush fires (fire), and intense browsing/grazing by large herbivorous mammals.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Savanna Biome", "Vegetation Controls", "Ecology", "Fire Ecology"]
+  },
+  {
+    "id": "UPSC-PRE-2021-GEO-02",
+    "year": 2021,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Indus River System Tributaries",
+    "paper": "GS-1",
+    "question": "With reference to the Indus river system, of the following four rivers, three of them pour into one of them which joins the Indus directly. Among the following, which one is such river that joins the Indus directly?",
+    "options": [
+      { "id": "A", "text": "Chenab" },
+      { "id": "B", "text": "Jhelum" },
+      { "id": "C", "text": "Ravi" },
+      { "id": "D", "text": "Sutlej" }
+    ],
+    "correctAnswer": "D",
+    "explanation": "The Jhelum and Ravi rivers join the Chenab River. The combined flow of Chenab joins the Sutlej River at Panjnad. The Sutlej then flows southwest and pours the collective waters of the five Punjab tributaries directly into the Indus River near Mithankot.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Indus River System", "Sutlej", "Chenab", "Panjnad"]
+  },
+  {
+    "id": "UPSC-PRE-2021-GEO-03",
+    "year": 2021,
+    "subject": "Geography",
+    "topic": "Minerals, Energy & Economic Geography",
+    "subtopic": "Gondwana vs. Tertiary Coal Fields",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\n1. Gondwana coal fields produce over 95% of the total coal reserves of India.\n2. Gondwana coal is predominantly metallurgical coking coal with high sulphur content.\n3. Tertiary coal fields are mainly found in extra-peninsular regions like Assam, Meghalaya, and Nagaland.\nWhich of the statements given above are correct?",
+    "options": [
+      { "id": "A", "text": "1 and 2 only" },
+      { "id": "B", "text": "1 and 3 only" },
+      { "id": "C", "text": "2 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 1 and 3 are correct: Gondwana coal (found in Damodar, Mahanadi, Son, Godavari valleys) makes up ~98% of India's reserves. Tertiary coal is located in the northeastern states (Assam, Meghalaya, Arunachal Pradesh, Nagaland).\nStatement 2 is incorrect: Gondwana coal has low moisture and low sulphur content (though often high ash). Tertiary coal is known for having high sulphur and moisture content.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Coal Reserves", "Gondwana Coal", "Tertiary Coal", "Indian Minerals"]
+  },
+  {
+    "id": "UPSC-PRE-2020-GEO-01",
+    "year": 2020,
+    "subject": "Geography",
+    "topic": "Oceanography & Hydrology",
+    "subtopic": "Ocean Mean Temperature (OMT) vs SST",
+    "paper": "GS-1",
+    "question": "With reference to 'Ocean Mean Temperature' (OMT), which of the following statements is/are correct?\n1. OMT is measured up to a depth of 26°C isotherm which is 129 meters in the southwestern Indian Ocean during January - March.\n2. OMT collected during January - March can be used in assessing whether the amount of rainfall in monsoon will be less or more than a certain long-term mean.\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: The 26°C isotherm depth varies between 50 to 100 meters (not a fixed 129 meters).\nStatement 2 is correct: Scientists at INCOIS and IITM demonstrated that OMT in the southwestern Indian Ocean during Jan-March gives a much more reliable metric (over 80% accuracy) for predicting Indian summer monsoon rainfall than Sea Surface Temperature (SST).",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["OMT", "Ocean Mean Temperature", "Indian Monsoon", "Oceanography"]
+  },
+  {
+    "id": "UPSC-PRE-2020-GEO-02",
+    "year": 2020,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Brahmaputra Tributaries",
+    "paper": "GS-1",
+    "question": "Consider the following rivers:\n1. Barak\n2. Lohit\n3. Subansiri\nWhich of the above flows/flow through Arunachal Pradesh?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "1 and 3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Lohit and Subansiri originate in Tibet and flow through Arunachal Pradesh before joining the Brahmaputra River in Assam. Barak River originates in the Manipur Hills and flows through Nagaland, Manipur, Mizoram, and Assam before entering Bangladesh (it does not pass through Arunachal Pradesh).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Brahmaputra", "Lohit", "Subansiri", "Barak River", "Northeast Drainage"]
+  },
+  {
+    "id": "UPSC-PRE-2020-GEO-03",
+    "year": 2020,
+    "subject": "Geography",
+    "topic": "Minerals, Energy & Economic Geography",
+    "subtopic": "Major Minerals vs Minor Minerals",
+    "paper": "GS-1",
+    "question": "With reference to the management of minor minerals in India, consider the following statements:\n1. Sand is a 'minor mineral' according to the prevailing law in the country.\n2. The State Governments have the power to grant mining leases of minor minerals, but the powers regarding the formation of rules related to the grant of minor minerals lie with the Central Government.\n3. The State Governments have the power to frame rules to prevent illegal mining of minor minerals.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 and 3 only" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "3 only" },
+      { "id": "D", "text": "1, 2 and 3" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statements 1 and 3 are correct:\n- Under Section 3(e) of the MMDR Act 1957, sand, building stone, gravel, and clay are classified as minor minerals.\n- Under Section 15 and Section 23C of the Act, State Governments (not the Central Government) are empowered to make rules for regulating the grant of minor minerals and preventing illegal mining.\nStatement 2 is incorrect because the power to frame rules for minor minerals rests fully with State Governments.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Minor Minerals", "MMDR Act", "Sand Mining", "State Powers"]
+  },
+  {
+    "id": "UPSC-PRE-2019-GEO-01",
+    "year": 2019,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Glaciers and Source Rivers Matching",
+    "paper": "GS-1",
+    "question": "Consider the following pairs of Glacier and River:\n1. Bandarpunch : Yamuna\n2. Bara Shigri : Chenab\n3. Milam : Mandakini\n4. Siachen : Nubra\n5. Zemu : Manas\nWhich of the pairs given above are correctly matched?",
+    "options": [
+      { "id": "A", "text": "1, 2 and 4" },
+      { "id": "B", "text": "1, 3 and 4" },
+      { "id": "C", "text": "2 and 5" },
+      { "id": "D", "text": "3 and 5" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Pairs 1, 2, and 4 are correct:\n- Bandarpunch glacier (Garhwal) feeds the Yamuna River.\n- Bara Shigri (Lahaul-Spiti) feeds the Chandra river (which joins Bhaga to form Chenab).\n- Siachen Glacier meltwaters form the Nubra River in Ladakh.\n- Pair 3 is incorrect: Milam glacier feeds the Gori Ganga (tributary of Sharda/Kali), whereas Mandakini originates from Chorabari glacier near Kedarnath.\n- Pair 5 is incorrect: Zemu glacier (Sikkim) feeds the Teesta River, not the Manas.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Glaciers", "Siachen", "Bandarpunch", "Bara Shigri", "Himalayan Rivers"]
+  },
+  {
+    "id": "UPSC-PRE-2019-GEO-02",
+    "year": 2019,
+    "subject": "Geography",
+    "topic": "World Mapping & Regional Geography",
+    "subtopic": "Mediterranean Sea Bordering Countries",
+    "paper": "GS-1",
+    "question": "Which of the following countries border the Mediterranean Sea?\n1. Jordan\n2. Iraq\n3. Lebanon\n4. Syria\nSelect the correct answer using the code given below:",
+    "options": [
+      { "id": "A", "text": "1, 2 and 3" },
+      { "id": "B", "text": "2 and 3 only" },
+      { "id": "C", "text": "3 and 4 only" },
+      { "id": "D", "text": "1, 3 and 4" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Lebanon and Syria have extensive coastlines on the eastern Mediterranean Sea. Jordan (which opens only to the Gulf of Aqaba/Red Sea) and landlocked Iraq do not border the Mediterranean Sea.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Mediterranean Sea", "Lebanon", "Syria", "Middle East Mapping"]
+  },
+  {
+    "id": "UPSC-PRE-2019-GEO-03",
+    "year": 2019,
+    "subject": "Geography",
+    "topic": "Climatology & Meteorology",
+    "subtopic": "Earth Albedo & Atmospheric Radiation",
+    "paper": "GS-1",
+    "question": "On the planet Earth, most of the freshwater exists as ice caps and glaciers. Out of the remaining freshwater, the largest proportion:",
+    "options": [
+      { "id": "A", "text": "Is found in atmosphere as moisture and clouds" },
+      { "id": "B", "text": "Is found in freshwater lakes and streams" },
+      { "id": "C", "text": "Exists as groundwater" },
+      { "id": "D", "text": "Exists as soil moisture" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Of Earth's total water, ~97.5% is saline ocean water and only ~2.5% is freshwater. Of all freshwater:\n- Glaciers and Ice Caps: ~68.7%\n- Groundwater: ~30.1%\n- Surface waters (lakes, rivers, swamps): ~1.2%\nTherefore, after glaciers, groundwater forms the largest reservoir of liquid freshwater.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": ["Hydrology", "Freshwater Distribution", "Groundwater"]
+  },
+  {
+    "id": "UPSC-PRE-2018-GEO-01",
+    "year": 2018,
+    "subject": "Geography",
+    "topic": "Indian Physiography, River Systems & Drainage",
+    "subtopic": "Barren Island Volcano",
+    "paper": "GS-1",
+    "question": "Consider the following statements:\n1. The Barren Island volcano is an active volcano located in the Indian territory.\n2. Barren Island lies about 140 km east of Great Nicobar.\n3. The last time the Barren Island volcano erupted was in 1991 and it has remained inactive since then.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 and 3" },
+      { "id": "C", "text": "3 only" },
+      { "id": "D", "text": "1 and 3" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: Barren Island (in the Andaman Sea) is South Asia's only confirmed active volcano.\n- Statement 2 is incorrect: Barren Island is located about 138 km northeast of Port Blair (in the Andaman group), not east of Great Nicobar.\n- Statement 3 is incorrect: The volcano erupted in 1991, 1994-95, 2005, and has experienced frequent ongoing eruptive activity up to recent years.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["Barren Island", "Volcanism", "Andaman and Nicobar"]
+  },
+  {
+    "id": "UPSC-PRE-2018-GEO-02",
+    "year": 2018,
+    "subject": "Geography",
+    "topic": "Climatology & Meteorology",
+    "subtopic": "Indian Ocean Dipole (IOD) & Monsoon",
+    "paper": "GS-1",
+    "question": "With reference to the 'Indian Ocean Dipole (IOD)', consider the following statements:\n1. IOD phenomenon is characterized by a difference in sea surface temperature between tropical Western Indian Ocean and tropical Eastern Pacific Ocean.\n2. An IOD phenomenon can influence an El Niño's impact on the monsoon.\nWhich of the statements given above is/are correct?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: The Indian Ocean Dipole is an ocean-atmosphere interaction characterized by the difference in sea surface temperatures between the western Indian Ocean (Arabian Sea) and the eastern Indian Ocean (south of Indonesia), not the Pacific Ocean.\nStatement 2 is correct: A positive IOD brings warmer waters to the western Indian Ocean and enhances Indian monsoon rainfall, effectively neutralizing the adverse drought-inducing impacts of an El Niño.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": ["IOD", "Indian Ocean Dipole", "El Nino", "Monsoon Dynamics"]
+  },
+  {
+    "id": "UPSC-PRE-2018-GEO-03",
+    "year": 2018,
+    "subject": "Geography",
+    "topic": "Natural Vegetation, Soils & Agriculture Geography",
+    "subtopic": "Tropical Rainforest Characteristics",
+    "paper": "GS-1",
+    "question": "\"If a tropical rain forest is removed, it does not regenerate quickly as compared to a tropical deciduous forest.\" This is because:",
+    "options": [
+      { "id": "A", "text": "The soil of rain forest is deficient in nutrients" },
+      { "id": "B", "text": "Propagules of the trees in a rain forest have poor viability" },
+      { "id": "C", "text": "The rain forest species are slow-growing" },
+      { "id": "D", "text": "Exotic species invade the fertile soil of rain forest" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "In tropical rainforests, torrential rainfall causes intense leaching, washing nutrients deep down into the subsoil. Most nutrients are stored in the dense living biomass rather than in the soil. Rapid microbial decomposition recycles fallen litter immediately. Once the canopy and vegetation cover are cleared, the thin, nutrient-deficient topsoil cannot support rapid natural regeneration.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": ["Tropical Rainforest", "Soil Leaching", "Nutrient Cycling", "Biomes"]
+  }
+]

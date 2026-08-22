@@ -1,0 +1,76 @@
+[
+  {
+    "id": "UPSC-MAINS-2025-ESSAY-01",
+    "year": 2025,
+    "paper": "Essay",
+    "subject": "Philosophical & Societal Essays",
+    "topic": "Ethics & Human Destiny",
+    "subtopic": "Technology & Human Agency",
+    "question": "Artificial intelligence is creating a civilization of machines, but the future of humanity lies in cultivating the machine of compassion.",
+    "marks": 125,
+    "wordLimit": 1000,
+    "directive": "Essay Formulation",
+    "directiveGuidance": "Develop an expansive, multi-sectoral philosophical essay using historical, technological, ethical, and global governance perspectives.",
+    "framework": {
+      "introduction": "Hook with the Promethean myth or Alan Turing's prophecy contrasted with Mahatma Gandhi's caution on 'Science without Humanity'. Thesis: While generative and autonomous algorithms optimize computation, humanity's existential anchor remains empathy, moral reasoning, and compassion.",
+      "dimensions": [
+        {
+          "heading": "The Rise of Algorithmic Civilizations",
+          "points": [
+            "Cognitive Automation: AI augmenting diagnostic medicine, precision agriculture, and climate modeling.",
+            "The Algorithmic Cage: Surveillance capitalism, echo chambers, existential loneliness, and automated warfare."
+          ]
+        },
+        {
+          "heading": "The Machinery of Compassion as Counterbalance",
+          "points": [
+            "Human Agency & Moral Intuition: What machines cannot compute—moral courage, sacrifice, and spiritual synthesis.",
+            "Inclusive Technology: Directing AI towards SDG targets, assistive tech for the differently abled, and eradicating poverty."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["UNESCO Recommendation on Ethics of AI", "Bletchley Declaration on AI Safety"],
+      "conclusion": "Machines calculate; humans feel. Technology must be subordinated to human flourishing, building an enlightened civilization where artificial intelligence serves universal compassion.",
+      "keywords": ["Generative AI", "Science without Humanity", "Algorithmic Ethics", "Human Agency", "Compassionate Governance"]
+    },
+    "important": true,
+    "syllabusTags": ["Essay", "Technology & Society", "Ethics"]
+  },
+  {
+    "id": "UPSC-MAINS-2024-ESSAY-02",
+    "year": 2024,
+    "paper": "Essay",
+    "subject": "Philosophical & Societal Essays",
+    "topic": "Education & Character",
+    "subtopic": "Wisdom vs Information",
+    "question": "We are drowning in information, while starving for wisdom.",
+    "marks": 125,
+    "wordLimit": 1000,
+    "directive": "Essay Formulation",
+    "directiveGuidance": "Contrast the infodemic / data deluge of the 21st century with the perennial pursuit of discernment, wisdom, and moral purpose.",
+    "framework": {
+      "introduction": "Open with T.S. Eliot's famous poetic lament in 'The Rock': 'Where is the wisdom we have lost in knowledge? Where is the knowledge we have lost in information?'",
+      "dimensions": [
+        {
+          "heading": "The Paradox of the Information Age",
+          "points": [
+            "Data Deluge & Attention Economy: Sensory overload, dopamine addiction, and cognitive fragmentation.",
+            "Infodemic & Post-Truth: Proliferation of deepfakes and polarization disguised as facts."
+          ]
+        },
+        {
+          "heading": "Reclaiming Wisdom in Modern Life",
+          "points": [
+            "Wisdom as Ethical Discernment: The ability to weigh long-term human consequences against short-term gratification.",
+            "Transformative Pedagogy: Education focusing on critical thinking, moral philosophy, and constitutional values rather than rote data memorization."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["National Education Policy (NEP) 2020 on Critical Thinking", "T.S. Eliot 'The Rock'"],
+      "conclusion": "Information tells us what is; knowledge explains how it is; wisdom guides us on what ought to be. The salvation of our civilization lies in transmuting data into discernment.",
+      "keywords": ["Information Deluge", "Moral Discernment", "Critical Thinking", "Attention Economy", "Wisdom vs Data"]
+    },
+    "important": true,
+    "syllabusTags": ["Essay", "Philosophy", "Education"]
+  }
+]

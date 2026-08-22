@@ -1,0 +1,146 @@
+[
+  {
+    "id": "MOD-ECON-01",
+    "subject": "Economy",
+    "module_number": 1,
+    "module_title": "Fiscal Policy, National Income Accounting & Taxation",
+    "curriculum": "UPSC Civil Services Examination (CSE)",
+    "stage": "Preliminary Examination (General Studies Paper-I)",
+    "topic": "GDP, GVA, Fiscal Deficit, FRBM Act, GST Council, and Direct vs Indirect Taxes",
+    "total_questions": 5,
+    "questions": [
+      {
+        "id": "ECON_MOD01_001",
+        "syllabus_subtopic": "Fiscal Deficit & Primary Deficit Concepts",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate",
+        "question": "With reference to budgetary deficits in India, consider the following statements:\n\n1. Fiscal Deficit is defined as the excess of total expenditure over total receipts excluding borrowings.\n2. Primary Deficit is obtained by deducting interest payments from the Fiscal Deficit.\n3. Effective Revenue Deficit was introduced to exclude grants given to states for creation of capital assets from the Revenue Deficit.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Fiscal Deficit = Total Budget Expenditure - Total Non-Debt Receipts.",
+            "statement_2": "Correct. Primary Deficit = Fiscal Deficit - Interest Payments.",
+            "statement_3": "Correct. Effective Revenue Deficit = Revenue Deficit - Grants for Creation of Capital Assets."
+          },
+          "elimination_technique": "All 3 represent standard formulas used in the Union Budget documents.",
+          "concept_takeaway": "Primary deficit indicates the borrowing requirement for current expenditures excluding past debt liabilities."
+        },
+        "reference_sources": [
+          "Indian Economy by Ramesh Singh - Public Finance"
+        ]
+      },
+      {
+        "id": "ECON_MOD01_002",
+        "syllabus_subtopic": "GST Council Decision-Making Mechanism",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "High",
+        "question": "Under Article 279A of the Constitution, regarding the voting mechanism in the Goods and Services Tax (GST) Council, consider the following statements:\n\n1. Every decision of the GST Council requires a majority of not less than three-fourths (75%) of the weighted votes of the members present and voting.\n2. The vote of the Central Government has a weightage of one-third (33.33%) of the total votes cast.\n3. The votes of all the State Governments taken together have a weightage of two-thirds (66.67%) of the total votes cast.\n\nWhich of the statements given above are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 and 3 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "D",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Quorum requires 50% members; decisions require a 75% weighted majority.",
+            "statement_2": "Correct. Central Government holds 1/3rd (33.33%) voting weight.",
+            "statement_3": "Correct. All States combined hold 2/3rds (66.67%) voting weight."
+          },
+          "elimination_technique": "Neither Centre alone nor States alone can pass a resolution without mutual consensus.",
+          "concept_takeaway": "The GST Council exemplifies cooperative federalism in fiscal administration."
+        },
+        "reference_sources": [
+          "Indian Economy (Nitin Singhania / Ramesh Singh)"
+        ]
+      },
+      {
+        "id": "ECON_MOD01_003",
+        "syllabus_subtopic": "Revenue Receipts vs Capital Receipts",
+        "pattern_type": "Classification Analysis",
+        "difficulty": "Moderate",
+        "question": "Which of the following are categorized as 'Capital Receipts' in the Union Budget of India?\n\n1. Disinvestment proceeds from Public Sector Enterprises\n2. Recovery of loans and advances from State Governments\n3. Market borrowings through issuance of Treasury Bills\n4. Dividends and profits received from public sector undertakings\n\nSelect the correct answer using the code given below:",
+        "options": {
+          "A": "1, 2 and 3 only",
+          "B": "2, 3 and 4 only",
+          "C": "1 and 4 only",
+          "D": "1, 2, 3 and 4"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "item_1": "Capital Receipt: Non-debt capital receipt (reduces PSU equity assets).",
+            "item_2": "Capital Receipt: Non-debt capital receipt (reduces loan asset).",
+            "item_3": "Capital Receipt: Debt capital receipt (creates repayment liability).",
+            "item_4": "Revenue Receipt: Non-tax revenue receipt (neither creates liability nor reduces asset)."
+          },
+          "elimination_technique": "Dividends and profits are routine recurring returns on government investment (Revenue Receipt). Eliminating 4 gives Option A.",
+          "concept_takeaway": "Capital receipts either create a liability or decrease financial assets."
+        },
+        "reference_sources": [
+          "NCERT Class XII: Macroeconomics - Government Budget and the Economy"
+        ]
+      },
+      {
+        "id": "ECON_MOD01_004",
+        "syllabus_subtopic": "Monetary Policy Transmission & MCLR / EBLR",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "High",
+        "question": "With reference to the External Benchmark Lending Rate (EBLR) framework mandated by the RBI for commercial banks, consider the following statements:\n\n1. Banks are permitted to adopt either the RBI Repo Rate or Government Treasury Bill yields as their external benchmark.\n2. The interest rate under EBLR must be reset at least once every three months.\n3. The adoption of EBLR applies to all corporate loans, but retail and MSME loans continue under the MCLR framework.\n\nWhich of the statements given above is/are correct?",
+        "options": {
+          "A": "1 and 2 only",
+          "B": "2 only",
+          "C": "1 and 3 only",
+          "D": "1, 2 and 3"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "statement_1": "Correct. Banks can link to Repo Rate, 91-day T-Bill, or 182-day T-Bill yields.",
+            "statement_2": "Correct. RBI mandates interest rate resets at least once every 3 months.",
+            "statement_3": "Incorrect. EBLR was instituted specifically for retail and MSME borrowers to guarantee fast policy rate transmission."
+          },
+          "elimination_technique": "EBLR was created precisely because MCLR failed to transmit rate cuts to retail home loan and MSME borrowers.",
+          "concept_takeaway": "EBLR ensures that RBI repo rate reductions are directly passed on to consumers without bank delays."
+        },
+        "reference_sources": [
+          "RBI Circulars on External Benchmarking of Loans"
+        ]
+      },
+      {
+        "id": "ECON_MOD01_005",
+        "syllabus_subtopic": "Balance of Payments & Current Account Deficit",
+        "pattern_type": "Multi-Statement Analysis",
+        "difficulty": "Moderate",
+        "question": "Which of the following transactions are recorded under the 'Current Account' of India's Balance of Payments (BoP)?\n\n1. Export and import of merchandise goods\n2. Software and IT service exports\n3. Remittances received from non-resident Indians (NRIs) abroad\n4. Foreign Direct Investment (FDI) inflows into manufacturing\n\nSelect the correct answer using the code given below:",
+        "options": {
+          "A": "1, 2 and 3 only",
+          "B": "2, 3 and 4 only",
+          "C": "1 and 4 only",
+          "D": "1, 2, 3 and 4"
+        },
+        "correct_option": "A",
+        "explanation": {
+          "statement_analysis": {
+            "item_1": "Current Account: Merchandise trade balance (visibles).",
+            "item_2": "Current Account: Services trade balance (invisibles).",
+            "item_3": "Current Account: Unilateral transfers / remittances (invisibles).",
+            "item_4": "Capital Account: Foreign investment (FDI/FPI)."
+          },
+          "elimination_technique": "FDI causes a transfer of ownership of physical/financial assets (Capital Account). Eliminating 4 gives Option A.",
+          "concept_takeaway": "Current Account measures trade in goods/services plus net primary/secondary income."
+        },
+        "reference_sources": [
+          "Ramesh Singh - External Sector"
+        ]
+      }
+    ]
+  }
+]

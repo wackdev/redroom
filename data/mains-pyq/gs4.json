@@ -1,0 +1,79 @@
+[
+  {
+    "id": "UPSC-MAINS-2025-GS4-01",
+    "year": 2025,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Ethics in Public Administration",
+    "subtopic": "Ethical Dilemmas & Conscience",
+    "question": "'Voice of conscience is the most authentic guide for a civil servant facing statutory ambiguity.' Discuss with reference to real-world administrative decision making.",
+    "marks": 10,
+    "wordLimit": 150,
+    "directive": "Discuss",
+    "directiveGuidance": "Define voice of conscience, contrast subjective intuition with objective constitutional morality, and provide practical civil service illustrations.",
+    "framework": {
+      "introduction": "Voice of conscience is an internal moral compass grounded in empathy, integrity, and ethical principles that guides human action when codified laws are silent, ambiguous, or lead to unjust outcomes.",
+      "dimensions": [
+        {
+          "heading": "Conscience as a Compass in Administrative Ambiguity",
+          "points": [
+            "Filling Legislative Voids: In crises where rigid rules fail to protect vulnerable citizens (e.g. providing emergency relief to destitute families lacking biometric ID).",
+            "Resisting Unethical Directives: Upholding intellectual integrity and probity against illegal executive pressure.",
+            "Anchoring in Constitutional Morality: Ensuring individual conscience is not subjective whim, but harmonized with constitutional values (justice, equality, human dignity)."
+          ]
+        },
+        {
+          "heading": "Safeguards against Misguided Conscience",
+          "points": [
+            "Conscience must be tested against Gandhian Talisman (impact on the poorest), 7 Nolan Principles, and transparency mechanisms (RTI)."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["Nolan Committee on Standards in Public Life", "Gandhian Talisman", "2nd ARC 4th Report - Ethics in Governance"],
+      "conclusion": "A conscientious administrator synthesizes the letter of the law with the spirit of constitutional compassion, ensuring public power serves human dignity.",
+      "keywords": ["Voice of Conscience", "Constitutional Morality", "Gandhian Talisman", "Nolan Principles", "Discretionary Power", "Probity in Governance"]
+    },
+    "important": true,
+    "syllabusTags": ["Ethics and Human Interface", "Conscience as Source of Guidance", "Probity in Governance"]
+  },
+  {
+    "id": "UPSC-MAINS-2025-GS4-02",
+    "year": 2025,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Case Studies",
+    "subtopic": "Public Health vs Economic Livelihood",
+    "question": "You are the District Magistrate of an industrial district. A major chemical factory providing livelihood to 5,000 local workers is suspected of discharging toxic effluents into a river supplying drinking water to downstream villages, causing acute health hazards. The factory management denies the allegations and warns that an immediate shutdown will cause widespread labor unrest. (a) Identify the ethical dilemmas involved. (b) Evaluate the options available to you. (c) What course of action will you adopt, giving justifications?",
+    "marks": 20,
+    "wordLimit": 250,
+    "directive": "Evaluate and Decide",
+    "directiveGuidance": "Structure systematically: Stakeholders -> Ethical Dilemmas -> Options Evaluation -> Justified Final Action Plan.",
+    "framework": {
+      "introduction": "This case presents a classic administrative conflict between public health (Right to Life, Art 21) and economic livelihoods, involving environmental ethics, corporate accountability, and law and order maintenance.",
+      "dimensions": [
+        {
+          "heading": "Key Ethical Dilemmas",
+          "points": [
+            "Right to Clean Water and Health (Art 21) vs. Right to Livelihood of 5,000 workers.",
+            "Corporate Economic Contribution vs. Precautionary Principle & Intergenerational Equity.",
+            "Immediate Reactive Shutdown vs. Evidence-Based Procedural Justice."
+          ]
+        },
+        {
+          "heading": "Course of Action",
+          "points": [
+            "Immediate Relief: Deploy emergency mobile drinking water tankers to all affected downstream villages and set up medical screening camps.",
+            "Joint Scientific Inspection: Direct State Pollution Control Board (SPCB) and independent environmental experts to take real-time multi-point effluent samples within 24 hours.",
+            "Interim Controlled Operations: Order temporary suspension of high-effluent manufacturing lines while mandating workers receive guaranteed paid wages under the Industrial Disputes Act.",
+            "Long-term Enforcement: Mandate installation of Zero Liquid Discharge (ZLD) plant and Continuous Emission Monitoring Systems (CEMS) before full resumption."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["M.C. Mehta v. Union of India (Polluter Pays Principle)", "Vellore Citizens' Welfare Forum (Precautionary Principle)", "Article 21 & Article 48A"],
+      "conclusion": "Economic activity cannot be subsidized by the compromised health of citizens; the course of action balances decisive environmental protection with worker welfare and procedural fairness.",
+      "keywords": ["Polluter Pays Principle", "Precautionary Principle", "Zero Liquid Discharge", "Right to Life", "Corporate Accountability"]
+    },
+    "important": true,
+    "syllabusTags": ["Ethical Dilemmas", "Case Studies", "Environmental Ethics", "Public Administration"]
+  }
+]

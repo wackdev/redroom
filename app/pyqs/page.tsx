@@ -1,1815 +1,1390 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createClient } from "../../lib/supabase-client";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { MistakeType, PYQQuestion } from "@/lib/core/types";
+import { safeArray } from "@/lib/core/utils";
+import { MISTAKE_TYPE_LABELS } from "@/lib/pyq/mistake-engine";
+import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
+import {
+  diagnoseQuestionTraps,
+  calculateEliminationProbability,
+} from "@/lib/pyq/elimination-engine";
+import {
+  broadcastSyncChange,
+  subscribeToSyncChanges,
+  pushStateToCloud,
+  useCloudSync,
+} from "@/lib/sync/sync-engine";
+import { sound } from "@/lib/audio/sound-engine";
+import NeuralKnowledgeGraph from "@/components/NeuralKnowledgeGraph";
+import HistoryTimeTunnel from "@/components/HistoryTimeTunnel";
+import GeographyGlobe3D from "@/components/GeographyGlobe3D";
 
-type PYQ = {
-  id: number;
-  year: number;
-  subject: string;
-  question: string;
-  important: boolean;
-  option_a?: string | null;
-  option_b?: string | null;
-  option_c?: string | null;
-  option_d?: string | null;
-  correct_answer?: "A" | "B" | "C" | "D" | null;
-  explanation?: string | null;
-  created_at?: string;
-};
 
-type Progress = {
-  id?: number;
-  user_id: string;
-  pyq_id: number;
-  completed: boolean;
-  updated_at?: string;
-};
+const LOCAL_STORAGE_PROGRESS_KEY = "redroom_pyq_progress";
+const LOCAL_STORAGE_ATTEMPTS_KEY = "redroom_pyq_user_attempts";
+const LOCAL_STORAGE_BOOKMARKS_KEY = "redroom_pyq_bookmarks";
+const LOCAL_STORAGE_STREAK_KEY = "redroom_pyq_streak";
 
-type PracticeAttempt = {
-  selectedAnswer: string;
-  isCorrect: boolean;
-  attemptedAt: string;
-};
-
-const LOCAL_STORAGE_KEY = "redroom_pyq_progress";
-
-const SUBJECTS = [
+const SUBJECT_LIST = [
   "All Subjects",
   "Polity",
   "History",
-  "Geography",
   "Economy",
   "Environment",
+  "Geography",
   "Science & Technology",
-];
+] as const;
 
-export default function PYQPage() {
-  const supabase = useMemo(() => createClient(), []);
+interface QuestionUserAttempt {
+  selectedOption: string;
+  isRevealed: boolean;
+  isCorrect: boolean;
+  mistakeType?: MistakeType;
+  attemptedAt?: string;
+}
 
-  const [pyqs, setPyqs] = useState<PYQ[]>([]);
-  const [progress, setProgress] = useState<Progress[]>([]);
+export default function PYQCommandCenter() {
+  const router = useRouter();
+  const { isSyncing, lastSyncTime, triggerManualSync } = useCloudSync();
 
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState<number | null>(null);
+  // Core Dataset & User State
+  const [questions, setQuestions] = useState<PYQQuestion[]>(STATIC_PYQ_DATASET);
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
+  const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
+  const [userAttempts, setUserAttempts] = useState<Record<string, QuestionUserAttempt>>({});
+  const [expandedExplanationIds, setExpandedExplanationIds] = useState<Set<string>>(new Set());
 
-  const [selectedSubject, setSelectedSubject] =
-    useState("All Subjects");
+  // View Mode: 'list' | 'daily_challenge' | 'exam_sim'
+  const [viewMode, setViewMode] = useState<"list" | "daily_challenge" | "exam_sim">("list");
+  const [explorationTab, setExplorationTab] = useState<"matrix" | "constellation" | "history_tunnel" | "geo_globe">("matrix");
 
-  const [selectedYear, setSelectedYear] =
-    useState("All Years");
 
-  const [search, setSearch] = useState("");
+  // Elimination Mode & Trap States
+  const [eliminationMode, setEliminationMode] = useState<boolean>(false);
+  const [eliminatedOptions, setEliminatedOptions] = useState<Record<string, string[]>>({});
+  const [expandedTraps, setExpandedTraps] = useState<Set<string>>(new Set());
 
-  const [importantOnly, setImportantOnly] =
-    useState(false);
+  // Filters
+  const [selectedSubject, setSelectedSubject] = useState<string>("All Subjects");
+  const [selectedTopic, setSelectedTopic] = useState<string>("All Topics");
+  const [selectedYear, setSelectedYear] = useState<string>("All Years");
+  const [search, setSearch] = useState<string>("");
+  const [importantOnly, setImportantOnly] = useState<boolean>(false);
+  const [pendingOnly, setPendingOnly] = useState<boolean>(false);
+  const [bookmarksOnly, setBookmarksOnly] = useState<boolean>(false);
 
-  const [pendingOnly, setPendingOnly] =
-    useState(false);
+  // Exam Simulation States
+  const [examIndex, setExamIndex] = useState<number>(0);
+  const [examTimeRemaining, setExamTimeRemaining] = useState<number>(600);
+  const [examSubmitted, setExamSubmitted] = useState<boolean>(false);
+  const [examAnswers, setExamAnswers] = useState<Record<string, string>>({});
 
-  const [error, setError] = useState("");
+  // Daily Challenge State
+  const [dailyStreak, setDailyStreak] = useState<number>(1);
+  const [dailyQuestions, setDailyQuestions] = useState<PYQQuestion[]>([]);
+  const [dailyIndex, setDailyIndex] = useState<number>(0);
+  const [dailyAnswered, setDailyAnswered] = useState<Record<string, string>>({});
 
-  const [practiceMode, setPracticeMode] = useState(false);
-  const [practiceIndex, setPracticeIndex] = useState(0);
-  const [practiceKnown, setPracticeKnown] = useState<Record<number, boolean>>({});
-  const [practiceAttempts, setPracticeAttempts] = useState<Record<number, PracticeAttempt>>({});
-  const [practiceAnswer, setPracticeAnswer] = useState<string | null>(null);
-  const [practiceRevealed, setPracticeRevealed] = useState(false);
-  const PRACTICE_STORAGE_KEY = "redroom_pyq_practice";
-  const hasLoadedPracticeStorage = useRef(false);
-
-  /*
-  |--------------------------------------------------------------------------
-  | LOCAL BACKUP
-  |--------------------------------------------------------------------------
-  */
-
-  const loadLocalProgress = useCallback(() => {
+  // Load Saved Attempts & Progress from localStorage
+  const loadLocalState = useCallback(() => {
     try {
-      const saved = localStorage.getItem(
-        LOCAL_STORAGE_KEY
-      );
-
-      if (!saved) {
-        setProgress([]);
-        return;
+      const savedProgress = localStorage.getItem(LOCAL_STORAGE_PROGRESS_KEY);
+      if (savedProgress) {
+        const parsed = JSON.parse(savedProgress);
+        if (Array.isArray(parsed)) setCompletedIds(new Set(parsed.map(String)));
       }
 
-      const parsed = JSON.parse(saved);
-
-      if (Array.isArray(parsed)) {
-        setProgress(parsed);
+      const savedBookmarks = localStorage.getItem(LOCAL_STORAGE_BOOKMARKS_KEY);
+      if (savedBookmarks) {
+        const parsed = JSON.parse(savedBookmarks);
+        if (Array.isArray(parsed)) setBookmarkedIds(new Set(parsed.map(String)));
       }
-    } catch (err) {
-      console.error(
-        "Could not load local progress:",
-        err
-      );
 
-      setProgress([]);
+      const savedAttempts = localStorage.getItem(LOCAL_STORAGE_ATTEMPTS_KEY);
+      if (savedAttempts) {
+        const parsed = JSON.parse(savedAttempts);
+        if (parsed && typeof parsed === "object") setUserAttempts(parsed);
+      }
+
+      const savedStreak = localStorage.getItem(LOCAL_STORAGE_STREAK_KEY);
+      if (savedStreak) setDailyStreak(parseInt(savedStreak, 10) || 1);
+    } catch {
+      // Local fallback
     }
   }, []);
 
-  /*
-  |--------------------------------------------------------------------------
-  | LOAD DATA
-  |--------------------------------------------------------------------------
-  */
-
-  const loadData = useCallback(async () => {
-    setLoading(true);
-    setError("");
-
+  // Fetch remote questions in background
+  const fetchRemoteQuestions = useCallback(async () => {
     try {
-      const { data: pyqData, error: pyqError } =
-        await supabase
-          .from("pyqs")
-          .select(
-            "id,year,subject,question,important,option_a,option_b,option_c,option_d,correct_answer,explanation,created_at"
-          )
-          .order("year", { ascending: false })
-          .order("id", { ascending: true });
-
-      if (pyqError) {
-        console.error(
-          "PYQ loading error:",
-          pyqError
-        );
-
-        setError(pyqError.message);
-      } else {
-        setPyqs((pyqData || []) as PYQ[]);
+      const res = await fetch("/api/pyq");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data?.questions) && json.data.questions.length > 0) {
+        setQuestions(json.data.questions);
       }
-
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        const {
-          data: progressData,
-          error: progressError,
-        } = await supabase
-          .from("user_pyq_progress")
-          .select("*")
-          .eq("user_id", user.id);
-
-        if (progressError) {
-          console.error(
-            "Progress loading error:",
-            progressError
-          );
-
-          loadLocalProgress();
-        } else {
-          const saved =
-            (progressData || []) as Progress[];
-
-          setProgress(saved);
-
-          try {
-            localStorage.setItem(
-              LOCAL_STORAGE_KEY,
-              JSON.stringify(saved)
-            );
-          } catch {
-            // Local backup is optional.
-          }
-        }
-      } else {
-        loadLocalProgress();
-      }
-    } catch (err) {
-      console.error(err);
-      loadLocalProgress();
-    } finally {
-      setLoading(false);
-    }
-  }, [loadLocalProgress, supabase]);
+    } catch {}
+  }, []);
 
   useEffect(() => {
-    const loadTimer = window.setTimeout(() => {
-      void loadData();
-    }, 0);
+    loadLocalState();
+    void fetchRemoteQuestions();
 
-    try {
-      const saved = localStorage.getItem(PRACTICE_STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed && typeof parsed === "object") {
-          const savedPracticeIndex = Number(parsed.practiceIndex) || 0;
-          const savedPracticeKnown = parsed.practiceKnown || {};
-          const savedPracticeAttempts = parsed.practiceAttempts || {};
-
-          const timer = window.setTimeout(() => {
-            setPracticeIndex(savedPracticeIndex);
-            setPracticeKnown(savedPracticeKnown);
-            setPracticeAttempts(savedPracticeAttempts);
-            hasLoadedPracticeStorage.current = true;
-          }, 0);
-
-          return () => {
-            window.clearTimeout(loadTimer);
-            window.clearTimeout(timer);
-          };
-        }
+    const unsubscribe = subscribeToSyncChanges((type) => {
+      if (type === "pyq" || type === "all") {
+        loadLocalState();
       }
-    } catch (err) {
-      console.error("Could not load practice progress:", err);
-    }
+    });
 
-    hasLoadedPracticeStorage.current = true;
+    return unsubscribe;
+  }, [loadLocalState, fetchRemoteQuestions]);
 
-    return () => window.clearTimeout(loadTimer);
-  }, [loadData]);
-
+  // Exam Simulation Timer
   useEffect(() => {
-    if (!hasLoadedPracticeStorage.current) return;
-
-    try {
-      localStorage.setItem(
-        PRACTICE_STORAGE_KEY,
-        JSON.stringify({
-          practiceIndex,
-          practiceKnown,
-          practiceAttempts,
-        })
-      );
-    } catch {
-      // Practice backup is optional.
-    }
-  }, [practiceIndex, practiceKnown, practiceAttempts]);
-
-  function saveLocalProgress(
-    updated: Progress[]
-  ) {
-    try {
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify(updated)
-      );
-    } catch (err) {
-      console.error(
-        "Could not save local progress:",
-        err
-      );
-    }
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | COMPLETION
-  |--------------------------------------------------------------------------
-  */
-
-  const completedPyqIds = useMemo(
-    () =>
-      new Set(
-        progress
-          .filter((item) => item.completed)
-          .map((item) => Number(item.pyq_id))
-      ),
-    [progress]
-  );
-
-  function isCompleted(pyqId: number) {
-    return completedPyqIds.has(Number(pyqId));
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | TOGGLE
-  |--------------------------------------------------------------------------
-  */
-
-  async function toggleCompleted(
-    pyqId: number
-  ) {
-    if (saving === pyqId) return;
-
-    setSaving(pyqId);
-    setError("");
-
-    const currentlyCompleted =
-      isCompleted(pyqId);
-
-    const newCompleted =
-      !currentlyCompleted;
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    let updatedProgress: Progress[];
-
-    if (newCompleted) {
-      const newItem: Progress = {
-        user_id:
-          user?.id || "local-user",
-        pyq_id: pyqId,
-        completed: true,
-        updated_at:
-          new Date().toISOString(),
-      };
-
-      updatedProgress = [
-        ...progress.filter(
-          (item) =>
-            Number(item.pyq_id) !==
-            Number(pyqId)
-        ),
-        newItem,
-      ];
-    } else {
-      updatedProgress =
-        progress.filter(
-          (item) =>
-            Number(item.pyq_id) !==
-            Number(pyqId)
-        );
-    }
-
-    /*
-     * Immediate UI update
-     */
-
-    setProgress(updatedProgress);
-
-    /*
-     * Local backup
-     */
-
-    saveLocalProgress(updatedProgress);
-
-    /*
-     * Supabase
-     */
-
-    if (user) {
-      try {
-        if (newCompleted) {
-          const { error } =
-            await supabase
-              .from("user_pyq_progress")
-              .upsert(
-                {
-                  user_id: user.id,
-                  pyq_id: pyqId,
-                  completed: true,
-                  updated_at:
-                    new Date().toISOString(),
-                },
-                {
-                  onConflict:
-                    "user_id,pyq_id",
-                }
-              );
-
-          if (error) {
-            console.error(
-              "Supabase save error:",
-              error
-            );
-
-            setError(
-              "Saved locally, but database save failed."
-            );
+    let timer: NodeJS.Timeout;
+    if (viewMode === "exam_sim" && !examSubmitted && examTimeRemaining > 0) {
+      timer = setInterval(() => {
+        setExamTimeRemaining((prev) => {
+          if (prev <= 1) {
+            setExamSubmitted(true);
+            return 0;
           }
-        } else {
-          const { error } =
-            await supabase
-              .from("user_pyq_progress")
-              .delete()
-              .eq("user_id", user.id)
-              .eq("pyq_id", pyqId);
-
-          if (error) {
-            console.error(
-              "Supabase delete error:",
-              error
-            );
-
-            setError(
-              "Removed locally, but database update failed."
-            );
-          }
-        }
-      } catch (err) {
-        console.error(err);
-
-        setError(
-          "Saved locally. Database connection failed."
-        );
-      }
+          return prev - 1;
+        });
+      }, 1000);
     }
+    return () => clearInterval(timer);
+  }, [viewMode, examSubmitted, examTimeRemaining]);
 
-    setSaving(null);
-  }
+  // Dynamic Subject Counts with Robust Normalization
+  const subjectCounts = useMemo(() => {
+    const counts: Record<string, number> = {
+      "All Subjects": questions.length,
+      Polity: 0,
+      History: 0,
+      Economy: 0,
+      Environment: 0,
+      Geography: 0,
+      "Science & Technology": 0,
+    };
 
-  /*
-  |--------------------------------------------------------------------------
-  | RESET
-  |--------------------------------------------------------------------------
-  */
+    for (const q of questions) {
+      const sub = (q.subject || "").toLowerCase();
+      if (sub.includes("polity")) counts["Polity"]++;
+      else if (sub.includes("history")) counts["History"]++;
+      else if (sub.includes("economy")) counts["Economy"]++;
+      else if (sub.includes("environment")) counts["Environment"]++;
+      else if (sub.includes("geography")) counts["Geography"]++;
+      else if (sub.includes("science") || sub.includes("tech")) counts["Science & Technology"]++;
+    }
+    return counts;
+  }, [questions]);
 
-  async function resetProgress() {
-    const confirmed =
-      window.confirm(
-        "Are you sure you want to reset all PYQ progress?"
-      );
+  // Available Years
+  const availableYears = useMemo(() => {
+    const years = Array.from(new Set(questions.map((q) => q.year)));
+    return years.sort((a, b) => b - a);
+  }, [questions]);
 
-    if (!confirmed) return;
+  // Topics for Selected Subject
+  const availableTopics = useMemo(() => {
+    let filtered = questions;
+    if (selectedSubject !== "All Subjects") {
+      const s = selectedSubject.toLowerCase();
+      filtered = questions.filter((q) => (q.subject || "").toLowerCase().includes(s));
+    }
+    const topics = Array.from(new Set(filtered.map((q) => q.topic).filter(Boolean)));
+    return ["All Topics", ...topics];
+  }, [questions, selectedSubject]);
 
-    setLoading(true);
+  // Filtered Questions Engine with Robust Fuzzy Normalization
+  const filteredQuestions = useMemo(() => {
+    const qText = search.trim().toLowerCase();
+    const targetSub = selectedSubject.trim().toLowerCase();
 
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+    return safeArray(questions).filter((q) => {
+      const qSub = (q.subject || "").trim().toLowerCase();
+      const qTopic = (q.topic || "").trim().toLowerCase();
 
-      if (user) {
-        const { error } =
-          await supabase
-            .from("user_pyq_progress")
-            .delete()
-            .eq("user_id", user.id);
-
-        if (error) {
-          console.error(
-            "Reset database error:",
-            error
-          );
-        }
+      // 1. Subject Match
+      let matchSub = false;
+      if (targetSub === "all subjects") {
+        matchSub = true;
+      } else if (targetSub.includes("history")) {
+        matchSub = qSub.includes("history") || qTopic.includes("ancient") || qTopic.includes("medieval");
+      } else if (targetSub.includes("polity")) {
+        matchSub = qSub.includes("polity");
+      } else if (targetSub.includes("economy")) {
+        matchSub = qSub.includes("economy");
+      } else if (targetSub.includes("environment")) {
+        matchSub = qSub.includes("environment") || qSub.includes("ecology");
+      } else if (targetSub.includes("geography")) {
+        matchSub = qSub.includes("geography");
+      } else if (targetSub.includes("science") || targetSub.includes("tech")) {
+        matchSub = qSub.includes("science") || qSub.includes("tech");
+      } else {
+        matchSub = qSub === targetSub;
       }
 
-      setProgress([]);
+      // 2. Topic Match
+      const matchTopic =
+        selectedTopic === "All Topics" ||
+        (q.topic && q.topic.toLowerCase() === selectedTopic.toLowerCase());
 
-      localStorage.removeItem(
-        LOCAL_STORAGE_KEY
-      );
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }
+      // 3. Year Match
+      const matchYr = selectedYear === "All Years" || String(q.year) === selectedYear;
 
-  /*
-  |--------------------------------------------------------------------------
-  | YEARS
-  |--------------------------------------------------------------------------
-  */
+      // 4. Status Flags
+      const matchImp = !importantOnly || Boolean(q.important);
+      const matchPend = !pendingOnly || !completedIds.has(String(q.id));
+      const matchBook = !bookmarksOnly || bookmarkedIds.has(String(q.id));
 
-  const years = useMemo(() => {
-    const uniqueYears = Array.from(
-      new Set(pyqs.map((pyq) => pyq.year))
-    );
+      // 5. Search query
+      const matchSearch =
+        !qText ||
+        (q.question && q.question.toLowerCase().includes(qText)) ||
+        (q.subject && q.subject.toLowerCase().includes(qText)) ||
+        (q.topic && q.topic.toLowerCase().includes(qText)) ||
+        (q.explanation && q.explanation.toLowerCase().includes(qText));
 
-    return uniqueYears.sort(
-      (a, b) => b - a
-    );
-  }, [pyqs]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | FILTERED PYQS
-  |--------------------------------------------------------------------------
-  */
-
-  const filteredPYQs = useMemo(() => {
-    const searchText =
-      search.trim().toLowerCase();
-
-    return pyqs.filter((pyq) => {
-      const subjectMatch =
-        selectedSubject === "All Subjects" ||
-        pyq.subject === selectedSubject;
-
-      const yearMatch =
-        selectedYear === "All Years" ||
-        String(pyq.year) === selectedYear;
-
-      const searchMatch =
-        !searchText ||
-        pyq.question
-          .toLowerCase()
-          .includes(searchText) ||
-        pyq.subject
-          .toLowerCase()
-          .includes(searchText) ||
-        String(pyq.year).includes(
-          searchText
-        );
-
-      const importantMatch =
-        !importantOnly ||
-        pyq.important === true;
-
-      const pendingMatch =
-        !pendingOnly ||
-        !completedPyqIds.has(pyq.id);
-
-      return (
-        subjectMatch &&
-        yearMatch &&
-        searchMatch &&
-        importantMatch &&
-        pendingMatch
-      );
+      return matchSub && matchTopic && matchYr && matchImp && matchPend && matchBook && matchSearch;
     });
   }, [
-    pyqs,
+    questions,
     selectedSubject,
+    selectedTopic,
     selectedYear,
-    search,
     importantOnly,
     pendingOnly,
-    completedPyqIds,
+    bookmarksOnly,
+    search,
+    completedIds,
+    bookmarkedIds,
   ]);
 
-  /*
-  |--------------------------------------------------------------------------
-  | GLOBAL STATS
-  |--------------------------------------------------------------------------
-  */
+  // Overall Metrics
+  const completedCount = useMemo(() => {
+    return questions.filter((q) => completedIds.has(String(q.id))).length;
+  }, [questions, completedIds]);
 
-  const totalPYQs = pyqs.length;
+  const attemptedCount = useMemo(() => {
+    return Object.keys(userAttempts).length;
+  }, [userAttempts]);
 
-  const completedCount =
-    pyqs.filter((pyq) =>
-      isCompleted(pyq.id)
-    ).length;
+  const correctAttemptsCount = useMemo(() => {
+    return Object.values(userAttempts).filter((a) => a.isCorrect).length;
+  }, [userAttempts]);
 
-  const remainingCount =
-    totalPYQs - completedCount;
+  const accuracyRate = attemptedCount > 0 ? Math.round((correctAttemptsCount / attemptedCount) * 100) : 0;
+  const progressPercent = questions.length > 0 ? Math.round((completedCount / questions.length) * 100) : 0;
 
-  const accuracy =
-    totalPYQs > 0
-      ? Math.round(
-          (completedCount /
-            totalPYQs) *
-            100
-        )
-      : 0;
-
-  /*
-  |--------------------------------------------------------------------------
-  | FILTERED STATS
-  |--------------------------------------------------------------------------
-  */
-
-  const filteredCompleted =
-    filteredPYQs.filter((pyq) =>
-      isCompleted(pyq.id)
-    ).length;
-
-  const filteredProgress =
-    filteredPYQs.length > 0
-      ? Math.round(
-          (filteredCompleted /
-            filteredPYQs.length) *
-            100
-        )
-      : 0;
-
-  /*
-  |--------------------------------------------------------------------------
-  | SUBJECT STATS
-  |--------------------------------------------------------------------------
-  */
-
-  function subjectCount(
-    subject: string
-  ) {
-    return pyqs.filter(
-      (pyq) =>
-        pyq.subject === subject
-    ).length;
-  }
-
-  function subjectCompleted(
-    subject: string
-  ) {
-    return pyqs.filter(
-      (pyq) =>
-        pyq.subject === subject &&
-        isCompleted(pyq.id)
-    ).length;
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | ANALYTICS
-  |--------------------------------------------------------------------------
-  */
-
-  const subjectAnalytics = useMemo(() => {
-    const completedIds = new Set(
-      progress
-        .filter((item) => item.completed)
-        .map((item) => Number(item.pyq_id))
-    );
-
-    return Array.from(
-      new Set(
-        pyqs
-          .map((pyq) => pyq.subject)
-          .filter(Boolean)
-      )
-    )
-      .sort((a, b) => a.localeCompare(b))
-      .map((subject) => {
-        const subjectPYQs = pyqs.filter(
-          (pyq) => pyq.subject === subject
-        );
-        const completed = subjectPYQs.filter((pyq) =>
-          completedIds.has(pyq.id)
-        ).length;
-
-        return {
-          subject,
-          total: subjectPYQs.length,
-          completed,
-          remaining: subjectPYQs.length - completed,
-          reviseAgain: subjectPYQs.filter(
-            (pyq) => practiceKnown[pyq.id] === false
-          ).length,
-          attempts: subjectPYQs.reduce((count, pyq) =>
-            practiceAttempts[pyq.id] ? count + 1 : count,
-          0),
-          correctAttempts: subjectPYQs.reduce((count, pyq) =>
-            practiceAttempts[pyq.id]?.isCorrect ? count + 1 : count,
-          0),
-        };
-      });
-  }, [pyqs, progress, practiceKnown, practiceAttempts]);
-
-  const yearAnalytics = useMemo(() => {
-    const completedIds = new Set(
-      progress
-        .filter((item) => item.completed)
-        .map((item) => Number(item.pyq_id))
-    );
-
-    return years.map((year) => {
-      const yearPYQs = pyqs.filter((pyq) => pyq.year === year);
-      const completed = yearPYQs.filter((pyq) =>
-        completedIds.has(pyq.id)
-      ).length;
-
-      return {
-        year,
-        total: yearPYQs.length,
-        completed,
-        remaining: yearPYQs.length - completed,
-      };
-    });
-  }, [pyqs, progress, years]);
-
-  const hasPracticeStatusData = Object.keys(practiceKnown).length > 0;
-
-  const subjectPerformance = useMemo(() => {
-    const subjectsWithEnoughAttempts = subjectAnalytics
-      .filter((item) => item.attempts >= 3)
-      .map((item) => ({
-        ...item,
-        accuracy: Math.round(
-          (item.correctAttempts / item.attempts) * 100
-        ),
-      }));
-
-    if (subjectsWithEnoughAttempts.length < 2) return null;
-
-    const ranked = [...subjectsWithEnoughAttempts].sort(
-      (a, b) => b.accuracy - a.accuracy
-    );
-    const strongest = ranked[0];
-    const weakest = ranked[ranked.length - 1];
-
-    return strongest.accuracy === weakest.accuracy
-      ? null
-      : { strongest, weakest };
-  }, [subjectAnalytics]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | CLEAR FILTERS
-  |--------------------------------------------------------------------------
-  */
-
-  function clearFilters() {
-    setSearch("");
+  // Change Subject Filter Cleanly
+  const handleSelectSubject = (sub: string) => {
+    setSelectedSubject(sub);
+    setSelectedTopic("All Topics");
     setSelectedYear("All Years");
-    setSelectedSubject("All Subjects");
+    setSearch("");
     setImportantOnly(false);
     setPendingOnly(false);
-  }
+    setBookmarksOnly(false);
+  };
 
-  /*
-  |--------------------------------------------------------------------------
-  | PRACTICE MODE
-  |--------------------------------------------------------------------------
-  */
+  // Toggle Marked Completed Status
+  const handleToggleCompleted = (qId: number | string) => {
+    const strId = String(qId);
+    const next = new Set(completedIds);
+    const isNowDone = !next.has(strId);
 
-  const practiceQuestions = filteredPYQs;
+    if (isNowDone) next.add(strId);
+    else next.delete(strId);
 
-  const currentPractice =
-    practiceQuestions.length > 0
-      ? practiceQuestions[
-          Math.min(
-            practiceIndex,
-            practiceQuestions.length - 1
-          )
-        ]
-      : null;
+    setCompletedIds(next);
 
-  const practiceKnownCount = practiceQuestions.filter(
-    (pyq) => practiceKnown[pyq.id] === true
-  ).length;
+    try {
+      localStorage.setItem(LOCAL_STORAGE_PROGRESS_KEY, JSON.stringify(Array.from(next)));
+    } catch {}
 
-  const practiceProgress =
-    practiceQuestions.length > 0
-      ? Math.round(
-          (practiceKnownCount / practiceQuestions.length) * 100
-        )
-      : 0;
+    broadcastSyncChange("pyq");
+    void pushStateToCloud();
 
-  function startPractice() {
-    if (practiceQuestions.length === 0) return;
-    setPracticeIndex(0);
-    setPracticeAnswer(null);
-    setPracticeRevealed(false);
-    setPracticeMode(true);
-  }
+    void fetch("/api/pyq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        pyqId: strId,
+        selectedOption: userAttempts[strId]?.selectedOption || "A",
+        isCorrect: isNowDone,
+      }),
+    }).catch(() => {});
+  };
 
-  function exitPractice() {
-    setPracticeMode(false);
-  }
+  // Toggle Bookmark
+  const handleToggleBookmark = (qId: number | string) => {
+    const strId = String(qId);
+    const next = new Set(bookmarkedIds);
+    if (next.has(strId)) next.delete(strId);
+    else next.add(strId);
 
-  function markPracticeKnown(value: boolean) {
-    if (!currentPractice) return;
+    setBookmarkedIds(next);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_BOOKMARKS_KEY, JSON.stringify(Array.from(next)));
+    } catch {}
+  };
 
-    setPracticeKnown((previous) => ({
-      ...previous,
-      [currentPractice.id]: value,
-    }));
-  }
+  // Handle Option Click
+  const handleSelectOption = (question: PYQQuestion, optionId: string) => {
+    const strId = String(question.id);
+    const isCorrect = optionId === question.correctAnswer;
 
-  function choosePracticeAnswer(answer: string) {
-    if (!currentPractice || practiceRevealed) return;
+    const newAttempt: QuestionUserAttempt = {
+      selectedOption: optionId,
+      isRevealed: true,
+      isCorrect,
+      mistakeType: userAttempts[strId]?.mistakeType,
+      attemptedAt: new Date().toISOString(),
+    };
 
-    setPracticeAnswer(answer);
-    setPracticeRevealed(true);
-    setPracticeAttempts((previous) => ({
-      ...previous,
-      [currentPractice.id]: {
-        selectedAnswer: answer,
-        isCorrect: answer === currentPractice.correct_answer,
-        attemptedAt: new Date().toISOString(),
-      },
-    }));
-  }
+    const nextAttempts = { ...userAttempts, [strId]: newAttempt };
+    setUserAttempts(nextAttempts);
 
-  function nextPractice() {
-    if (!currentPractice) return;
+    if (isCorrect && !completedIds.has(strId)) {
+      const nextDone = new Set(completedIds);
+      nextDone.add(strId);
+      setCompletedIds(nextDone);
+      try {
+        localStorage.setItem(LOCAL_STORAGE_PROGRESS_KEY, JSON.stringify(Array.from(nextDone)));
+      } catch {}
+      broadcastSyncChange("pyq");
+      void pushStateToCloud();
+    }
 
-    setPracticeAnswer(null);
-    setPracticeRevealed(false);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_ATTEMPTS_KEY, JSON.stringify(nextAttempts));
+    } catch {}
 
-    setPracticeIndex((previous) =>
-      Math.min(previous + 1, practiceQuestions.length - 1)
-    );
-  }
+    void fetch("/api/pyq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        pyqId: strId,
+        selectedOption: optionId,
+        isCorrect,
+      }),
+    }).catch(() => {});
+  };
 
-  function previousPractice() {
-    setPracticeAnswer(null);
-    setPracticeRevealed(false);
+  // Toggle Explanation Reveal
+  const handleToggleExplanation = (qId: number | string) => {
+    const strId = String(qId);
+    const next = new Set(expandedExplanationIds);
+    if (next.has(strId)) next.delete(strId);
+    else next.add(strId);
+    setExpandedExplanationIds(next);
+  };
 
-    setPracticeIndex((previous) =>
-      Math.max(previous - 1, 0)
-    );
-  }
+  // Tag Mistake Type
+  const handleTagMistake = (qId: number | string, mType: MistakeType) => {
+    const strId = String(qId);
+    const existing = userAttempts[strId];
+    if (!existing) return;
 
-  /*
-  |--------------------------------------------------------------------------
-  | PRACTICE SCREEN
-  |--------------------------------------------------------------------------
-  */
+    const updated: QuestionUserAttempt = { ...existing, mistakeType: mType };
+    const nextAttempts = { ...userAttempts, [strId]: updated };
+    setUserAttempts(nextAttempts);
 
-  if (practiceMode) {
-    const options = currentPractice
-      ? [
-          { id: "A", text: currentPractice.option_a || "" },
-          { id: "B", text: currentPractice.option_b || "" },
-          { id: "C", text: currentPractice.option_c || "" },
-          { id: "D", text: currentPractice.option_d || "" },
-        ].filter((option) => option.text.trim())
-      : [];
+    try {
+      localStorage.setItem(LOCAL_STORAGE_ATTEMPTS_KEY, JSON.stringify(nextAttempts));
+    } catch {}
 
-    const answerAvailable =
-      Boolean(currentPractice?.correct_answer) &&
-      options.length === 4;
+    void fetch("/api/pyq", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        pyqId: strId,
+        selectedOption: existing.selectedOption,
+        isCorrect: false,
+        mistakeType: mType,
+      }),
+    }).catch(() => {});
+  };
 
-    const isCorrect =
-      answerAvailable &&
-      practiceAnswer === currentPractice?.correct_answer;
+  // Toggle Strike Elimination on an Option
+  const handleToggleOptionElimination = (qId: number | string, optId: string) => {
+    const strId = String(qId);
+    const currentList = eliminatedOptions[strId] || [];
+    const isEliminated = currentList.includes(optId);
+
+    const updated = isEliminated
+      ? currentList.filter((id) => id !== optId)
+      : [...currentList, optId];
+
+    setEliminatedOptions((prev) => ({ ...prev, [strId]: updated }));
+  };
+
+  // Toggle Trap Analysis Card
+  const handleToggleTrapCard = (qId: number | string) => {
+    const strId = String(qId);
+    setExpandedTraps((prev) => {
+      const next = new Set(prev);
+      if (next.has(strId)) next.delete(strId);
+      else next.add(strId);
+      return next;
+    });
+  };
+
+  // Start Daily 5-MCQ Challenge
+  const handleStartDailyChallenge = () => {
+    const pool = questions.length > 0 ? questions : STATIC_PYQ_DATASET;
+    const shuffled = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
+    setDailyQuestions(shuffled);
+    setDailyIndex(0);
+    setDailyAnswered({});
+    setViewMode("daily_challenge");
+  };
+
+  // Start Timed Exam Sim
+  const handleStartExamSim = () => {
+    const sampleSet = filteredQuestions.length > 0 ? filteredQuestions.slice(0, 20) : questions.slice(0, 20);
+    setExamIndex(0);
+    setExamAnswers({});
+    setExamSubmitted(false);
+    setExamTimeRemaining(sampleSet.length * 60);
+    setViewMode("exam_sim");
+  };
+
+  // ==========================================================================
+  // VIEW: DAILY 5-MCQ CHALLENGE MODE
+  // ==========================================================================
+  if (viewMode === "daily_challenge" && dailyQuestions.length > 0) {
+    const currentQ = dailyQuestions[dailyIndex];
+    const strId = String(currentQ.id);
+    const chosenOption = dailyAnswered[strId];
+    const isAnswered = Boolean(chosenOption);
+    const isCorrect = chosenOption === currentQ.correctAnswer;
+    const completedDailyCount = Object.keys(dailyAnswered).length;
 
     return (
-      <main className="min-h-screen bg-[#090015] px-4 py-8 text-white md:px-8">
-        <div className="mx-auto max-w-4xl">
-
-          <button
-            onClick={exitPractice}
-            className="mb-6 text-sm text-purple-300 hover:text-white"
-          >
-            ← Back to PYQ Command Centre
-          </button>
-
-          <div className="mb-6 flex flex-col gap-4 rounded-2xl border border-purple-500/20 bg-[#171027] p-5 md:flex-row md:items-center md:justify-between">
-
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-pink-400">
-                PYQ PRACTICE MODE
-              </p>
-
-              <h1 className="mt-1 text-2xl font-black">
-                Question {practiceQuestions.length ? practiceIndex + 1 : 0} / {practiceQuestions.length}
-              </h1>
-
-              <p className="mt-1 text-sm text-gray-400">
-                Select an answer to reveal the stored answer and explanation.
-              </p>
+      <main className="min-h-screen bg-[#07040e] text-white">
+        <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+          <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
+            <button
+              onClick={() => setViewMode("list")}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-bold text-purple-300 hover:bg-white/10 hover:text-white"
+            >
+              ← Exit Challenge
+            </button>
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1 rounded-full bg-amber-500/20 px-3 py-1 text-xs font-black text-amber-300">
+                <span>🔥</span>
+                <span>{dailyStreak} Day Streak</span>
+              </span>
+              <span className="text-xs text-white/50">
+                Question <strong className="text-white">{dailyIndex + 1}</strong> of {dailyQuestions.length}
+              </span>
             </div>
-
-            <div className="text-right">
-              <p className="text-xs text-gray-400">
-                Self-marked progress
-              </p>
-
-              <p className="text-2xl font-black text-purple-300">
-                {practiceProgress}%
-              </p>
-            </div>
-
           </div>
 
-          {currentPractice ? (
-            <>
-              <article className="rounded-3xl border border-purple-500/20 bg-[#171027] p-6 md:p-8">
+          <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-amber-500 to-pink-500 transition-all duration-300"
+              style={{ width: `${(completedDailyCount / dailyQuestions.length) * 100}%` }}
+            />
+          </div>
 
-                <div className="flex flex-wrap gap-2">
+          <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+            <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-4">
+              <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
+                {currentQ.subject} · {currentQ.year}
+              </span>
+              <span className="text-xs font-semibold text-white/40">{currentQ.topic}</span>
+            </div>
 
-                  <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-semibold text-purple-300">
-                    {currentPractice.subject}
-                  </span>
+            <p className="mt-6 text-base font-semibold leading-relaxed text-white/95 sm:text-lg">
+              {currentQ.question}
+            </p>
 
-                  <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300">
-                    {currentPractice.year}
-                  </span>
+            <div className="mt-6 space-y-3">
+              {safeArray(currentQ.options).map((opt) => {
+                const isSelected = chosenOption === opt.id;
+                const isRight = currentQ.correctAnswer === opt.id;
 
-                  {currentPractice.important && (
-                    <span className="rounded-full bg-yellow-500/15 px-3 py-1 text-xs font-semibold text-yellow-300">
-                      ⭐ Important
-                    </span>
-                  )}
+                let optClass = "border-white/10 bg-white/5 hover:border-purple-500/50 hover:bg-white/10 text-white/90";
+                if (isAnswered) {
+                  if (isRight) {
+                    optClass = "border-emerald-500 bg-emerald-500/20 text-emerald-200 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
+                  } else if (isSelected && !isRight) {
+                    optClass = "border-red-500 bg-red-500/20 text-red-200";
+                  } else {
+                    optClass = "border-white/5 bg-white/[0.02] text-white/40 opacity-60";
+                  }
+                }
 
-                </div>
-
-                <h2 className="mt-7 text-xl font-bold leading-8 md:text-2xl">
-                  {currentPractice.question}
-                </h2>
-
-                {answerAvailable ? (
-                  <div className="mt-8 space-y-3">
-
-                    {options.map((option) => {
-                      const selected =
-                        practiceAnswer === option.id;
-
-                      const correct =
-                        currentPractice.correct_answer === option.id;
-
-                      let optionClass =
-                        "border-white/10 bg-black/10 hover:border-purple-400/40";
-
-                      if (practiceRevealed && correct) {
-                        optionClass =
-                          "border-green-500/40 bg-green-500/10";
-                      } else if (
-                        practiceRevealed &&
-                        selected &&
-                        !correct
-                      ) {
-                        optionClass =
-                          "border-red-500/40 bg-red-500/10";
-                      } else if (selected) {
-                        optionClass =
-                          "border-purple-500 bg-purple-500/10";
-                      }
-
-                      return (
-                        <button
-                          key={option.id}
-                          onClick={() => choosePracticeAnswer(option.id)}
-                          disabled={practiceRevealed}
-                          className={`flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition disabled:cursor-default ${optionClass}`}
-                        >
-                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/10 font-bold">
-                            {option.id}
-                          </span>
-
-                          <span className="pt-1 text-sm leading-6">
-                            {option.text}
-                          </span>
-
-                          {practiceRevealed && correct && (
-                            <span className="ml-auto text-xs font-bold text-green-400">
-                              Correct
-                            </span>
-                          )}
-
-                          {practiceRevealed &&
-                            selected &&
-                            !correct && (
-                              <span className="ml-auto text-xs font-bold text-red-400">
-                                Your answer
-                              </span>
-                            )}
-                        </button>
-                      );
-                    })}
-
-                  </div>
-                ) : (
-                  <div className="mt-8 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 p-5">
-
-                    <p className="font-bold text-yellow-300">
-                      Answer not available yet
-                    </p>
-
-                    <p className="mt-2 text-sm leading-6 text-gray-400">
-                      This PYQ does not yet have all four options and a
-                      correct answer stored in Supabase.
-                    </p>
-
-                  </div>
-                )}
-
-                {practiceRevealed && answerAvailable && (
-                  <div
-                    className={`mt-6 rounded-2xl border p-5 ${
-                      isCorrect
-                        ? "border-green-500/30 bg-green-500/5"
-                        : "border-red-500/30 bg-red-500/5"
-                    }`}
-                  >
-
-                    <p
-                      className={`font-bold ${
-                        isCorrect
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }`}
-                    >
-                      {isCorrect
-                        ? "✓ Correct Answer"
-                        : "✕ Incorrect Answer"}
-                    </p>
-
-                    <p className="mt-2 text-sm text-gray-300">
-                      Correct option:{" "}
-                      <span className="font-black text-white">
-                        {currentPractice.correct_answer}
-                      </span>
-                    </p>
-
-                    {currentPractice.explanation?.trim() ? (
-                      <div className="mt-4 border-t border-white/10 pt-4">
-
-                        <p className="text-xs font-bold uppercase tracking-widest text-purple-300">
-                          Explanation
-                        </p>
-
-                        <p className="mt-2 text-sm leading-7 text-gray-300">
-                          {currentPractice.explanation}
-                        </p>
-
-                      </div>
-                    ) : (
-                      <p className="mt-4 text-sm text-gray-500">
-                        No explanation has been added for this PYQ yet.
-                      </p>
-                    )}
-
-                  </div>
-                )}
-
-                <div className="mt-8 grid gap-3 md:grid-cols-2">
-
+                return (
                   <button
-                    onClick={() => markPracticeKnown(true)}
-                    className={`rounded-xl border px-5 py-4 font-bold transition ${
-                      practiceKnown[currentPractice.id]
-                        ? "border-green-400/40 bg-green-500/10 text-green-300"
-                        : "border-white/10 bg-white/5 hover:bg-green-500/10"
-                    }`}
-                  >
-                    ✓ I Know This
-                  </button>
-
-                  <button
-                    onClick={() => markPracticeKnown(false)}
-                    className={`rounded-xl border px-5 py-4 font-bold transition ${
-                      practiceKnown[currentPractice.id] === false
-                        ? "border-yellow-400/40 bg-yellow-500/10 text-yellow-300"
-                        : "border-white/10 bg-white/5 hover:bg-yellow-500/10"
-                    }`}
-                  >
-                    🔖 Revise Again
-                  </button>
-
-                </div>
-
-                <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
-
-                  <button
-                    disabled={practiceIndex === 0}
-                    onClick={previousPractice}
-                    className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-bold disabled:opacity-30"
-                  >
-                    ← Previous
-                  </button>
-
-                  {practiceIndex < practiceQuestions.length - 1 ? (
-                    <button
-                      onClick={nextPractice}
-                      className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-3 font-bold"
-                    >
-                      Next →
-                    </button>
-                  ) : (
-                    <button
-                      onClick={exitPractice}
-                      className="rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 px-6 py-3 font-bold"
-                    >
-                      Finish Practice ✓
-                    </button>
-                  )}
-
-                </div>
-
-              </article>
-
-              <div className="mt-5 grid grid-cols-5 gap-2 md:grid-cols-10">
-
-                {practiceQuestions.map((pyq, index) => (
-                  <button
-                    key={pyq.id}
+                    key={opt.id}
+                    disabled={isAnswered}
                     onClick={() => {
-                      setPracticeIndex(index);
-                      setPracticeAnswer(null);
-                      setPracticeRevealed(false);
+                      const next = { ...dailyAnswered, [strId]: opt.id };
+                      setDailyAnswered(next);
+                      handleSelectOption(currentQ, opt.id);
                     }}
-                    className={`h-9 rounded-lg text-xs font-bold ${
-                      practiceIndex === index
-                        ? "bg-purple-600"
-                        : practiceKnown[pyq.id]
-                        ? "bg-green-500/20 text-green-300"
-                        : "bg-white/5 text-white/40"
-                    }`}
+                    className={`flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition-all ${optClass}`}
                   >
-                    {index + 1}
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xs font-bold">
+                      {opt.id}
+                    </span>
+                    <span className="pt-0.5 text-sm sm:text-base">{opt.text}</span>
                   </button>
-                ))}
+                );
+              })}
+            </div>
 
-              </div>
-
-            </>
-          ) : (
-            <div className="rounded-2xl border border-purple-500/20 bg-[#171027] p-10 text-center">
-
-              <p className="text-xl font-bold">
-                No PYQs available for practice
-              </p>
-
-              <button
-                onClick={exitPractice}
-                className="mt-5 rounded-xl bg-purple-600 px-5 py-3 font-bold"
+            {isAnswered && (
+              <div
+                className={`mt-6 rounded-2xl border p-5 ${
+                  isCorrect
+                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-100"
+                    : "border-red-500/30 bg-red-500/10 text-red-100"
+                }`}
               >
-                Back to PYQs
+                <p className="font-bold text-sm sm:text-base">
+                  {isCorrect ? "✓ Excellent! (+2.00 Marks)" : `✕ Incorrect (-0.66 Marks). Official Answer: ${currentQ.correctAnswer}`}
+                </p>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/90 border-t border-white/10 pt-2">
+                  {currentQ.explanation}
+                </p>
+              </div>
+            )}
+
+            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+              <button
+                disabled={dailyIndex === 0}
+                onClick={() => setDailyIndex((i) => i - 1)}
+                className="rounded-xl border border-white/10 px-4 py-2 text-xs font-bold disabled:opacity-30"
+              >
+                ← Prev
               </button>
 
+              {dailyIndex < dailyQuestions.length - 1 ? (
+                <button
+                  onClick={() => setDailyIndex((i) => i + 1)}
+                  className="rounded-xl bg-purple-600 px-6 py-2.5 text-xs font-bold text-white hover:bg-purple-500"
+                >
+                  Next Question →
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    const newStreak = dailyStreak + 1;
+                    setDailyStreak(newStreak);
+                    try {
+                      localStorage.setItem(LOCAL_STORAGE_STREAK_KEY, String(newStreak));
+                    } catch {}
+                    setViewMode("list");
+                  }}
+                  className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-2.5 text-xs font-bold text-white shadow-lg"
+                >
+                  Complete Challenge (+5 XP) ✓
+                </button>
+              )}
             </div>
-          )}
-
+          </article>
         </div>
       </main>
     );
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | UI
-  |--------------------------------------------------------------------------
-  */
-
-  return (
-    <main className="min-h-screen bg-[#090015] px-4 py-8 text-white md:px-8">
-
-      <div className="mx-auto max-w-7xl">
-
-        {/* BACK */}
-
-        <a
-          href="/dashboard"
-          className="mb-8 inline-block text-sm text-purple-300 hover:text-white"
-        >
-          ← Back to Dashboard
-        </a>
-
-        {/* HEADER */}
-
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-
-          <div>
-
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-pink-400">
-              UPSC Previous Year Questions
-            </p>
-
-            <h1 className="text-4xl font-black md:text-5xl">
-              PYQ Command Centre
-            </h1>
-
-            <p className="mt-2 text-gray-400">
-              Practice, track and revise your UPSC
-              Previous Year Questions.
-            </p>
-
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={startPractice}
-              disabled={filteredPYQs.length === 0}
-              className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-5 py-3 font-bold transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              🎯 Practice Filtered PYQs
-            </button>
-
-            <button
-              onClick={resetProgress}
-              className="rounded-xl border border-pink-500/30 px-5 py-3 font-semibold text-pink-400 transition hover:bg-pink-500/10"
-            >
-              Reset Progress
-            </button>
-          </div>
-
-        </div>
-
-        {/* ERROR */}
-
-        {error && (
-          <div className="mb-6 rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-300">
-            {error}
-          </div>
-        )}
-
-        {/* MAIN PROGRESS */}
-
-        <section className="mb-8 rounded-2xl border border-purple-500/20 bg-gradient-to-r from-[#20105c] via-[#3500c7] to-[#241060] p-6 shadow-2xl">
-
-          <div className="mb-3 flex items-center justify-between gap-4">
-
-            <div>
-              <p className="text-sm text-purple-200">
-                Overall PYQ Progress
-              </p>
-
-              <p className="mt-1 text-4xl font-black">
-                {accuracy}%
-              </p>
-            </div>
-
-            <p className="text-sm text-purple-200">
-              {completedCount} /{" "}
-              {totalPYQs} completed
-            </p>
-
-          </div>
-
-          <div className="h-3 overflow-hidden rounded-full bg-black/30">
-
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-pink-400 to-purple-300 transition-all duration-500"
-              style={{
-                width: `${accuracy}%`,
-              }}
-            />
-
-          </div>
-
-        </section>
-
-        {/* STATS */}
-
-        <section className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-
-          <StatCard
-            label="Total PYQs"
-            value={totalPYQs}
-          />
-
-          <StatCard
-            label="Completed"
-            value={completedCount}
-            valueClass="text-green-400"
-          />
-
-          <StatCard
-            label="Remaining"
-            value={remainingCount}
-            valueClass="text-pink-400"
-          />
-
-        </section>
-
-        {/* SUBJECT-WISE ANALYTICS */}
-
-        {!loading && subjectAnalytics.length > 0 && (
-          <section className="mb-8 rounded-2xl border border-purple-500/20 bg-[#171027] p-5 md:p-6">
-
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-pink-400">
-                  PYQ Analytics
-                </p>
-
-                <h2 className="mt-1 text-xl font-bold">
-                  Subject-wise Progress
-                </h2>
-              </div>
-
-              <p className="text-sm text-gray-400">
-                Accuracy reflects recorded practice answers on this device.
-              </p>
-
-            </div>
-
-            <div className="overflow-x-auto">
-
-              <table className="w-full min-w-[730px] text-left text-sm">
-
-                <thead className="border-b border-purple-500/20 text-xs uppercase tracking-wider text-purple-300">
-                  <tr>
-                    <th className="pb-3 pr-4 font-semibold">Subject</th>
-                    <th className="pb-3 px-4 text-right font-semibold">Total</th>
-                    <th className="pb-3 px-4 text-right font-semibold">Completed</th>
-                    <th className="pb-3 px-4 text-right font-semibold">Remaining</th>
-                    <th className="pb-3 px-4 text-right font-semibold">Accuracy</th>
-                    <th className="pb-3 pl-4 text-right font-semibold">Revise Again</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {subjectAnalytics.map((item) => (
-                    <tr
-                      key={item.subject}
-                      className="border-b border-white/5 last:border-0"
-                    >
-                      <td className="py-4 pr-4 font-semibold text-white">
-                        {item.subject}
-                      </td>
-                      <td className="py-4 px-4 text-right text-gray-300">
-                        {item.total}
-                      </td>
-                      <td className="py-4 px-4 text-right font-semibold text-green-400">
-                        {item.completed}
-                      </td>
-                      <td className="py-4 px-4 text-right font-semibold text-pink-300">
-                        {item.remaining}
-                      </td>
-                      <td className="py-4 px-4 text-right font-semibold text-purple-200">
-                        {item.attempts > 0
-                          ? `${Math.round((item.correctAttempts / item.attempts) * 100)}% (${item.attempts})`
-                          : "—"}
-                      </td>
-                      <td className="py-4 pl-4 text-right font-semibold text-yellow-300">
-                        {hasPracticeStatusData ? item.reviseAgain : "—"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-
-              </table>
-
-            </div>
-
-            {!hasPracticeStatusData && (
-              <p className="mt-4 text-xs text-gray-500">
-                Revise Again counts appear after you use the practice status controls on this device.
-              </p>
-            )}
-
-            {subjectPerformance && (
-              <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-green-400">
-                    Strongest subject
-                  </p>
-                  <p className="mt-1 font-bold text-white">
-                    {subjectPerformance.strongest.subject}
-                  </p>
-                  <p className="mt-1 text-sm text-gray-400">
-                    {subjectPerformance.strongest.accuracy}% accuracy across {subjectPerformance.strongest.attempts} attempts
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-pink-500/20 bg-pink-500/5 p-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-pink-400">
-                    Weakest subject
-                  </p>
-                  <p className="mt-1 font-bold text-white">
-                    {subjectPerformance.weakest.subject}
-                  </p>
-                  <p className="mt-1 text-sm text-gray-400">
-                    {subjectPerformance.weakest.accuracy}% accuracy across {subjectPerformance.weakest.attempts} attempts
-                  </p>
-                </div>
-              </div>
-            )}
-
-          </section>
-        )}
-
-        {/* YEAR-WISE ANALYTICS */}
-
-        {!loading && yearAnalytics.length > 0 && (
-          <section className="mb-8">
-
-            <div className="mb-4">
-              <p className="text-xs font-bold uppercase tracking-widest text-purple-400">
-                PYQ Analytics
-              </p>
-
-              <h2 className="mt-1 text-xl font-bold">
-                Year-wise Progress
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {yearAnalytics.map((item) => {
-                const completionRate = item.total > 0
-                  ? Math.round((item.completed / item.total) * 100)
-                  : 0;
-
-                return (
-                  <div
-                    key={item.year}
-                    className="rounded-2xl border border-purple-500/20 bg-[#171027] p-5"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-lg font-black text-purple-200">
-                        {item.year}
-                      </p>
-                      <p className="text-sm font-bold text-purple-300">
-                        {completionRate}%
-                      </p>
-                    </div>
-
-                    <p className="mt-3 text-sm text-gray-400">
-                      <span className="font-semibold text-green-400">{item.completed}</span> completed · {item.remaining} remaining
-                    </p>
-
-                    <p className="mt-1 text-xs text-gray-500">
-                      {item.total} PYQs total
-                    </p>
-
-                    <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-pink-400 to-purple-400 transition-all"
-                        style={{ width: `${completionRate}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-          </section>
-        )}
-
-        {/* SUBJECTS */}
-
-        <section className="mb-8">
-
-          <h2 className="mb-4 text-xl font-bold">
-            Subjects
-          </h2>
-
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7">
-
-            {SUBJECTS.map((subject) => {
-
-              const count =
-                subject === "All Subjects"
-                  ? totalPYQs
-                  : subjectCount(subject);
-
-              const done =
-                subject === "All Subjects"
-                  ? completedCount
-                  : subjectCompleted(subject);
-
-              const selected =
-                selectedSubject === subject;
-
-              return (
-                <button
-                  key={subject}
-                  onClick={() =>
-                    setSelectedSubject(
-                      subject
-                    )
-                  }
-                  className={`rounded-2xl border p-4 text-left transition ${
-                    selected
-                      ? "border-pink-400 bg-purple-700/50 shadow-lg shadow-purple-900/30"
-                      : "border-purple-500/20 bg-[#171027] hover:border-purple-400/50"
-                  }`}
-                >
-
-                  <p className="text-sm font-semibold">
-                    {subject}
-                  </p>
-
-                  <p className="mt-2 text-xs text-gray-400">
-                    {done}/{count} completed
-                  </p>
-
-                </button>
-              );
-            })}
-
-          </div>
-
-        </section>
-
-        {/* FILTERS */}
-
-        <section className="mb-8 rounded-2xl border border-purple-500/20 bg-[#171027] p-4">
-
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-
-            <input
-              value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
-              placeholder="Search PYQs..."
-              className="rounded-xl border border-purple-500/20 bg-black/20 px-4 py-3 text-white outline-none placeholder:text-gray-500 focus:border-purple-400"
-            />
-
-            <select
-              value={selectedYear}
-              onChange={(e) =>
-                setSelectedYear(
-                  e.target.value
-                )
-              }
-              className="rounded-xl border border-purple-500/20 bg-black/20 px-4 py-3 text-white outline-none"
-            >
-
-              <option value="All Years">
-                All Years
-              </option>
-
-              {years.map((year) => (
-                <option
-                  key={year}
-                  value={String(year)}
-                >
-                  {year}
-                </option>
-              ))}
-
-            </select>
-
-            <button
-              onClick={clearFilters}
-              className="rounded-xl border border-purple-500/20 bg-black/20 px-4 py-3 font-semibold transition hover:bg-purple-900/30"
-            >
-              Clear Filters
-            </button>
-
-          </div>
-
-          {/* FILTER BUTTONS */}
-
-          <div className="mt-4 flex flex-wrap gap-3">
-
-            <button
-              onClick={() =>
-                setImportantOnly(
-                  (value) => !value
-                )
-              }
-              className={`rounded-xl border px-4 py-2 text-sm font-semibold transition ${
-                importantOnly
-                  ? "border-yellow-400/50 bg-yellow-500/10 text-yellow-300"
-                  : "border-white/10 bg-white/5 text-white/50 hover:bg-white/10"
-              }`}
-            >
-              ⭐ Important Only
-            </button>
-
-            <button
-              onClick={() =>
-                setPendingOnly(
-                  (value) => !value
-                )
-              }
-              className={`rounded-xl border px-4 py-2 text-sm font-semibold transition ${
-                pendingOnly
-                  ? "border-pink-400/50 bg-pink-500/10 text-pink-300"
-                  : "border-white/10 bg-white/5 text-white/50 hover:bg-white/10"
-              }`}
-            >
-              ⏳ Pending Only
-            </button>
-
-          </div>
-
-        </section>
-
-        {/* FILTERED PROGRESS */}
-
-        <section className="mb-6 rounded-2xl border border-purple-500/20 bg-[#171027] p-5">
-
-          <div className="flex items-center justify-between gap-4">
-
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-purple-400">
-                CURRENT VIEW
-              </p>
-
-              <p className="mt-1 text-lg font-bold">
-                {filteredCompleted} /{" "}
-                {filteredPYQs.length} completed
-              </p>
-            </div>
-
-            <p className="text-2xl font-black text-purple-300">
-              {filteredProgress}%
-            </p>
-
-          </div>
-
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-pink-400 to-purple-400 transition-all"
-              style={{
-                width: `${filteredProgress}%`,
-              }}
-            />
-
-          </div>
-
-        </section>
-
-        {/* RESULT COUNT */}
-
-        <div className="mb-4 flex items-center justify-between">
-
-          <h2 className="text-xl font-bold">
-            PYQs
-          </h2>
-
-          <p className="text-sm text-gray-400">
-            Showing{" "}
-            {filteredPYQs.length}{" "}
-            questions
-          </p>
-
-        </div>
-
-        {/* LOADING */}
-
-        {loading && (
-          <div className="rounded-2xl border border-purple-500/20 bg-[#171027] p-10 text-center">
-
-            <p className="text-purple-300">
-              Loading PYQs...
-            </p>
-
-          </div>
-        )}
-
-        {/* EMPTY */}
-
-        {!loading &&
-          filteredPYQs.length === 0 && (
-            <div className="rounded-2xl border border-purple-500/20 bg-[#171027] p-10 text-center">
-
-              <p className="text-xl font-bold">
-                No PYQs found
-              </p>
-
-              <p className="mt-2 text-gray-400">
-                Try changing your filters
-                or search.
-              </p>
-
+  // ==========================================================================
+  // VIEW: TIMED EXAM SIMULATION MODE
+  // ==========================================================================
+  if (viewMode === "exam_sim") {
+    const examQuestions = filteredQuestions.length > 0 ? filteredQuestions.slice(0, 20) : questions.slice(0, 20);
+    const currentQ = examQuestions[examIndex];
+    const strId = String(currentQ.id);
+
+    const minutes = Math.floor(examTimeRemaining / 60);
+    const seconds = examTimeRemaining % 60;
+
+    const totalAttemptedInExam = Object.keys(examAnswers).length;
+    let score = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    if (examSubmitted) {
+      for (const q of examQuestions) {
+        const chosen = examAnswers[String(q.id)];
+        if (chosen) {
+          if (chosen === q.correctAnswer) {
+            score += 2.0;
+            correctCount++;
+          } else {
+            score -= 0.66;
+            wrongCount++;
+          }
+        }
+      }
+    }
+
+    return (
+      <main className="min-h-screen bg-[#07040e] text-white">
+        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl">
+            <div className="flex items-center gap-3">
               <button
-                onClick={clearFilters}
-                className="mt-5 rounded-xl bg-purple-600 px-5 py-3 font-bold"
+                onClick={() => setViewMode("list")}
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-bold text-purple-300 hover:bg-white/10 hover:text-white"
               >
-                Clear Filters
+                ← Exit Exam
               </button>
+              <span className="font-bold text-sm">🎯 UPSC Prelims Mock Simulation</span>
+            </div>
 
+            <div className="flex items-center gap-4">
+              <div
+                className={`flex items-center gap-2 rounded-xl px-4 py-1.5 font-mono text-sm font-black ${
+                  examTimeRemaining < 120
+                    ? "bg-red-500/20 text-red-300 border border-red-500/40 animate-pulse"
+                    : "bg-purple-500/20 text-purple-200 border border-purple-500/30"
+                }`}
+              >
+                <span>⏱️</span>
+                <span>
+                  {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+                </span>
+              </div>
+
+              {!examSubmitted ? (
+                <button
+                  onClick={() => setExamSubmitted(true)}
+                  className="rounded-xl bg-red-600 px-4 py-1.5 text-xs font-bold text-white shadow-lg transition hover:bg-red-500"
+                >
+                  Submit Exam ↵
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleStartExamSim()}
+                  className="rounded-xl bg-purple-600 px-4 py-1.5 text-xs font-bold text-white"
+                >
+                  Retake Exam ↺
+                </button>
+              )}
+            </div>
+          </div>
+
+          {examSubmitted && (
+            <div className="mb-8 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-950/40 via-[#0d071d] to-pink-950/40 p-6 shadow-2xl">
+              <h2 className="text-xl font-black text-purple-300">Exam Performance Scorecard</h2>
+              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-white/50">Total Score</p>
+                  <p className={`mt-1 text-2xl font-black ${score >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                    {score.toFixed(2)} / {(examQuestions.length * 2).toFixed(2)}
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-white/50">Accuracy</p>
+                  <p className="mt-1 text-2xl font-black text-pink-400">
+                    {totalAttemptedInExam > 0 ? Math.round((correctCount / totalAttemptedInExam) * 100) : 0}%
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-white/50">Correct Answers</p>
+                  <p className="mt-1 text-2xl font-black text-emerald-400">{correctCount}</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-white/50">Negative Deductions</p>
+                  <p className="mt-1 text-2xl font-black text-red-400">-{ (wrongCount * 0.66).toFixed(2) }</p>
+                </div>
+              </div>
             </div>
           )}
 
-        {/* PYQ LIST */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_260px]">
+            <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 text-xs">
+                <span className="rounded-full bg-purple-500/20 px-3 py-1 font-bold text-purple-300">
+                  Question {examIndex + 1} of {examQuestions.length}
+                </span>
+                <span className="text-white/40">{currentQ.subject} · {currentQ.year}</span>
+              </div>
 
-        <section className="space-y-4">
+              <p className="mt-6 text-base font-semibold leading-relaxed sm:text-lg">
+                {currentQ.question}
+              </p>
 
-          {filteredPYQs.map(
-            (pyq, index) => {
+              <div className="mt-6 space-y-3">
+                {safeArray(currentQ.options).map((opt) => {
+                  const isSelected = examAnswers[strId] === opt.id;
+                  const isRight = currentQ.correctAnswer === opt.id;
 
-              const completed =
-                isCompleted(pyq.id);
+                  let optClass = "border-white/10 bg-white/5 hover:border-purple-400";
+                  if (examSubmitted) {
+                    if (isRight) optClass = "border-emerald-500 bg-emerald-500/20 text-emerald-200";
+                    else if (isSelected && !isRight) optClass = "border-red-500 bg-red-500/20 text-red-200";
+                    else optClass = "border-white/5 bg-white/[0.02] text-white/40";
+                  } else if (isSelected) {
+                    optClass = "border-purple-500 bg-purple-500/20 text-white shadow-lg shadow-purple-500/20";
+                  }
+
+                  return (
+                    <button
+                      key={opt.id}
+                      disabled={examSubmitted}
+                      onClick={() => setExamAnswers((prev) => ({ ...prev, [strId]: opt.id }))}
+                      className={`flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition-all ${optClass}`}
+                    >
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xs font-bold">
+                        {opt.id}
+                      </span>
+                      <span className="pt-0.5 text-sm sm:text-base">{opt.text}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {examSubmitted && (
+                <div className="mt-6 rounded-2xl border border-purple-500/30 bg-purple-500/10 p-5 text-xs sm:text-sm leading-relaxed">
+                  <p className="font-bold text-purple-300">Official UPSC Key: {currentQ.correctAnswer}</p>
+                  <p className="mt-2 text-white/90">{currentQ.explanation}</p>
+                </div>
+              )}
+
+              <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+                <button
+                  disabled={examIndex === 0}
+                  onClick={() => setExamIndex((i) => i - 1)}
+                  className="rounded-xl border border-white/10 px-4 py-2 text-xs font-bold disabled:opacity-30"
+                >
+                  ← Prev
+                </button>
+                <button
+                  disabled={examIndex === examQuestions.length - 1}
+                  onClick={() => setExamIndex((i) => i + 1)}
+                  className="rounded-xl bg-purple-600 px-6 py-2 text-xs font-bold text-white hover:bg-purple-500 disabled:opacity-30"
+                >
+                  Next →
+                </button>
+              </div>
+            </article>
+
+            <aside className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 h-fit">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-white/50">Question Palette</h3>
+              <div className="mt-4 grid grid-cols-4 gap-2">
+                {examQuestions.map((q, idx) => {
+                  const isAns = Boolean(examAnswers[String(q.id)]);
+                  const isCur = examIndex === idx;
+
+                  let palStyle = "border-white/10 bg-white/5 text-white/60";
+                  if (isCur) palStyle = "border-purple-500 bg-purple-600 text-white font-bold ring-2 ring-purple-400";
+                  else if (isAns) palStyle = "border-emerald-500/40 bg-emerald-500/20 text-emerald-300 font-bold";
+
+                  return (
+                    <button
+                      key={q.id}
+                      onClick={() => setExamIndex(idx)}
+                      className={`h-9 rounded-xl border text-xs transition hover:scale-105 ${palStyle}`}
+                    >
+                      {idx + 1}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 border-t border-white/10 pt-4 text-[11px] text-white/50 space-y-1">
+                <p>• Attempted: <strong className="text-emerald-400">{totalAttemptedInExam}</strong></p>
+                <p>• Unanswered: <strong className="text-white/80">{examQuestions.length - totalAttemptedInExam}</strong></p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  // ==========================================================================
+  // VIEW: MAIN LIST COMMAND CENTRE
+  // ==========================================================================
+  return (
+    <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => router.push("/dashboard")}
+              data-cursor="BACK"
+              className="font-mono text-xs text-[#F4C95D] transition hover:underline"
+            >
+              ← Command Centre
+            </button>
+            <span className="text-white/20">|</span>
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A] font-mono text-xs font-black text-black">
+                ↑
+              </span>
+              <h1 className="font-mono font-black tracking-tight text-xs sm:text-sm uppercase text-white">
+                THE UPSC QUESTION ARCHIVE
+              </h1>
+              <span className="rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[10px] font-bold text-[#F4C95D]">
+                {questions.length} CLUES MAPPED
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 font-mono text-xs">
+            <button
+              onClick={() => router.push("/mains-pyqs")}
+              data-cursor="MAINS"
+              className="flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-bold text-white/80 transition hover:border-[#D8A63A]/40 hover:text-white"
+            >
+              <span>✍️</span>
+              <span className="hidden sm:inline">Mains Lab</span>
+            </button>
+
+            <button
+              onClick={handleStartDailyChallenge}
+              data-cursor="QUIZ"
+              className="flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 font-bold text-amber-200 transition hover:bg-amber-500/20"
+            >
+              <span>🔥</span>
+              <span className="hidden sm:inline">Daily 5-MCQ Quiz</span>
+            </button>
+
+            <button
+              onClick={handleStartExamSim}
+              data-cursor="EXAM"
+              className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A] bg-gradient-to-r from-[#D8A63A] to-[#B38322] px-3.5 py-1.5 font-black text-black shadow-lg transition hover:scale-105 active:scale-95"
+            >
+              <span>🎯</span>
+              <span>Timed Simulation</span>
+            </button>
+
+            <button
+              onClick={() => void triggerManualSync()}
+              title="Cloud sync"
+              className="rounded-xl border border-white/10 bg-white/5 p-1.5 text-white/70 hover:bg-white/10 hover:text-white"
+            >
+              🔄
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        <section className="mb-6 grid gap-4 lg:grid-cols-[1fr_360px]">
+          <div>
+            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-[#F4C95D]">
+              UPSC HAS BEEN LEAVING CLUES FOR YEARS
+            </p>
+            <h2 className="mt-1 text-2xl font-black md:text-3xl text-white">
+              Official Civil Services Question Archive
+            </h2>
+            <p className="mt-1 text-xs text-[#8C8C8C] leading-relaxed max-w-2xl font-sans">
+              Authentic UPSC questions mapped to standard NCERT & reference sources. Test yourself with instant inline option checking, mistake tracking, and full official explanations.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-4 flex flex-col justify-between shadow-xl">
+            <div className="flex items-center justify-between text-xs font-mono">
+              <span className="font-bold uppercase tracking-wider text-white/60">Preparation Momentum</span>
+              <span className="font-black text-[#F4C95D]">{progressPercent}% of Your Journey Built</span>
+            </div>
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-[#D8A63A] to-[#F4C95D] transition-all duration-500"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+            <div className="mt-2 flex items-center justify-between text-[11px] font-mono text-white/50">
+              <span>Solved: <strong className="text-white">{completedCount}</strong> / {questions.length}</span>
+              <span>Accuracy: <strong className="text-emerald-400">{accuracyRate}%</strong></span>
+              <span>Streak: <strong className="text-amber-300">🔥 {dailyStreak}d</strong></span>
+            </div>
+          </div>
+        </section>
+
+        {/* 3D IMMERSIVE EXPLORATION SWITCHER */}
+        <section className="mb-6 flex flex-wrap items-center gap-2 rounded-2xl border border-[#D8A63A]/30 bg-[#0d0d0d] p-2 shadow-xl">
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("matrix");
+            }}
+            data-cursor="MATRIX"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "matrix"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>⚡</span>
+            <span>Question Archive Matrix</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("constellation");
+            }}
+            data-cursor="NEURAL"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "constellation"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🌌</span>
+            <span>The UPSC Universe Constellation</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("history_tunnel");
+            }}
+            data-cursor="WARP"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "history_tunnel"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>⏳</span>
+            <span>History 3D Time Tunnel</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("geo_globe");
+            }}
+            data-cursor="GLOBE"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "geo_globe"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🌍</span>
+            <span>Geography 3D Earth</span>
+          </button>
+        </section>
+
+
+        {/* RENDER ACTIVE 3D EXPLORATION VIEW */}
+        {explorationTab === "constellation" && (
+          <div className="mb-8">
+            <NeuralKnowledgeGraph
+              activeSubject={selectedSubject}
+              onSelectSubject={(subj) => {
+                handleSelectSubject(subj);
+                setExplorationTab("matrix");
+              }}
+            />
+          </div>
+        )}
+
+        {explorationTab === "history_tunnel" && (
+          <div className="mb-8">
+            <HistoryTimeTunnel />
+          </div>
+        )}
+
+        {explorationTab === "geo_globe" && (
+          <div className="mb-8">
+            <GeographyGlobe3D />
+          </div>
+        )}
+
+        {/* SUBJECT FILTER PILLS WITH ROBUST RESET */}
+        <section className="mb-4 flex flex-wrap gap-2">
+          {SUBJECT_LIST.map((sub) => {
+            const count = subjectCounts[sub] || 0;
+            const isSelected = selectedSubject === sub;
+
+            return (
+              <button
+                key={sub}
+                onClick={() => handleSelectSubject(sub)}
+                data-cursor="FILTER"
+                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 font-mono text-xs font-bold transition-all ${
+                  isSelected
+                    ? "border border-[#FF1B1B] bg-[#FF1B1B] text-black shadow-[0_0_15px_rgba(255,27,27,0.4)] scale-105"
+                    : "border border-white/10 bg-[#0d0d0d] text-white/60 hover:border-white/30 hover:text-white"
+                }`}
+              >
+                <span>{sub}</span>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
+                    isSelected ? "bg-black/30 text-white" : "bg-white/10 text-white/50"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </section>
+
+
+        {/* TOPIC CHIPS IF FILTERED */}
+        {availableTopics.length > 2 && (
+          <section className="mb-5 flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+            <span className="shrink-0 text-[11px] font-bold uppercase text-white/40">Topic:</span>
+            {availableTopics.map((top) => (
+              <button
+                key={top}
+                onClick={() => setSelectedTopic(top)}
+                className={`shrink-0 rounded-lg px-2.5 py-1 transition ${
+                  selectedTopic === top
+                    ? "bg-fuchsia-600 text-white font-bold"
+                    : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {top}
+              </button>
+            ))}
+          </section>
+        )}
+
+        {/* SEARCH & SECONDARY CONTROLS */}
+        <section className="mb-6 grid gap-2.5 rounded-2xl border border-white/10 bg-white/[0.04] p-3 sm:grid-cols-[1fr_150px_auto_auto_auto]">
+          <input
+            type="text"
+            placeholder="Search questions, articles, acts, concepts..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="rounded-xl border border-white/10 bg-black/30 px-3.5 py-2 text-xs text-white outline-none placeholder:text-white/30 focus:border-purple-500"
+          />
+
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            className="rounded-xl border border-white/10 bg-[#120a22] px-3 py-2 text-xs font-semibold text-white outline-none focus:border-purple-500"
+          >
+            <option value="All Years">All Years ({availableYears.length})</option>
+            {availableYears.map((yr) => (
+              <option key={yr} value={String(yr)}>
+                {yr} ({questions.filter((q) => q.year === yr).length})
+              </option>
+            ))}
+          </select>
+
+          <button
+            onClick={() => setImportantOnly((v) => !v)}
+            className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
+              importantOnly
+                ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                : "bg-white/5 text-white/50 hover:bg-white/10"
+            }`}
+          >
+            ⭐ High-Yield
+          </button>
+
+          <button
+            onClick={() => setPendingOnly((v) => !v)}
+            className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
+              pendingOnly
+                ? "bg-pink-500/20 text-pink-300 border border-pink-500/40"
+                : "bg-white/5 text-white/50 hover:bg-white/10"
+            }`}
+          >
+            ⏳ Unsolved ({filteredQuestions.filter((q) => !completedIds.has(String(q.id))).length})
+          </button>
+
+          <button
+            onClick={() => setBookmarksOnly((v) => !v)}
+            className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
+              bookmarksOnly
+                ? "bg-purple-500/20 text-purple-300 border border-purple-500/40"
+                : "bg-white/5 text-white/50 hover:bg-white/10"
+            }`}
+          >
+            🔖 Bookmarked ({bookmarkedIds.size})
+          </button>
+
+
+          <button
+            onClick={() => setEliminationMode((v) => !v)}
+            className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
+              eliminationMode
+                ? "bg-pink-500/30 text-pink-300 border border-pink-500/50 shadow-lg shadow-pink-900/40"
+                : "bg-white/5 text-white/50 hover:bg-white/10"
+            }`}
+            title="Toggle Option Elimination & Trap Analysis HUD"
+          >
+            ✂ Elimination HUD {eliminationMode ? "ON" : "OFF"}
+          </button>
+        </section>
+
+
+        {/* QUESTIONS LIST */}
+        {filteredQuestions.length === 0 ? (
+          <div className="rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-12 text-center">
+            <span className="text-3xl">🔍</span>
+            <p className="mt-3 text-base font-bold">No questions found for current filters</p>
+            <p className="mt-1 text-xs text-white/40">Try selecting another subject or resetting filters.</p>
+            <button
+              onClick={() => handleSelectSubject("All Subjects")}
+              className="mt-4 rounded-xl bg-purple-600 px-4 py-2 text-xs font-bold text-white hover:bg-purple-500"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredQuestions.map((q, index) => {
+              const strId = String(q.id);
+              const isDone = completedIds.has(strId);
+              const isBookmarked = bookmarkedIds.has(strId);
+              const attempt = userAttempts[strId];
+              const hasAttempted = Boolean(attempt?.isRevealed);
+              const isCorrect = attempt?.selectedOption === q.correctAnswer;
+              const isExpanded = expandedExplanationIds.has(strId) || hasAttempted;
+
+              const qEliminated = new Set(eliminatedOptions[strId] || []);
+              const elimState = calculateEliminationProbability(qEliminated, safeArray(q.options).length);
+              const trapInfo = diagnoseQuestionTraps(q);
+              const isTrapExpanded = expandedTraps.has(strId);
 
               return (
                 <article
-                  key={pyq.id}
-                  className={`rounded-2xl border p-5 transition ${
-                    completed
-                      ? "border-green-500/30 bg-green-500/5"
-                      : "border-purple-500/20 bg-[#171027] hover:border-purple-400/40"
+                  key={`pyq-card-${strId}-${index}`}
+                  className={`rounded-2xl border p-5 transition-all ${
+                    isDone
+                      ? "border-emerald-500/20 bg-emerald-500/[0.02]"
+                      : "border-white/10 bg-white/[0.03] hover:border-purple-500/40"
                   }`}
                 >
-
-                  <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-
-                    <div className="flex gap-4">
-
-                      <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-bold ${
-                          completed
-                            ? "bg-green-500/20 text-green-400"
-                            : "bg-purple-500/20 text-purple-300"
-                        }`}
-                      >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 text-xs font-black text-purple-300">
                         {index + 1}
-                      </div>
-
+                      </span>
                       <div>
-
-                        <div className="mb-2 flex flex-wrap gap-2">
-
-                          <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-semibold text-purple-300">
-                            {pyq.subject}
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="rounded-full bg-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-purple-300">
+                            {q.subject}
                           </span>
-
-                          <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300">
-                            {pyq.year}
+                          <span className="rounded-full bg-blue-500/20 px-2.5 py-0.5 text-[10px] font-semibold text-blue-300">
+                            {q.year}
                           </span>
-
-                          {pyq.important && (
-                            <span className="rounded-full bg-yellow-500/15 px-3 py-1 text-xs font-semibold text-yellow-300">
-                              ⭐ Important
+                          {q.topic && (
+                            <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-white/50">
+                              {q.topic}
                             </span>
                           )}
-
-                          {completed && (
-                            <span className="rounded-full bg-green-500/15 px-3 py-1 text-xs font-semibold text-green-400">
-                              ✓ Completed
-                            </span>
+                          {q.important && (
+                            <span className="text-[10px] font-bold text-amber-300">⭐ High Yield</span>
                           )}
-
+                          {trapInfo.hasTrap && (
+                            <button
+                              onClick={() => handleToggleTrapCard(q.id)}
+                              className="rounded-full bg-amber-500/20 px-2.5 py-0.5 text-[10px] font-bold text-amber-300 border border-amber-500/30 hover:bg-amber-500/30 transition"
+                            >
+                              ⚠️ {trapInfo.label} {isTrapExpanded ? "▲" : "▼"}
+                            </button>
+                          )}
+                          {isDone && (
+                            <span className="text-[10px] font-bold text-emerald-400">✓ Solved</span>
+                          )}
                         </div>
 
-                        <p className="text-base font-semibold leading-7 text-gray-100">
-                          {pyq.question}
-                        </p>
-
+                        <h3 className="mt-2.5 text-sm font-semibold leading-relaxed text-white/95 sm:text-base">
+                          {q.question}
+                        </h3>
                       </div>
-
                     </div>
 
-                    <button
-                      disabled={
-                        saving === pyq.id
-                      }
-                      onClick={() =>
-                        toggleCompleted(
-                          pyq.id
-                        )
-                      }
-                      className={`shrink-0 rounded-xl px-5 py-3 font-bold transition ${
-                        completed
-                          ? "bg-green-500/15 text-green-400"
-                          : "bg-pink-500 text-white hover:bg-pink-400"
-                      }`}
-                    >
+                    <div className="flex shrink-0 items-center gap-2 self-end sm:self-start">
+                      <button
+                        onClick={() => handleToggleBookmark(q.id)}
+                        title={isBookmarked ? "Remove Bookmark" : "Bookmark Question"}
+                        className={`rounded-xl border p-2 text-xs transition ${
+                          isBookmarked
+                            ? "border-amber-500/40 bg-amber-500/20 text-amber-300"
+                            : "border-white/10 bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
+                        }`}
+                      >
+                        {isBookmarked ? "★" : "☆"}
+                      </button>
 
-                      {saving === pyq.id
-                        ? "Saving..."
-                        : completed
-                        ? "✓ Completed"
-                        : "Mark Complete"}
-
-                    </button>
-
+                      <button
+                        onClick={() => handleToggleCompleted(q.id)}
+                        className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
+                          isDone
+                            ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
+                            : "border-white/10 bg-white/5 text-white/50 hover:bg-white/10"
+                        }`}
+                      >
+                        {isDone ? "✓ Done" : "Mark"}
+                      </button>
+                    </div>
                   </div>
 
+                  {/* TRAP ANALYSIS BANNER */}
+                  {trapInfo.hasTrap && isTrapExpanded && (
+                    <div className="mt-3.5 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/30 to-[#1e1308] p-4 text-xs space-y-1.5 shadow-lg">
+                      <div className="flex items-center gap-2 text-amber-300 font-bold">
+                        <span>🔎 UPSC Trap Radar:</span>
+                        <span>{trapInfo.label}</span>
+                      </div>
+                      <p className="text-white/80 leading-relaxed">{trapInfo.description}</p>
+                      <p className="text-amber-200 font-semibold pt-1">
+                        🎯 <strong>Elimination Rule:</strong> {trapInfo.eliminationTip}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* ELIMINATION PROBABILITY HUD */}
+                  {qEliminated.size > 0 && (
+                    <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-pink-500/30 bg-pink-500/10 px-4 py-2.5 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">🎯</span>
+                        <span className="font-bold text-pink-300">Elimination Odds:</span>
+                        <span className="font-semibold text-white">
+                          {elimState.remainingCount} options left ({elimState.calculatedProbability}% probability)
+                        </span>
+                      </div>
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase ${
+                          elimState.riskRewardStatus.includes("Favorable")
+                            ? "bg-emerald-500/20 text-emerald-300"
+                            : elimState.riskRewardStatus.includes("Definite")
+                            ? "bg-purple-500/20 text-purple-300"
+                            : "bg-white/10 text-white/60"
+                        }`}
+                      >
+                        {elimState.riskRewardStatus}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* OPTIONS WITH STRIKE-THROUGH TOOL */}
+                  <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    {safeArray(q.options).map((opt) => {
+                      const isSelected = attempt?.selectedOption === opt.id;
+                      const isAnswer = q.correctAnswer === opt.id;
+                      const isOptionEliminated = qEliminated.has(opt.id);
+
+                      let optStyle = "border-white/10 bg-black/20 hover:border-purple-500/50 hover:bg-white/5 text-white/85";
+
+                      if (hasAttempted) {
+                        if (isAnswer) {
+                          optStyle = "border-emerald-500 bg-emerald-500/20 text-emerald-200 font-bold shadow-[0_0_12px_rgba(16,185,129,0.2)]";
+                        } else if (isSelected && !isAnswer) {
+                          optStyle = "border-red-500 bg-red-500/20 text-red-200";
+                        } else {
+                          optStyle = "border-white/5 bg-black/10 text-white/35";
+                        }
+                      } else if (isOptionEliminated) {
+                        optStyle = "border-white/5 bg-black/40 text-white/30 line-through opacity-50";
+                      }
+
+                      return (
+                        <div
+                          key={`opt-wrap-${strId}-${opt.id}`}
+                          className="relative flex items-center group"
+                        >
+                          <button
+                            onClick={() => handleSelectOption(q, opt.id)}
+                            className={`flex flex-1 items-start gap-3 rounded-xl border p-3 text-left transition-all text-xs sm:text-sm ${optStyle}`}
+                          >
+                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white/10 text-xs font-bold">
+                              {opt.id}
+                            </span>
+                            <span className="pt-0.5 leading-snug pr-8">{opt.text}</span>
+                          </button>
+
+                          {/* INLINE ELIMINATE / RESTORE BUTTON */}
+                          {!hasAttempted && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleToggleOptionElimination(q.id, opt.id);
+                              }}
+                              title={isOptionEliminated ? "Restore Option" : "Eliminate Option (Strike)"}
+                              className={`absolute right-2 top-2.5 rounded-lg px-2 py-1 text-[10px] font-bold transition ${
+                                isOptionEliminated
+                                  ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30"
+                                  : "bg-white/5 text-white/40 border border-white/10 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/30 opacity-0 group-hover:opacity-100"
+                              }`}
+                            >
+                              {isOptionEliminated ? "✓ Restore" : "✕ Strike"}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+
+                  {isExpanded && (
+                    <div
+                      className={`mt-4 rounded-xl border p-4 text-xs sm:text-sm leading-relaxed ${
+                        hasAttempted
+                          ? isCorrect
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-100"
+                            : "border-red-500/30 bg-red-500/10 text-red-100"
+                          : "border-purple-500/20 bg-purple-500/5 text-purple-100"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-extrabold text-xs uppercase tracking-wider text-purple-300">
+                          {hasAttempted
+                            ? isCorrect
+                              ? "✓ Correct (+2.00)"
+                              : "✕ Incorrect (-0.66)"
+                            : "Official Solution"}
+                        </span>
+                        <span className="font-bold text-white">
+                          Correct Option: <span className="text-emerald-300 font-black">{q.correctAnswer}</span>
+                        </span>
+                      </div>
+
+                      <p className="mt-2 text-white/90 leading-relaxed border-t border-white/10 pt-2">
+                        {q.explanation}
+                      </p>
+
+                      {hasAttempted && !isCorrect && (
+                        <div className="mt-3 border-t border-red-500/20 pt-2">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-pink-300">
+                            Tag Your Mistake for AI Analytics:
+                          </p>
+                          <div className="mt-1.5 flex flex-wrap gap-1">
+                            {(Object.keys(MISTAKE_TYPE_LABELS) as MistakeType[]).map((mKey) => (
+                              <button
+                                key={mKey}
+                                onClick={() => handleTagMistake(q.id, mKey)}
+                                className={`rounded px-2 py-0.5 text-[10px] font-bold transition ${
+                                  attempt?.mistakeType === mKey
+                                    ? "bg-pink-600 text-white shadow"
+                                    : "bg-black/30 text-white/60 hover:bg-black/50"
+                                }`}
+                              >
+                                {MISTAKE_TYPE_LABELS[mKey]}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {!isExpanded && (
+                    <button
+                      onClick={() => handleToggleExplanation(q.id)}
+                      className="mt-3 text-[11px] font-semibold text-purple-300 hover:text-white transition"
+                    >
+                      Show Answer & Explanation ▼
+                    </button>
+                  )}
                 </article>
               );
-            }
-          )}
-
-        </section>
-
-        {/* BOTTOM SUMMARY */}
-
-        {!loading &&
-          totalPYQs > 0 && (
-            <section className="mt-8 rounded-2xl border border-purple-500/20 bg-[#171027] p-6">
-
-              <div className="grid grid-cols-1 gap-6 text-center md:grid-cols-3">
-
-                <div>
-                  <p className="text-sm text-gray-400">
-                    Completed
-                  </p>
-
-                  <p className="mt-1 text-2xl font-black text-green-400">
-                    {completedCount}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-gray-400">
-                    Remaining
-                  </p>
-
-                  <p className="mt-1 text-2xl font-black text-pink-400">
-                    {remainingCount}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-gray-400">
-                    Completion Target
-                  </p>
-
-                  <p className="mt-1 text-2xl font-black">
-                    100%
-                  </p>
-                </div>
-
-              </div>
-
-            </section>
-          )}
-
+            })}
+          </div>
+        )}
       </div>
-
     </main>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| STAT CARD
-|--------------------------------------------------------------------------
-*/
-
-function StatCard({
-  label,
-  value,
-  valueClass = "",
-}: {
-  label: string;
-  value: number;
-  valueClass?: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-purple-500/20 bg-[#171027] p-5">
-
-      <p className="text-sm text-gray-400">
-        {label}
-      </p>
-
-      <p
-        className={`mt-2 text-3xl font-black ${valueClass}`}
-      >
-        {value}
-      </p>
-
-    </div>
   );
 }

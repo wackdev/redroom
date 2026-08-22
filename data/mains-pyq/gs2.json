@@ -1,0 +1,80 @@
+[
+  {
+    "id": "UPSC-MAINS-2025-GS2-01",
+    "year": 2025,
+    "paper": "GS-2",
+    "subject": "Polity & Governance",
+    "topic": "Federalism & Constitutional Bodies",
+    "subtopic": "Governor's Discretionary Powers",
+    "question": "The constitutional role of the Governor has increasingly become a flashpoint in Centre-State relations. Critically analyze the judicial guidelines on the exercise of gubernatorial discretion under Articles 200 and 356.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Critically Analyze",
+    "directiveGuidance": "Examine both constitutional provisions, potential executive overreach, and landmark judicial guardrails establishing constitutional morality.",
+    "framework": {
+      "introduction": "The Governor occupies a dual constitutional status as the nominal head of the State and a vital link between the Union and the States (Article 153-163). However, unilateral delay in bill assents and discretionary power misuse have tested cooperative federalism.",
+      "dimensions": [
+        {
+          "heading": "Flashpoints under Article 200 (Assent to Bills)",
+          "points": [
+            "Pocket Veto & Indefinite Withholding: Withholding assent without returning bills 'as soon as possible' stalling state legislative agendas.",
+            "Reservation of Bills for President: Frequent reservation of state bills even on state subjects, encroaching on provincial legislative competence.",
+            "Judicial Intervention: SC ruling in State of Punjab v. Principal Secretary to Governor (2023) establishing that Governors cannot sit on bills indefinitely; once returned and repassed, assent is mandatory."
+          ]
+        },
+        {
+          "heading": "Flashpoints & Guardrails under Article 356 (President's Rule)",
+          "points": [
+            "Misuse for Political Partisanship: Dismissal of elected state governments based on subjective gubernatorial reports.",
+            "S.R. Bommai Landmark (1994): Judicial review of proclamation, requirement of objective material, floor test as the sole litmus test for majority.",
+            "Rameshwar Prasad (2006): Dissolution cannot precede assembly formation without exploring government formation."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Checks & Balances: Article 163(1) Aid & Advice -> Article 200 Timelines -> Judicial Review (Bommai / Punjab)",
+      "caseLawsOrArticlesOrCommittees": ["S.R. Bommai v. Union of India (1994)", "State of Punjab v. Governor (2023)", "Sarkaria Commission (1988)", "Punchhi Commission (2010)"],
+      "conclusion": "The Governor must function as a constitutional sentinel guided by constitutional morality rather than a political agent, upholding the asymmetric and cooperative federal equilibrium.",
+      "keywords": ["Article 200", "Article 356", "S.R. Bommai", "Constitutional Morality", "Cooperative Federalism", "Floor Test", "Sarkaria Commission"]
+    },
+    "important": true,
+    "syllabusTags": ["Governor", "Federalism", "Centre-State Relations", "Judicial Review"]
+  },
+  {
+    "id": "UPSC-MAINS-2025-GS2-02",
+    "year": 2025,
+    "paper": "GS-2",
+    "subject": "International Relations",
+    "topic": "Bilateral & Regional Groupings",
+    "subtopic": "Global South Leadership & Multipolarity",
+    "question": "India's strategic autonomy is transitioning into 'strategic leadership' through the voice of the Global South. Evaluate how multilateral platforms like G20 and BRICS reflect this foreign policy recalibration.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Evaluate",
+    "directiveGuidance": "Assess achievements, institutional bridging, and geopolitical challenges in India's role as a bridge power between North and South.",
+    "framework": {
+      "introduction": "India's foreign policy has evolved from non-alignment to multi-alignment, and now to multi-vector strategic leadership, positioning India as the 'Vishwa Mitra' and the primary bridge between the Global South and the developed West.",
+      "dimensions": [
+        {
+          "heading": "Leadership Architecture in Multilateral Forums",
+          "points": [
+            "G20 New Delhi Declaration: Institutionalizing the African Union's permanent membership and launching the Global Biofuels Alliance and IMEC.",
+            "Voice of Global South Summits: Aggregating priorities of 125+ developing nations on climate finance, debt restructuring, and food/energy security.",
+            "BRICS Expansion: Balancing multipolarity while preventing the forum from turning into an anti-Western confrontation bloc."
+          ]
+        },
+        {
+          "heading": "Strategic Imperatives & Balancing Acts",
+          "points": [
+            "Democratizing Global Financial Institutions (IMF/World Bank reforms) and pushing for digital public infrastructure (India Stack).",
+            "Navigating Great Power Rivalries: Managing US-China bipolar friction while securing national security in the Indo-Pacific (Quad)."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["New Delhi Leaders' Declaration (2023)", "African Union Inclusion", "India-Middle East-Europe Economic Corridor (IMEC)"],
+      "conclusion": "India's voice of the Global South is not reactive rhetoric, but a constructive blueprint for reformed multilateralism, ensuring the 21st century is defined by inclusive development rather than bloc politics.",
+      "keywords": ["Global South", "Strategic Autonomy", "G20 African Union", "IMEC", "Reformed Multilateralism", "Vishwa Mitra", "Digital Public Infrastructure"]
+    },
+    "important": true,
+    "syllabusTags": ["Foreign Policy", "Global South", "G20", "BRICS", "Multilateralism"]
+  }
+]

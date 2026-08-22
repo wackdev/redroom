@@ -1,0 +1,142 @@
+[
+  {
+    "id": "CSAT-RC-2024-01",
+    "year": 2024,
+    "category": "Comprehension",
+    "subtopic": "Critical Inference & Assumption",
+    "difficulty": "CSAT Benchmark",
+    "passage": "Global supply chains are transitioning from cost-optimised architectures to resilience-optimised topologies. While 'just-in-time' logistics minimized inventory overheads, unexpected geopolitical frictions and climate volatility exposed single-source vulnerabilities. Nations are now diversifying manufacturing nodes, embracing nearshoring, and creating strategic redundancies. However, building redundant capacity inevitably increases baseline manufacturing costs and inflationary pressures in consumer economies.",
+    "question": "Which one of the following statements best reflects the most logical and critical inference that can be drawn from the passage?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Resilience in supply chains can only be achieved by completely abandoning international trade."
+      },
+      {
+        "id": "B",
+        "text": "Enhancing geopolitical resilience in production networks entails trade-offs against short-term consumer price stability."
+      },
+      {
+        "id": "C",
+        "text": "Developing economies will suffer disproportionately from nearshoring initiatives."
+      },
+      {
+        "id": "D",
+        "text": "Just-in-time logistics will be legally prohibited by international regulatory bodies."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Option B is correct: The passage directly balances resilience (diversification, strategic redundancies) against increased baseline costs and inflationary consumer pressures, presenting a fundamental trade-off. Options A, C, and D contain ungrounded extreme claims ('only by completely abandoning', 'legally prohibited') not supported by the premise.",
+    "trapInsight": "Eliminate extreme modifiers ('only', 'completely', 'prohibited'). The core premise highlights cost-benefit trade-offs.",
+    "formulaTrick": "Inference Rule: Inference must be a direct derivative of the text without introducing unsupported speculative extensions."
+  },
+  {
+    "id": "CSAT-RC-2023-02",
+    "year": 2023,
+    "category": "Comprehension",
+    "subtopic": "Philosophical & Environmental",
+    "difficulty": "Moderate",
+    "passage": "Technological leapfrogging in clean energy is necessary but insufficient to avert ecological tipping points. Carbon capture, battery storage, and smart grids mitigate emissions at the point of consumption, but do not address aggregate resource extraction, biodiversity fragmentation, or soil degradation driven by unabated consumer demand. A genuine ecological transition demands restructuring consumption patterns alongside technological deployment.",
+    "question": "Based on the above passage, the following assumptions have been made:\n1. Technology alone cannot guarantee environmental sustainability.\n2. Sustainable living requires moderation of aggregate material consumption.\n\nWhich of the assumptions given above is/are valid?",
+    "options": [
+      { "id": "A", "text": "1 only" },
+      { "id": "B", "text": "2 only" },
+      { "id": "C", "text": "Both 1 and 2" },
+      { "id": "D", "text": "Neither 1 nor 2" }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Both assumptions are valid: 1 is valid because clean technology is described as 'necessary but insufficient'. 2 is valid because the author explicitly notes that genuine transition requires restructuring consumption patterns beyond mere technological fixes.",
+    "trapInsight": "Watch for multi-statement assumption questions. Verify if the author's argument collapses without that underlying premise.",
+    "formulaTrick": "Assumption Test (Negation Rule): If you negate statement 1 ('Technology alone CAN guarantee sustainability'), the author's thesis is destroyed. Hence, it is a valid assumption."
+  },
+  {
+    "id": "CSAT-QT-2024-03",
+    "year": 2024,
+    "category": "Quant",
+    "subtopic": "Number Systems & Divisibility",
+    "difficulty": "Hard",
+    "question": "What is the remainder when (7^101 + 9^101) is divided by 16?",
+    "options": [
+      { "id": "A", "text": "0" },
+      { "id": "B", "text": "1" },
+      { "id": "C", "text": "2" },
+      { "id": "D", "text": "14" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Algebraic Divisibility Rule: For any odd positive integer n, (a^n + b^n) is always divisible by (a + b).\nHere, n = 101 (which is odd), a = 7, and b = 9.\nTherefore, (7^101 + 9^101) is completely divisible by (7 + 9) = 16.\nHence, the remainder is 0.",
+    "trapInsight": "Never attempt to calculate large powers directly or use simple unit-digit cycling without checking polynomial factor forms first.",
+    "formulaTrick": "Formula: (a^n + b^n) is divisible by (a + b) for all odd n. Here (7 + 9) = 16, so Remainder = 0."
+  },
+  {
+    "id": "CSAT-QT-2023-04",
+    "year": 2023,
+    "category": "Quant",
+    "subtopic": "Permutations & Combinations",
+    "difficulty": "CSAT Benchmark",
+    "question": "In how many distinct ways can a committee of 5 members be selected from 6 men and 4 women such that the committee includes at least one woman?",
+    "options": [
+      { "id": "A", "text": "210" },
+      { "id": "B", "text": "246" },
+      { "id": "C", "text": "252" },
+      { "id": "D", "text": "120" }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Complementary Counting Principle:\nTotal ways to choose any 5 members from (6 + 4 = 10) people = 10C5 = (10 × 9 × 8 × 7 × 6) / (5 × 4 × 3 × 2 × 1) = 252.\nWays to choose a committee with NO women (all 5 men from 6 men) = 6C5 = 6.\nCommittees with at least one woman = Total Ways - No Women = 252 - 6 = 246.",
+    "trapInsight": "Adding cases (1W4M + 2W3M + 3W2M + 4W1M) takes 4x longer than subtracting the single invalid case from total possibilities.",
+    "formulaTrick": "Shortcut: At least 1 = Total Possibilities - Exactly 0. (10C5 - 6C5 = 252 - 6 = 246)."
+  },
+  {
+    "id": "CSAT-LR-2024-05",
+    "year": 2024,
+    "category": "Reasoning",
+    "subtopic": "Syllogisms & Deductive Logic",
+    "difficulty": "Moderate",
+    "question": "Consider the following statements and conclusions:\n\nStatements:\n1. All IAS officers are civil servants.\n2. Some civil servants are diplomats.\n3. No diplomat is a politician.\n\nConclusions:\nI. Some civil servants are not politicians.\nII. No IAS officer is a diplomat.\n\nWhich of the conclusion(s) logically follow(s)?",
+    "options": [
+      { "id": "A", "text": "Conclusion I only" },
+      { "id": "B", "text": "Conclusion II only" },
+      { "id": "C", "text": "Both I and II" },
+      { "id": "D", "text": "Neither I nor II" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Conclusion I follows: Some civil servants are diplomats, and since no diplomat is a politician, those specific civil servants who are diplomats CANNOT be politicians. Therefore, some civil servants are definitely not politicians.\nConclusion II does not follow: While not all IAS are stated to be diplomats, there is no prohibition preventing an overlap; thus, a definite negative claim cannot be established.",
+    "trapInsight": "Beware of 'Possible vs Definite' trap. Conclusion II might be possible, but it does NOT definitely follow.",
+    "formulaTrick": "Euler Venn: Intersection between Civil Servants and Diplomats is non-empty and disjoint from Politicians. Thus, at least that intersection part is never Politician."
+  },
+  {
+    "id": "CSAT-QT-2023-06",
+    "year": 2023,
+    "category": "Quant",
+    "subtopic": "Time, Speed & Distance",
+    "difficulty": "Moderate",
+    "question": "A train passes a telegraph post in 8 seconds and crosses a bridge 260 metres long in 21 seconds. What is the speed of the train in km/hr?",
+    "options": [
+      { "id": "A", "text": "72 km/hr" },
+      { "id": "B", "text": "64 km/hr" },
+      { "id": "C", "text": "54 km/hr" },
+      { "id": "D", "text": "80 km/hr" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Let the length of train be L and speed be S.\nTo pass post: L = S × 8\nTo pass bridge: L + 260 = S × 21\nSubstitute L: 8S + 260 = 21S => 13S = 260 => S = 20 m/s.\nConvert m/s to km/hr: 20 × (18/5) = 72 km/hr.",
+    "trapInsight": "Always check whether the answer asks for m/s or km/hr! (20 m/s = 72 km/hr).",
+    "formulaTrick": "Conversion: Speed in km/hr = (Speed in m/s) × (18/5). Speed in m/s = 260 / (21 - 8) = 260 / 13 = 20 m/s -> 20 × 18/5 = 72 km/hr."
+  },
+  {
+    "id": "CSAT-LR-2024-07",
+    "year": 2024,
+    "category": "Reasoning",
+    "subtopic": "Direction & Spatial Blood Relations",
+    "difficulty": "Easy",
+    "question": "A person walks 10 metres North, turns right and walks 6 metres, then turns right again and walks 18 metres. Finally, the person turns right and walks 6 metres. How far and in which direction is the person from the starting point?",
+    "options": [
+      { "id": "A", "text": "8 metres South" },
+      { "id": "B", "text": "8 metres North" },
+      { "id": "C", "text": "10 metres South-East" },
+      { "id": "D", "text": "12 metres West" }
+    ],
+    "correctAnswer": "A",
+    "explanation": "North-South Displacement: +10 - 18 = -8 metres (i.e. 8 metres South).\nEast-West Displacement: +6 (East) - 6 (West) = 0 metres.\nNet position: 8 metres due South from starting origin.",
+    "trapInsight": "Vector summation (N-S axis and E-W axis independently) avoids drawing errors.",
+    "formulaTrick": "Coordinate Math: Origin (0,0) -> (0,10) -> (6,10) -> (6, -8) -> (0, -8). Result = (0, -8), which is 8m South."
+  }
+]

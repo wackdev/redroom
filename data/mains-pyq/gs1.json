@@ -1,0 +1,161 @@
+[
+  {
+    "id": "UPSC-MAINS-2025-GS1-01",
+    "year": 2025,
+    "paper": "GS-1",
+    "subject": "Indian Heritage & Culture",
+    "topic": "Temple Architecture",
+    "subtopic": "Nagara and Dravida Synthesis",
+    "question": "How did the Vijayanagara school of architecture synthesize the Dravida and Islamic stylistic elements to reflect the imperial authority of the state? Elucidate with examples.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Elucidate",
+    "directiveGuidance": "Provide clear examples and detailed illustrations showing how architectural elements were blended to express state power.",
+    "framework": {
+      "introduction": "The Vijayanagara architecture (14th-16th century CE) represents a vibrant synthesis of traditional Dravidian temple idiom, Chalukyan elements, and Indo-Islamic courtly idioms (the Provida style).",
+      "dimensions": [
+        {
+          "heading": "Synthesis of Dravidian & Deccan Elements",
+          "points": [
+            "Monumental Gopurams (Raya Gopurams) projecting sovereign visibility across the Deccan landscape.",
+            "Intricately carved monolithic pillars with Yali / mythical horse motifs symbolizing martial prowess.",
+            "Kalyana Mandapams and Amman shrines adding ritual grandeur to divine royalty."
+          ]
+        },
+        {
+          "heading": "Indo-Islamic Integration in Secular Architecture",
+          "points": [
+            "Lotus Mahal and Elephant Stables employing multi-cusped arches, vaulted domes, and squinches.",
+            "Zenana enclosures showcasing military durability with Islamic structural engineering blended with Hindu stucco friezes.",
+            "Reflected the cosmopolitan claim of Vijayanagara rulers styled as 'Sultan among Hindu Kings' (Hindu Raya Suratrana)."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Structural Layout: Raya Gopuram + Kalyana Mandapa + Indo-Islamic Cusped Arches in Lotus Mahal",
+      "caseLawsOrArticlesOrCommittees": ["Hampi UNESCO World Heritage Site", "Percy Brown's Indian Architecture"],
+      "conclusion": "Vijayanagara architecture was not mere aesthetic syncretism, but a deliberate visual vocabulary asserting imperial legitimacy, military strength, and cross-cultural sovereignty.",
+      "keywords": ["Raya Gopurams", "Kalyana Mandapam", "Yali Pillars", "Hindu Raya Suratrana", "Indo-Islamic Synthesis", "Lotus Mahal"]
+    },
+    "important": true,
+    "syllabusTags": ["Temple Architecture", "Vijayanagara Empire", "Indo-Islamic Art"]
+  },
+  {
+    "id": "UPSC-MAINS-2025-GS1-02",
+    "year": 2025,
+    "paper": "GS-1",
+    "subject": "Geography",
+    "topic": "Geophysical Phenomena",
+    "subtopic": "Urban Heat Islands",
+    "question": "Discuss the multidimensional impacts of Urban Heat Island (UHI) effect in tropical megacities. Suggest sustainable climate-resilient urban planning strategies.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Discuss",
+    "directiveGuidance": "Explore diverse dimensions (ecological, public health, energy, hydrological) and present practical town-planning solutions.",
+    "framework": {
+      "introduction": "The Urban Heat Island (UHI) effect refers to urban metropolitan areas being significantly warmer (2-8°C) than surrounding rural fringes due to anthropogenic heat emissions, impervious surfaces, and loss of green cover.",
+      "dimensions": [
+        {
+          "heading": "Multidimensional Impacts in Tropical Megacities",
+          "points": [
+            "Public Health: Increased incidence of heat exhaustion, respiratory distress, and expanded vector breeding seasons.",
+            "Energy & Economy: Exponential increase in peak power cooling load, exacerbating grid stress and fossil fuel consumption.",
+            "Hydrology: Altered local convection patterns causing localized urban cloudbursts while drying groundwater recharge zones.",
+            "Environmental Inequity: Informal settlements and slums bear disproportionate thermal stress due to high building density and corrugated tin roofing."
+          ]
+        },
+        {
+          "heading": "Sustainable Climate-Resilient Urban Strategies",
+          "points": [
+            "Urban Green & Blue Infrastructure: Creation of urban micro-forests (Miyawaki method), green roofs, and rejuvenation of wetland buffers (sponge city concept).",
+            "Cool Roof Policies: Use of high albedo reflective coatings on public and private structures.",
+            "Transit-Oriented Development: Reducing vehicular anthropogenic heat through electrified public transit networks.",
+            "Zoning & Ventilation Corridors: Designing building aspect ratios to preserve natural wind tunnels (Urban Wind Paths)."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "PESTLE UHI Impact Web & Sponge City Cross-Section",
+      "caseLawsOrArticlesOrCommittees": ["Ahmedabad Heat Action Plan (HAP)", "NDMA National Heatwave Guidelines", "IPCC AR6 Working Group II"],
+      "conclusion": "Combating UHI requires moving from reactive disaster management to proactive bioclimatic urban design, aligning SDG 11 (Sustainable Cities) with climate adaptation targets.",
+      "keywords": ["Urban Heat Island", "Albedo Effect", "Sponge City", "Bioclimatic Design", "Miyawaki Forests", "Cool Roofs"]
+    },
+    "important": true,
+    "syllabusTags": ["Urbanization", "Climate Change", "Urban Planning", "Disaster Resilience"]
+  },
+  {
+    "id": "UPSC-MAINS-2024-GS1-03",
+    "year": 2024,
+    "paper": "GS-1",
+    "subject": "History",
+    "topic": "Modern Indian History",
+    "subtopic": "Tribal Uprisings",
+    "question": "Examine how the British colonial land and forest policies sparked widespread tribal resistance movements in 19th-century India. How did these differ from mainstream peasant agitations?",
+    "marks": 10,
+    "wordLimit": 150,
+    "directive": "Examine",
+    "directiveGuidance": "Analyze colonial mechanisms of dispossession and contrast tribal modes of mobilization with peasant resistance.",
+    "framework": {
+      "introduction": "19th-century British rule ruptured traditional tribal symbiotic relationships with nature through Forest Acts, revenue monetization, and the influx of dikus (outsiders/moneylenders).",
+      "dimensions": [
+        {
+          "heading": "Colonial Drivers of Tribal Resistance",
+          "points": [
+            "Forest Enclosures: Forest Acts of 1865 & 1878 transformed communally held ancestral lands into state property for commercial timber extraction.",
+            "Diku Intrusion: Influx of zamindars, traders, and moneylenders leading to chronic debt bondage (kamiyoti/veth system).",
+            "Curtailment of Jhum (Shifting Cultivation) and taxation on minor forest produce."
+          ]
+        },
+        {
+          "heading": "Contrast with Mainstream Peasant Agitations",
+          "points": [
+            "Nature of Grievance: Peasants resisted excessive rent/illegal cesses within the existing system; tribals fought for total socio-religious sovereignty (e.g. Birsa Munda's Ulgulan for Munda Raj).",
+            "Mobilization: Tribals mobilized on kinship/ethnic solidarity with millenarian messianic leadership; peasant movements relied on agrarian class demands and legal petitions."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["Santhal Hool (1855)", "Munda Ulgulan (1899)", "Rampa Rebellion (1879)"],
+      "conclusion": "Tribal uprisings were anti-colonial and deeply transformative wars of cultural and ecological self-preservation that laid the foundation for grassroots national awakening.",
+      "keywords": ["Dikus", "Forest Acts", "Santhal Hool", "Ulgulan", "Millenarianism", "Communal Land Tenure"]
+    },
+    "important": true,
+    "syllabusTags": ["Tribal Movements", "British Economic Policies", "Modern Indian History"]
+  },
+  {
+    "id": "UPSC-MAINS-2024-GS1-04",
+    "year": 2024,
+    "paper": "GS-1",
+    "subject": "Indian Society",
+    "topic": "Social Empowerment",
+    "subtopic": "Demographic Dividend & Ageing",
+    "question": "India's demographic transition is characterized by a dual challenge: maximizing the youth dividend while preparing for rapid population ageing. Analyze the socio-economic imperatives.",
+    "marks": 15,
+    "wordLimit": 250,
+    "directive": "Analyze",
+    "directiveGuidance": "Break down the demographic transition curve into youth skill challenges and elderly social protection demands.",
+    "framework": {
+      "introduction": "With a median age of ~28.4 years and elderly population projected to reach 20% by 2050, India is simultaneously experiencing a demographic window of opportunity and the onset of a silver tsunami.",
+      "dimensions": [
+        {
+          "heading": "Maximizing Youth Dividend (Ages 15-59)",
+          "points": [
+            "Quality Employment & Skilling: Bridging education-industry disconnect (only ~5% workforce formally skilled).",
+            "Female Labor Force Participation (FLFPR): Unlocking the economic potential of women (currently ~37%).",
+            "Promotion of Entrepreneurship and STEM innovations for the 4th Industrial Revolution."
+          ]
+        },
+        {
+          "heading": "Preparing for the Ageing Population (60+)",
+          "points": [
+            "Silver Economy & Healthcare: Strengthening geriatric healthcare infrastructure and palliative care in primary health centers.",
+            "Social Security: Universalizing pension coverage in the informal sector where 90% workforce lacks retirement funds.",
+            "Elderly Feminization: Addressing vulnerability of elderly widows who lack asset ownership."
+          ]
+        }
+      ],
+      "caseLawsOrArticlesOrCommittees": ["UNFPA India Ageing Report 2023", "National Policy on Older Persons", "PM SVANidhi / Atal Pension Yojana"],
+      "conclusion": "India must capitalize on its demographic dividend through human capital investments today to finance the social and geriatric safety nets of tomorrow.",
+      "keywords": ["Demographic Dividend", "Silver Economy", "Geriatric Care", "FLFPR", "Informal Social Security", "Dependency Ratio"]
+    },
+    "important": true,
+    "syllabusTags": ["Indian Society", "Demographic Dividend", "Social Security", "Population Dynamics"]
+  }
+]

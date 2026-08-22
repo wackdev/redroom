@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #090909;
-  --foreground: #ffffff;
+  --background: #050505;
+  --surface: #0d0d0d;
+  --surface-hover: #141414;
+  --gold-signature: #d8a63a;
+  --gold-amber: #f4c95d;
+  --gold-glow: rgba(216, 166, 58, 0.35);
+  --foreground: #f5f5f5;
+  --muted: #8c8c8c;
+  --border-dark: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(216, 166, 58, 0.3);
 }
 
 * {
@@ -14,19 +22,109 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  background-color: #050505;
+  color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-button {
-  font: inherit;
-}
-
+/* CUSTOM SELECTION */
 ::selection {
-  background: #dc2626;
-  color: white;
+  background: #d8a63a;
+  color: #050505;
+}
+
+/* HIDE DEFAULT SCROLLBAR FOR CLEAN IMMERSION */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c1505;
+  border-radius: 9999px;
+  border: 1px solid rgba(216, 166, 58, 0.25);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d8a63a;
+}
+
+/* WHYNOTUPSC GRID OVERLAY */
+.whynotupsc-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(216, 166, 58, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(216, 166, 58, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.whynotupsc-scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0, 0, 0, 0.35) 50%,
+    rgba(0, 0, 0, 0.35)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* POSSIBILITY CORE GLOW PULSE */
+@keyframes possibility-core-pulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(216, 166, 58, 0.3), inset 0 0 20px rgba(244, 201, 93, 0.2);
+    border-color: rgba(216, 166, 58, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(244, 201, 93, 0.6), inset 0 0 35px rgba(216, 166, 58, 0.4);
+    border-color: rgba(244, 201, 93, 0.9);
+  }
+}
+
+.animate-possibility-core {
+  animation: possibility-core-pulse 3s infinite ease-in-out;
+}
+
+/* HOLOGRAPHIC GOLD BORDER GLOW */
+.gold-hud-border {
+  border: 1px solid rgba(216, 166, 58, 0.25);
+  background: linear-gradient(135deg, rgba(13, 13, 13, 0.95), rgba(5, 5, 5, 0.98));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(216, 166, 58, 0.08);
+}
+
+.gold-hud-border:hover {
+  border-color: rgba(244, 201, 93, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(216, 166, 58, 0.2);
+}
+
+/* HUD CORNER BRACKETS */
+.hud-corner-bracket {
+  position: relative;
+}
+
+.hud-corner-bracket::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #d8a63a;
+  border-left: 2px solid #d8a63a;
+}
+
+.hud-corner-bracket::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid #d8a63a;
+  border-right: 2px solid #d8a63a;
 }

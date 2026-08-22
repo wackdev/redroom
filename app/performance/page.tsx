@@ -1,931 +1,711 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "../../lib/supabase-client";
+import { DayPlan, TestResultRecord, WeeklyReportSummary } from "@/lib/core/types";
+import { formatDate, formatTime, formatWeekSpan, getDateKey, safeArray, shiftDateKey } from "@/lib/core/utils";
+import { computeTestPerformanceAnalytics } from "@/lib/performance/analytics-engine";
+import { computeWeeklyReport, generateAIWeeklyMentorReview } from "@/lib/performance/weekly-report-engine";
+import {
+  subscribeToSyncChanges,
+  useCloudSync,
+} from "@/lib/sync/sync-engine";
 
-type TestResult = {
-  id: number;
-  title: string | null;
-  score: number;
-  correct: number;
-  wrong: number;
-  skipped: number;
-  attempted: number;
-  total: number;
-  date: string;
-};
+const RESULT_STORAGE_KEY = "redroom_test_results";
+const STUDY_PLAN_STORAGE_KEY = "redroom_study_plan";
 
 export default function PerformancePage() {
   const router = useRouter();
+  const { isSyncing, lastSyncTime, triggerManualSync } = useCloudSync();
 
-  const supabase = useMemo(() => createClient(), []);
+  // Active Tab: "analytics" | "weekly_report"
+  const [activeTab, setActiveTab] = useState<"analytics" | "weekly_report">("analytics");
 
-  const [results, setResults] = useState<TestResult[]>([]);
+  // Test Results State
+  const [results, setResults] = useState<TestResultRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
-  /*
-  |--------------------------------------------------------------------------
-  | LOAD PERFORMANCE DATA
-  |--------------------------------------------------------------------------
-  */
+  // Study Plans State for Weekly Report
+  const [studyPlans, setStudyPlans] = useState<Record<string, DayPlan>>({});
+  const [selectedWeekDate, setSelectedWeekDate] = useState(getDateKey());
+  const [generatingAI, setGeneratingAI] = useState(false);
+  const [aiReviewData, setAiReviewData] = useState<WeeklyReportSummary["aiMentorReview"] | null>(null);
 
-  const loadPerformance = useCallback(async () => {
+  const loadData = useCallback(() => {
+    setLoading(true);
     try {
-      setLoading(true);
-
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        setResults([]);
-        return;
+      // 1. Load Test Results
+      const savedTests = localStorage.getItem(RESULT_STORAGE_KEY);
+      if (savedTests) {
+        const parsed = JSON.parse(savedTests);
+        if (Array.isArray(parsed)) {
+          setResults(parsed);
+        }
       }
 
-      const { data, error } = await supabase
-        .from("test_results")
-        .select(
-          "id,title,score,correct,wrong,skipped,attempted,total,date"
-        )
-        .eq("user_id", user.id)
-        .order("date", { ascending: false });
-
-      if (error) {
-        console.error("Performance load error:", error);
-        return;
+      // 2. Load Study Plans
+      const savedPlans = localStorage.getItem(STUDY_PLAN_STORAGE_KEY);
+      if (savedPlans) {
+        const parsedPlans = JSON.parse(savedPlans);
+        if (parsedPlans && typeof parsedPlans === "object") {
+          setStudyPlans(parsedPlans);
+        }
       }
-
-      setResults((data as TestResult[]) || []);
-    } catch (error) {
-      console.error("Performance error:", error);
+    } catch (err) {
+      console.warn("Could not load performance records:", err);
     } finally {
       setLoading(false);
     }
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
-    const loadTimer = window.setTimeout(() => {
-      void loadPerformance();
-    }, 0);
+    loadData();
 
-    return () => window.clearTimeout(loadTimer);
-  }, [loadPerformance]);
+    // Subscribe to cross-tab updates
+    const unsubscribe = subscribeToSyncChanges(() => {
+      loadData();
+    });
 
-  /*
-  |--------------------------------------------------------------------------
-  | CALCULATE STATISTICS
-  |--------------------------------------------------------------------------
-  */
+    return unsubscribe;
+  }, [loadData]);
 
-  const statistics = useMemo(() => {
-    if (results.length === 0) {
-      return {
-        totalTests: 0,
-        averageScore: 0,
-        bestScore: 0,
-        totalCorrect: 0,
-        totalWrong: 0,
-        totalSkipped: 0,
-        totalAttempted: 0,
-        totalQuestions: 0,
-        accuracy: 0,
-      };
+  // Delete Test Record
+  const deleteResult = (indexToDelete: number) => {
+    if (window.confirm("Delete this test record?")) {
+      const updated = results.filter((_, idx) => idx !== indexToDelete);
+      setResults(updated);
+      try {
+        localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(updated));
+      } catch {}
     }
+  };
 
-    const totalTests = results.length;
+  // Test Analytics
+  const analytics = useMemo(() => computeTestPerformanceAnalytics(results), [results]);
 
-    const totalCorrect = results.reduce(
-      (sum, item) => sum + Number(item.correct || 0),
-      0
-    );
-
-    const totalWrong = results.reduce(
-      (sum, item) => sum + Number(item.wrong || 0),
-      0
-    );
-
-    const totalSkipped = results.reduce(
-      (sum, item) => sum + Number(item.skipped || 0),
-      0
-    );
-
-    const totalAttempted = results.reduce(
-      (sum, item) => sum + Number(item.attempted || 0),
-      0
-    );
-
-    const totalQuestions = results.reduce(
-      (sum, item) => sum + Number(item.total || 0),
-      0
-    );
-
-    const totalScore = results.reduce(
-      (sum, item) => sum + Number(item.score || 0),
-      0
-    );
-
-    const averageScore =
-      totalTests > 0 ? totalScore / totalTests : 0;
-
-    const bestScore = Math.max(
-      ...results.map((item) => Number(item.score || 0))
-    );
-
-    const accuracy =
-      totalAttempted > 0
-        ? (totalCorrect / totalAttempted) * 100
-        : 0;
-
-    return {
-      totalTests,
-      averageScore,
-      bestScore,
-      totalCorrect,
-      totalWrong,
-      totalSkipped,
-      totalAttempted,
-      totalQuestions,
-      accuracy,
-    };
-  }, [results]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | TREND / INSIGHTS
-  |--------------------------------------------------------------------------
-  */
-
-  const insights = useMemo(() => {
-    if (results.length === 0) {
-      return {
-        recentAverage: 0,
-        previousAverage: 0,
-        improvement: 0,
-        strongestTest: null as TestResult | null,
-        weakestTest: null as TestResult | null,
-        consistency: 0,
-      };
+  // Weekly Report
+  const weeklyReport = useMemo(() => {
+    const report = computeWeeklyReport(studyPlans, results, selectedWeekDate);
+    if (aiReviewData) {
+      report.aiMentorReview = aiReviewData;
     }
+    return report;
+  }, [studyPlans, results, selectedWeekDate, aiReviewData]);
 
-    const ordered = [...results].sort(
-      (a, b) =>
-        new Date(a.date).getTime() -
-        new Date(b.date).getTime()
-    );
-
-    const recent = ordered.slice(-5);
-    const previous = ordered.slice(
-      Math.max(0, ordered.length - 10),
-      Math.max(0, ordered.length - 5)
-    );
-
-    const avg = (items: TestResult[]) =>
-      items.length
-        ? items.reduce(
-            (sum, item) => sum + Number(item.score || 0),
-            0
-          ) / items.length
-        : 0;
-
-    const recentAverage = avg(recent);
-    const previousAverage = avg(previous);
-
-    const improvement =
-      previous.length > 0
-        ? recentAverage - previousAverage
-        : 0;
-
-    const scores = ordered.map((item) =>
-      Number(item.score || 0)
-    );
-
-    const mean =
-      scores.reduce((sum, value) => sum + value, 0) /
-      scores.length;
-
-    const variance =
-      scores.reduce(
-        (sum, value) =>
-          sum + Math.pow(value - mean, 2),
-        0
-      ) / scores.length;
-
-    const standardDeviation = Math.sqrt(variance);
-
-    const consistency = Math.max(
-      0,
-      Math.min(
-        100,
-        100 - standardDeviation * 10
-      )
-    );
-
-    return {
-      recentAverage,
-      previousAverage,
-      improvement,
-      strongestTest: [...ordered].sort(
-        (a, b) =>
-          Number(b.score || 0) -
-          Number(a.score || 0)
-      )[0] || null,
-      weakestTest: [...ordered].sort(
-        (a, b) =>
-          Number(a.score || 0) -
-          Number(b.score || 0)
-      )[0] || null,
-      consistency,
-    };
-  }, [results]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | DELETE RESULT
-  |--------------------------------------------------------------------------
-  */
-
-  async function deleteResult(id: number) {
-    const confirmed = window.confirm(
-      "Delete this test result?"
-    );
-
-    if (!confirmed) return;
-
+  // Generate AI Weekly Mentor Review
+  const handleGenerateAiWeeklyReview = async () => {
+    setGeneratingAI(true);
     try {
-      const { error } = await supabase
-        .from("test_results")
-        .delete()
-        .eq("id", id);
-
-      if (error) {
-        console.error(error);
-        alert(error.message);
-        return;
-      }
-
-      setResults((previous) =>
-        previous.filter((item) => item.id !== id)
-      );
-    } catch (error) {
-      console.error("Delete error:", error);
+      const review = await generateAIWeeklyMentorReview(weeklyReport);
+      setAiReviewData(review);
+    } catch (err) {
+      console.error("AI review error:", err);
+      alert("Failed to generate AI mentor review. Using deterministic evaluation.");
+    } finally {
+      setGeneratingAI(false);
     }
-  }
+  };
 
-  /*
-  |--------------------------------------------------------------------------
-  | HELPERS
-  |--------------------------------------------------------------------------
-  */
+  // Copy Weekly Summary to Clipboard
+  const handleCopyWeeklyReport = () => {
+    const text = `📊 REDROOM Weekly UPSC Study Report (${formatWeekSpan(weeklyReport.startDate, weeklyReport.endDate)})
+- Total Study Hours: ${weeklyReport.totalCompletedHours}h / ${weeklyReport.weeklyTargetHours}h target (${weeklyReport.hoursCompletionRate}%)
+- Task Execution: ${weeklyReport.taskCompletionRate}% (${weeklyReport.totalTasksCompleted}/${weeklyReport.totalTasksScheduled} tasks)
+- Active Study Days: ${weeklyReport.activeStudyDays}/7
+- Consistency Score: ${weeklyReport.consistencyScore}%
+- Mock Tests Attempted: ${weeklyReport.testsAttemptedInWeek.length} (Avg Score: ${weeklyReport.averageTestScoreInWeek})
+- Timestamped Daily Notes Captured: ${weeklyReport.weeklyNotesCount}
+${
+  weeklyReport.aiMentorReview
+    ? `\n🤖 AI Mentor Evaluation (Grade: ${weeklyReport.aiMentorReview.overallGrade}):\n${weeklyReport.aiMentorReview.executiveSummary}`
+    : ""
+}`;
 
-  function formatDate(date: string) {
-    try {
-      return new Date(date).toLocaleDateString("en-IN", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    } catch {
-      return date;
-    }
-  }
-
-  function getAccuracy(result: TestResult) {
-    if (!result.attempted) return 0;
-
-    return (
-      (Number(result.correct) /
-        Number(result.attempted)) *
-      100
-    );
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | PAGE
-  |--------------------------------------------------------------------------
-  */
+    navigator.clipboard.writeText(text);
+    alert("✓ Weekly report summary copied to clipboard!");
+  };
 
   return (
     <main className="min-h-screen bg-[#080510] text-white">
-
-      <div className="mx-auto max-w-7xl px-5 py-8">
-
-        {/* BACK */}
-
-        <button
-          onClick={() => router.push("/dashboard")}
-          className="mb-6 text-sm text-purple-300 transition hover:text-white"
-        >
-          ← Back to Dashboard
-        </button>
-
-        {/* HEADER */}
-
-        <section className="mb-8">
-
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-pink-400">
-            UPSC PERFORMANCE
-          </p>
-
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-
-            <div>
-              <h1 className="text-4xl font-black md:text-5xl">
-                Performance
-              </h1>
-
-              <p className="mt-3 text-white/60">
-                Track your tests, accuracy, mistakes and
-                improvement over time.
-              </p>
-            </div>
-
+      {/* HEADER */}
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <div className="flex items-center gap-3">
             <button
-              onClick={loadPerformance}
-              className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
+              onClick={() => router.push("/dashboard")}
+              className="text-sm text-purple-300 transition hover:text-white"
             >
-              ↻ Refresh
+              ← Command Centre
             </button>
-
+            <span className="text-white/20">|</span>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">📈</span>
+              <span className="font-bold tracking-tight">Performance & Weekly Reports Engine</span>
+            </div>
           </div>
 
-        </section>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => void triggerManualSync()}
+              title="Click to sync data with cloud"
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
+                isSyncing
+                  ? "border-pink-500/40 bg-pink-500/10 text-pink-300 animate-pulse"
+                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <span>{isSyncing ? "🔄" : "☁️"}</span>
+              <span className="hidden sm:inline">
+                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
+              </span>
+            </button>
+            <button
+              onClick={() => router.push("/study-plan")}
+              className="hidden rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white sm:block"
+            >
+              📅 Study Plan
+            </button>
+            <button
+              onClick={loadData}
+              className="rounded-xl border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold hover:bg-white/10"
+            >
+              ↻ Refresh Data
+            </button>
+          </div>
+        </div>
+      </header>
 
-        {/* MAIN STATS */}
-
-        <section className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-
-          <StatCard
-            icon="📝"
-            label="Tests"
-            value={statistics.totalTests}
-          />
-
-          <StatCard
-            icon="🎯"
-            label="Average Score"
-            value={statistics.averageScore.toFixed(1)}
-          />
-
-          <StatCard
-            icon="🏆"
-            label="Best Score"
-            value={statistics.bestScore.toFixed(1)}
-          />
-
-          <StatCard
-            icon="📈"
-            label="Accuracy"
-            value={`${statistics.accuracy.toFixed(1)}%`}
-          />
-
-        </section>
-
-        {/* PERFORMANCE INSIGHTS */}
-
-        <section className="mb-8">
-
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold">
-              Performance Insights
-            </h2>
-
-            <p className="mt-1 text-sm text-white/50">
-              Based on your saved test attempts.
+      <div className="mx-auto max-w-7xl px-5 py-8">
+        {/* HERO & TAB SWITCHER */}
+        <section className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-pink-400">
+              DIAGNOSTIC INTELLIGENCE & PROGRESS REVIEWS
+            </p>
+            <h1 className="mt-1 text-3xl font-black md:text-5xl">Performance & Reports</h1>
+            <p className="mt-2 text-sm text-white/50">
+              Statistical evaluation of test accuracy, score trends, and comprehensive weekly study reports.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-
-            <InsightCard
-              icon="📈"
-              label="Recent Average"
-              value={insights.recentAverage.toFixed(1)}
-              description="Average score across your latest 5 tests"
-            />
-
-            <InsightCard
-              icon={insights.improvement >= 0 ? "🚀" : "⚠️"}
-              label="Recent Trend"
-              value={`${
-                insights.improvement >= 0 ? "+" : ""
-              }${insights.improvement.toFixed(1)}`}
-              description="Latest 5 tests vs previous 5"
-            />
-
-            <InsightCard
-              icon="🏅"
-              label="Strongest Test"
-              value={
-                insights.strongestTest
-                  ? Number(
-                      insights.strongestTest.score
-                    ).toFixed(1)
-                  : "—"
-              }
-              description={
-                insights.strongestTest?.title ||
-                "No test data"
-              }
-            />
-
-            <InsightCard
-              icon="🎯"
-              label="Consistency"
-              value={`${insights.consistency.toFixed(0)}%`}
-              description="Score consistency across attempts"
-            />
-
+          {/* TAB BUTTONS */}
+          <div className="flex rounded-2xl border border-white/10 bg-white/[0.04] p-1 self-start md:self-auto">
+            <button
+              onClick={() => setActiveTab("analytics")}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
+                activeTab === "analytics"
+                  ? "bg-purple-600 text-white shadow-lg shadow-purple-900/50"
+                  : "text-white/50 hover:text-white"
+              }`}
+            >
+              <span>📈</span> Test Series Analytics
+            </button>
+            <button
+              onClick={() => setActiveTab("weekly_report")}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
+                activeTab === "weekly_report"
+                  ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg shadow-pink-900/50"
+                  : "text-white/50 hover:text-white"
+              }`}
+            >
+              <span>📊</span> Weekly Study Reports
+            </button>
           </div>
+        </section>
 
-          {results.length >= 2 && (
-            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <h3 className="font-bold">
-                    Score Trend
-                  </h3>
-
-                  <p className="mt-1 text-xs text-white/40">
-                    Oldest → newest attempts
-                  </p>
-                </div>
-
-                <span
-                  className={`rounded-full px-3 py-1 text-xs font-bold ${
-                    insights.improvement >= 0
-                      ? "bg-green-500/10 text-green-400"
-                      : "bg-red-500/10 text-red-400"
-                  }`}
-                >
-                  {insights.improvement >= 0
-                    ? "Improving"
-                    : "Needs Attention"}
-                </span>
+        {/* TAB 1: TEST SERIES ANALYTICS */}
+        {activeTab === "analytics" && (
+          <>
+            {/* STATS OVERVIEW */}
+            <section className="mb-8 grid gap-4 grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <span className="text-2xl">📝</span>
+                <p className="mt-2 text-xs font-bold uppercase text-white/40">Total Tests Attempted</p>
+                <p className="mt-1 text-3xl font-black">{analytics.totalTests}</p>
               </div>
 
-              <div className="flex h-40 items-end gap-2 overflow-x-auto pb-2">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <span className="text-2xl">🎯</span>
+                <p className="mt-2 text-xs font-bold uppercase text-white/40">Average Score</p>
+                <p className="mt-1 text-3xl font-black text-purple-300">{analytics.averageScore}</p>
+              </div>
 
-                {[...results]
-                  .reverse()
-                  .map((result, index) => {
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <span className="text-2xl">🏆</span>
+                <p className="mt-2 text-xs font-bold uppercase text-white/40">Best Score</p>
+                <p className="mt-1 text-3xl font-black text-green-400">{analytics.bestScore}</p>
+              </div>
 
-                    const score = Math.max(
-                      0,
-                      Number(result.score || 0)
-                    );
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <span className="text-2xl">📈</span>
+                <p className="mt-2 text-xs font-bold uppercase text-white/40">Overall Accuracy</p>
+                <p className="mt-1 text-3xl font-black text-pink-400">{analytics.overallAccuracy}%</p>
+              </div>
+            </section>
 
-                    const maxScore = Math.max(
-                      ...results.map((item) =>
-                        Math.max(
-                          1,
-                          Number(item.score || 0)
-                        )
-                      )
-                    );
+            {/* PERFORMANCE INSIGHTS */}
+            <section className="mb-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+              <h2 className="text-lg font-bold">Preparation Insights</h2>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="rounded-2xl border border-white/5 bg-black/20 p-4">
+                  <span className="text-xs text-white/40 uppercase font-semibold">Recent Average (5 Tests)</span>
+                  <p className="mt-1 text-2xl font-black text-white">{analytics.recentAverage}</p>
+                  <p className="text-[11px] text-white/40 mt-0.5">Moving average</p>
+                </div>
 
-                    const height = Math.max(
-                      8,
-                      (score / maxScore) * 100
-                    );
+                <div className="rounded-2xl border border-white/5 bg-black/20 p-4">
+                  <span className="text-xs text-white/40 uppercase font-semibold">Recent Trend</span>
+                  <p
+                    className={`mt-1 text-2xl font-black ${
+                      analytics.improvement >= 0 ? "text-green-400" : "text-red-400"
+                    }`}
+                  >
+                    {analytics.improvement >= 0 ? `+${analytics.improvement}` : analytics.improvement}
+                  </p>
+                  <p className="text-[11px] text-white/40 mt-0.5">vs previous 5 tests</p>
+                </div>
+
+                <div className="rounded-2xl border border-white/5 bg-black/20 p-4">
+                  <span className="text-xs text-white/40 uppercase font-semibold">Score Consistency</span>
+                  <p className="mt-1 text-2xl font-black text-purple-300">{analytics.consistencyScore}%</p>
+                  <p className="text-[11px] text-white/40 mt-0.5">Standard deviation index</p>
+                </div>
+
+                <div className="rounded-2xl border border-white/5 bg-black/20 p-4">
+                  <span className="text-xs text-white/40 uppercase font-semibold">Top Performing Test</span>
+                  <p className="mt-1 text-base font-bold truncate text-white">
+                    {analytics.strongestTest?.title || "—"}
+                  </p>
+                  <p className="text-[11px] text-green-400 mt-0.5 font-bold">
+                    {analytics.strongestTest ? `${analytics.strongestTest.score} Marks` : "No attempts"}
+                  </p>
+                </div>
+              </div>
+
+              {/* CHRONOLOGICAL SCORE TREND VISUALIZER */}
+              {analytics.chronologicalScores.length >= 2 && (
+                <div className="mt-8 border-t border-white/10 pt-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="font-bold text-sm">Score Progression Curve</h3>
+                      <p className="text-xs text-white/40">Chronological test attempts (oldest → newest)</p>
+                    </div>
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-bold ${
+                        analytics.improvement >= 0
+                          ? "bg-green-500/20 text-green-300"
+                          : "bg-yellow-500/20 text-yellow-300"
+                      }`}
+                    >
+                      {analytics.improvement >= 0 ? "📈 Upward Momentum" : "⚠️ Needs Consolidation"}
+                    </span>
+                  </div>
+
+                  <div className="flex h-36 items-end gap-2 overflow-x-auto pb-2">
+                    {analytics.chronologicalScores.map((item, idx) => {
+                      const maxPossible = Math.max(...analytics.chronologicalScores.map((s) => s.score), 10);
+                      const heightPercent = Math.max(12, Math.min(100, (item.score / maxPossible) * 100));
+
+                      return (
+                        <div
+                          key={item.id}
+                          className="flex min-w-[32px] flex-1 flex-col items-center justify-end gap-1.5"
+                          title={`${item.title}: ${item.score} marks`}
+                        >
+                          <span className="text-[10px] font-bold text-white/60">{item.score}</span>
+                          <div
+                            className="w-full rounded-t-lg bg-gradient-to-t from-purple-700 to-fuchsia-400 transition-all duration-500 hover:brightness-125"
+                            style={{ height: `${heightPercent}%` }}
+                          />
+                          <span className="text-[9px] text-white/30">#{idx + 1}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* DETAILED HISTORY TABLE */}
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold">Complete Test Log ({results.length})</h2>
+              </div>
+
+              {loading ? (
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-12 text-center text-white/40">
+                  Loading test records...
+                </div>
+              ) : results.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-12 text-center">
+                  <p className="text-xl font-bold">No test attempts recorded yet</p>
+                  <button
+                    onClick={() => router.push("/tests")}
+                    className="mt-4 rounded-xl bg-purple-600 px-5 py-2.5 text-xs font-bold hover:bg-purple-500"
+                  >
+                    Go to Test Centre →
+                  </button>
+                </div>
+              ) : (
+                <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[650px] text-left text-sm">
+                      <thead className="border-b border-white/10 bg-white/[0.02] text-xs uppercase tracking-wider text-white/40">
+                        <tr>
+                          <th className="py-4 px-5 font-semibold">Test Title</th>
+                          <th className="py-4 px-4 font-semibold">Date</th>
+                          <th className="py-4 px-4 font-semibold">Score</th>
+                          <th className="py-4 px-4 font-semibold">Correct</th>
+                          <th className="py-4 px-4 font-semibold">Wrong</th>
+                          <th className="py-4 px-4 font-semibold">Accuracy</th>
+                          <th className="py-4 px-5 text-right font-semibold">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-white/5">
+                        {results.map((r, idx) => {
+                          const acc = r.attempted > 0 ? Math.round((r.correct / r.attempted) * 100) : 0;
+                          return (
+                            <tr key={idx} className="hover:bg-white/[0.02] transition">
+                              <td className="py-4 px-5 font-semibold text-white">{r.title}</td>
+                              <td className="py-4 px-4 text-xs text-white/50">{formatDate(r.date, "short")}</td>
+                              <td className="py-4 px-4 font-black text-purple-300">{r.score}</td>
+                              <td className="py-4 px-4 text-green-400 font-bold">{r.correct}</td>
+                              <td className="py-4 px-4 text-red-400 font-bold">{r.wrong}</td>
+                              <td className="py-4 px-4 text-white/80">{acc}%</td>
+                              <td className="py-4 px-5 text-right">
+                                <button
+                                  onClick={() => deleteResult(idx)}
+                                  className="text-xs text-red-400 hover:text-red-300"
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </section>
+          </>
+        )}
+
+        {/* TAB 2: WEEKLY STUDY & PERFORMANCE REPORTS */}
+        {activeTab === "weekly_report" && (
+          <div className="space-y-8">
+            {/* WEEK SELECTOR CONTROLS */}
+            <section className="flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSelectedWeekDate(shiftDateKey(selectedWeekDate, -7))}
+                  className="rounded-xl bg-white/5 px-4 py-2 text-xs font-bold hover:bg-white/10 transition"
+                >
+                  ← Previous Week
+                </button>
+                <button
+                  onClick={() => setSelectedWeekDate(getDateKey())}
+                  className="rounded-xl bg-purple-600/30 border border-purple-500/40 px-3.5 py-2 text-xs font-bold text-purple-200 hover:bg-purple-600/50 transition"
+                >
+                  Current Week
+                </button>
+                <button
+                  onClick={() => setSelectedWeekDate(shiftDateKey(selectedWeekDate, 7))}
+                  className="rounded-xl bg-white/5 px-4 py-2 text-xs font-bold hover:bg-white/10 transition"
+                >
+                  Next Week →
+                </button>
+              </div>
+
+              <div className="text-left md:text-right">
+                <span className="text-[11px] font-bold uppercase tracking-widest text-pink-400">
+                  Target Week Span
+                </span>
+                <h2 className="text-xl font-bold">
+                  {formatWeekSpan(weeklyReport.startDate, weeklyReport.endDate)}
+                </h2>
+              </div>
+            </section>
+
+            {/* WEEKLY METRICS OVERVIEW */}
+            <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-3xl border border-purple-500/30 bg-gradient-to-b from-purple-950/40 to-[#140a24] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl">⏳</span>
+                  <span className="rounded-full bg-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-purple-300">
+                    Target: {weeklyReport.weeklyTargetHours}h
+                  </span>
+                </div>
+                <p className="mt-3 text-3xl font-black text-white">{weeklyReport.totalCompletedHours}h</p>
+                <p className="text-xs font-semibold text-white/60">Study Hours Completed</p>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-black/40">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+                    style={{ width: `${weeklyReport.hoursCompletionRate}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl">✅</span>
+                  <span className="text-xs font-bold text-green-400">{weeklyReport.taskCompletionRate}%</span>
+                </div>
+                <p className="mt-3 text-3xl font-black text-white">
+                  {weeklyReport.totalTasksCompleted}{" "}
+                  <span className="text-base font-normal text-white/40">/ {weeklyReport.totalTasksScheduled}</span>
+                </p>
+                <p className="text-xs font-semibold text-white/60">Study Blocks Completed</p>
+                <p className="mt-2 text-[11px] text-white/40">Scheduled targets executed</p>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl">🗓️</span>
+                  <span className="text-xs font-bold text-purple-300">{weeklyReport.activeStudyDays}/7 Days</span>
+                </div>
+                <p className="mt-3 text-3xl font-black text-white">{weeklyReport.consistencyScore}%</p>
+                <p className="text-xs font-semibold text-white/60">Weekly Consistency Index</p>
+                <p className="mt-2 text-[11px] text-white/40">Variance stability rating</p>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl">✍️</span>
+                  <span className="text-xs font-bold text-pink-300">{weeklyReport.weeklyNotesCount} Notes</span>
+                </div>
+                <p className="mt-3 text-3xl font-black text-pink-400">{weeklyReport.testsAttemptedInWeek.length}</p>
+                <p className="text-xs font-semibold text-white/60">Mock Tests Attempted</p>
+                <p className="mt-2 text-[11px] text-white/40">
+                  {weeklyReport.testsAttemptedInWeek.length > 0
+                    ? `Avg: ${weeklyReport.averageTestScoreInWeek} Marks`
+                    : "No test records this week"}
+                </p>
+              </div>
+            </section>
+
+            {/* DAY-BY-DAY HOURS BAR CHART & SUBJECT BREAKDOWN */}
+            <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+              {/* DAY-BY-DAY CHART */}
+              <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-base font-bold">Daily Study Hours (Mon – Sun)</h3>
+                    <p className="text-xs text-white/40">Completed hours vs planned hours per day</p>
+                  </div>
+                  <span className="text-xs font-bold text-purple-300">
+                    {weeklyReport.totalCompletedHours} Hours Logged
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-7 gap-3 h-48 items-end pt-6 pb-2 border-b border-white/10">
+                  {weeklyReport.dailyBreakdown.map((day) => {
+                    const maxH = Math.max(...weeklyReport.dailyBreakdown.map((d) => Math.max(d.completedHours, d.plannedHours)), 6.0);
+                    const heightPercent = Math.max(10, Math.min(100, (day.completedHours / maxH) * 100));
 
                     return (
-                      <div
-                        key={result.id}
-                        className="flex min-w-[34px] flex-1 flex-col items-center justify-end gap-2"
-                        title={`${result.title || "Test"}: ${score.toFixed(1)}`}
-                      >
-                        <span className="text-[10px] text-white/50">
-                          {score.toFixed(0)}
-                        </span>
-
+                      <div key={day.date} className="flex flex-col items-center justify-end h-full gap-2">
+                        <span className="text-[10px] font-bold text-white/70">{day.completedHours}h</span>
                         <div
-                          className="w-full min-w-[18px] rounded-t-lg bg-gradient-to-t from-purple-700 to-fuchsia-400 transition-all"
-                          style={{
-                            height: `${height}%`,
-                          }}
+                          className={`w-full max-w-[36px] rounded-t-xl transition-all duration-500 ${
+                            day.completedHours >= 5
+                              ? "bg-gradient-to-t from-purple-700 to-pink-500"
+                              : day.completedHours > 0
+                              ? "bg-gradient-to-t from-purple-800 to-purple-500"
+                              : "bg-white/10"
+                          }`}
+                          style={{ height: `${heightPercent}%` }}
                         />
-
-                        <span className="text-[9px] text-white/30">
-                          {index + 1}
-                        </span>
+                        <div className="text-center">
+                          <span className="text-xs font-bold text-white/80">{day.dayName}</span>
+                          <p className="text-[9px] text-white/40">{day.date.split("-")[2]}</p>
+                        </div>
                       </div>
                     );
                   })}
+                </div>
+              </section>
 
-              </div>
+              {/* SUBJECT TIME ALLOCATIONS */}
+              <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+                <h3 className="text-base font-bold mb-1">Subject Time Allocation</h3>
+                <p className="text-xs text-white/40 mb-4">Hours and share of preparation</p>
 
-            </div>
-          )}
-
-        </section>
-
-        {/* ANSWER BREAKDOWN */}
-
-        <section className="mb-8">
-
-          <h2 className="mb-4 text-2xl font-bold">
-            Answer Analysis
-          </h2>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-
-            <AnalysisCard
-              icon="✅"
-              label="Correct Answers"
-              value={statistics.totalCorrect}
-              description="Questions answered correctly"
-            />
-
-            <AnalysisCard
-              icon="❌"
-              label="Wrong Answers"
-              value={statistics.totalWrong}
-              description="Questions answered incorrectly"
-            />
-
-            <AnalysisCard
-              icon="⏭️"
-              label="Skipped"
-              value={statistics.totalSkipped}
-              description="Questions not attempted"
-            />
-
-          </div>
-
-        </section>
-
-        {/* ACCURACY BAR */}
-
-        <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-
-          <div className="mb-4 flex items-center justify-between">
-
-            <div>
-              <h2 className="text-xl font-bold">
-                Overall Accuracy
-              </h2>
-
-              <p className="mt-1 text-sm text-white/50">
-                Based on all attempted questions
-              </p>
+                {weeklyReport.subjectAllocations.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-white/10 p-8 text-center text-xs text-white/40">
+                    No completed study blocks logged this week.
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {weeklyReport.subjectAllocations.map((sub) => (
+                      <div key={sub.subject} className="space-y-1">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="font-semibold text-white">{sub.subject}</span>
+                          <span className="text-white/60">
+                            {sub.hours}h <span className="text-pink-400 font-bold">({sub.percentage}%)</span>
+                          </span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-full bg-white/5">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-purple-600 to-pink-500"
+                            style={{ width: `${sub.percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
             </div>
 
-            <span className="text-2xl font-black text-purple-300">
-              {statistics.accuracy.toFixed(1)}%
-            </span>
+            {/* AI MENTOR WEEKLY REVIEW SECTION */}
+            <section className="overflow-hidden rounded-3xl border border-purple-500/40 bg-gradient-to-br from-[#1b0a2e] via-[#2a0e44] to-[#12071f] p-6 md:p-8 shadow-2xl">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-white/10 pb-5">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">🤖</span>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-xl font-black">AI Weekly Mentor Evaluation</h3>
+                      {weeklyReport.aiMentorReview && (
+                        <span className="rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-3 py-0.5 text-xs font-black uppercase text-white shadow-lg">
+                          Grade: {weeklyReport.aiMentorReview.overallGrade}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-white/60">
+                      Holistic diagnostic evaluation across study velocity, mock accuracy, and consistency.
+                    </p>
+                  </div>
+                </div>
 
-          </div>
-
-          <div className="h-4 overflow-hidden rounded-full bg-white/10">
-
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-500 transition-all duration-700"
-              style={{
-                width: `${Math.min(
-                  statistics.accuracy,
-                  100
-                )}%`,
-              }}
-            />
-
-          </div>
-
-          <div className="mt-3 flex justify-between text-xs text-white/40">
-
-            <span>
-              {statistics.totalCorrect} correct
-            </span>
-
-            <span>
-              {statistics.totalAttempted} attempted
-            </span>
-
-          </div>
-
-        </section>
-
-        {/* TEST HISTORY */}
-
-        <section>
-
-          <div className="mb-5">
-
-            <h2 className="text-2xl font-bold">
-              Test Performance
-            </h2>
-
-            <p className="mt-1 text-sm text-white/50">
-              Your complete test history from Supabase.
-            </p>
-
-          </div>
-
-          {loading ? (
-
-            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-10 text-center text-white/50">
-              Loading performance...
-            </div>
-
-          ) : results.length === 0 ? (
-
-            <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-10 text-center">
-
-              <div className="text-5xl">
-                📊
-              </div>
-
-              <h3 className="mt-4 text-xl font-bold">
-                No test data yet
-              </h3>
-
-              <p className="mt-2 text-sm text-white/50">
-                Complete a test from the Tests page and
-                your performance will appear here.
-              </p>
-
-              <button
-                onClick={() => router.push("/tests")}
-                className="mt-5 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-3 font-bold"
-              >
-                Go to Tests →
-              </button>
-
-            </div>
-
-          ) : (
-
-            <div className="space-y-4">
-
-              {results.map((result) => {
-
-                const accuracy =
-                  getAccuracy(result);
-
-                return (
-                  <div
-                    key={result.id}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-purple-500/30"
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleCopyWeeklyReport}
+                    className="rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white/70 hover:bg-white/10 transition"
                   >
+                    📋 Copy Report
+                  </button>
+                  <button
+                    onClick={handleGenerateAiWeeklyReview}
+                    disabled={generatingAI}
+                    className="rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 px-4 py-2 text-xs font-bold text-white hover:opacity-90 transition disabled:opacity-50"
+                  >
+                    {generatingAI ? "Analyzing Week..." : "✨ Generate AI Review"}
+                  </button>
+                </div>
+              </div>
 
-                    <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              {weeklyReport.aiMentorReview ? (
+                <div className="mt-6 space-y-6">
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300">
+                      Executive Summary
+                    </h4>
+                    <p className="mt-1 text-sm text-white/90 leading-relaxed">
+                      {weeklyReport.aiMentorReview.executiveSummary}
+                    </p>
+                  </div>
 
-                      {/* TEST INFO */}
-
-                      <div className="min-w-0 flex-1">
-
-                        <h3 className="truncate text-lg font-bold">
-                          {result.title ||
-                            "UPSC Test"}
-                        </h3>
-
-                        <p className="mt-1 text-xs text-white/40">
-                          {formatDate(result.date)}
-                        </p>
-
-                      </div>
-
-                      {/* SCORE */}
-
-                      <div className="flex items-center gap-6">
-
-                        <div className="text-center">
-
-                          <p className="text-xs uppercase tracking-wide text-white/40">
-                            Score
-                          </p>
-
-                          <p className="mt-1 text-2xl font-black text-purple-300">
-                            {Number(
-                              result.score
-                            ).toFixed(1)}
-                          </p>
-
-                        </div>
-
-                        <div className="text-center">
-
-                          <p className="text-xs uppercase tracking-wide text-white/40">
-                            Accuracy
-                          </p>
-
-                          <p className="mt-1 text-lg font-bold">
-                            {accuracy.toFixed(1)}%
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      {/* BREAKDOWN */}
-
-                      <div className="grid grid-cols-4 gap-3 text-center">
-
-                        <MiniStat
-                          label="Correct"
-                          value={result.correct}
-                        />
-
-                        <MiniStat
-                          label="Wrong"
-                          value={result.wrong}
-                        />
-
-                        <MiniStat
-                          label="Skip"
-                          value={result.skipped}
-                        />
-
-                        <MiniStat
-                          label="Total"
-                          value={result.total}
-                        />
-
-                      </div>
-
-                      {/* DELETE */}
-
-                      <button
-                        onClick={() =>
-                          deleteResult(result.id)
-                        }
-                        className="rounded-lg border border-red-500/20 px-4 py-2 text-xs font-semibold text-red-400 transition hover:bg-red-500/10"
-                      >
-                        Delete
-                      </button>
-
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div className="rounded-2xl border border-green-500/20 bg-green-500/[0.03] p-4">
+                      <h5 className="text-xs font-bold uppercase text-green-400">✨ Key Strengths</h5>
+                      <ul className="mt-2 space-y-1.5 text-xs text-white/80 list-disc list-inside">
+                        {weeklyReport.aiMentorReview.strengths.map((s, i) => (
+                          <li key={i}>{s}</li>
+                        ))}
+                      </ul>
                     </div>
 
+                    <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/[0.03] p-4">
+                      <h5 className="text-xs font-bold uppercase text-yellow-400">⚠️ Critical Gaps</h5>
+                      <ul className="mt-2 space-y-1.5 text-xs text-white/80 list-disc list-inside">
+                        {weeklyReport.aiMentorReview.criticalGaps.map((g, i) => (
+                          <li key={i}>{g}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="rounded-2xl border border-pink-500/20 bg-pink-500/[0.03] p-4">
+                      <h5 className="text-xs font-bold uppercase text-pink-400">🎯 Next Week Tactics</h5>
+                      <ul className="mt-2 space-y-1.5 text-xs text-white/80 list-disc list-inside">
+                        {weeklyReport.aiMentorReview.strategicAdviceForNextWeek.map((a, i) => (
+                          <li key={i}>{a}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                );
-              })}
 
-            </div>
+                  <div className="flex items-center justify-between text-[11px] text-white/40 border-t border-white/5 pt-3">
+                    <span>Generated on: {formatDate(weeklyReport.aiMentorReview.generatedAt, "full")}</span>
+                    {weeklyReport.aiMentorReview.modelUsed && (
+                      <span>Engine: {weeklyReport.aiMentorReview.modelUsed}</span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-6 rounded-2xl border border-dashed border-white/10 p-8 text-center">
+                  <p className="text-sm text-white/60">
+                    No AI mentor review generated yet for this week.
+                  </p>
+                  <button
+                    onClick={handleGenerateAiWeeklyReview}
+                    disabled={generatingAI}
+                    className="mt-3 rounded-xl bg-purple-600 px-5 py-2 text-xs font-bold text-white hover:bg-purple-500 transition"
+                  >
+                    {generatingAI ? "Analyzing with AI..." : "Generate AI Weekly Mentor Review ✨"}
+                  </button>
+                </div>
+              )}
+            </section>
 
-          )}
+            {/* WEEKLY TIMESTAMPED NOTES & REFLECTIONS */}
+            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-base font-bold flex items-center gap-2">
+                    <span>✍️</span> Weekly Study Journal & Takeaways ({weeklyReport.weeklyNotesCount})
+                  </h3>
+                  <p className="text-xs text-white/40">
+                    Chronological study logs captured during {formatWeekSpan(weeklyReport.startDate, weeklyReport.endDate)}
+                  </p>
+                </div>
+                <button
+                  onClick={() => router.push("/notes")}
+                  className="text-xs font-semibold text-purple-300 hover:text-white transition"
+                >
+                  Notes Central Hub →
+                </button>
+              </div>
 
-        </section>
-
+              {weeklyReport.weeklyNotesSummary.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-white/10 p-8 text-center text-xs text-white/40">
+                  No daily study notes were recorded in the study plan during this week.
+                </div>
+              ) : (
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {weeklyReport.weeklyNotesSummary.map((n) => (
+                    <div key={n.id} className="rounded-2xl border border-white/5 bg-black/30 p-4 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="rounded-full bg-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-300">
+                          🕒 {n.time}
+                        </span>
+                        <span className="text-[10px] text-purple-300 font-semibold">
+                          {formatDate(n.date, "short")}
+                        </span>
+                      </div>
+                      <h4 className="text-xs font-bold text-white truncate">{n.title}</h4>
+                      <p className="line-clamp-3 text-[11px] text-white/60 leading-relaxed">
+                        {n.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
+        )}
       </div>
-
     </main>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| STAT CARD
-|--------------------------------------------------------------------------
-*/
-
-function StatCard({
-  icon,
-  label,
-  value,
-}: {
-  icon: string;
-  label: string;
-  value: string | number;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:border-purple-500/30">
-
-      <div className="text-2xl">
-        {icon}
-      </div>
-
-      <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-white/40">
-        {label}
-      </p>
-
-      <p className="mt-2 text-3xl font-black">
-        {value}
-      </p>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| INSIGHT CARD
-|--------------------------------------------------------------------------
-*/
-
-function InsightCard({
-  icon,
-  label,
-  value,
-  description,
-}: {
-  icon: string;
-  label: string;
-  value: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-
-      <div className="flex items-start justify-between gap-3">
-        <div className="text-2xl">
-          {icon}
-        </div>
-
-        <span className="text-xs text-white/30">
-          LIVE
-        </span>
-      </div>
-
-      <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-white/40">
-        {label}
-      </p>
-
-      <p className="mt-2 text-3xl font-black">
-        {value}
-      </p>
-
-      <p className="mt-2 line-clamp-2 text-xs text-white/40">
-        {description}
-      </p>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| ANALYSIS CARD
-|--------------------------------------------------------------------------
-*/
-
-function AnalysisCard({
-  icon,
-  label,
-  value,
-  description,
-}: {
-  icon: string;
-  label: string;
-  value: number;
-  description: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-
-      <div className="flex items-center gap-3">
-
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 text-xl">
-          {icon}
-        </div>
-
-        <div>
-
-          <p className="font-bold">
-            {label}
-          </p>
-
-          <p className="text-xs text-white/40">
-            {description}
-          </p>
-
-        </div>
-
-      </div>
-
-      <p className="mt-5 text-4xl font-black">
-        {value}
-      </p>
-
-    </div>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| MINI STAT
-|--------------------------------------------------------------------------
-*/
-
-function MiniStat({
-  label,
-  value,
-}: {
-  label: string;
-  value: number;
-}) {
-  return (
-    <div>
-
-      <p className="text-[10px] uppercase tracking-wide text-white/30">
-        {label}
-      </p>
-
-      <p className="mt-1 font-bold">
-        {value}
-      </p>
-
-    </div>
   );
 }

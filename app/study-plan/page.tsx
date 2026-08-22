@@ -1,867 +1,706 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-
-type Task = {
-  id: string;
-  subject: string;
-  title: string;
-  description: string;
-  hours: number;
-  completed: boolean;
-};
-
-type DayPlan = {
-  date: string;
-  tasks: Task[];
-};
+import { DayPlan, StudyTask, DailyStudyNoteEntry } from "@/lib/core/types";
+import {
+  formatDate,
+  getDateKey,
+  shiftDateKey,
+  safeArray,
+  getWeekDatesList,
+  getWeekDateRange,
+  formatWeekSpan,
+  formatTime,
+} from "@/lib/core/utils";
+import {
+  createDefaultDayPlan,
+  autoRescheduleMissedTasks,
+  computeStudyPlanStats,
+  createDailyStudyNote,
+  addDailyNoteToPlans,
+  deleteDailyNoteFromPlans,
+} from "@/lib/study/study-plan-engine";
+import { UPSC_SUBJECTS } from "@/lib/core/constants";
+import {
+  broadcastSyncChange,
+  subscribeToSyncChanges,
+  pushStateToCloud,
+  useCloudSync,
+} from "@/lib/sync/sync-engine";
 
 const STORAGE_KEY = "redroom_study_plan";
 
-const SUBJECTS = [
-  "Polity",
-  "History",
-  "Geography",
-  "Economy",
-  "Environment",
-  "Science & Technology",
-  "CSAT",
-  "Optional",
-  "Current Affairs",
-];
-
-const DEFAULT_TASKS: Task[] = [
-  {
-    id: "polity-1",
-    subject: "Polity",
-    title: "Polity Revision",
-    description: "Revise today's selected Polity topics.",
-    hours: 2,
-    completed: false,
-  },
-  {
-    id: "history-1",
-    subject: "History",
-    title: "History Study",
-    description: "Complete the planned History chapter/topic.",
-    hours: 2,
-    completed: false,
-  },
-  {
-    id: "economy-1",
-    subject: "Economy",
-    title: "Economy",
-    description: "Study and revise the scheduled Economy topic.",
-    hours: 1.5,
-    completed: false,
-  },
-  {
-    id: "environment-1",
-    subject: "Environment",
-    title: "Environment",
-    description: "Complete today's Environment target.",
-    hours: 1,
-    completed: false,
-  },
-  {
-    id: "pyq-1",
-    subject: "Current Affairs",
-    title: "Daily PYQs",
-    description: "Solve and analyse UPSC Previous Year Questions.",
-    hours: 1,
-    completed: false,
-  },
-  {
-    id: "revision-1",
-    subject: "Revision",
-    title: "Daily Revision",
-    description: "Revise everything studied today.",
-    hours: 1,
-    completed: false,
-  },
-];
-
-function getDateKey(date: Date) {
-  return date.toISOString().split("T")[0];
-}
-
-function formatDate(dateString: string) {
-  const date = new Date(`${dateString}T00:00:00`);
-
-  return date.toLocaleDateString("en-IN", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function shiftDate(dateString: string, amount: number) {
-  const date = new Date(`${dateString}T00:00:00`);
-
-  date.setDate(date.getDate() + amount);
-
-  return getDateKey(date);
-}
-
-function createDefaultPlan(date: string): DayPlan {
-  return {
-    date,
-    tasks: DEFAULT_TASKS.map((task) => ({
-      ...task,
-      id: `${date}-${task.id}`,
-    })),
-  };
-}
-
 export default function StudyPlanPage() {
   const router = useRouter();
+  const { isSyncing, lastSyncTime, triggerManualSync } = useCloudSync();
 
-  const today = getDateKey(new Date());
-
-  const [selectedDate, setSelectedDate] = useState(today);
+  const todayStr = getDateKey();
+  const [selectedDate, setSelectedDate] = useState(todayStr);
   const [plans, setPlans] = useState<Record<string, DayPlan>>({});
   const [loaded, setLoaded] = useState(false);
 
+  // New task inputs
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskSubject, setNewTaskSubject] = useState("Polity");
-  const [newTaskHours, setNewTaskHours] = useState("1");
+  const [newTaskHours, setNewTaskHours] = useState("1.5");
+  const [newTaskType, setNewTaskType] = useState<StudyTask["taskType"]>("Study");
 
-  /*
-  |--------------------------------------------------------------------------
-  | LOAD SAVED DATA
-  |--------------------------------------------------------------------------
-  */
+  // New timestamped note inputs
+  const [newNoteTitle, setNewNoteTitle] = useState("");
+  const [newNoteSubject, setNewNoteSubject] = useState("Polity");
+  const [newNoteContent, setNewNoteContent] = useState("");
+  const [showNoteForm, setShowNoteForm] = useState(false);
 
+  // Load Saved Plans & Subscribe to Cross-Tab Changes
   useEffect(() => {
-    const restoreTimer = window.setTimeout(() => {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-
-        if (saved) {
-          const parsed = JSON.parse(saved);
-
-          if (parsed && typeof parsed === "object") {
-            setPlans(parsed);
-          }
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === "object") {
+          setPlans(parsed);
         }
-      } catch (error) {
-        console.error("Failed to load study plan:", error);
-      } finally {
-        setLoaded(true);
       }
-    }, 0);
+    } catch (err) {
+      console.warn("Could not load study plans:", err);
+    } finally {
+      setLoaded(true);
+    }
 
-    return () => window.clearTimeout(restoreTimer);
+    // Subscribe to cross-tab updates
+    const unsubscribe = subscribeToSyncChanges((type) => {
+      if (type === "study_plan" || type === "all") {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && typeof parsed === "object") {
+              setPlans(parsed);
+            }
+          }
+        } catch {}
+      }
+    });
+
+    return unsubscribe;
   }, []);
 
-  /*
-  |--------------------------------------------------------------------------
-  | SAVE DATA
-  |--------------------------------------------------------------------------
-  */
-
+  // Save Plans & Broadcast Change
   useEffect(() => {
     if (!loaded) return;
-
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(plans)
-      );
-    } catch (error) {
-      console.error("Failed to save study plan:", error);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(plans));
+      broadcastSyncChange("study_plan");
+      void pushStateToCloud();
+    } catch (err) {
+      console.warn("Could not save study plans:", err);
     }
   }, [plans, loaded]);
 
-  /*
-  |--------------------------------------------------------------------------
-  | CURRENT DAY
-  |--------------------------------------------------------------------------
-  */
-
   const currentPlan = useMemo(() => {
-    return plans[selectedDate] || createDefaultPlan(selectedDate);
+    return plans[selectedDate] || createDefaultDayPlan(selectedDate);
   }, [plans, selectedDate]);
 
-  /*
-  |--------------------------------------------------------------------------
-  | SAVE CURRENT PLAN
-  |--------------------------------------------------------------------------
-  */
+  const saveCurrentPlan = useCallback(
+    (plan: DayPlan) => {
+      setPlans((prev) => ({
+        ...prev,
+        [selectedDate]: plan,
+      }));
+    },
+    [selectedDate]
+  );
 
-  function savePlan(plan: DayPlan) {
-    setPlans((previous) => ({
-      ...previous,
-      [selectedDate]: plan,
-    }));
-  }
+  // Week Dates List
+  const weekDays = useMemo(() => {
+    return getWeekDatesList(selectedDate);
+  }, [selectedDate]);
 
-  /*
-  |--------------------------------------------------------------------------
-  | TOGGLE TASK
-  |--------------------------------------------------------------------------
-  */
+  const weekRange = useMemo(() => {
+    return getWeekDateRange(selectedDate);
+  }, [selectedDate]);
 
-  function toggleTask(taskId: string) {
-    const updatedTasks = currentPlan.tasks.map((task) =>
+  // Toggle Task Completion
+  const toggleTask = (taskId: string) => {
+    const updatedTasks = safeArray(currentPlan.tasks).map((task) =>
       task.id === taskId
         ? {
             ...task,
             completed: !task.completed,
+            completedAt: !task.completed ? new Date().toISOString() : undefined,
           }
         : task
     );
+    saveCurrentPlan({ ...currentPlan, tasks: updatedTasks });
+  };
 
-    savePlan({
-      ...currentPlan,
-      tasks: updatedTasks,
-    });
-  }
+  // Add Task
+  const handleAddTask = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTaskTitle.trim()) return;
 
-  /*
-  |--------------------------------------------------------------------------
-  | ADD TASK
-  |--------------------------------------------------------------------------
-  */
-
-  function addTask() {
-    const title = newTaskTitle.trim();
-
-    if (!title) return;
-
-    const hours = Number(newTaskHours);
-
-    const task: Task = {
+    const hours = parseFloat(newTaskHours) || 1.0;
+    const task: StudyTask = {
       id: `${selectedDate}-${Date.now()}`,
       subject: newTaskSubject,
-      title,
-      description: "Custom study task",
-      hours: Number.isFinite(hours) && hours > 0 ? hours : 1,
+      title: newTaskTitle.trim(),
+      description: "Custom targeted study block",
+      hours: Math.max(0.5, hours),
       completed: false,
+      taskType: newTaskType,
+      priority: "Medium",
     };
 
-    savePlan({
+    saveCurrentPlan({
       ...currentPlan,
       tasks: [...currentPlan.tasks, task],
     });
 
     setNewTaskTitle("");
-    setNewTaskHours("1");
-  }
+    setNewTaskHours("1.5");
+  };
 
-  /*
-  |--------------------------------------------------------------------------
-  | DELETE TASK
-  |--------------------------------------------------------------------------
-  */
+  // Delete Task
+  const deleteTask = (taskId: string) => {
+    const updated = safeArray(currentPlan.tasks).filter((t) => t.id !== taskId);
+    saveCurrentPlan({ ...currentPlan, tasks: updated });
+  };
 
-  function deleteTask(taskId: string) {
-    const updatedTasks = currentPlan.tasks.filter(
-      (task) => task.id !== taskId
+  // Add Timestamped Daily Study Note
+  const handleAddDailyNote = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newNoteTitle.trim() || !newNoteContent.trim()) return;
+
+    const newEntry = createDailyStudyNote(
+      selectedDate,
+      newNoteTitle.trim(),
+      newNoteContent.trim(),
+      newNoteSubject,
+      [newNoteSubject, "Daily Journal"]
     );
 
-    savePlan({
-      ...currentPlan,
-      tasks: updatedTasks,
-    });
-  }
+    const updatedPlans = addDailyNoteToPlans(plans, selectedDate, newEntry);
+    setPlans(updatedPlans);
 
-  /*
-  |--------------------------------------------------------------------------
-  | RESET DAY
-  |--------------------------------------------------------------------------
-  */
+    setNewNoteTitle("");
+    setNewNoteContent("");
+    setShowNoteForm(false);
+  };
 
-  function resetDay() {
-    const confirmed = window.confirm(
-      "Reset all tasks for this day?"
+  // Delete Daily Study Note
+  const handleDeleteDailyNote = (noteId: string) => {
+    const updatedPlans = deleteDailyNoteFromPlans(plans, selectedDate, noteId);
+    setPlans(updatedPlans);
+  };
+
+  // Auto Reschedule Missed Tasks
+  const handleAutoReschedule = () => {
+    const { updatedPlans, rescheduledCount } = autoRescheduleMissedTasks(plans, selectedDate);
+    setPlans(updatedPlans);
+    alert(
+      rescheduledCount > 0
+        ? `✓ Successfully rescheduled ${rescheduledCount} missed task(s) to ${formatDate(selectedDate, "short")}.`
+        : "No missed tasks found to reschedule from yesterday."
     );
+  };
 
-    if (!confirmed) return;
+  // Day Stats
+  const completedTasks = safeArray(currentPlan.tasks).filter((t) => t.completed).length;
+  const totalTasks = safeArray(currentPlan.tasks).length;
+  const dayProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
-    savePlan(createDefaultPlan(selectedDate));
-  }
+  const plannedHours = safeArray(currentPlan.tasks).reduce((sum, t) => sum + (t.hours || 0), 0);
+  const completedHours = safeArray(currentPlan.tasks)
+    .filter((t) => t.completed)
+    .reduce((sum, t) => sum + (t.hours || 0), 0);
 
-  /*
-  |--------------------------------------------------------------------------
-  | STATISTICS
-  |--------------------------------------------------------------------------
-  */
-
-  const completedTasks = currentPlan.tasks.filter(
-    (task) => task.completed
-  ).length;
-
-  const totalTasks = currentPlan.tasks.length;
-
-  const progress =
-    totalTasks > 0
-      ? Math.round((completedTasks / totalTasks) * 100)
-      : 0;
-
-  const plannedHours = currentPlan.tasks.reduce(
-    (sum, task) => sum + task.hours,
-    0
-  );
-
-  const completedHours = currentPlan.tasks
-    .filter((task) => task.completed)
-    .reduce((sum, task) => sum + task.hours, 0);
-
-  /*
-  |--------------------------------------------------------------------------
-  | OVERALL STATS
-  |--------------------------------------------------------------------------
-  */
-
-  const overallStats = useMemo(() => {
-    const allPlans = Object.values(plans);
-
-    let totalTasks = 0;
-    let completed = 0;
-    let totalHours = 0;
-    let completedHours = 0;
-
-    allPlans.forEach((plan) => {
-      plan.tasks.forEach((task) => {
-        totalTasks++;
-        totalHours += task.hours;
-
-        if (task.completed) {
-          completed++;
-          completedHours += task.hours;
-        }
-      });
-    });
-
-    return {
-      totalTasks,
-      completed,
-      totalHours,
-      completedHours,
-      progress:
-        totalTasks > 0
-          ? Math.round((completed / totalTasks) * 100)
-          : 0,
-    };
-  }, [plans]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | SUBJECT STATS
-  |--------------------------------------------------------------------------
-  */
-
-  const subjectStats = useMemo(() => {
-    const map: Record<
-      string,
-      {
-        total: number;
-        completed: number;
-      }
-    > = {};
-
-    currentPlan.tasks.forEach((task) => {
-      if (!map[task.subject]) {
-        map[task.subject] = {
-          total: 0,
-          completed: 0,
-        };
-      }
-
-      map[task.subject].total++;
-
-      if (task.completed) {
-        map[task.subject].completed++;
-      }
-    });
-
-    return map;
-  }, [currentPlan]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | PAGE
-  |--------------------------------------------------------------------------
-  */
+  const dailyNotesList = safeArray(currentPlan.dailyNotes);
+  const overallStats = useMemo(() => computeStudyPlanStats(plans), [plans]);
 
   return (
     <main className="min-h-screen bg-[#080510] text-white">
-
       {/* HEADER */}
-
-      <header className="border-b border-white/10 bg-[#0b0714]/90">
-
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5">
-
-          <div>
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => router.push("/dashboard")}
-              className="text-sm text-purple-300 hover:text-white"
+              className="text-sm text-purple-300 transition hover:text-white"
             >
-              ← Back to Dashboard
+              ← Command Centre
             </button>
-
-            <p className="mt-4 text-xs font-bold uppercase tracking-[0.25em] text-pink-400">
-              UPSC STUDY PLANNER
-            </p>
-
-            <h1 className="mt-1 text-3xl font-black">
-              Study Plan
-            </h1>
+            <span className="text-white/20">|</span>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">📅</span>
+              <span className="font-bold tracking-tight">Adaptive Study Planner & Journal</span>
+            </div>
           </div>
-
-          <button
-            onClick={resetDay}
-            className="rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-2 text-sm font-semibold text-red-300 hover:bg-red-500/10"
-          >
-            Reset Day
-          </button>
-
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => void triggerManualSync()}
+              title="Click to sync data with cloud"
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
+                isSyncing
+                  ? "border-pink-500/40 bg-pink-500/10 text-pink-300 animate-pulse"
+                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <span>{isSyncing ? "🔄" : "☁️"}</span>
+              <span className="hidden sm:inline">
+                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
+              </span>
+            </button>
+            <button
+              onClick={() => router.push("/performance")}
+              className="hidden rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white sm:block"
+            >
+              📊 Weekly Reports
+            </button>
+            <button
+              onClick={handleAutoReschedule}
+              className="rounded-xl border border-purple-500/40 bg-purple-500/10 px-4 py-2 text-xs font-bold text-purple-200 transition hover:bg-purple-500/20"
+            >
+              🔄 Auto-Reschedule Missed
+            </button>
+          </div>
         </div>
-
       </header>
 
       <div className="mx-auto max-w-7xl px-5 py-8">
-
-        {/* DATE NAVIGATION */}
-
-        <section className="mb-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-
-            <button
-              onClick={() =>
-                setSelectedDate(
-                  shiftDate(selectedDate, -1)
-                )
-              }
-              className="rounded-xl bg-white/5 px-5 py-3 font-bold hover:bg-white/10"
-            >
-              ← Previous Day
-            </button>
-
-            <div className="text-center">
-
-              <p className="text-xs font-semibold uppercase tracking-widest text-purple-300">
-                Study Date
-              </p>
-
-              <h2 className="mt-1 text-xl font-bold">
-                {formatDate(selectedDate)}
-              </h2>
-
-              {selectedDate === today && (
-                <span className="mt-2 inline-block rounded-full bg-purple-500/10 px-3 py-1 text-xs text-purple-300">
-                  Today
-                </span>
-              )}
-
-            </div>
-
-            <button
-              onClick={() =>
-                setSelectedDate(
-                  shiftDate(selectedDate, 1)
-                )
-              }
-              className="rounded-xl bg-white/5 px-5 py-3 font-bold hover:bg-white/10"
-            >
-              Next Day →
-            </button>
-
-          </div>
-
-        </section>
-
-        {/* PROGRESS */}
-
-        <section className="mb-6 rounded-2xl bg-gradient-to-r from-purple-700 to-fuchsia-600 p-6">
-
-          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-
-            <div>
-
-              <p className="text-sm font-semibold text-white/70">
-                TODAY&apos;S STUDY PROGRESS
-              </p>
-
-              <p className="mt-1 text-4xl font-black">
-                {progress}%
-              </p>
-
-              <p className="mt-1 text-sm text-white/70">
-                {completedTasks} of {totalTasks} tasks completed
-              </p>
-
-            </div>
-
-            <div className="text-right">
-
-              <p className="text-sm text-white/70">
-                Study Hours
-              </p>
-
-              <p className="text-3xl font-black">
-                {completedHours.toFixed(1)}
-                <span className="text-base font-normal text-white/60">
-                  {" "}
-                  / {plannedHours.toFixed(1)}h
-                </span>
-              </p>
-
-            </div>
-
-          </div>
-
-          <div className="mt-6 h-4 overflow-hidden rounded-full bg-black/20">
-
-            <div
-              className="h-full rounded-full bg-white transition-all duration-500"
-              style={{
-                width: `${progress}%`,
-              }}
-            />
-
-          </div>
-
-        </section>
-
-        {/* QUICK STATS */}
-
-        <section className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-
-          <Stat
-            label="Today's Tasks"
-            value={totalTasks}
-            icon="📋"
-          />
-
-          <Stat
-            label="Completed"
-            value={completedTasks}
-            icon="✅"
-          />
-
-          <Stat
-            label="Planned Hours"
-            value={`${plannedHours.toFixed(1)}h`}
-            icon="⏱️"
-          />
-
-          <Stat
-            label="Completed Hours"
-            value={`${completedHours.toFixed(1)}h`}
-            icon="🔥"
-          />
-
-        </section>
-
-        {/* ADD TASK */}
-
-        <section className="mb-8 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-
-          <h2 className="text-xl font-bold">
-            Add Study Task
-          </h2>
-
-          <p className="mt-1 text-sm text-white/40">
-            Add your own target for this day.
-          </p>
-
-          <div className="mt-5 grid gap-3 md:grid-cols-[1fr_180px_120px_auto]">
-
-            <input
-              value={newTaskTitle}
-              onChange={(event) =>
-                setNewTaskTitle(event.target.value)
-              }
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  addTask();
-                }
-              }}
-              placeholder="e.g. Fundamental Rights revision"
-              className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none placeholder:text-white/20 focus:border-purple-500"
-            />
-
-            <select
-              value={newTaskSubject}
-              onChange={(event) =>
-                setNewTaskSubject(event.target.value)
-              }
-              className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-purple-500"
-            >
-              {SUBJECTS.map((subject) => (
-                <option
-                  key={subject}
-                  value={subject}
-                  className="bg-[#10091d]"
-                >
-                  {subject}
-                </option>
-              ))}
-            </select>
-
-            <input
-              type="number"
-              min="0.5"
-              step="0.5"
-              value={newTaskHours}
-              onChange={(event) =>
-                setNewTaskHours(event.target.value)
-              }
-              className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm outline-none focus:border-purple-500"
-              placeholder="Hours"
-            />
-
-            <button
-              onClick={addTask}
-              className="rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-3 font-bold transition hover:opacity-90"
-            >
-              + Add
-            </button>
-
-          </div>
-
-        </section>
-
-        {/* TASK LIST */}
-
-        <section className="mb-8">
-
-          <div className="mb-5">
-
-            <p className="text-xs font-bold uppercase tracking-widest text-purple-400">
-              DAILY TARGETS
+        {/* HERO & QUICK NAVIGATION */}
+        <section className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-pink-400">
+              SYNCHRONIZED DAILY SCHEDULE & NOTES
             </p>
-
-            <h2 className="mt-1 text-2xl font-black">
-              Today&apos;s Tasks
-            </h2>
-
+            <h1 className="mt-1 text-3xl font-black md:text-4xl">Adaptive Study Planner</h1>
+            <p className="mt-1 text-xs text-white/50">
+              Week span: {formatWeekSpan(weekRange.startDate, weekRange.endDate)}
+            </p>
           </div>
 
-          <div className="space-y-3">
+          {/* QUICK JUMP CONTROLS */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setSelectedDate(shiftDateKey(selectedDate, -7))}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold hover:bg-white/10 transition"
+              title="Previous Week"
+            >
+              « Prev Week
+            </button>
+            <button
+              onClick={() => setSelectedDate(shiftDateKey(todayStr, -1))}
+              className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                selectedDate === shiftDateKey(todayStr, -1)
+                  ? "bg-purple-600 text-white"
+                  : "bg-white/5 text-white/70 hover:bg-white/10"
+              }`}
+            >
+              Yesterday
+            </button>
+            <button
+              onClick={() => setSelectedDate(todayStr)}
+              className={`rounded-xl px-3.5 py-2 text-xs font-bold transition ${
+                selectedDate === todayStr
+                  ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-900/50"
+                  : "bg-white/5 text-white/70 hover:bg-white/10"
+              }`}
+            >
+              Today
+            </button>
+            <button
+              onClick={() => setSelectedDate(shiftDateKey(todayStr, 1))}
+              className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                selectedDate === shiftDateKey(todayStr, 1)
+                  ? "bg-purple-600 text-white"
+                  : "bg-white/5 text-white/70 hover:bg-white/10"
+              }`}
+            >
+              Tomorrow
+            </button>
+            <button
+              onClick={() => setSelectedDate(shiftDateKey(selectedDate, 7))}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold hover:bg-white/10 transition"
+              title="Next Week"
+            >
+              Next Week »
+            </button>
 
-            {currentPlan.tasks.map((task) => (
+            {/* NATIVE CALENDAR DATE PICKER */}
+            <div className="relative flex items-center">
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => {
+                  if (e.target.value) setSelectedDate(e.target.value);
+                }}
+                className="rounded-xl border border-purple-500/40 bg-[#170e2b] px-3 py-1.5 text-xs font-bold text-purple-200 outline-none hover:border-purple-400 focus:border-pink-500"
+              />
+            </div>
+          </div>
+        </section>
 
-              <div
-                key={task.id}
-                className={`rounded-2xl border p-5 transition ${
-                  task.completed
-                    ? "border-green-500/20 bg-green-500/[0.04]"
-                    : "border-white/10 bg-white/[0.04]"
-                }`}
-              >
+        {/* 7-DAY VISUAL WEEK STRIP */}
+        <section className="mb-6 rounded-3xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md">
+          <div className="grid grid-cols-7 gap-2">
+            {weekDays.map((day) => {
+              const dayPlan = plans[day.dateKey];
+              const tasks = safeArray(dayPlan?.tasks);
+              const doneCount = tasks.filter((t) => t.completed).length;
+              const hasTasks = tasks.length > 0;
+              const hasNotes = safeArray(dayPlan?.dailyNotes).length > 0;
+              const isSelected = day.isSelected;
+              const isToday = day.isToday;
 
-                <div className="flex items-start gap-4">
-
-                  <button
-                    onClick={() =>
-                      toggleTask(task.id)
-                    }
-                    className={`mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border transition ${
-                      task.completed
-                        ? "border-green-400 bg-green-500 text-white"
-                        : "border-white/20 bg-white/5 hover:border-purple-400"
-                    }`}
-                  >
-                    {task.completed ? "✓" : ""}
-                  </button>
-
-                  <div className="min-w-0 flex-1">
-
-                    <div className="flex flex-wrap items-center gap-2">
-
-                      <span className="rounded-full bg-purple-500/10 px-2.5 py-1 text-[10px] font-bold uppercase text-purple-300">
-                        {task.subject}
-                      </span>
-
-                      <span className="text-xs text-white/30">
-                        {task.hours}h
-                      </span>
-
-                    </div>
-
-                    <h3
-                      className={`mt-2 text-lg font-bold ${
-                        task.completed
-                          ? "text-white/40 line-through"
-                          : ""
-                      }`}
-                    >
-                      {task.title}
-                    </h3>
-
-                    <p className="mt-1 text-sm text-white/40">
-                      {task.description}
-                    </p>
-
+              return (
+                <button
+                  key={day.dateKey}
+                  onClick={() => setSelectedDate(day.dateKey)}
+                  className={`flex flex-col items-center justify-between rounded-2xl p-3 transition-all ${
+                    isSelected
+                      ? "border-2 border-pink-500 bg-gradient-to-b from-purple-900/60 to-[#1e0a38] shadow-lg shadow-purple-950/60 scale-[1.02]"
+                      : "border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/20"
+                  }`}
+                >
+                  <span className="text-[11px] font-bold uppercase text-white/50">{day.dayName}</span>
+                  <div className="my-1 flex h-8 w-8 items-center justify-center rounded-full font-black text-sm">
+                    <span className={isToday ? "text-pink-400 font-extrabold" : "text-white"}>
+                      {day.dayNumber}
+                    </span>
                   </div>
 
-                  <button
-                    onClick={() =>
-                      deleteTask(task.id)
-                    }
-                    className="text-sm text-white/20 hover:text-red-400"
-                    title="Delete task"
-                  >
-                    ✕
-                  </button>
+                  {/* STATUS PILLS & DOTS */}
+                  <div className="flex items-center gap-1 mt-1">
+                    {hasTasks ? (
+                      <span
+                        className={`rounded-full px-1.5 py-0.5 text-[9px] font-bold ${
+                          doneCount === tasks.length
+                            ? "bg-green-500/20 text-green-300"
+                            : doneCount > 0
+                            ? "bg-purple-500/20 text-purple-300"
+                            : "bg-white/10 text-white/40"
+                        }`}
+                      >
+                        {doneCount}/{tasks.length}
+                      </span>
+                    ) : (
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+                    )}
+                    {hasNotes && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-pink-400" title="Notes recorded" />
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
 
+        {/* PROGRESS & SUMMARY BANNER */}
+        <section className="mb-8 grid gap-4 lg:grid-cols-[1fr_320px]">
+          <div className="rounded-3xl bg-gradient-to-r from-purple-800 via-[#50137d] to-fuchsia-700 p-6 shadow-xl">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="text-xs font-bold uppercase tracking-wider text-white/70">
+                    Daily Target Progress
+                  </p>
+                  {selectedDate === todayStr && (
+                    <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-black uppercase text-white">
+                      Today
+                    </span>
+                  )}
                 </div>
+                <p className="mt-1 text-3xl font-black md:text-4xl">{dayProgress}% Completed</p>
+                <p className="mt-1 text-xs text-white/80">
+                  {completedTasks} of {totalTasks} study targets finished for {formatDate(selectedDate, "full")}
+                </p>
+              </div>
+              <div className="text-left sm:text-right">
+                <p className="text-xs text-white/70">Study Hours</p>
+                <p className="mt-1 text-3xl font-black">
+                  {completedHours.toFixed(1)}{" "}
+                  <span className="text-base font-normal text-white/70">/ {plannedHours.toFixed(1)}h</span>
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 h-2.5 overflow-hidden rounded-full bg-black/30">
+              <div
+                className="h-full rounded-full bg-white transition-all duration-500"
+                style={{ width: `${dayProgress}%` }}
+              />
+            </div>
+          </div>
 
+          {/* TOTAL SYSTEM STATS */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center">
+              <p className="text-xs text-white/40">Total Planned</p>
+              <p className="mt-1 text-2xl font-black">{overallStats.totalHours}h</p>
+              <p className="text-[10px] text-white/40">{overallStats.activeDaysCount} Days Configured</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center">
+              <p className="text-xs text-white/40">Daily Notes Logged</p>
+              <p className="mt-1 text-2xl font-black text-pink-400">{overallStats.totalNotesCount}</p>
+              <p className="text-[10px] text-white/40">Across All Days</p>
+            </div>
+          </div>
+        </section>
+
+        {/* TWO-COLUMN GRID: STUDY BLOCKS & DAILY NOTES JOURNAL */}
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          {/* LEFT COLUMN: SCHEDULED TARGETS */}
+          <div className="space-y-6">
+            {/* ADD CUSTOM TASK FORM */}
+            <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-purple-300">
+                + Add Study Target for {formatDate(selectedDate, "short")}
+              </h3>
+              <form onSubmit={handleAddTask} className="mt-3 grid gap-3 md:grid-cols-[1fr_130px_120px_90px_auto]">
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Laxmikanth Ch 7 - Fundamental Rights..."
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  className="rounded-xl border border-white/10 bg-black/30 px-4 py-2 text-sm text-white outline-none placeholder:text-white/30 focus:border-purple-500"
+                />
+                <select
+                  value={newTaskSubject}
+                  onChange={(e) => setNewTaskSubject(e.target.value)}
+                  className="rounded-xl border border-white/10 bg-[#160d29] px-3 py-2 text-xs font-semibold text-white outline-none focus:border-purple-500"
+                >
+                  {UPSC_SUBJECTS.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={newTaskType}
+                  onChange={(e) => setNewTaskType(e.target.value as any)}
+                  className="rounded-xl border border-white/10 bg-[#160d29] px-3 py-2 text-xs font-semibold text-white outline-none focus:border-purple-500"
+                >
+                  <option value="Study">📖 Deep Study</option>
+                  <option value="Revision">🔄 Revision</option>
+                  <option value="PYQ">📝 PYQs</option>
+                  <option value="CurrentAffairs">📰 Current Affairs</option>
+                  <option value="Test">🎯 Test</option>
+                </select>
+                <input
+                  type="number"
+                  min="0.5"
+                  step="0.5"
+                  value={newTaskHours}
+                  onChange={(e) => setNewTaskHours(e.target.value)}
+                  placeholder="Hours"
+                  className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-xs text-white outline-none focus:border-purple-500"
+                />
+                <button
+                  type="submit"
+                  className="rounded-xl bg-purple-600 px-5 py-2 text-xs font-bold transition hover:bg-purple-500"
+                >
+                  Add Target
+                </button>
+              </form>
+            </section>
+
+            {/* TASK LIST */}
+            <section className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold">
+                  Scheduled Study Blocks ({currentPlan.tasks.length})
+                </h3>
+                <span className="text-xs text-white/40">Check off as you complete</span>
               </div>
 
-            ))}
+              <div className="space-y-2.5">
+                {safeArray(currentPlan.tasks).map((task) => (
+                  <div
+                    key={task.id}
+                    className={`flex items-center gap-4 rounded-2xl border p-4 transition ${
+                      task.completed
+                        ? "border-green-500/30 bg-green-500/[0.04]"
+                        : "border-white/10 bg-white/[0.03] hover:border-purple-500/30"
+                    }`}
+                  >
+                    <button
+                      onClick={() => toggleTask(task.id)}
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border transition ${
+                        task.completed
+                          ? "border-green-400 bg-green-500 text-white"
+                          : "border-white/20 bg-white/5 hover:border-purple-400"
+                      }`}
+                    >
+                      {task.completed && <span className="text-xs font-black">✓</span>}
+                    </button>
 
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[10px] font-bold text-purple-300">
+                          {task.subject}
+                        </span>
+                        <span className="text-xs text-white/40">{task.hours}h</span>
+                        {task.taskType && (
+                          <span className="rounded-md bg-white/5 px-2 py-0.5 text-[10px] text-white/40">
+                            {task.taskType}
+                          </span>
+                        )}
+                        {task.completedAt && (
+                          <span className="text-[10px] text-green-400">
+                            Done at {formatTime(task.completedAt)}
+                          </span>
+                        )}
+                      </div>
+                      <h4
+                        className={`mt-1 text-sm font-bold ${
+                          task.completed ? "text-white/40 line-through" : "text-white"
+                        }`}
+                      >
+                        {task.title}
+                      </h4>
+                      <p className="mt-0.5 text-xs text-white/40 leading-relaxed">{task.description}</p>
+                    </div>
+
+                    <button
+                      onClick={() => deleteTask(task.id)}
+                      className="rounded-lg p-2 text-white/20 hover:text-red-400 transition"
+                      title="Remove task"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
-        </section>
+          {/* RIGHT COLUMN: DAILY STUDY NOTES & TIME LOGS */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold flex items-center gap-2">
+                  <span>✍️</span> Daily Study Notes & Time Logs
+                </h3>
+                <p className="text-xs text-white/40">
+                  Notes for {formatDate(selectedDate, "short")} with automatic timestamps
+                </p>
+              </div>
+              <button
+                onClick={() => setShowNoteForm((prev) => !prev)}
+                className="rounded-xl border border-pink-500/40 bg-pink-500/10 px-3.5 py-1.5 text-xs font-bold text-pink-300 hover:bg-pink-500/20 transition"
+              >
+                {showNoteForm ? "Cancel" : "+ Quick Note Entry"}
+              </button>
+            </div>
 
-        {/* SUBJECT PROGRESS */}
+            {/* ADD DAILY NOTE FORM */}
+            {showNoteForm && (
+              <form
+                onSubmit={handleAddDailyNote}
+                className="rounded-3xl border border-pink-500/30 bg-[#160b24] p-5 shadow-xl space-y-3"
+              >
+                <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                  <span className="text-xs font-bold text-pink-300">
+                    🕒 Time Stamped: {formatTime(new Date())}
+                  </span>
+                  <span className="text-[11px] text-white/40">{formatDate(selectedDate, "short")}</span>
+                </div>
 
-        <section className="mb-8">
-
-          <h2 className="mb-5 text-2xl font-black">
-            Subject Progress
-          </h2>
-
-          <div className="grid gap-4 md:grid-cols-2">
-
-            {Object.entries(subjectStats).map(
-              ([subject, stat]) => {
-
-                const percent =
-                  stat.total > 0
-                    ? Math.round(
-                        (stat.completed /
-                          stat.total) *
-                          100
-                      )
-                    : 0;
-
-                return (
-                  <div
-                    key={subject}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-5"
+                <div className="grid gap-2 sm:grid-cols-[1fr_130px]">
+                  <input
+                    type="text"
+                    required
+                    placeholder="Note headline / Key Takeaway..."
+                    value={newNoteTitle}
+                    onChange={(e) => setNewNoteTitle(e.target.value)}
+                    className="rounded-xl border border-white/10 bg-black/30 px-3.5 py-2 text-xs text-white outline-none placeholder:text-white/30 focus:border-pink-500"
+                  />
+                  <select
+                    value={newNoteSubject}
+                    onChange={(e) => setNewNoteSubject(e.target.value)}
+                    className="rounded-xl border border-white/10 bg-[#201138] px-3 py-2 text-xs font-semibold text-white outline-none focus:border-pink-500"
                   >
+                    {UPSC_SUBJECTS.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-                    <div className="flex items-center justify-between">
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="Record summary concepts, mnemonics, case laws, or reflection points..."
+                  value={newNoteContent}
+                  onChange={(e) => setNewNoteContent(e.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-black/30 p-3 text-xs text-white leading-relaxed outline-none placeholder:text-white/30 focus:border-pink-500"
+                />
 
-                      <span className="font-bold">
-                        {subject}
-                      </span>
-
-                      <span className="text-sm text-white/40">
-                        {stat.completed}/{stat.total}
-                      </span>
-
-                    </div>
-
-                    <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
-
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-500"
-                        style={{
-                          width: `${percent}%`,
-                        }}
-                      />
-
-                    </div>
-
-                  </div>
-                );
-              }
+                <div className="flex justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowNoteForm(false)}
+                    className="rounded-xl border border-white/10 px-3 py-1.5 text-xs text-white/60 hover:text-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 px-4 py-1.5 text-xs font-bold text-white hover:opacity-90 transition"
+                  >
+                    Save Timestamped Note
+                  </button>
+                </div>
+              </form>
             )}
 
+            {/* NOTES LIST FOR ACTIVE DAY */}
+            {dailyNotesList.length === 0 ? (
+              <div className="rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-8 text-center text-white/40">
+                <p className="text-sm">No study notes recorded for {formatDate(selectedDate, "short")}.</p>
+                <p className="text-xs mt-1">
+                  Click &ldquo;+ Quick Note Entry&rdquo; above to log concepts with automatic timestamps.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+                {dailyNotesList.map((n) => (
+                  <div
+                    key={n.id}
+                    className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="rounded-full bg-pink-500/20 px-2.5 py-0.5 text-[10px] font-bold text-pink-300">
+                          🕒 {n.time}
+                        </span>
+                        <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[10px] font-bold text-purple-300">
+                          {n.subject || "General"}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteDailyNote(n.id)}
+                        className="text-xs text-white/30 hover:text-red-400 transition"
+                        title="Delete note"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <h4 className="mt-2 text-sm font-bold text-white">{n.title}</h4>
+                    <p className="mt-1 whitespace-pre-wrap text-xs text-white/70 leading-relaxed">
+                      {n.content}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
-        </section>
-
-        {/* OVERALL */}
-
-        <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-
-          <p className="text-xs font-bold uppercase tracking-widest text-pink-400">
-            ALL SAVED DAYS
-          </p>
-
-          <h2 className="mt-1 text-2xl font-black">
-            Overall Study Plan
-          </h2>
-
-          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-
-            <Stat
-              label="Total Tasks"
-              value={overallStats.totalTasks}
-              icon="📚"
-            />
-
-            <Stat
-              label="Completed"
-              value={overallStats.completed}
-              icon="✅"
-            />
-
-            <Stat
-              label="Study Hours"
-              value={`${overallStats.completedHours.toFixed(
-                1
-              )}h`}
-              icon="🔥"
-            />
-
-            <Stat
-              label="Overall Progress"
-              value={`${overallStats.progress}%`}
-              icon="📈"
-            />
-
-          </div>
-
-        </section>
-
+        </div>
       </div>
-
     </main>
-  );
-}
-
-/*
-|--------------------------------------------------------------------------
-| STAT COMPONENT
-|--------------------------------------------------------------------------
-*/
-
-function Stat({
-  label,
-  value,
-  icon,
-}: {
-  label: string;
-  value: string | number;
-  icon: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-
-      <div className="text-2xl">
-        {icon}
-      </div>
-
-      <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-white/40">
-        {label}
-      </p>
-
-      <p className="mt-2 text-2xl font-black">
-        {value}
-      </p>
-
-    </div>
   );
 }
