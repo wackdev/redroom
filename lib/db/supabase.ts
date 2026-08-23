@@ -26,9 +26,17 @@ function getSupabaseAnonKey(): string {
 }
 
 /**
- * Creates a standard browser-side Supabase client using @supabase/ssr.
+ * Creates an environment-safe Supabase client (Browser vs Server).
  */
 export function createClient(): SupabaseClient {
+  if (typeof window === "undefined") {
+    return createSupabaseJsClient(getSupabaseUrl(), getSupabaseAnonKey(), {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    });
+  }
   return createBrowserClient(getSupabaseUrl(), getSupabaseAnonKey());
 }
 

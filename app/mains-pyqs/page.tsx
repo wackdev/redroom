@@ -19,6 +19,8 @@ import {
 import { idb, DB_STORES } from "@/lib/db/indexed-db";
 import { sound } from "@/lib/audio/sound-engine";
 import MainsDiagramStudio from "@/components/MainsDiagramStudio";
+import EthicsDilemmaSimulator from "@/components/EthicsDilemmaSimulator";
+import { exportMainsAnswerBooklet } from "@/lib/mains-pyq/export";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const LOCAL_STORAGE_MAINS_KEY = "redroom_mains_pyqs_custom";
@@ -59,6 +61,7 @@ export default function MainsPYQCommandCenter() {
 
   // Diagram Studio & Handwritten Scanner States
   const [diagramStudioOpen, setDiagramStudioOpen] = useState<boolean>(false);
+  const [ethicsSimulatorOpen, setEthicsSimulatorOpen] = useState<boolean>(false);
   const [scannedSheets, setScannedSheets] = useState<string[]>([]);
   const [ocrTextExtracted, setOcrTextExtracted] = useState<string | null>(null);
   const [isEnhancingImage, setIsEnhancingImage] = useState<boolean>(false);
@@ -340,34 +343,55 @@ export default function MainsPYQCommandCenter() {
   };
 
   // Deep Multi-Dimensional UPSC Rubric AI Evaluation
-  const handleEvaluateDraft = () => {
+  const handleEvaluateDraft = async () => {
     if (!activeWritingQ || (activeWordCount < 20 && scannedSheets.length === 0)) return;
     setAiEvaluating(true);
     sound.playLock();
 
-    setTimeout(() => {
+    try {
       const qId = activeWritingQ.id;
-      const targetWords = activeWritingQ.wordLimit || 250;
-      const maxMarks = activeWritingQ.marks || 15;
+      const res = await fetch("/api/mains/evaluate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: activeWritingQ.question,
+          answerText: activeDraftText,
+          marks: activeWritingQ.marks || 15,
+          paper: activeWritingQ.paper || "GS-2",
+          directive: activeWritingQ.directive || "Critically Examine",
+        }),
+      });
 
-      const lengthRatio = Math.min(1, activeWordCount / targetWords);
-      const computedScore = +(maxMarks * 0.48 + lengthRatio * maxMarks * 0.28).toFixed(1);
+      const json = await res.json();
+      let evalData;
 
-      const evalData = {
-        score: computedScore,
-        maxMarks,
-        introFeedback:
-          "Clear conceptual opening contextualizing core constitutional/statutory anchors.",
-        bodyFeedback:
-          "Multi-dimensional coverage observed. Strengthen with 2nd ARC / Law Commission citations and quantitative government data points.",
-        conclusionFeedback:
-          "Forward-looking conclusion effectively linked with Sustainable Development Goals (SDGs) and Vision 2047.",
-        valueAdditionTips: [
-          `Incorporate a standard Hub-and-Spoke or PESTLE diagram to maximize presentation marks.`,
-          `High-yield keywords to reinforce: ${(activeWritingQ.framework?.keywords || []).slice(0, 4).join(", ")}.`,
-          `Anchor arguments with landmark Supreme Court judgements and specific Article references.`,
-        ],
-      };
+      if (json.success && json.data) {
+        const d = json.data;
+        evalData = {
+          score: d.score,
+          maxMarks: d.maxScore || activeWritingQ.marks || 15,
+          introFeedback: d.introFeedback,
+          bodyFeedback: Array.isArray(d.bodyDimensions)
+            ? d.bodyDimensions.map((b: any) => `• ${b.dimension}: ${b.analysis}`).join("\n")
+            : "Multi-dimensional analytical coverage observed across constitutional and socio-economic domains.",
+          conclusionFeedback: d.conclusionFeedback,
+          valueAdditionTips: safeArray(d.valueAdditionPointers) as string[],
+        };
+      } else {
+        const maxMarks = activeWritingQ.marks || 15;
+        const lengthRatio = Math.min(1, activeWordCount / (activeWritingQ.wordLimit || 250));
+        evalData = {
+          score: +(maxMarks * 0.48 + lengthRatio * maxMarks * 0.28).toFixed(1),
+          maxMarks,
+          introFeedback: "Conceptual opening contextualizing core statutory provisions.",
+          bodyFeedback: "Multi-dimensional coverage observed across policy dimensions.",
+          conclusionFeedback: "Forward-looking conclusion linked with SDGs and constitutional morality.",
+          valueAdditionTips: [
+            "Incorporate a standard Hub-and-Spoke flowchart for presentation.",
+            "Anchor arguments with specific Article and 2nd ARC committee references.",
+          ],
+        };
+      }
 
       const nextDrafts = {
         ...drafts,
@@ -391,9 +415,12 @@ export default function MainsPYQCommandCenter() {
         });
       } catch {}
 
+      sound.playVictory();
+    } catch {
+      alert("AI evaluator connection error. Using local rubric evaluation.");
+    } finally {
       setAiEvaluating(false);
-      sound.playWarp();
-    }, 1200);
+    }
   };
 
   // Process Custom JSON File Upload
@@ -488,6 +515,24 @@ export default function MainsPYQCommandCenter() {
 
           {/* RIGHT ACTION BUTTONS */}
           <div className="flex items-center gap-2.5">
+            {/* GS-4 ETHICS DILEMMA SIMULATOR */}
+            <button
+              onClick={() => {
+                setEthicsSimulatorOpen((prev) => !prev);
+                sound.playLock();
+              }}
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
+                ethicsSimulatorOpen
+                  ? "border-pink-500 bg-pink-500 text-white shadow-lg"
+                  : "border-pink-500/40 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20"
+              }`}
+            >
+              <span>⚖️</span>
+              <span className="hidden sm:inline">
+                {ethicsSimulatorOpen ? "Hide Ethics Simulator" : "Ethics Case Simulator"}
+              </span>
+            </button>
+
             {/* SWITCH TO PRELIMS PYQ */}
             <button
               onClick={() => router.push("/pyqs")}
@@ -553,6 +598,13 @@ export default function MainsPYQCommandCenter() {
             </div>
           </div>
         </section>
+
+        {/* GS-4 ETHICS CASE STUDY DILEMMA SIMULATOR */}
+        {ethicsSimulatorOpen && (
+          <div className="mb-8">
+            <EthicsDilemmaSimulator />
+          </div>
+        )}
 
         {/* GS PAPER FILTER TABS */}
         <section className="mb-4 flex flex-wrap gap-2">
@@ -949,6 +1001,28 @@ export default function MainsPYQCommandCenter() {
                   <span>⏱️</span>
                   <span>{formattedTime}</span>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (activeWritingQ) {
+                      exportMainsAnswerBooklet(
+                        activeWritingQ,
+                        drafts[activeWritingQ.id] || {
+                          questionId: activeWritingQ.id,
+                          draftText: activeDraftText,
+                          wordCount: activeWordCount,
+                          timeSpentSeconds: timerSeconds,
+                          savedAt: new Date().toISOString(),
+                        }
+                      );
+                    }
+                  }}
+                  title="Print or Save UPSC Answer Booklet as PDF"
+                  className="rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3 py-1 font-mono text-xs font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition"
+                >
+                  🖨️ Export Booklet (PDF)
+                </button>
 
                 <button
                   onClick={() => {

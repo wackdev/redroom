@@ -13,6 +13,7 @@ import {
   pushStateToCloud,
   useCloudSync,
 } from "@/lib/sync/sync-engine";
+import FlashcardQuickDrill from "@/components/FlashcardQuickDrill";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const REVISION_STORAGE_KEY = "redroom_revision_items";
@@ -46,6 +47,7 @@ export default function RevisionPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("All");
+  const [showFlashcards, setShowFlashcards] = useState(false);
 
   // Active Recall Session State
   const [activeSession, setActiveSession] = useState<RevisionItem[] | null>(null);
@@ -276,6 +278,17 @@ export default function RevisionPage() {
               </span>
             </button>
             <button
+              onClick={() => setShowFlashcards((p) => !p)}
+              className={`rounded-xl border px-3.5 py-1.5 text-xs font-bold transition ${
+                showFlashcards
+                  ? "border-emerald-500 bg-emerald-500 text-black shadow-lg"
+                  : "border-emerald-500/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+              }`}
+            >
+              ⚡ {showFlashcards ? "Hide Flashcard Vault" : "3D Flashcard Vault"}
+            </button>
+
+            <button
               onClick={() => setShowAddModal(true)}
               className="rounded-xl bg-purple-600 px-4 py-2 text-xs font-bold transition hover:bg-purple-500"
             >
@@ -286,6 +299,13 @@ export default function RevisionPage() {
       </header>
 
       <div className="mx-auto max-w-7xl px-5 py-8">
+        {/* 3D FLASHCARD VAULT */}
+        {showFlashcards && (
+          <section className="mb-8">
+            <FlashcardQuickDrill />
+          </section>
+        )}
+
         {/* HERO */}
         <section className="mb-8">
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-pink-400">

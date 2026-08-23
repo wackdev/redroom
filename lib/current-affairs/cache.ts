@@ -4,19 +4,24 @@ import { createAdminClient } from "../db/supabase";
 import { scrapeMultiSourceCurrentAffairs } from "./scraper";
 
 const memoryCache = new Map<string, { articles: CurrentAffairsArticle[]; timestamp: number }>();
-const CACHE_TTL_MS = 1000 * 60 * 30; // 30 mins
+const CACHE_TTL_MS = 1000 * 60 * 15; // 15 mins
 
 /**
- * Retrieves daily Current Affairs articles from Indian Express and PIB feeds.
+ * Retrieves daily Current Affairs articles with force-refresh capability.
  */
-export async function getDailyCurrentAffairs(dateStr: string = getDateKey()): Promise<CurrentAffairsArticle[]> {
-  // 1. Check in-memory cache
-  const cached = memoryCache.get(dateStr);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS && cached.articles.length > 0) {
-    return cached.articles;
+export async function getDailyCurrentAffairs(
+  dateStr: string = getDateKey(),
+  forceRefresh: boolean = false
+): Promise<CurrentAffairsArticle[]> {
+  // 1. Check in-memory cache if not forcing refresh
+  if (!forceRefresh) {
+    const cached = memoryCache.get(dateStr);
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS && cached.articles.length > 0) {
+      return cached.articles;
+    }
   }
 
-  // 2. Fetch fresh multi-source feed from Indian Express and PIB
+  // 2. Fetch fresh multi-source feed from live news & policy outlets
   const freshArticles = await scrapeMultiSourceCurrentAffairs();
 
   if (freshArticles.length > 0) {

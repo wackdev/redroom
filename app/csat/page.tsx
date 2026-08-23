@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { sound } from "@/lib/audio/sound-engine";
 import { idb, DB_STORES } from "@/lib/db/indexed-db";
 import rawCsatQuestions from "@/data/csat-questions.json";
+import SyllogismVennVisualizer from "@/components/SyllogismVennVisualizer";
+import CSATSpeedMathTrainer from "@/components/CSATSpeedMathTrainer";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 interface CSATQuestion {
@@ -39,6 +41,8 @@ export default function CSATMatrixArena() {
   const [revealedExplanations, setRevealedExplanations] = useState<Set<string>>(new Set());
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [formulaDrawerOpen, setFormulaDrawerOpen] = useState<boolean>(false);
+  const [showSyllogismVisualizer, setShowSyllogismVisualizer] = useState<boolean>(false);
+  const [showSpeedMath, setShowSpeedMath] = useState<boolean>(false);
 
   // Mock Arena Timer State
   const [mockTimeRemaining, setMockTimeRemaining] = useState<number>(120 * 60); // 120 mins
@@ -206,10 +210,40 @@ export default function CSATMatrixArena() {
           </div>
 
           <button
-            onClick={() => setFormulaDrawerOpen(true)}
-            className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-mono text-xs font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow-[0_0_15px_rgba(216,166,58,0.2)]"
+            onClick={() => {
+              setShowSyllogismVisualizer((p) => !p);
+              sound.playHover();
+            }}
+            className={`flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold transition ${
+              showSyllogismVisualizer
+                ? "border-purple-500 bg-purple-600 text-white shadow-lg"
+                : "border-purple-500/40 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+            }`}
+          >
+            <span>⭕</span>
+            <span>{showSyllogismVisualizer ? "Hide Venn Visualizer" : "Syllogism Venn Visualizer"}</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setShowSpeedMath((p) => !p);
+              sound.playHover();
+            }}
+            className={`flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold transition ${
+              showSpeedMath
+                ? "border-[#D8A63A] bg-[#D8A63A] text-black shadow-lg"
+                : "border-[#D8A63A]/40 bg-[#D8A63A]/10 text-[#F4C95D] hover:bg-[#D8A63A]/20"
+            }`}
           >
             <span>⚡</span>
+            <span>{showSpeedMath ? "Hide Speed Math" : "Speed Math Drill"}</span>
+          </button>
+
+          <button
+            onClick={() => setFormulaDrawerOpen(true)}
+            className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 font-mono text-xs font-bold text-white hover:bg-white/10 transition"
+          >
+            <span>📖</span>
             <span>Formula Deck</span>
           </button>
         </div>
@@ -217,6 +251,20 @@ export default function CSATMatrixArena() {
 
       {/* WORKSPACE CONTAINER */}
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-4 sm:p-8">
+        {/* SYLLOGISM VENN DIAGRAM VISUALIZER */}
+        {showSyllogismVisualizer && (
+          <section className="mb-2">
+            <SyllogismVennVisualizer />
+          </section>
+        )}
+
+        {/* CSAT SPEED MATH ACCELERATOR */}
+        {showSpeedMath && (
+          <section className="mb-2">
+            <CSATSpeedMathTrainer />
+          </section>
+        )}
+
         {/* CONTROLS BAR */}
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-[#0d0d0d] p-4 shadow-xl">
           {/* CATEGORY SWITCHER */}

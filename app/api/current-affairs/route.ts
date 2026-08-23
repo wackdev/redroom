@@ -3,12 +3,18 @@ import { getDailyCurrentAffairs } from "@/lib/current-affairs/cache";
 import { getDateKey } from "@/lib/core/utils";
 import { ApiResponse, CurrentAffairsArticle } from "@/lib/core/types";
 
-export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse<CurrentAffairsArticle[]>>> {
+export async function GET(
+  request: NextRequest
+): Promise<NextResponse<ApiResponse<CurrentAffairsArticle[]>>> {
   try {
     const { searchParams } = new URL(request.url);
     const dateParam = searchParams.get("date") || getDateKey();
+    const forceRefresh =
+      searchParams.get("refresh") === "true" ||
+      searchParams.get("forceRefresh") === "true" ||
+      searchParams.has("refresh");
 
-    const articles = await getDailyCurrentAffairs(dateParam);
+    const articles = await getDailyCurrentAffairs(dateParam, forceRefresh);
 
     return NextResponse.json({
       success: true,
@@ -16,11 +22,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
       meta: {
         count: articles.length,
         date: dateParam,
-        source: "NextIAS",
+        refreshedAt: new Date().toISOString(),
       },
     });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to retrieve current affairs";
+    const message =
+      error instanceof Error ? error.message : "Failed to retrieve current affairs";
     return NextResponse.json(
       {
         success: false,

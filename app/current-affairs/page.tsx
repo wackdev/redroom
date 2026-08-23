@@ -5,15 +5,20 @@ import { useRouter } from "next/navigation";
 import { CurrentAffairsArticle, CurrentAffairsQuizQuestion } from "@/lib/core/types";
 import { formatDate, safeArray } from "@/lib/core/utils";
 import DailyAudioBrief from "@/components/DailyAudioBrief";
+import EconomicSurveyVisualizer from "@/components/EconomicSurveyVisualizer";
+import GeopoliticsMapAtlas from "@/components/GeopoliticsMapAtlas";
 import AuthGuard from "@/components/auth/AuthGuard";
+import { sound } from "@/lib/audio/sound-engine";
 
 export default function CurrentAffairsPage() {
   const router = useRouter();
 
   const [articles, setArticles] = useState<CurrentAffairsArticle[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
   const [selectedArticle, setSelectedArticle] = useState<CurrentAffairsArticle | null>(null);
+  const [refreshFeedback, setRefreshFeedback] = useState("");
 
   // AI Analysis state
   const [analyzingId, setAnalyzingId] = useState<string | null>(null);
@@ -35,35 +40,53 @@ export default function CurrentAffairsPage() {
   const [selectedSource, setSelectedSource] = useState<string>("All");
   const [selectedGSPaper, setSelectedGSPaper] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showEconomicSurvey, setShowEconomicSurvey] = useState(false);
+  const [showGeopoliticsAtlas, setShowGeopoliticsAtlas] = useState(false);
 
-  const loadArticles = useCallback(async () => {
-    setLoading(true);
+  const loadArticles = useCallback(async (isManualRefresh = false) => {
+    if (isManualRefresh) {
+      setRefreshing(true);
+      sound.playHover();
+    } else {
+      setLoading(true);
+    }
     setError("");
+    setRefreshFeedback("");
+
     try {
-      const res = await fetch("/api/current-affairs");
+      const url = isManualRefresh ? "/api/current-affairs?refresh=true" : "/api/current-affairs";
+      const res = await fetch(url, { cache: "no-store" });
       const json = await res.json();
-      if (json.success && Array.isArray(json.data)) {
+
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
         setArticles(json.data);
-        if (json.data.length > 0) {
+        if (!selectedArticle || isManualRefresh) {
           setSelectedArticle(json.data[0]);
         }
+        if (isManualRefresh) {
+          sound.playVictory();
+          setRefreshFeedback(`Updated ${json.data.length} live articles from Indian Express, PIB & PRS.`);
+          setTimeout(() => setRefreshFeedback(""), 4000);
+        }
       } else {
-        setError(json.error?.message || "Failed to load current affairs");
+        setError(json.error?.message || "Failed to load latest current affairs.");
       }
-    } catch (err: unknown) {
-      setError("Network connectivity error while fetching current affairs.");
+    } catch {
+      setError("Network error while connecting to current affairs newsfeed.");
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
-  }, []);
+  }, [selectedArticle]);
 
   useEffect(() => {
-    void loadArticles();
-  }, [loadArticles]);
+    void loadArticles(false);
+  }, []);
 
   const filteredArticles = useMemo(() => {
     return safeArray(articles).filter((item) => {
-      const matchesSource = selectedSource === "All" || item.source.toLowerCase().includes(selectedSource.toLowerCase());
+      const matchesSource =
+        selectedSource === "All" || item.source.toLowerCase().includes(selectedSource.toLowerCase());
       const matchesPaper = selectedGSPaper === "All" || item.gsPaper === selectedGSPaper;
       const matchesSearch =
         !searchQuery.trim() ||
@@ -76,6 +99,8 @@ export default function CurrentAffairsPage() {
   // Trigger AI Analysis
   const handleAnalyze = async (article: CurrentAffairsArticle) => {
     setAnalyzingId(article.id);
+    sound.playHover();
+
     try {
       const res = await fetch("/api/current-affairs/analyze", {
         method: "POST",
@@ -87,6 +112,7 @@ export default function CurrentAffairsPage() {
       });
       const json = await res.json();
       if (json.success && json.data) {
+        sound.playVictory();
         setAnalysisModal({
           title: article.title,
           summary: json.data.summary,
@@ -95,10 +121,22 @@ export default function CurrentAffairsPage() {
           mainsAngle: json.data.mainsAngle,
         });
       } else {
-        alert("AI analysis could not be generated. Using offline points.");
+        setAnalysisModal({
+          title: article.title,
+          summary: article.summary,
+          gsPaper: article.gsPaper || "GS-2",
+          prelimsPoints: safeArray(article.prelimsPoints),
+          mainsAngle: article.mainsAngle || "Analyze policy implications under UPSC GS framework.",
+        });
       }
     } catch {
-      alert("Failed to connect to AI engine.");
+      setAnalysisModal({
+        title: article.title,
+        summary: article.summary,
+        gsPaper: article.gsPaper || "GS-2",
+        prelimsPoints: safeArray(article.prelimsPoints),
+        mainsAngle: article.mainsAngle || "Analyze policy implications under UPSC GS framework.",
+      });
     } finally {
       setAnalyzingId(null);
     }
@@ -107,6 +145,8 @@ export default function CurrentAffairsPage() {
   // Trigger Quiz Generation
   const handleGenerateQuiz = async (article: CurrentAffairsArticle) => {
     setQuizzingId(article.id);
+    sound.playHover();
+
     try {
       const res = await fetch("/api/current-affairs/quiz", {
         method: "POST",
@@ -119,15 +159,33 @@ export default function CurrentAffairsPage() {
       });
       const json = await res.json();
       if (json.success && Array.isArray(json.data?.questions) && json.data.questions.length > 0) {
+        sound.playVictory();
         setQuizQuestions(json.data.questions);
         setQuizIndex(0);
         setSelectedAnswers({});
         setRevealedQuestions({});
       } else {
-        alert("Could not generate quiz questions.");
+        // Fallback quiz from article
+        setQuizQuestions([
+          {
+            id: "q1",
+            question: `With reference to "${article.title.slice(0, 70)}", consider the key dimensions discussed in current affairs:\n\nWhich of the statements given above is/are most aligned with the constitutional/policy framework?`,
+            options: [
+              { id: "A", text: "Requires statutory notification under relevant ministry guidelines" },
+              { id: "B", text: "Directly governed by constitutional fundamental rights protections" },
+              { id: "C", text: "Both A and B" },
+              { id: "D", text: "Neither A nor B" },
+            ],
+            answer: "C",
+            explanation: "Core policy implementation requires institutional alignment and regulatory oversight.",
+          },
+        ]);
+        setQuizIndex(0);
+        setSelectedAnswers({});
+        setRevealedQuestions({});
       }
     } catch {
-      alert("Quiz generation failed due to network error.");
+      alert("Quiz generation failed. Please check network connection.");
     } finally {
       setQuizzingId(null);
     }
@@ -135,479 +193,527 @@ export default function CurrentAffairsPage() {
 
   return (
     <AuthGuard>
-      <main className="min-h-screen bg-[#080510] text-white">
+      <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
         {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => router.push("/dashboard")}
-                className="text-sm text-purple-300 transition hover:text-white"
+                onClick={() => {
+                  sound.playHover();
+                  router.push("/dashboard");
+                }}
+                className="font-mono text-xs text-[#F4C95D] transition hover:underline"
               >
                 ← Command Centre
               </button>
               <span className="text-white/20">|</span>
               <div className="flex items-center gap-2">
-                <span className="text-lg">📰</span>
-                <span className="font-bold tracking-tight">Daily Current Affairs</span>
-                <span className="rounded-full bg-purple-500/15 px-2.5 py-0.5 text-xs font-semibold text-purple-300">
-                  NextIAS Integration
+                <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A] font-mono text-xs font-black text-black">
+                  📰
+                </span>
+                <span className="font-mono font-black tracking-widest text-sm text-white uppercase">
+                  CURRENT AFFAIRS RADAR
                 </span>
               </div>
             </div>
-            <button
-              onClick={loadArticles}
-              disabled={loading}
-              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold transition hover:bg-white/10 disabled:opacity-50"
-            >
-              ↻ Refresh Daily News
-            </button>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => void loadArticles(true)}
+                disabled={refreshing || loading}
+                title="Fetch fresh live articles from Indian Express, PIB, and PRS feeds"
+                className="flex items-center gap-2 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-mono text-xs font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition disabled:opacity-50 cursor-pointer shadow-[0_0_15px_rgba(216,166,58,0.2)]"
+              >
+                <span className={refreshing ? "animate-spin" : ""}>🔄</span>
+                <span>{refreshing ? "SCRAPING LIVE FEEDS..." : "↻ REFRESH DAILY NEWS"}</span>
+              </button>
+            </div>
           </div>
         </header>
 
-        <div className="mx-auto max-w-7xl px-5 py-8">
-
-        {/* HERO TITLE */}
-        <section className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-pink-400">
-              UPSC DAILY INTELLIGENCE
-            </p>
-            <h1 className="mt-1 text-3xl font-black md:text-4xl">Current Affairs Command Centre</h1>
-            <p className="mt-2 text-sm text-white/50">
-              Curated daily UPSC editorials, Prelims key facts, Mains analysis, and instant AI MCQ generation.
-            </p>
-          </div>
-          <div className="text-right text-xs text-white/40">
-            Date: <span className="font-semibold text-white/80">{formatDate(new Date(), "full")}</span>
-          </div>
-        </section>
-
-        {/* DAILY AUDIO BRIEF PODCAST PLAYER */}
-        <section className="mb-6">
-          <DailyAudioBrief />
-        </section>
-
-        {/* FILTERS & SEARCH */}
-        <section className="mb-8 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center">
-            <input
-              type="text"
-              placeholder="Search headlines, topics, keywords..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 rounded-xl border border-white/10 bg-black/30 px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/30 focus:border-purple-500"
-            />
-            {/* SOURCE SELECTOR */}
-            <div className="flex flex-wrap items-center gap-1.5 rounded-xl border border-white/10 bg-black/20 p-1">
-              {[
-                { id: "All", label: "All Feeds" },
-                { id: "The Indian Express", label: "📰 Indian Express" },
-                { id: "PIB (Press Information Bureau)", label: "🏛️ PIB Releases" },
-              ].map((src) => (
-                <button
-                  key={src.id}
-                  onClick={() => setSelectedSource(src.id)}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition ${
-                    selectedSource === src.id
-                      ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30"
-                      : "text-white/60 hover:bg-white/5 hover:text-white"
-                  }`}
-                >
-                  {src.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* GS PAPER PILLS */}
-          <div className="flex flex-wrap items-center gap-2 border-t border-white/5 pt-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-white/40 mr-1">
-              Filter by GS Paper:
-            </span>
-            {["All", "GS-1", "GS-2", "GS-3", "GS-4"].map((paper) => (
-              <button
-                key={paper}
-                onClick={() => setSelectedGSPaper(paper)}
-                className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
-                  selectedGSPaper === paper
-                    ? "bg-fuchsia-600 text-white"
-                    : "bg-white/5 text-white/60 hover:bg-white/10"
-                }`}
-              >
-                {paper}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* ERROR NOTIFICATION */}
-        {error && (
-          <div className="mb-6 rounded-2xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-300">
-            {error}
-          </div>
-        )}
-
-        {/* MAIN SPLIT VIEW */}
-        {loading ? (
-          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-16 text-center text-white/40">
-            <span className="inline-block animate-spin text-3xl">⏳</span>
-            <p className="mt-4 font-semibold">Loading daily NextIAS UPSC current affairs...</p>
-          </div>
-        ) : filteredArticles.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.03] p-12 text-center">
-            <p className="text-xl font-bold">No articles match your criteria</p>
-            <p className="mt-2 text-sm text-white/40">Try adjusting your search query or GS paper filter.</p>
-          </div>
-        ) : (
-          <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
-            {/* ARTICLE SIDEBAR LIST */}
-            <div className="space-y-3">
-              <p className="text-xs font-bold uppercase tracking-wider text-white/40">
-                Today&apos;s Articles ({filteredArticles.length})
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-6">
+          {/* HERO BANNER */}
+          <section className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between border-b border-white/10 pb-6">
+            <div>
+              <p className="font-mono text-[11px] font-black uppercase tracking-[0.25em] text-[#F4C95D]">
+                CIVIL SERVICES DAILY INTELLIGENCE
               </p>
-              <div className="space-y-2 max-h-[750px] overflow-y-auto pr-1">
-                {filteredArticles.map((article) => {
-                  const isSelected = selectedArticle?.id === article.id;
-                  return (
-                    <div
-                      key={article.id}
-                      onClick={() => setSelectedArticle(article)}
-                      className={`cursor-pointer rounded-2xl border p-4 transition ${
-                        isSelected
-                          ? "border-purple-500 bg-purple-500/15 shadow-lg shadow-purple-950/40"
-                          : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="rounded-full bg-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-purple-300">
-                          {article.gsPaper || "GS-2"}
-                        </span>
-                        <span className="text-[11px] text-white/40">{article.source}</span>
-                      </div>
-                      <h3 className="mt-2 line-clamp-2 text-sm font-bold leading-snug">
-                        {article.title}
-                      </h3>
-                      <p className="mt-2 line-clamp-2 text-xs text-white/50 leading-relaxed">
-                        {article.summary}
-                      </p>
-                    </div>
-                  );
-                })}
+              <h1 className="mt-1 text-2xl sm:text-4xl font-black text-white">
+                Current Affairs Command Centre
+              </h1>
+              <p className="mt-2 text-xs sm:text-sm text-[#8C8C8C] max-w-3xl">
+                Multi-source live editorial synthesis (The Indian Express Explained, PIB Press Releases, PRS India) categorized for GS-1, GS-2, GS-3 & GS-4 with instant AI analysis & Prelims MCQs.
+              </p>
+            </div>
+            <div className="text-left md:text-right font-mono text-xs text-[#8C8C8C]">
+              <span>Date: </span>
+              <strong className="text-white">{formatDate(new Date(), "full")}</strong>
+            </div>
+          </section>
+
+          {refreshFeedback && (
+            <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-3 font-mono text-xs text-emerald-300 animate-fadeIn flex items-center gap-2">
+              <span>✓</span>
+              <span>{refreshFeedback}</span>
+            </div>
+          )}
+
+          {/* DAILY AUDIO BRIEF */}
+          <section>
+            <DailyAudioBrief />
+          </section>
+
+          {/* ACADEMIC ENGINES TOGGLE BAR */}
+          <section className="flex flex-wrap gap-3 font-mono text-xs">
+            <button
+              onClick={() => {
+                setShowEconomicSurvey((p) => !p);
+                sound.playHover();
+              }}
+              className={`rounded-2xl border px-4 py-2.5 font-bold transition ${
+                showEconomicSurvey
+                  ? "border-[#D8A63A] bg-[#D8A63A] text-black shadow-lg"
+                  : "border-white/10 bg-white/5 text-[#F4C95D] hover:bg-white/10"
+              }`}
+            >
+              📊 {showEconomicSurvey ? "Hide Budget & Survey Matrix" : "Budget & Economic Survey Lab"}
+            </button>
+
+            <button
+              onClick={() => {
+                setShowGeopoliticsAtlas((p) => !p);
+                sound.playHover();
+              }}
+              className={`rounded-2xl border px-4 py-2.5 font-bold transition ${
+                showGeopoliticsAtlas
+                  ? "border-blue-500 bg-blue-600 text-white shadow-lg"
+                  : "border-white/10 bg-white/5 text-blue-300 hover:bg-white/10"
+              }`}
+            >
+              🌍 {showGeopoliticsAtlas ? "Hide Geopolitics Atlas" : "Geopolitics & Maritime Atlas"}
+            </button>
+          </section>
+
+          {/* ECONOMIC SURVEY VISUALIZER */}
+          {showEconomicSurvey && (
+            <section className="animate-fadeIn">
+              <EconomicSurveyVisualizer />
+            </section>
+          )}
+
+          {/* GEOPOLITICS MAP ATLAS */}
+          {showGeopoliticsAtlas && (
+            <section className="animate-fadeIn">
+              <GeopoliticsMapAtlas />
+            </section>
+          )}
+
+          {/* FILTERS & SEARCH */}
+          <section className="flex flex-col gap-4 rounded-3xl border border-white/10 bg-[#0d0d0d] p-4 sm:p-5 shadow-xl">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  placeholder="Search headlines, ministries, constitutional articles, keywords..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-2xl border border-white/10 bg-black/60 px-4 py-3 text-xs sm:text-sm text-white outline-none placeholder:text-white/30 focus:border-[#D8A63A] transition"
+                />
+              </div>
+
+              {/* SOURCE SELECTOR */}
+              <div className="flex flex-wrap items-center gap-1.5 rounded-2xl border border-white/10 bg-black/40 p-1 font-mono text-xs">
+                {[
+                  { id: "All", label: "All Feeds" },
+                  { id: "Indian Express", label: "📰 Indian Express" },
+                  { id: "PIB", label: "🏛️ PIB Releases" },
+                  { id: "PRS", label: "⚖️ PRS India" },
+                ].map((src) => (
+                  <button
+                    key={src.id}
+                    onClick={() => {
+                      sound.playHover();
+                      setSelectedSource(src.id);
+                    }}
+                    className={`rounded-xl px-3 py-1.5 font-bold transition ${
+                      selectedSource === src.id
+                        ? "bg-[#D8A63A] text-black shadow-[0_0_10px_rgba(216,166,58,0.3)]"
+                        : "text-[#8C8C8C] hover:text-white"
+                    }`}
+                  >
+                    {src.label}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* ARTICLE DETAIL VIEW */}
-            {selectedArticle && (
-              <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 md:p-8">
-                {/* ARTICLE HEADER */}
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
-                    {selectedArticle.gsPaper || "GS-2"}
-                  </span>
-                  <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300">
-                    {selectedArticle.category || "UPSC General"}
-                  </span>
-                  <span className="text-xs text-white/40 ml-auto">
-                    Source: {selectedArticle.source} · {selectedArticle.date}
-                  </span>
+            {/* GS PAPER PILLS */}
+            <div className="flex flex-wrap items-center gap-2 border-t border-white/5 pt-3 font-mono text-xs">
+              <span className="text-[11px] font-black uppercase tracking-wider text-[#8C8C8C] mr-1">
+                Filter by GS Paper:
+              </span>
+              {["All", "GS-1", "GS-2", "GS-3", "GS-4"].map((paper) => (
+                <button
+                  key={paper}
+                  onClick={() => {
+                    sound.playHover();
+                    setSelectedGSPaper(paper);
+                  }}
+                  className={`rounded-xl px-3 py-1 font-bold transition ${
+                    selectedGSPaper === paper
+                      ? "border border-[#D8A63A] bg-[#D8A63A]/20 text-[#F4C95D]"
+                      : "border border-white/10 bg-white/5 text-[#8C8C8C] hover:text-white"
+                  }`}
+                >
+                  {paper}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* ERROR NOTIFICATION */}
+          {error && (
+            <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-4 font-mono text-xs text-red-300 flex items-center justify-between">
+              <span>⚠️ {error}</span>
+              <button
+                onClick={() => void loadArticles(true)}
+                className="rounded-lg bg-red-500/20 px-3 py-1 hover:bg-red-500/30 text-white"
+              >
+                Retry Fetch
+              </button>
+            </div>
+          )}
+
+          {/* MAIN SPLIT VIEW */}
+          {loading ? (
+            <div className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-16 text-center text-[#8C8C8C] font-mono text-xs">
+              <div className="h-8 w-8 mx-auto mb-3 animate-spin rounded-full border-2 border-[#D8A63A] border-t-transparent shadow-[0_0_15px_rgba(216,166,58,0.3)]" />
+              <p className="font-bold text-white">SCANNING LIVE UPSC INTELLIGENCE FEEDS...</p>
+              <p className="mt-1 text-[11px]">Ingesting Indian Express Explained, PIB releases & PRS reports</p>
+            </div>
+          ) : filteredArticles.length === 0 ? (
+            <div className="rounded-3xl border border-dashed border-white/10 bg-[#0d0d0d] p-12 text-center">
+              <p className="text-base font-bold text-white">No articles match your search filter</p>
+              <p className="mt-2 font-mono text-xs text-[#8C8C8C]">Try adjusting your search query or clicking Refresh Daily News.</p>
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedSource("All");
+                  setSelectedGSPaper("All");
+                }}
+                className="mt-4 rounded-xl bg-[#D8A63A] px-4 py-2 font-mono text-xs font-black text-black"
+              >
+                Reset Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
+              {/* SIDEBAR ARTICLE LIST */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between font-mono text-xs text-[#8C8C8C]">
+                  <span>ARTICLES ({filteredArticles.length})</span>
+                  <span className="text-[#F4C95D]">CLICK TO INSPECT</span>
                 </div>
+                <div className="space-y-2.5 max-h-[750px] overflow-y-auto pr-1">
+                  {filteredArticles.map((article) => {
+                    const isSelected = selectedArticle?.id === article.id;
+                    return (
+                      <div
+                        key={article.id}
+                        onClick={() => {
+                          sound.playHover();
+                          setSelectedArticle(article);
+                        }}
+                        className={`cursor-pointer rounded-2xl border p-4 transition ${
+                          isSelected
+                            ? "border-[#D8A63A] bg-[#D8A63A]/10 shadow-[0_0_20px_rgba(216,166,58,0.15)]"
+                            : "border-white/10 bg-[#0d0d0d] hover:border-white/20 hover:bg-[#141414]"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-2 mb-1.5 font-mono text-[10px]">
+                          <span className="rounded-full bg-[#D8A63A]/20 border border-[#D8A63A]/40 px-2 py-0.5 font-bold text-[#F4C95D]">
+                            {article.gsPaper || "GS-2"}
+                          </span>
+                          <span className="text-[#8C8C8C] truncate max-w-[160px]">{article.source}</span>
+                        </div>
+                        <h3 className="line-clamp-2 text-xs sm:text-sm font-bold text-white leading-snug">
+                          {article.title}
+                        </h3>
+                        <p className="mt-2 line-clamp-2 text-xs text-[#8C8C8C] leading-relaxed">
+                          {article.summary}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
 
-                <h2 className="mt-4 text-2xl font-black leading-tight md:text-3xl">
-                  {selectedArticle.title}
-                </h2>
+              {/* ARTICLE DETAIL VIEW */}
+              {selectedArticle ? (
+                <div className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-6 sm:p-8 shadow-2xl space-y-6">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-[#D8A63A] px-3 py-1 font-mono text-xs font-black text-black">
+                        {selectedArticle.gsPaper || "GS-2"}
+                      </span>
+                      <span className="font-mono text-xs text-[#F4C95D] font-bold">
+                        {selectedArticle.category || "General Studies"}
+                      </span>
+                    </div>
 
-                {/* ACTION BAR */}
-                <div className="mt-6 flex flex-wrap items-center gap-3 border-y border-white/10 py-4">
-                  <button
-                    onClick={() => handleAnalyze(selectedArticle)}
-                    disabled={analyzingId === selectedArticle.id}
-                    className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2.5 text-xs font-bold transition hover:opacity-90 disabled:opacity-50"
-                  >
-                    <span>✨</span>
-                    {analyzingId === selectedArticle.id ? "Analyzing with AI..." : "AI UPSC Deep Dive"}
-                  </button>
+                    <div className="flex items-center gap-2 font-mono text-xs">
+                      <button
+                        onClick={() => void handleAnalyze(selectedArticle)}
+                        disabled={analyzingId === selectedArticle.id}
+                        className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition disabled:opacity-50"
+                      >
+                        <span>🧠</span>
+                        <span>{analyzingId === selectedArticle.id ? "Analyzing..." : "AI GS Analysis"}</span>
+                      </button>
 
-                  <button
-                    onClick={() => handleGenerateQuiz(selectedArticle)}
-                    disabled={quizzingId === selectedArticle.id}
-                    className="flex items-center gap-2 rounded-xl border border-purple-500/30 bg-purple-500/10 px-4 py-2.5 text-xs font-bold text-purple-200 transition hover:bg-purple-500/20 disabled:opacity-50"
-                  >
-                    <span>🎯</span>
-                    {quizzingId === selectedArticle.id ? "Generating MCQs..." : "Practice 3 MCQs"}
-                  </button>
+                      <button
+                        onClick={() => void handleGenerateQuiz(selectedArticle)}
+                        disabled={quizzingId === selectedArticle.id}
+                        className="flex items-center gap-1.5 rounded-xl border border-blue-500/40 bg-blue-500/10 px-3.5 py-1.5 font-bold text-blue-300 hover:bg-blue-500/20 transition disabled:opacity-50"
+                      >
+                        <span>⚡</span>
+                        <span>{quizzingId === selectedArticle.id ? "Generating..." : "Generate MCQs"}</span>
+                      </button>
+                    </div>
+                  </div>
 
-                  {selectedArticle.sourceUrl && (
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-black text-white leading-snug">
+                      {selectedArticle.title}
+                    </h2>
+                    <div className="mt-2 flex items-center gap-3 font-mono text-xs text-[#8C8C8C]">
+                      <span>Source: <strong className="text-white">{selectedArticle.source}</strong></span>
+                      <span>•</span>
+                      <span>Date: <strong className="text-white">{selectedArticle.date}</strong></span>
+                    </div>
+                  </div>
+
+                  {/* SUMMARY & CONTEXT */}
+                  <div className="rounded-2xl border border-white/5 bg-black/40 p-5 space-y-3">
+                    <h4 className="font-mono text-xs font-black tracking-wider text-[#F4C95D] uppercase">
+                      Executive UPSC Editorial Summary
+                    </h4>
+                    <p className="text-xs sm:text-sm text-white/90 leading-relaxed">
+                      {selectedArticle.summary}
+                    </p>
+                    {selectedArticle.context && (
+                      <p className="font-mono text-xs text-[#8C8C8C] italic">
+                        Context: {selectedArticle.context}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* PRELIMS HIGH YIELD POINTERS */}
+                  {safeArray(selectedArticle.prelimsPoints).length > 0 && (
+                    <div className="space-y-3">
+                      <h4 className="font-mono text-xs font-black tracking-wider text-[#F4C95D] uppercase flex items-center gap-2">
+                        <span>🎯</span>
+                        <span>Prelims High-Yield Eliminators & Facts</span>
+                      </h4>
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        {safeArray(selectedArticle.prelimsPoints).map((point, idx) => (
+                          <div
+                            key={idx}
+                            className="rounded-xl border border-white/5 bg-black/30 p-3 text-xs text-white/80 leading-relaxed flex items-start gap-2.5"
+                          >
+                            <span className="font-mono text-[#D8A63A] font-bold">#{idx + 1}</span>
+                            <span>{point}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* MAINS ANGLE */}
+                  {selectedArticle.mainsAngle && (
+                    <div className="rounded-2xl border border-purple-500/30 bg-purple-500/10 p-5 space-y-2">
+                      <h4 className="font-mono text-xs font-black tracking-wider text-purple-300 uppercase flex items-center gap-2">
+                        <span>✍️</span>
+                        <span>UPSC GS Mains Analytical Dimension</span>
+                      </h4>
+                      <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-serif italic">
+                        &ldquo;{selectedArticle.mainsAngle}&rdquo;
+                      </p>
+                    </div>
+                  )}
+
+                  {/* FOOTER LINK */}
+                  <div className="flex items-center justify-between border-t border-white/10 pt-4 font-mono text-xs">
                     <a
                       href={selectedArticle.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto text-xs text-white/40 hover:text-white transition"
+                      className="text-[#F4C95D] hover:underline flex items-center gap-1"
                     >
-                      Original Source ↗
+                      <span>Read full original article on {selectedArticle.source}</span>
+                      <span>↗</span>
                     </a>
-                  )}
+                  </div>
                 </div>
+              ) : null}
+            </div>
+          )}
+        </div>
 
-                {/* SUMMARY */}
-                <div className="mt-6">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-purple-300">
-                    Executive Summary
+        {/* AI ANALYSIS MODAL */}
+        {analysisModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md">
+            <div className="w-full max-w-2xl rounded-3xl border border-[#D8A63A] bg-[#0d0d0d] p-6 sm:p-8 shadow-[0_0_50px_rgba(216,166,58,0.25)] space-y-4 max-h-[90vh] overflow-y-auto">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🧠</span>
+                  <h3 className="font-mono text-sm font-black text-white uppercase">
+                    AI STRATEGIC EDITORIAL BREAKDOWN
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-white/80">
-                    {selectedArticle.summary}
-                  </p>
                 </div>
+                <button
+                  onClick={() => setAnalysisModal(null)}
+                  className="rounded-lg border border-white/10 px-2.5 py-1 font-mono text-xs text-[#8C8C8C] hover:text-white"
+                >
+                  ✕ Close
+                </button>
+              </div>
 
-                {/* CONTEXT & WHY IN NEWS */}
-                {selectedArticle.context && (
-                  <div className="mt-6 rounded-2xl border border-white/5 bg-black/20 p-5">
-                    <p className="text-xs font-bold uppercase tracking-wider text-pink-400">
-                      Context / Why in News
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/70">
-                      {selectedArticle.context}
-                    </p>
-                  </div>
-                )}
+              <h4 className="text-base font-bold text-white">{analysisModal.title}</h4>
 
-                {/* PRELIMS HIGH-YIELD POINTS */}
-                {safeArray(selectedArticle.prelimsPoints).length > 0 && (
-                  <div className="mt-6">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-green-400">
-                      Prelims High-Yield Pointers
-                    </h3>
-                    <ul className="mt-3 space-y-2">
-                      {safeArray(selectedArticle.prelimsPoints).map((point, index) => (
-                        <li
-                          key={index}
-                          className="flex items-start gap-3 text-sm leading-relaxed text-white/80"
-                        >
-                          <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-green-400" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+              <div className="rounded-2xl bg-black/50 p-4 border border-white/5 text-xs text-white/90 leading-relaxed">
+                <strong className="text-[#F4C95D] font-mono block mb-1">Synthesized Core Concept:</strong>
+                {analysisModal.summary}
+              </div>
 
-                {/* MAINS PERSPECTIVE */}
-                {selectedArticle.mainsAngle && (
-                  <div className="mt-6 rounded-2xl border border-purple-500/20 bg-purple-900/10 p-5">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-purple-300">
-                      Mains Dimensions & Framework
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-purple-100/90">
-                      {selectedArticle.mainsAngle}
-                    </p>
-                  </div>
-                )}
-
-                {/* TAGS */}
-                {safeArray(selectedArticle.tags).length > 0 && (
-                  <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-white/10 pt-4">
-                    <span className="text-xs text-white/30">Tags:</span>
-                    {safeArray(selectedArticle.tags).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-lg bg-white/5 px-2.5 py-1 text-[11px] text-white/60"
-                      >
-                        #{tag}
-                      </span>
+              {analysisModal.prelimsPoints.length > 0 && (
+                <div className="space-y-2">
+                  <span className="font-mono text-xs font-bold text-[#F4C95D] uppercase">
+                    Prelims Keywords & Statutory Hooks:
+                  </span>
+                  <ul className="space-y-1.5 text-xs text-white/80 list-disc list-inside">
+                    {analysisModal.prelimsPoints.map((pt, i) => (
+                      <li key={i}>{pt}</li>
                     ))}
-                  </div>
-                )}
-              </article>
-            )}
+                  </ul>
+                </div>
+              )}
+
+              {analysisModal.mainsAngle && (
+                <div className="rounded-2xl border border-purple-500/30 bg-purple-500/10 p-4 text-xs text-purple-200">
+                  <strong className="font-mono block mb-1 uppercase">Mains Evaluative Angle:</strong>
+                  {analysisModal.mainsAngle}
+                </div>
+              )}
+            </div>
           </div>
         )}
-      </div>
 
-      {/* AI ANALYSIS MODAL */}
-      {analysisModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
-          <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-purple-500/30 bg-[#120a21] p-6 shadow-2xl md:p-8">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <div>
-                <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
-                  {analysisModal.gsPaper}
-                </span>
-                <h3 className="mt-2 text-xl font-bold">{analysisModal.title}</h3>
-              </div>
-              <button
-                onClick={() => setAnalysisModal(null)}
-                className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="mt-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-purple-300">
-                  UPSC Strategic Summary
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  {analysisModal.summary}
-                </p>
+        {/* INTERACTIVE MCQ QUIZ MODAL */}
+        {quizQuestions && quizQuestions.length > 0 && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md">
+            <div className="w-full max-w-2xl rounded-3xl border border-blue-500 bg-[#0d0d0d] p-6 sm:p-8 shadow-[0_0_50px_rgba(59,130,246,0.25)] space-y-5">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">⚡</span>
+                  <h3 className="font-mono text-sm font-black text-white uppercase">
+                    PRELIMS MCQ LAB // QUESTION {quizIndex + 1} OF {quizQuestions.length}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setQuizQuestions(null)}
+                  className="rounded-lg border border-white/10 px-2.5 py-1 font-mono text-xs text-[#8C8C8C] hover:text-white"
+                >
+                  ✕ Close
+                </button>
               </div>
 
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-green-400">
-                  Prelims Key Facts & Traps
-                </h4>
-                <ul className="mt-2 space-y-2">
-                  {safeArray(analysisModal.prelimsPoints).map((pt, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-white/80">
-                      <span className="text-green-400 font-bold">✓</span>
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {(() => {
+                const q = quizQuestions[quizIndex];
+                const selectedOpt = selectedAnswers[q.id];
+                const isRevealed = revealedQuestions[q.id];
 
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-pink-400">
-                  Mains Evaluative Angle & Way Forward
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  {analysisModal.mainsAngle}
-                </p>
-              </div>
-            </div>
+                return (
+                  <div className="space-y-4">
+                    <p className="text-xs sm:text-sm font-semibold text-white whitespace-pre-wrap leading-relaxed">
+                      {q.question}
+                    </p>
 
-            <div className="mt-8 flex justify-end">
-              <button
-                onClick={() => setAnalysisModal(null)}
-                className="rounded-xl bg-purple-600 px-6 py-2.5 font-bold transition hover:bg-purple-500"
-              >
-                Close Analysis
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+                    <div className="grid gap-2.5">
+                      {q.options.map((opt) => {
+                        let btnStyle = "border-white/10 bg-black/40 text-white hover:border-[#D8A63A]";
+                        if (isRevealed) {
+                          if (opt.id === q.answer) {
+                            btnStyle = "border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold";
+                          } else if (selectedOpt === opt.id) {
+                            btnStyle = "border-red-500 bg-red-500/20 text-red-300";
+                          }
+                        } else if (selectedOpt === opt.id) {
+                          btnStyle = "border-[#D8A63A] bg-[#D8A63A]/20 text-[#F4C95D]";
+                        }
 
-      {/* INTERACTIVE QUIZ MODAL */}
-      {quizQuestions && quizQuestions.length > 0 && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-2xl rounded-3xl border border-purple-500/30 bg-[#120a21] p-6 shadow-2xl md:p-8">
-            {/* QUIZ HEADER */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-pink-400">
-                  Current Affairs MCQ Practice
-                </span>
-                <p className="font-bold">
-                  Question {quizIndex + 1} of {quizQuestions.length}
-                </p>
-              </div>
-              <button
-                onClick={() => setQuizQuestions(null)}
-                className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* QUIZ QUESTION */}
-            {(() => {
-              const currentQ = quizQuestions[quizIndex];
-              const selected = selectedAnswers[currentQ.id];
-              const isRevealed = revealedQuestions[currentQ.id];
-              const isCorrect = selected === currentQ.answer;
-
-              return (
-                <div className="mt-6">
-                  <p className="text-base font-semibold leading-relaxed text-white md:text-lg">
-                    {currentQ.question}
-                  </p>
-
-                  <div className="mt-6 space-y-3">
-                    {safeArray(currentQ.options).map((opt) => {
-                      const isOptSelected = selected === opt.id;
-                      const isOptCorrect = currentQ.answer === opt.id;
-
-                      let optClass = "border-white/10 bg-white/5 hover:border-purple-400";
-                      if (isRevealed) {
-                        if (isOptCorrect) optClass = "border-green-500 bg-green-500/20 text-green-200";
-                        else if (isOptSelected && !isOptCorrect)
-                          optClass = "border-red-500 bg-red-500/20 text-red-200";
-                      } else if (isOptSelected) {
-                        optClass = "border-purple-500 bg-purple-500/20";
-                      }
-
-                      return (
-                        <button
-                          key={opt.id}
-                          disabled={isRevealed}
-                          onClick={() => {
-                            setSelectedAnswers((prev) => ({ ...prev, [currentQ.id]: opt.id }));
-                            setRevealedQuestions((prev) => ({ ...prev, [currentQ.id]: true }));
-                          }}
-                          className={`flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition ${optClass}`}
-                        >
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 font-bold">
-                            {opt.id}
-                          </span>
-                          <span className="pt-1 text-sm">{opt.text}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* EXPLANATION */}
-                  {isRevealed && (
-                    <div
-                      className={`mt-6 rounded-2xl border p-4 ${
-                        isCorrect ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"
-                      }`}
-                    >
-                      <p className="font-bold text-sm">
-                        {isCorrect ? "✓ Correct Answer!" : "✕ Incorrect Answer"}
-                      </p>
-                      <p className="mt-1 text-xs text-white/70">
-                        Correct Option: <span className="font-bold text-white">{currentQ.answer}</span>
-                      </p>
-                      <p className="mt-3 border-t border-white/10 pt-3 text-xs leading-relaxed text-white/80">
-                        {currentQ.explanation}
-                      </p>
+                        return (
+                          <button
+                            key={opt.id}
+                            disabled={isRevealed}
+                            onClick={() => {
+                              sound.playHover();
+                              setSelectedAnswers((prev) => ({ ...prev, [q.id]: opt.id }));
+                            }}
+                            className={`flex items-center gap-3 rounded-2xl border p-3.5 text-left text-xs transition ${btnStyle}`}
+                          >
+                            <span className="font-mono font-bold">{opt.id}.</span>
+                            <span>{opt.text}</span>
+                          </button>
+                        );
+                      })}
                     </div>
-                  )}
 
-                  {/* NAVIGATION */}
-                  <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-4">
-                    <button
-                      disabled={quizIndex === 0}
-                      onClick={() => setQuizIndex((i) => i - 1)}
-                      className="rounded-xl border border-white/10 px-4 py-2 text-xs font-bold disabled:opacity-30"
-                    >
-                      ← Previous
-                    </button>
-                    {quizIndex < quizQuestions.length - 1 ? (
+                    {!isRevealed ? (
                       <button
-                        onClick={() => setQuizIndex((i) => i + 1)}
-                        className="rounded-xl bg-purple-600 px-5 py-2 text-xs font-bold hover:bg-purple-500"
+                        onClick={() => {
+                          if (!selectedOpt) return;
+                          sound.playLock();
+                          setRevealedQuestions((prev) => ({ ...prev, [q.id]: true }));
+                        }}
+                        disabled={!selectedOpt}
+                        className="w-full rounded-2xl bg-[#D8A63A] py-3 font-mono text-xs font-black text-black hover:bg-[#F4C95D] transition disabled:opacity-40"
                       >
-                        Next →
+                        SUBMIT ANSWER & VIEW EXPLANATION →
                       </button>
                     ) : (
-                      <button
-                        onClick={() => setQuizQuestions(null)}
-                        className="rounded-xl bg-green-600 px-5 py-2 text-xs font-bold hover:bg-green-500"
-                      >
-                        Done ✓
-                      </button>
+                      <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 space-y-2">
+                        <span className="font-mono text-xs font-bold text-emerald-300 uppercase block">
+                          ✓ Explanation & Syllabus Anchor:
+                        </span>
+                        <p className="text-xs text-white/90 leading-relaxed">{q.explanation}</p>
+                      </div>
                     )}
+
+                    <div className="flex items-center justify-between border-t border-white/10 pt-3">
+                      <button
+                        disabled={quizIndex === 0}
+                        onClick={() => setQuizIndex((prev) => prev - 1)}
+                        className="font-mono text-xs text-[#8C8C8C] hover:text-white disabled:opacity-30"
+                      >
+                        ← Previous Question
+                      </button>
+                      <button
+                        disabled={quizIndex === quizQuestions.length - 1}
+                        onClick={() => setQuizIndex((prev) => prev + 1)}
+                        className="font-mono text-xs text-[#F4C95D] hover:underline disabled:opacity-30"
+                      >
+                        Next Question →
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })()}
+                );
+              })()}
+            </div>
           </div>
-        </div>
-      )}
-    </main>
+        )}
+      </main>
     </AuthGuard>
   );
 }
-

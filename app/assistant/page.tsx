@@ -6,6 +6,7 @@ import { safeArray } from "@/lib/core/utils";
 import { sound } from "@/lib/audio/sound-engine";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
 import AuthGuard from "@/components/auth/AuthGuard";
+import { triggerRateLimitToast } from "@/components/TacticalRateLimitToast";
 
 interface ChatMessage {
 
@@ -74,24 +75,90 @@ export default function AssistantPage() {
         }),
       });
 
-      const json = await res.json();
-      if (json.success && json.data?.message) {
-        const aiMsg: ChatMessage = {
-          id: `ai-${Date.now()}`,
-          role: "assistant",
-          content: json.data.message,
-          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        };
-        setMessages((prev) => [...prev, aiMsg]);
-        sound.playHover();
-      } else {
+      if (res.status === 429) {
+        const json = await res.json().catch(() => ({}));
+        const retryAfter = Number(res.headers.get("Retry-After")) || json.error?.retryAfterSeconds || 60;
+        triggerRateLimitToast({
+          message: json.error?.message || "SYSTEM COOLING: API LIMIT REACHED",
+          retryAfterSeconds: retryAfter,
+        });
+
         const errMsg: ChatMessage = {
           id: `err-${Date.now()}`,
           role: "assistant",
-          content: "Neural link momentarily disrupted. Please re-engage the query.",
+          content: "⚠️ **SYSTEM COOLING ACTIVE**: Free tier neural quota reached. Please wait for the cooldown window before querying again.",
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         };
         setMessages((prev) => [...prev, errMsg]);
+        return;
+      }
+
+      const contentType = res.headers.get("Content-Type") || "";
+
+      if (contentType.includes("text/event-stream") && res.body) {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        const aiMsgId = `ai-${Date.now()}`;
+        let accumulatedContent = "";
+
+        // Placeholder message to append stream chunks to
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: aiMsgId,
+            role: "assistant",
+            content: "",
+            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          },
+        ]);
+
+        let streamBuffer = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          streamBuffer += decoder.decode(value, { stream: true });
+          const lines = streamBuffer.split("\n");
+          streamBuffer = lines.pop() || "";
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (trimmed.startsWith("data: ")) {
+              try {
+                const parsed = JSON.parse(trimmed.slice(6));
+                if (parsed.token) {
+                  accumulatedContent += parsed.token;
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === aiMsgId ? { ...msg, content: accumulatedContent } : msg
+                    )
+                  );
+                }
+              } catch {}
+            }
+          }
+        }
+        sound.playHover();
+      } else {
+        const json = await res.json();
+        if (json.success && json.data?.message) {
+          const aiMsg: ChatMessage = {
+            id: `ai-${Date.now()}`,
+            role: "assistant",
+            content: json.data.message,
+            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          };
+          setMessages((prev) => [...prev, aiMsg]);
+          sound.playHover();
+        } else {
+          const errMsg: ChatMessage = {
+            id: `err-${Date.now()}`,
+            role: "assistant",
+            content: "Neural link momentarily disrupted. Please re-engage the query.",
+            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          };
+          setMessages((prev) => [...prev, errMsg]);
+        }
       }
     } catch {
       const errMsg: ChatMessage = {

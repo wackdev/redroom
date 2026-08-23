@@ -5,6 +5,9 @@ import CommandPalette from "@/components/CommandPalette";
 import FocusSanctuaryModal from "@/components/FocusSanctuaryModal";
 import RedroomCursor from "@/components/RedroomCursor";
 import PWAClientInitializer from "@/components/PWAClientInitializer";
+import TacticalRateLimitToast from "@/components/TacticalRateLimitToast";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "WHYNOTUPSC | Why Not You?",
@@ -29,7 +32,10 @@ export default function RootLayout({
         <GlobalBroadcastBanner />
         <CommandPalette />
         <FocusSanctuaryModal />
+        <TacticalRateLimitToast />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -14,24 +14,38 @@ interface AuthGuardProps {
 export default function AuthGuard({ children, requireAdmin = false }: AuthGuardProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [user, setUser] = useState<CadetProfile | null>(null);
-  const [isChecking, setIsChecking] = useState(true);
+  const [user, setUser] = useState<CadetProfile | null>(() => UserSessionManager.getActiveUser());
+  const [isChecking, setIsChecking] = useState<boolean>(() => !UserSessionManager.getActiveUser());
 
   useEffect(() => {
-    const checkAuth = () => {
-      const active = UserSessionManager.getActiveUser();
-      setUser(active);
-      setIsChecking(false);
+    let isMounted = true;
+
+    const checkAuth = async () => {
+      // 1. Synchronous check
+      let active = UserSessionManager.getActiveUser();
+      if (!active) {
+        // 2. Asynchronous remote session hydration on page refresh
+        active = await UserSessionManager.hydrateSession();
+      }
+
+      if (isMounted) {
+        setUser(active);
+        setIsChecking(false);
+      }
     };
 
-    checkAuth();
+    void checkAuth();
 
     const handleUserChange = (e: CustomEvent<CadetProfile | null>) => {
-      setUser(e.detail);
+      if (isMounted) {
+        setUser(e.detail);
+        setIsChecking(false);
+      }
     };
 
     window.addEventListener("whynotupsc_user_changed", handleUserChange as EventListener);
     return () => {
+      isMounted = false;
       window.removeEventListener("whynotupsc_user_changed", handleUserChange as EventListener);
     };
   }, []);
@@ -40,8 +54,8 @@ export default function AuthGuard({ children, requireAdmin = false }: AuthGuardP
     return (
       <div className="flex min-h-screen w-full items-center justify-center bg-[#050505] text-[#8C8C8C] font-mono text-xs">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-7 w-7 animate-spin rounded-full border-2 border-[#D8A63A] border-t-transparent" />
-          <span>VERIFYING CADET CLEARANCE...</span>
+          <div className="h-7 w-7 animate-spin rounded-full border-2 border-[#D8A63A] border-t-transparent shadow-[0_0_15px_rgba(216,166,58,0.3)]" />
+          <span className="tracking-widest text-[#F4C95D]">INITIALIZING CADET MATRIX...</span>
         </div>
       </div>
     );

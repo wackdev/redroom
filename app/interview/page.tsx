@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { sound } from "@/lib/audio/sound-engine";
 import { idb, DB_STORES } from "@/lib/db/indexed-db";
-import { queryAI } from "@/lib/ai/client";
+import DAFProfilerModal from "@/components/DAFProfilerModal";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 interface DAFProfile {
@@ -58,6 +58,7 @@ export default function UPSCInterviewBoardRoom() {
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const [scorecard, setScorecard] = useState<VivaScorecard | null>(null);
   const [evaluating, setEvaluating] = useState<boolean>(false);
+  const [showDafStudio, setShowDafStudio] = useState<boolean>(false);
 
   // Web Speech Recognition Reference
   const recognitionRef = useRef<any>(null);
@@ -233,20 +234,31 @@ Candidate DAF Profile: Name: ${daf.name}, State: ${daf.homeState} (${daf.homeDis
 Evaluate the candidate's last answer and ask a crisp, probing, highly intellectual UPSC cross-question focusing on ${chosenMember.promptAngle}. Keep your question within 2-3 sentences.`;
 
     try {
-      const response = await queryAI({
-        prompt: `Candidate's previous response:\n"${userTurn.text}"\n\nAsk your follow-up cross-examination question as ${chosenMember.speaker}:`,
-        systemPrompt,
-        temperature: 0.3,
+      const res = await fetch("/api/interview/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          candidateName: daf.name,
+          homeState: daf.homeState,
+          homeDistrict: daf.homeDistrict,
+          graduation: daf.graduation,
+          optionalSubject: daf.optionalSubject,
+          hobbies: daf.hobbies,
+          previousAnswer: userTurn.text,
+          speaker: chosenMember.speaker,
+          promptAngle: chosenMember.promptAngle,
+        }),
       });
 
+      const json = await res.json();
       const questionText =
-        response.success && response.data.text
-          ? response.data.text.trim()
-          : `That is an interesting perspective, ${daf.name}. Considering the developmental disparities in ${daf.homeState}, how would your technical background assist in eliminating administrative leakages at the grassroots level?`;
+        json.success && json.data?.question
+          ? json.data.question.trim()
+          : `That is an interesting perspective, ${daf.name}. Considering the developmental disparities in ${daf.homeState}, how would your background in ${daf.graduation} assist in eliminating administrative leakages at the grassroots level?`;
 
       const aiTurn: InterviewTurn = {
         id: `turn-${Date.now() + 1}`,
-        speaker: chosenMember.speaker,
+        speaker: chosenMember.speaker as any,
         avatar: chosenMember.avatar,
         text: questionText,
         timestamp: new Date().toLocaleTimeString(),
@@ -257,7 +269,7 @@ Evaluate the candidate's last answer and ask a crisp, probing, highly intellectu
     } catch {
       const fallbackTurn: InterviewTurn = {
         id: `turn-${Date.now() + 1}`,
-        speaker: chosenMember.speaker,
+        speaker: chosenMember.speaker as any,
         avatar: chosenMember.avatar,
         text: `How do you reconcile constitutional morality with rapid executive decision-making during an acute public crisis in your district?`,
         timestamp: new Date().toLocaleTimeString(),
@@ -336,8 +348,23 @@ Evaluate the candidate's last answer and ask a crisp, probing, highly intellectu
           </div>
         </div>
 
-        {interviewStarted && !scorecard && (
-          <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => {
+              setShowDafStudio((p) => !p);
+              sound.playHover();
+            }}
+            className={`rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold transition ${
+              showDafStudio
+                ? "border-pink-500 bg-pink-500 text-white shadow-lg"
+                : "border-pink-500/40 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20"
+            }`}
+          >
+            <span>🎯</span>
+            <span>{showDafStudio ? "Hide DAF Profiler" : "DAF-II Cross-Examination Studio"}</span>
+          </button>
+
+          {interviewStarted && !scorecard && (
             <button
               onClick={handleConcludeInterview}
               disabled={evaluating}
@@ -345,12 +372,18 @@ Evaluate the candidate's last answer and ask a crisp, probing, highly intellectu
             >
               {evaluating ? "Evaluating Transcript..." : "Conclude Viva & View Scorecard →"}
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </header>
 
       {/* WORKSPACE */}
       <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-4 sm:p-8">
+        {/* DAF PROFILER STUDIO MODAL / COMPONENT */}
+        {showDafStudio && (
+          <section className="animate-fadeIn">
+            <DAFProfilerModal />
+          </section>
+        )}
         {!isDafConfigured || !interviewStarted ? (
           /* DAF PROFILE CONFIGURATION SCREEN */
           <div className="flex flex-col rounded-3xl border border-white/10 bg-[#0d0d0d] p-6 sm:p-10 shadow-2xl">

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateUPSCNotes } from "@/lib/notes/notes-engine";
 import { ApiResponse } from "@/lib/core/types";
 
+export const runtime = "edge";
+
 export async function POST(
   request: NextRequest
 ): Promise<NextResponse<ApiResponse<{ content: string; keyKeywords: string[] }>>> {

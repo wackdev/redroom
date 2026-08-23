@@ -1,6 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==============================================================================
+# WHYNOTUPSC / REDROOM — GIT IGNORE & SECURITY SPECIFICATION
+# ==============================================================================
 
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.*
@@ -10,35 +12,48 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# Testing & Coverage
 /coverage
 
-# next.js
+# Next.js Build Outputs
 /.next/
 /out/
-
-# production
 /build
+scratch/
 
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Debug Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (local secrets stay local, template is tracked)
-.env*.local
+# Environment & Secret Security (NEVER Commit Real Secrets)
 .env
-!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.key
+*.pem
+*.secret
+!/.env.example
 
+# Supabase & Local Database Staging
+.supabase
+supabase/.temp
 
-# vercel
+# Vercel Deployment & Telemetry
 .vercel
 
-# typescript
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea
+
+# TypeScript Build Info
 *.tsbuildinfo
 next-env.d.ts

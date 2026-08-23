@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { DayPlan, TestResultRecord, WeeklyReportSummary } from "@/lib/core/types";
 import { formatDate, formatTime, formatWeekSpan, getDateKey, safeArray, shiftDateKey } from "@/lib/core/utils";
 import { computeTestPerformanceAnalytics } from "@/lib/performance/analytics-engine";
-import { computeWeeklyReport, generateAIWeeklyMentorReview } from "@/lib/performance/weekly-report-engine";
+import { computeWeeklyReport } from "@/lib/performance/weekly-report-engine";
 import {
   subscribeToSyncChanges,
   useCloudSync,
@@ -98,8 +98,20 @@ export default function PerformancePage() {
   const handleGenerateAiWeeklyReview = async () => {
     setGeneratingAI(true);
     try {
-      const review = await generateAIWeeklyMentorReview(weeklyReport);
-      setAiReviewData(review);
+      const res = await fetch("/api/reports/weekly", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          plans: studyPlans,
+          testResults: results,
+          referenceDate: selectedWeekDate,
+          generateAI: true,
+        }),
+      });
+      const json = await res.json();
+      if (json.success && json.data?.aiMentorReview) {
+        setAiReviewData(json.data.aiMentorReview);
+      }
     } catch (err) {
       console.error("AI review error:", err);
       alert("Failed to generate AI mentor review. Using deterministic evaluation.");

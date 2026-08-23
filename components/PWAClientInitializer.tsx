@@ -2,11 +2,15 @@
 
 import { useEffect } from "react";
 import { idb } from "@/lib/db/indexed-db";
+import { initSyncDispatcher } from "@/lib/sync/dispatcher";
 
 export default function PWAClientInitializer() {
   useEffect(() => {
     // 1. Transparent LocalStorage to IndexedDB Migration
     void idb.migrateFromLocalStorage();
+
+    // 2. Start Background Outbox Sync Dispatcher
+    initSyncDispatcher();
 
     // 2. Service Worker Registration for True Offline Usage
     if (typeof window !== "undefined" && "serviceWorker" in navigator && process.env.NODE_ENV === "production") {

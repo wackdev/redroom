@@ -1,80 +1,106 @@
 /**
- * WHYNOTUPSC Offline-First Service Worker
- * Caches essential shell assets and static question datasets for library / offline studying.
+ * WHYNOTUPSC / REDROOM — TACTICAL OFFLINE SERVICE WORKER (PWA)
+ * Strategy:
+ * 1. Cache-First for static assets (JS, CSS, fonts, icons)
+ * 2. Stale-While-Revalidate for app routes & navigation
+ * 3. Network-Only for /api/* requests with Dexie outbox handling offline fallback
  */
 
-const CACHE_NAME = "whynotupsc-v1";
-const STATIC_ASSETS = [
+const CACHE_NAME = "redroom-pwa-v2";
+
+const CORE_ASSETS = [
   "/",
   "/dashboard",
   "/syllabus",
   "/pyqs",
   "/mains-pyqs",
   "/csat",
-  "/interview",
-  "/current-affairs",
   "/revision",
   "/notes",
   "/tests",
-  "/performance",
+  "/assistant",
+  "/chill-zone",
   "/manifest.json",
   "/favicon.ico",
 ];
 
+// 1. Install Event: Pre-cache core tactical routes
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS).catch((err) => {
-        console.warn("SW precache partial warning:", err);
+      return cache.addAll(CORE_ASSETS).catch((err) => {
+        console.warn("[Service Worker] Pre-caching partial warning:", err);
       });
     })
   );
   self.skipWaiting();
 });
 
+// 2. Activate Event: Clean up stale caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
     })
   );
   self.clients.claim();
 });
 
+// 3. Fetch Event: Stale-While-Revalidate for UI, pass-through for /api
 self.addEventListener("fetch", (event) => {
-  // Only handle GET requests
-  if (event.request.method !== "GET") return;
+  const { request } = event;
+  const url = new URL(request.url);
 
-  const url = new URL(event.request.url);
-
-  // Exclude API routes and cross-origin requests from aggressive caching
-  if (url.pathname.startsWith("/api/") || !url.origin.includes(self.location.origin)) {
+  // Do not cache API mutations or telemetry (handled by Dexie Outbox)
+  if (url.pathname.startsWith("/api/")) {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
+  // Navigation requests (HTML pages): Stale-While-Revalidate with offline fallback
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
-            const responseToCache = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
           }
           return networkResponse;
         })
-        .catch(() => {
-          return cachedResponse;
-        });
+        .catch(async () => {
+          const cachedResponse = await caches.match(request);
+          if (cachedResponse) return cachedResponse;
+          const dashboardFallback = await caches.match("/dashboard");
+          return dashboardFallback || caches.match("/");
+        })
+    );
+    return;
+  }
 
-      return cachedResponse || fetchPromise;
-    })
-  );
+  // Static Assets (CSS, JS, Fonts, Images): Cache-First with background revalidation
+  if (
+    url.pathname.startsWith("/_next/static/") ||
+    url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".css") ||
+    url.pathname.endsWith(".svg") ||
+    url.pathname.endsWith(".ico")
+  ) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        const fetchPromise = fetch(request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              const responseClone = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
+            }
+            return networkResponse;
+          })
+          .catch(() => cached);
+
+        return cached || fetchPromise;
+      })
+    );
+  }
 });

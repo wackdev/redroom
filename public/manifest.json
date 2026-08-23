@@ -1,7 +1,7 @@
 {
-  "name": "WHYNOTUPSC | UPSC Civil Services OS",
-  "short_name": "WHYNOTUPSC",
-  "description": "Zero-cost, offline-first digital operating system for UPSC Civil Services preparation.",
+  "name": "WHYNOTUPSC — Civil Services Operating System",
+  "short_name": "REDROOM",
+  "description": "Strategic Civil Services Command Centre, AI Mentor, and Spaced Repetition OS for UPSC CSE Aspirants.",
   "start_url": "/dashboard",
   "display": "standalone",
   "background_color": "#050505",
@@ -13,5 +13,28 @@
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "description": "Open Tactical Command Centre"
+    },
+    {
+      "name": "Notes & Journal",
+      "url": "/notes",
+      "description": "Access Offline Notes & Mindmaps"
+    },
+    {
+      "name": "Revision Queue",
+      "url": "/revision",
+      "description": "Spaced Repetition SM-2 Queue"
+    },
+    {
+      "name": "AI Strategist",
+      "url": "/assistant",
+      "description": "Engage WHY AI Mentor"
+    }
+  ],
+  "categories": ["education", "productivity"]
 }

@@ -17,7 +17,9 @@ import {
   pushStateToCloud,
   useCloudSync,
 } from "@/lib/sync/sync-engine";
+import NotesMindMapCanvas from "@/components/NotesMindMapCanvas";
 import AuthGuard from "@/components/auth/AuthGuard";
+import { useNotesStore } from "@/store/useNotesStore";
 
 const NOTES_STORAGE_KEY = "redroom_notes_data";
 
@@ -66,11 +68,20 @@ export default function NotesPage() {
   // Active View Tab: "topic_notes" | "daily_notes"
   const [activeTab, setActiveTab] = useState<"topic_notes" | "daily_notes">("topic_notes");
 
-  // Topic Notes State
-  const [notes, setNotes] = useState<NoteItem[]>([]);
-  const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null);
+  // Zustand Optimistic Notes Store
+  const {
+    notes,
+    selectedNote,
+    initialize: initNotes,
+    setSelectedNote,
+    addNote: addTopicNote,
+    updateNote: updateTopicNote,
+    deleteNote: removeTopicNote,
+  } = useNotesStore();
+
   const [selectedSubject, setSelectedSubject] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [noteViewMode, setNoteViewMode] = useState<"text" | "mindmap">("text");
 
   // Daily Synchronized Notes State
   const [studyPlans, setStudyPlans] = useState<Record<string, DayPlan>>({});
@@ -90,28 +101,7 @@ export default function NotesPage() {
   const [generating, setGenerating] = useState(false);
 
   const loadLocalData = useCallback(() => {
-    // 1. Topic Notes
-    try {
-      const saved = localStorage.getItem(NOTES_STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setNotes(parsed);
-          setSelectedNote((prev) => prev || parsed[0]);
-        } else {
-          setNotes(DEFAULT_SEED_NOTES);
-          setSelectedNote((prev) => prev || DEFAULT_SEED_NOTES[0]);
-        }
-      } else {
-        setNotes(DEFAULT_SEED_NOTES);
-        setSelectedNote((prev) => prev || DEFAULT_SEED_NOTES[0]);
-      }
-    } catch {
-      setNotes(DEFAULT_SEED_NOTES);
-      setSelectedNote(DEFAULT_SEED_NOTES[0]);
-    }
-
-    // 2. Daily Synchronized Notes from Study Plans
+    // Daily Synchronized Notes from Study Plans
     try {
       const savedPlans = localStorage.getItem(STUDY_PLAN_STORAGE_KEY);
       if (savedPlans) {
@@ -125,27 +115,21 @@ export default function NotesPage() {
 
   // Load Saved Notes & Study Plans & Subscribe to Cross-Tab Changes
   useEffect(() => {
+    void initNotes();
     loadLocalData();
 
     // Subscribe to cross-tab updates
     const unsubscribe = subscribeToSyncChanges((type) => {
-      if (type === "notes" || type === "study_plan" || type === "all") {
+      if (type === "notes" || type === "all") {
+        void initNotes();
+      }
+      if (type === "study_plan" || type === "all") {
         loadLocalData();
       }
     });
 
     return unsubscribe;
-  }, [loadLocalData]);
-
-  // Save Topic Notes & Broadcast
-  const saveNotesList = useCallback((updatedList: NoteItem[]) => {
-    setNotes(updatedList);
-    try {
-      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(updatedList));
-      broadcastSyncChange("notes");
-      void pushStateToCloud();
-    } catch {}
-  }, []);
+  }, [initNotes, loadLocalData]);
 
   // Save Study Plans (Daily Notes) & Broadcast
   const saveStudyPlans = useCallback((updatedPlans: Record<string, DayPlan>) => {
@@ -202,7 +186,7 @@ export default function NotesPage() {
 
       const json = await res.json();
       if (json.success && json.data) {
-        const newNote: NoteItem = {
+        await addTopicNote({
           id: `note-ai-${Date.now()}`,
           userId: "local-user",
           subject: aiSubject,
@@ -212,13 +196,7 @@ export default function NotesPage() {
           isAiGenerated: true,
           keyKeywords: json.data.keyKeywords || [aiSubject, aiTopic],
           tags: [aiSubject, "AI Synthesis", "UPSC Notes"],
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-
-        const updated = [newNote, ...notes];
-        saveNotesList(updated);
-        setSelectedNote(newNote);
+        });
         setShowAiModal(false);
         setAiTopic("");
       } else {
@@ -253,14 +231,10 @@ export default function NotesPage() {
     setShowDailyNoteModal(false);
   };
 
-  // Delete Topic Note
-  const deleteTopicNote = (noteId: string) => {
+  // Delete Topic Note (Optimistic Zustand + Dexie Outbox)
+  const deleteTopicNote = async (noteId: string) => {
     if (window.confirm("Delete this topic note?")) {
-      const updated = notes.filter((n) => n.id !== noteId);
-      saveNotesList(updated);
-      if (selectedNote?.id === noteId) {
-        setSelectedNote(updated[0] || null);
-      }
+      await removeTopicNote(noteId);
     }
   };
 
@@ -448,44 +422,78 @@ export default function NotesPage() {
 
             {/* TOPIC NOTE VIEWER */}
             {selectedNote ? (
-              <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 md:p-8">
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
-                        {selectedNote.subject}
-                      </span>
-                      <span className="text-xs text-white/40">
-                        Last edited: {formatDate(selectedNote.updatedAt, "full")}
-                      </span>
-                    </div>
-                    <h2 className="mt-3 text-2xl font-black">{selectedNote.title}</h2>
-                  </div>
+              <div className="space-y-4">
+                {/* View Mode Toggle */}
+                <div className="flex items-center gap-2">
                   <button
-                    onClick={() => deleteTopicNote(selectedNote.id)}
-                    className="rounded-xl border border-red-500/30 px-3 py-1.5 text-xs text-red-400 hover:bg-red-500/10"
+                    onClick={() => setNoteViewMode("text")}
+                    className={`rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold transition ${
+                      noteViewMode === "text"
+                        ? "bg-purple-600 text-white"
+                        : "bg-white/5 text-white/50 hover:bg-white/10"
+                    }`}
                   >
-                    Delete
+                    📄 Text Document
+                  </button>
+                  <button
+                    onClick={() => setNoteViewMode("mindmap")}
+                    className={`rounded-xl px-3.5 py-1.5 font-mono text-xs font-bold transition ${
+                      noteViewMode === "mindmap"
+                        ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-lg"
+                        : "bg-white/5 text-white/50 hover:text-white"
+                    }`}
+                  >
+                    🧠 Visual Mind-Map
                   </button>
                 </div>
 
-                <div className="mt-6 whitespace-pre-wrap font-sans text-sm leading-relaxed text-white/80">
-                  {selectedNote.content}
-                </div>
-
-                {safeArray(selectedNote.tags).length > 0 && (
-                  <div className="mt-8 flex flex-wrap gap-2 border-t border-white/10 pt-4">
-                    {safeArray(selectedNote.tags).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-lg bg-white/5 px-2.5 py-1 text-[11px] text-white/50"
+                {noteViewMode === "mindmap" ? (
+                  <NotesMindMapCanvas
+                    title={selectedNote.title}
+                    content={selectedNote.content}
+                    keywords={selectedNote.keyKeywords}
+                  />
+                ) : (
+                  <article className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 md:p-8">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-bold text-purple-300">
+                            {selectedNote.subject}
+                          </span>
+                          <span className="text-xs text-white/40">
+                            Last edited: {formatDate(selectedNote.updatedAt, "full")}
+                          </span>
+                        </div>
+                        <h2 className="mt-3 text-2xl font-black">{selectedNote.title}</h2>
+                      </div>
+                      <button
+                        onClick={() => deleteTopicNote(selectedNote.id)}
+                        className="rounded-xl border border-red-500/30 px-3 py-1.5 text-xs text-red-400 hover:bg-red-500/10"
                       >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
+                        Delete
+                      </button>
+                    </div>
+
+                    <div className="mt-6 whitespace-pre-wrap font-sans text-sm leading-relaxed text-white/80">
+                      {selectedNote.content}
+                    </div>
+
+                    {safeArray(selectedNote.tags).length > 0 && (
+                      <div className="mt-8 flex flex-wrap gap-2 border-t border-white/10 pt-4">
+                        {safeArray(selectedNote.tags).map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-lg bg-white/5 px-2.5 py-1 text-[11px] text-white/50"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </article>
                 )}
-              </article>
+              </div>
             ) : (
               <div className="rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-12 text-center text-white/40">
                 Select or generate a note to preview.

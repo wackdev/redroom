@@ -20,6 +20,7 @@ import { sound } from "@/lib/audio/sound-engine";
 import NeuralKnowledgeGraph from "@/components/NeuralKnowledgeGraph";
 import HistoryTimeTunnel from "@/components/HistoryTimeTunnel";
 import GeographyGlobe3D from "@/components/GeographyGlobe3D";
+import PrelimsEliminationLab from "@/components/PrelimsEliminationLab";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 
@@ -60,7 +61,7 @@ export default function PYQCommandCenter() {
 
   // View Mode: 'list' | 'daily_challenge' | 'exam_sim'
   const [viewMode, setViewMode] = useState<"list" | "daily_challenge" | "exam_sim">("list");
-  const [explorationTab, setExplorationTab] = useState<"matrix" | "constellation" | "history_tunnel" | "geo_globe">("matrix");
+  const [explorationTab, setExplorationTab] = useState<"matrix" | "constellation" | "history_tunnel" | "geo_globe" | "elimination_lab">("matrix");
 
 
   // Elimination Mode & Trap States
@@ -1003,6 +1004,22 @@ export default function PYQCommandCenter() {
             <span>🌍</span>
             <span>Geography 3D Earth</span>
           </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("elimination_lab");
+            }}
+            data-cursor="LAB"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "elimination_lab"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🎯</span>
+            <span>Elimination & Risk Lab</span>
+          </button>
         </section>
 
 
@@ -1028,6 +1045,12 @@ export default function PYQCommandCenter() {
         {explorationTab === "geo_globe" && (
           <div className="mb-8">
             <GeographyGlobe3D />
+          </div>
+        )}
+
+        {explorationTab === "elimination_lab" && (
+          <div className="mb-8">
+            <PrelimsEliminationLab />
           </div>
         )}
 

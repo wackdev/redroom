@@ -1,5 +1,3 @@
-"use client";
-
 export interface CadetProfile {
   id: string;
   email: string;
@@ -38,7 +36,7 @@ export async function hashPassword(password: string, salt: string): Promise<stri
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
   }
-  // Simple deterministic fallback for non-crypto environments
+  // Deterministic fallback
   let hash = 0;
   const str = password + salt;
   for (let i = 0; i < str.length; i++) {
@@ -50,21 +48,84 @@ export async function hashPassword(password: string, salt: string): Promise<stri
 }
 
 export class UserSessionManager {
+  private static cachedUser: CadetProfile | null = null;
+  private static isHydrating = false;
+
   /**
-   * Retrieves the currently active logged-in cadet profile, or null if unauthenticated
+   * Retrieves the currently active logged-in cadet profile synchronously, or null
    */
   public static getActiveUser(): CadetProfile | null {
     if (typeof window === "undefined") {
       return null;
     }
 
+    if (this.cachedUser) {
+      return this.cachedUser;
+    }
+
     try {
-      const stored = localStorage.getItem(ACTIVE_USER_STORAGE_KEY);
+      const stored = localStorage.getItem(ACTIVE_USER_STORAGE_KEY) || sessionStorage.getItem(ACTIVE_USER_STORAGE_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        this.cachedUser = parsed;
+        return parsed;
       }
     } catch {}
 
+    return null;
+  }
+
+  /**
+   * Asynchronously hydrates the user session on page load / refresh
+   * Prevents false logouts when refreshing pages
+   */
+  public static async hydrateSession(): Promise<CadetProfile | null> {
+    if (typeof window === "undefined") return null;
+
+    const current = this.getActiveUser();
+    if (current) {
+      // Trigger background session refresh
+      void this.fetchRemoteSession(current);
+      return current;
+    }
+
+    if (this.isHydrating) {
+      return this.cachedUser;
+    }
+
+    this.isHydrating = true;
+    try {
+      const remoteUser = await this.fetchRemoteSession();
+      if (remoteUser) {
+        this.setActiveUser(remoteUser);
+        return remoteUser;
+      }
+    } catch (e) {
+      console.warn("[UserSessionManager] Session hydration error:", e);
+    } finally {
+      this.isHydrating = false;
+    }
+
+    return null;
+  }
+
+  /**
+   * Queries the server session endpoint
+   */
+  private static async fetchRemoteSession(hint?: CadetProfile | null): Promise<CadetProfile | null> {
+    try {
+      const headers: Record<string, string> = {};
+      if (hint?.id) headers["x-cadet-id"] = hint.id;
+      if (hint?.email) headers["x-cadet-email"] = hint.email;
+
+      const res = await fetch("/api/auth/session", { headers });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && json.data?.user) {
+          return json.data.user;
+        }
+      }
+    } catch {}
     return null;
   }
 
@@ -81,7 +142,7 @@ export class UserSessionManager {
   }
 
   /**
-   * Sets the active cadet profile in local session
+   * Sets the active cadet profile in local and session stores
    */
   public static setActiveUser(cadet: CadetProfile) {
     if (typeof window === "undefined") return;
@@ -90,7 +151,9 @@ export class UserSessionManager {
         ...cadet,
         lastActiveAt: new Date().toISOString(),
       };
+      this.cachedUser = updated;
       localStorage.setItem(ACTIVE_USER_STORAGE_KEY, JSON.stringify(updated));
+      sessionStorage.setItem(ACTIVE_USER_STORAGE_KEY, JSON.stringify(updated));
       this.registerCadetProfile(updated);
       window.dispatchEvent(new CustomEvent("whynotupsc_user_changed", { detail: updated }));
     } catch {}
@@ -102,7 +165,9 @@ export class UserSessionManager {
   public static logout() {
     if (typeof window === "undefined") return;
     try {
+      this.cachedUser = null;
       localStorage.removeItem(ACTIVE_USER_STORAGE_KEY);
+      sessionStorage.removeItem(ACTIVE_USER_STORAGE_KEY);
       window.dispatchEvent(new CustomEvent("whynotupsc_user_changed", { detail: null }));
     } catch {}
   }
@@ -117,7 +182,6 @@ export class UserSessionManager {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          // Filter out passwords before returning
           return parsed.map(({ passwordHash, salt, ...profile }: StoredUserRecord) => profile);
         }
       }

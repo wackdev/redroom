@@ -13,10 +13,12 @@ import {
 import UniverseCommandCenter from "@/components/UniverseCommandCenter";
 import FutureYouSimulator from "@/components/FutureYouSimulator";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
+import RevisionHeatmap from "@/components/RevisionHeatmap";
+import CadetRankBadge from "@/components/CadetRankBadge";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
-
+const PLANS_STORAGE_KEY = "redroom_study_plans";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -27,6 +29,7 @@ export default function DashboardPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<TestResultRecord[]>([]);
+  const [plans, setPlans] = useState<Record<string, any>>({});
   const [intelligence, setIntelligence] = useState<DailyIntelligence | null>(null);
 
   const loadDashboardData = useCallback(async () => {
@@ -56,13 +59,21 @@ export default function DashboardPage() {
         console.warn("Could not load intelligence:", err);
       }
 
-      // 3. Load Test Results from localStorage / Supabase
+      // 3. Load Test Results & Study Plans from localStorage
       try {
         const saved = localStorage.getItem(RESULT_STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed)) {
             setResults(parsed);
+          }
+        }
+
+        const savedPlans = localStorage.getItem(PLANS_STORAGE_KEY);
+        if (savedPlans) {
+          const parsedPlans = JSON.parse(savedPlans);
+          if (parsedPlans && typeof parsedPlans === "object") {
+            setPlans(parsedPlans);
           }
         }
       } catch {}
@@ -162,6 +173,25 @@ export default function DashboardPage() {
                   {isSyncing ? "SYNCING..." : lastSyncTime ? `SYNCED (${lastSyncTime})` : "SYNC CLOUD"}
                 </span>
               </button>
+
+              <CadetRankBadge
+                totalHours={Math.round(
+                  Object.values(plans).reduce((acc: number, p: any) => {
+                    if (p && Array.isArray(p.tasks)) {
+                      return (
+                        acc +
+                        p.tasks.reduce(
+                          (sum: number, t: any) => (t.completed ? sum + (Number(t.hours) || 0) : sum),
+                          0
+                        )
+                      );
+                    }
+                    return acc;
+                  }, 0) * 10
+                ) / 10}
+                mainsAnswerCount={4}
+                pyqSolvedCount={safeArray(results).length * 15}
+              />
 
               <button
                 onClick={logout}
@@ -293,10 +323,13 @@ export default function DashboardPage() {
           </section>
         )}
 
-        {/* 3. FUTURE YOU TRAJECTORY SIMULATOR */}
+        {/* 3. REVISION & DAILY CONSISTENCY HEATMAP */}
+        <RevisionHeatmap plans={plans} testResults={results} />
+
+        {/* 4. FUTURE YOU TRAJECTORY SIMULATOR */}
         <FutureYouSimulator />
 
-        {/* 4. AI STRATEGIST "WHY" WIDGET */}
+        {/* 5. AI STRATEGIST "WHY" WIDGET */}
         <AIStrategistWhy />
 
         {/* 5. CORE SYSTEM SECTOR LAUNCHER */}

@@ -13,6 +13,7 @@ import {
   pushStateToCloud,
   useCloudSync,
 } from "@/lib/sync/sync-engine";
+import ConstitutionalAtlas from "@/components/ConstitutionalAtlas";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const STORAGE_KEY = "redroom_syllabus_progress";
@@ -27,6 +28,7 @@ export default function SyllabusPage() {
   const [examFilter, setExamFilter] = useState<"All" | "Prelims" | "Mains">("All");
   const [yieldFilter, setYieldFilter] = useState<"All" | "High" | "Medium" | "Low">("All");
   const [selectedSubject, setSelectedSubject] = useState<string>("all");
+  const [showConstitutionalAtlas, setShowConstitutionalAtlas] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   // Load Saved Progress & Subscribe to Cross-Tab Changes
@@ -159,6 +161,17 @@ export default function SyllabusPage() {
               </span>
             </button>
             <button
+              onClick={() => setShowConstitutionalAtlas((p) => !p)}
+              className={`rounded-xl border px-3.5 py-1.5 text-xs font-bold transition ${
+                showConstitutionalAtlas
+                  ? "border-[#D8A63A] bg-[#D8A63A] text-black shadow-lg"
+                  : "border-[#D8A63A]/40 bg-[#D8A63A]/10 text-[#F4C95D] hover:bg-[#D8A63A]/20"
+              }`}
+            >
+              📜 {showConstitutionalAtlas ? "Hide Articles Atlas" : "Constitutional Articles Atlas"}
+            </button>
+
+            <button
               onClick={resetProgress}
               className="rounded-xl border border-pink-500/30 px-4 py-1.5 text-xs font-semibold text-pink-400 hover:bg-pink-500/10"
             >
@@ -169,6 +182,13 @@ export default function SyllabusPage() {
       </header>
 
       <div className="mx-auto max-w-7xl px-5 py-8">
+        {/* CONSTITUTIONAL & LANDMARK JUDGEMENTS ATLAS */}
+        {showConstitutionalAtlas && (
+          <section className="mb-8">
+            <ConstitutionalAtlas />
+          </section>
+        )}
+
         {/* HERO & OVERALL PROGRESS */}
         <section className="mb-8 grid gap-6 lg:grid-cols-[1fr_380px]">
           <div>
