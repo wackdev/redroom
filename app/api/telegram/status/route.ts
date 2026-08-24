@@ -93,14 +93,27 @@ export async function POST(
 
     const data = await res.json().catch(() => ({}));
 
-    return NextResponse.json({
-      success: Boolean(data.ok),
-      data: {
-        registered: Boolean(data.ok),
-        webhookUrl: targetUrl,
-        telegramResult: data,
-      },
-    });
+    if (data.ok) {
+      return NextResponse.json({
+        success: true,
+        data: {
+          registered: true,
+          webhookUrl: targetUrl,
+          telegramResult: data,
+        },
+      });
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          error: {
+            code: "TELEGRAM_API_ERROR",
+            message: data.description || "Failed to register webhook with Telegram API",
+          },
+        },
+        { status: 400 }
+      );
+    }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Webhook registration failed";
     return NextResponse.json(
