@@ -163,6 +163,58 @@ export default function CommandPalette() {
       },
     });
 
+    items.push({
+      id: "action-3d-globe",
+      title: "3D Earth Globe · Geographical Belts & Straits",
+      category: "Action",
+      subtitle: "Interactive 3D planetary GIS globe with trenches and fault lines",
+      icon: "🌍",
+      onSelect: () => {
+        sound.playWarp();
+        setIsOpen(false);
+        router.push("/3d-zone?lab=geo_globe");
+      },
+    });
+
+    items.push({
+      id: "action-3d-history",
+      title: "History 3D Time Tunnel · IVC to 1947",
+      category: "Action",
+      subtitle: "Chronological immersive timeline from Ancient to Modern India",
+      icon: "⏳",
+      onSelect: () => {
+        sound.playWarp();
+        setIsOpen(false);
+        router.push("/3d-zone?lab=history_tunnel");
+      },
+    });
+
+    items.push({
+      id: "action-3d-constitution",
+      title: "Constitutional 3D Matrix · Articles & Landmark Judgments",
+      category: "Action",
+      subtitle: "Articles 1-395, Schedules 1-12 & Supreme Court judgments",
+      icon: "📜",
+      onSelect: () => {
+        sound.playWarp();
+        setIsOpen(false);
+        router.push("/3d-zone?lab=polity_3d");
+      },
+    });
+
+    items.push({
+      id: "action-3d-spatial",
+      title: "Spatial GIS Map Trainer · Parks, Rivers & Passes",
+      category: "Action",
+      subtitle: "Interactive Indian GIS cartography trainer",
+      icon: "🗺️",
+      onSelect: () => {
+        sound.playWarp();
+        setIsOpen(false);
+        router.push("/3d-zone?lab=spatial_map");
+      },
+    });
+
     // 3. Syllabus Topics
     UPSC_FULL_SYLLABUS.forEach((subj) => {
       safeArray<SyllabusTopic>(subj.topics).slice(0, 8).forEach((item: SyllabusTopic) => {

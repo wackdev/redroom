@@ -120,11 +120,21 @@ export default function VirtualStudyHall() {
             sound.playVictory();
             setTreeStage(4);
             const added = Math.round(initialSeconds / 60);
+            const today = new Date().toISOString().slice(0, 10);
             setTotalFocusedMinutesToday((t) => {
               const updated = t + added;
               try {
-                const today = new Date().toISOString().slice(0, 10);
                 localStorage.setItem(`redroom_focus_mins_${today}`, String(updated));
+                const existing = JSON.parse(localStorage.getItem("redroom_focus_sessions") || "[]");
+                const newRec = {
+                  id: `session-${Date.now()}`,
+                  subject: "General Studies",
+                  topic: "Deep Work Study Hall Sprint",
+                  durationMinutes: added,
+                  date: today,
+                  completedAt: new Date().toISOString(),
+                };
+                localStorage.setItem("redroom_focus_sessions", JSON.stringify([newRec, ...existing]));
               } catch {}
               return updated;
             });
