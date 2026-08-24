@@ -20,6 +20,9 @@ import { idb, DB_STORES } from "@/lib/db/indexed-db";
 import { sound } from "@/lib/audio/sound-engine";
 import MainsDiagramStudio from "@/components/MainsDiagramStudio";
 import EthicsDilemmaSimulator from "@/components/EthicsDilemmaSimulator";
+import EssayStudio from "@/components/EssayStudio";
+import MainsQCABGenerator from "@/components/MainsQCABGenerator";
+import TopperMirrorAnalyzer from "@/components/TopperMirrorAnalyzer";
 import { exportMainsAnswerBooklet } from "@/lib/mains-pyq/export";
 import AuthGuard from "@/components/auth/AuthGuard";
 
@@ -59,9 +62,12 @@ export default function MainsPYQCommandCenter() {
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const [aiEvaluating, setAiEvaluating] = useState<boolean>(false);
 
-  // Diagram Studio & Handwritten Scanner States
+  // Diagram Studio, Ethics, Essay, QCAB, & Topper Mirror States
   const [diagramStudioOpen, setDiagramStudioOpen] = useState<boolean>(false);
   const [ethicsSimulatorOpen, setEthicsSimulatorOpen] = useState<boolean>(false);
+  const [essayStudioOpen, setEssayStudioOpen] = useState<boolean>(false);
+  const [qcabGeneratorOpen, setQcabGeneratorOpen] = useState<boolean>(false);
+  const [topperMirrorOpen, setTopperMirrorOpen] = useState<boolean>(false);
   const [scannedSheets, setScannedSheets] = useState<string[]>([]);
   const [ocrTextExtracted, setOcrTextExtracted] = useState<string | null>(null);
   const [isEnhancingImage, setIsEnhancingImage] = useState<boolean>(false);
@@ -529,7 +535,61 @@ export default function MainsPYQCommandCenter() {
             >
               <span>⚖️</span>
               <span className="hidden sm:inline">
-                {ethicsSimulatorOpen ? "Hide Ethics Simulator" : "Ethics Case Simulator"}
+                {ethicsSimulatorOpen ? "Hide Ethics" : "Ethics Simulator"}
+              </span>
+            </button>
+
+            {/* ESSAY STUDIO */}
+            <button
+              onClick={() => {
+                setEssayStudioOpen((prev) => !prev);
+                sound.playLock();
+              }}
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
+                essayStudioOpen
+                  ? "border-amber-500 bg-amber-500 text-black shadow-lg"
+                  : "border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20"
+              }`}
+            >
+              <span>✍️</span>
+              <span className="hidden sm:inline">
+                {essayStudioOpen ? "Hide Essay Studio" : "Essay Studio"}
+              </span>
+            </button>
+
+            {/* QCAB BOOKLET GENERATOR */}
+            <button
+              onClick={() => {
+                setQcabGeneratorOpen((prev) => !prev);
+                sound.playLock();
+              }}
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
+                qcabGeneratorOpen
+                  ? "border-blue-500 bg-blue-500 text-white shadow-lg"
+                  : "border-blue-500/40 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20"
+              }`}
+            >
+              <span>📄</span>
+              <span className="hidden sm:inline">
+                {qcabGeneratorOpen ? "Hide QCAB" : "Print QCAB Booklet"}
+              </span>
+            </button>
+
+            {/* TOPPER MIRROR ANALYZER */}
+            <button
+              onClick={() => {
+                setTopperMirrorOpen((prev) => !prev);
+                sound.playLock();
+              }}
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
+                topperMirrorOpen
+                  ? "border-pink-400 bg-pink-400 text-black shadow-lg"
+                  : "border-pink-400/40 bg-pink-400/10 text-pink-200 hover:bg-pink-400/20"
+              }`}
+            >
+              <span>🪞</span>
+              <span className="hidden sm:inline">
+                {topperMirrorOpen ? "Hide Topper Mirror" : "Topper Mirror"}
               </span>
             </button>
 
@@ -578,8 +638,8 @@ export default function MainsPYQCommandCenter() {
           {/* PROGRESS METRICS CARD */}
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold uppercase tracking-wider text-white/60">Mains Writing Portfolio</span>
-              <span className="font-black text-emerald-400">
+              <span className="font-bold uppercase tracking-wider text-white/60">Writing Mastery</span>
+              <span className="font-black text-pink-400">
                 {questions.length > 0 ? Math.round((practicedIds.size / questions.length) * 100) : 0}% Practiced
               </span>
             </div>
@@ -603,6 +663,27 @@ export default function MainsPYQCommandCenter() {
         {ethicsSimulatorOpen && (
           <div className="mb-8">
             <EthicsDilemmaSimulator />
+          </div>
+        )}
+
+        {/* ESSAY STUDIO */}
+        {(essayStudioOpen || selectedPaper === "Essay") && (
+          <div className="mb-8">
+            <EssayStudio />
+          </div>
+        )}
+
+        {/* QCAB BOOKLET GENERATOR */}
+        {qcabGeneratorOpen && (
+          <div className="mb-8">
+            <MainsQCABGenerator />
+          </div>
+        )}
+
+        {/* TOPPER MIRROR ANALYZER */}
+        {topperMirrorOpen && (
+          <div className="mb-8">
+            <TopperMirrorAnalyzer />
           </div>
         )}
 
@@ -934,6 +1015,55 @@ export default function MainsPYQCommandCenter() {
                             </p>
                           </div>
 
+                          {/* 4. MAP / SPATIAL DIAGRAM IF AVAILABLE */}
+                          {q.framework.mapDiagram && (
+                            <div className="mt-4 rounded-xl border border-teal-500/30 bg-teal-500/5 p-3">
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span className="font-bold text-teal-300">🗺️ Spatial Map / Geographic Blueprint:</span>
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(q.framework?.mapDiagram || "");
+                                    sound.playClick();
+                                    alert("✓ Map blueprint copied to clipboard!");
+                                  }}
+                                  className="text-[10px] font-bold text-teal-400 hover:text-white underline"
+                                >
+                                  Copy Map Stencil
+                                </button>
+                              </div>
+                              <pre className="overflow-x-auto rounded-lg bg-black/60 p-2.5 font-mono text-[10px] text-teal-200/90 leading-tight">
+                                {q.framework.mapDiagram}
+                              </pre>
+                            </div>
+                          )}
+
+                          {/* 5. VERBATIM FULL MODEL ANSWER (WORD LIMIT COMPLIANT) */}
+                          {q.framework.fullModelAnswer && (
+                            <div className="mt-4 rounded-2xl border border-pink-500/40 bg-black/50 p-4">
+                              <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-2.5">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-bold text-pink-300">📝 Verbatim Model Answer</span>
+                                  <span className="rounded bg-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-300">
+                                    Target: {q.wordLimit} Words
+                                  </span>
+                                </div>
+                                <button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(q.framework?.fullModelAnswer || "");
+                                    sound.playClick();
+                                    alert("✓ Full Model Answer copied to clipboard!");
+                                  }}
+                                  className="rounded-lg bg-pink-600/30 px-2.5 py-1 text-[11px] font-bold text-pink-200 hover:bg-pink-600/50 transition"
+                                >
+                                  📋 Copy Model Answer
+                                </button>
+                              </div>
+                              <div className="font-mono text-xs text-white/90 leading-relaxed whitespace-pre-line max-h-80 overflow-y-auto pr-2">
+                                {q.framework.fullModelAnswer}
+                              </div>
+                            </div>
+                          )}
+
                           {/* KEYWORDS */}
                           {q.framework.keywords && q.framework.keywords.length > 0 && (
                             <div className="mt-4 border-t border-white/10 pt-3">
@@ -953,7 +1083,7 @@ export default function MainsPYQCommandCenter() {
                           onClick={() => handleToggleFramework(q.id)}
                           className="text-xs font-bold text-pink-300 hover:text-white transition flex items-center gap-1"
                         >
-                          <span>🏆 View Model Answer Architecture & Dimensions ▼</span>
+                          <span>🏆 View Complete Model Answer ({q.wordLimit} Words) & Blueprint ▼</span>
                         </button>
                       )}
                     </div>
@@ -1233,6 +1363,66 @@ export default function MainsPYQCommandCenter() {
                 <div className="space-y-4 text-xs sm:text-sm leading-relaxed">
                   {activeWritingQ.framework ? (
                     <>
+                      {/* VERBATIM MODEL ANSWER CONTAINER */}
+                      {activeWritingQ.framework.fullModelAnswer && (
+                        <div className="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-4 space-y-2">
+                          <div className="flex items-center justify-between border-b border-pink-500/20 pb-2">
+                            <span className="font-bold text-pink-300">
+                              🏆 Complete Model Answer ({activeWritingQ.wordLimit} Words)
+                            </span>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(activeWritingQ.framework?.fullModelAnswer || "");
+                                  sound.playClick();
+                                  alert("✓ Full Model Answer copied!");
+                                }}
+                                className="rounded-lg border border-pink-500/30 bg-black/40 px-2 py-1 text-[11px] font-bold text-pink-200 hover:bg-pink-500/20"
+                              >
+                                📋 Copy
+                              </button>
+                              <button
+                                onClick={() => {
+                                  const text = activeWritingQ.framework?.fullModelAnswer || "";
+                                  setActiveDraftText((prev) => (prev ? `${prev}\n\n${text}` : text));
+                                  setActiveTab("editor");
+                                  sound.playVictory();
+                                }}
+                                className="rounded-lg bg-pink-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-pink-500 shadow"
+                              >
+                                + Insert into Draft
+                              </button>
+                            </div>
+                          </div>
+                          <div className="font-mono text-xs text-white/90 leading-relaxed whitespace-pre-line max-h-72 overflow-y-auto pr-2 bg-black/40 p-3 rounded-xl border border-white/5">
+                            {activeWritingQ.framework.fullModelAnswer}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* SPATIAL MAP BLUEPRINT */}
+                      {activeWritingQ.framework.mapDiagram && (
+                        <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-3.5 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-teal-300">🗺️ Spatial Map Blueprint / Geographic Axis</span>
+                            <button
+                              onClick={() => {
+                                const mapText = activeWritingQ.framework?.mapDiagram || "";
+                                setActiveDraftText((prev) => (prev ? `${prev}\n\n${mapText}` : mapText));
+                                setActiveTab("editor");
+                                sound.playVictory();
+                              }}
+                              className="rounded-lg bg-teal-600 px-2 py-1 text-[11px] font-bold text-white hover:bg-teal-500 shadow"
+                            >
+                              + Insert Map into Draft
+                            </button>
+                          </div>
+                          <pre className="overflow-x-auto rounded-lg bg-black/50 p-2.5 font-mono text-[10px] text-teal-200/90 leading-tight border border-white/5">
+                            {activeWritingQ.framework.mapDiagram}
+                          </pre>
+                        </div>
+                      )}
+
                       <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-4">
                         <h4 className="font-bold text-purple-300">1. Introduction:</h4>
                         <p className="mt-1 text-white/90">{activeWritingQ.framework.introduction}</p>

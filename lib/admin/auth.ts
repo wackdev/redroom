@@ -44,6 +44,20 @@ export const ROLE_PERMISSIONS: Record<AdminRole, {
     canManageSystem: false,
     canViewAnalytics: true,
   },
+  ASPIRANT: {
+    canManageUsers: false,
+    canManageContent: false,
+    canManageGames: false,
+    canManageSystem: false,
+    canViewAnalytics: false,
+  },
+  USER: {
+    canManageUsers: false,
+    canManageContent: false,
+    canManageGames: false,
+    canManageSystem: false,
+    canViewAnalytics: false,
+  },
 };
 
 /**

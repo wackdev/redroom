@@ -85,7 +85,8 @@ export interface SyllabusProgressRecord {
 // ============================================================================
 
 export interface PYQOption {
-  id: "A" | "B" | "C" | "D";
+  id: string;
+  key?: string;
   text: string;
 }
 
@@ -153,6 +154,8 @@ export interface MainsModelAnswerFramework {
     points: string[];
   }[];
   diagramOrFlowchart?: string;
+  mapDiagram?: string;
+  fullModelAnswer?: string;
   caseLawsOrArticlesOrCommittees?: string[];
   conclusion: string;
   keywords: string[];
@@ -246,6 +249,7 @@ export interface TestResultRecord {
   testId?: number | string;
   userId?: string;
   title: string;
+  test_title?: string;
   subject?: string;
   moduleNumber?: number;
   score: number;
@@ -256,6 +260,11 @@ export interface TestResultRecord {
   attempted: number;
   total: number;
   date: string;
+  total_questions?: number;
+  accuracy?: number;
+  completed_at?: string;
+  createdAt?: string;
+  time_spent_seconds?: number;
   userAnswers?: Record<string | number, string>;
   subjectBreakdown?: Record<string, { correct: number; wrong: number; score: number }>;
 }
@@ -431,6 +440,19 @@ export interface WeeklyReportSummary {
   testAccuracyInWeek: number;
   weeklyNotesCount: number;
   weeklyNotesSummary: DailyStudyNoteEntry[];
+  radarMetrics?: {
+    gs1Hours: number;
+    gs2Hours: number;
+    gs3Hours: number;
+    gs4Hours: number;
+    csatHours: number;
+    essayHours: number;
+    targetHoursPerPaper: number;
+    prelimsEliminationAccuracy: number;
+    mainsAnswerSpeedWpm: number;
+    avgMainsTimePer150W: number;
+    avgMainsTimePer250W: number;
+  };
   aiMentorReview?: {
     overallGrade: "A+" | "A" | "B+" | "B" | "C" | "Needs Attention";
     executiveSummary: string;

@@ -12,24 +12,26 @@
     "directive": "Discuss",
     "directiveGuidance": "Define voice of conscience, contrast subjective intuition with objective constitutional morality, and provide practical civil service illustrations.",
     "framework": {
-      "introduction": "Voice of conscience is an internal moral compass grounded in empathy, integrity, and ethical principles that guides human action when codified laws are silent, ambiguous, or lead to unjust outcomes.",
+      "introduction": "The voice of conscience is an internal moral compass grounded in empathy, integrity, and ethical principles that guides human conduct when codified statutes are ambiguous, silent, or lead to unjust outcomes.",
       "dimensions": [
         {
-          "heading": "Conscience as a Compass in Administrative Ambiguity",
+          "heading": "1. Conscience in Administrative Ambiguity",
           "points": [
-            "Filling Legislative Voids: In crises where rigid rules fail to protect vulnerable citizens (e.g. providing emergency relief to destitute families lacking biometric ID).",
-            "Resisting Unethical Directives: Upholding intellectual integrity and probity against illegal executive pressure.",
-            "Anchoring in Constitutional Morality: Ensuring individual conscience is not subjective whim, but harmonized with constitutional values (justice, equality, human dignity)."
+            "Filling Statutory Voids: In humanitarian crises where rigid bureaucratic rules exclude vulnerable citizens (e.g. providing emergency grain or shelter to destitute families lacking biometric ID).",
+            "Resisting Illegal Orders: Providing moral courage to uphold probity and refuse illegal oral instructions from political superiors.",
+            "Anchoring in Constitutional Morality: Ensuring conscience is guided by constitutional values of equality, justice, and human dignity rather than personal prejudice."
           ]
         },
         {
-          "heading": "Safeguards against Misguided Conscience",
+          "heading": "2. Ethical Safeguards against Subjective Discretion",
           "points": [
-            "Conscience must be tested against Gandhian Talisman (impact on the poorest), 7 Nolan Principles, and transparency mechanisms (RTI)."
+            "Testing conscience against the Gandhian Talisman (recalling the face of the poorest person) and the 7 Nolan Principles of Public Life (Objectivity, Openness, Accountability)."
           ]
         }
       ],
+      "diagramOrFlowchart": "Ethical Navigation: Statutory Ambiguity -> Voice of Conscience -> Tested via Gandhian Talisman & Nolan Principles -> Constitutional Action",
       "caseLawsOrArticlesOrCommittees": ["Nolan Committee on Standards in Public Life", "Gandhian Talisman", "2nd ARC 4th Report - Ethics in Governance"],
+      "fullModelAnswer": "The voice of conscience represents an internalized moral judgement grounded in ethical values and empathy that guides action when codified laws are silent, ambiguous, or rigid.\n\n1. Role in Navigating Administrative Ambiguity:\n• Preventing Bureaucratic Apathy: Rigid adherence to the letter of the law can cause severe injustice (e.g., denying life-saving food rations to a destitute elderly person due to biometric authentication failure). A conscientious civil servant exercises administrative discretion to provide immediate relief while formalizing compliance subsequently.\n• Resisting Illegitimate Pressures: Conscience provides the moral courage to resist unethical oral directives from political or senior superiors, upholding public trust.\n• Translating Spirit of the Law: It bridges the gap between mechanical rule-following and constitutional compassion, ensuring public power serves human dignity.\n\n2. Safeguards Against Arbitrariness:\nAn administrator’s conscience must not degenerate into subjective whim. It must be tested against:\n• Constitutional Morality: Adherence to Fundamental Rights (Articles 14, 21) and the Preamble.\n• Gandhian Talisman: Assessing whether the decision will restore control over life and destiny to the poorest individual.\n• Nolan Principles: Maintaining transparency, objectivity, and accountability.\n\nConclusion:\nWhen statutory law leaves room for discretion, a civil servant must let conscience, illuminated by constitutional morality, be the compass of public duty.",
       "conclusion": "A conscientious administrator synthesizes the letter of the law with the spirit of constitutional compassion, ensuring public power serves human dignity.",
       "keywords": ["Voice of Conscience", "Constitutional Morality", "Gandhian Talisman", "Nolan Principles", "Discretionary Power", "Probity in Governance"]
     },
@@ -49,31 +51,245 @@
     "directive": "Evaluate and Decide",
     "directiveGuidance": "Structure systematically: Stakeholders -> Ethical Dilemmas -> Options Evaluation -> Justified Final Action Plan.",
     "framework": {
-      "introduction": "This case presents a classic administrative conflict between public health (Right to Life, Art 21) and economic livelihoods, involving environmental ethics, corporate accountability, and law and order maintenance.",
+      "introduction": "This case presents an acute administrative crisis involving public health (Right to Life, Article 21) versus economic livelihood of industrial workers, corporate accountability, and law and order management.",
       "dimensions": [
         {
-          "heading": "Key Ethical Dilemmas",
+          "heading": "1. Key Stakeholders & Ethical Dilemmas",
           "points": [
-            "Right to Clean Water and Health (Art 21) vs. Right to Livelihood of 5,000 workers.",
-            "Corporate Economic Contribution vs. Precautionary Principle & Intergenerational Equity.",
-            "Immediate Reactive Shutdown vs. Evidence-Based Procedural Justice."
+            "Stakeholders: Downstream villagers (health victims), 5,000 factory workers and families, Factory management, District Administration, State Pollution Control Board (SPCB).",
+            "Right to Clean Water & Life (Art 21) vs. Right to Livelihood (Art 19(1)(g)) of 5,000 workers.",
+            "Precautionary Principle & Environmental Ethics vs. Short-Term Economic Disruption.",
+            "Immediate Administrative Action vs. Procedural Fairness and Evidence Gathering."
           ]
         },
         {
-          "heading": "Course of Action",
+          "heading": "2. Evaluation of Administrative Options",
           "points": [
-            "Immediate Relief: Deploy emergency mobile drinking water tankers to all affected downstream villages and set up medical screening camps.",
-            "Joint Scientific Inspection: Direct State Pollution Control Board (SPCB) and independent environmental experts to take real-time multi-point effluent samples within 24 hours.",
-            "Interim Controlled Operations: Order temporary suspension of high-effluent manufacturing lines while mandating workers receive guaranteed paid wages under the Industrial Disputes Act.",
-            "Long-term Enforcement: Mandate installation of Zero Liquid Discharge (ZLD) plant and Continuous Emission Monitoring Systems (CEMS) before full resumption."
+            "Option 1 (Immediate permanent shutdown): Eliminates pollution immediately, but causes severe labor unrest, economic distress, and violates natural justice without confirmed laboratory samples.",
+            "Option 2 (Ignore allegations and allow status quo): Protects factory operations and jobs, but endangers human lives, creates grave public health emergencies, and constitutes gross administrative negligence.",
+            "Option 3 (Decisive Phased Action: Interim Relief + Rapid Forensic Audit + Temporary Suspension of high-effluent units): Protects public health immediately while ensuring evidentiary due process and worker protection."
+          ]
+        },
+        {
+          "heading": "3. Final Course of Action & Justification",
+          "points": [
+            "Step 1: Emergency Public Health Relief - Immediate supply of potable water tankers to all affected villages and dispatching mobile medical teams.",
+            "Step 2: 24-Hour Forensic Audit - Joint multi-point water sampling by SPCB, IIT/scientific experts, and local village representatives.",
+            "Step 3: Interim Restraints - Temporary suspension of specific high-effluent chemical lines while mandating continued payment of full wages to workers under the Industrial Disputes Act.",
+            "Step 4: Long-Term Compliance - Enforce installation of Zero Liquid Discharge (ZLD) plant and real-time Continuous Emission Monitoring Systems (CEMS) under the Polluter Pays Principle before full resumption."
           ]
         }
       ],
+      "diagramOrFlowchart": "Crisis Matrix: Immediate Potable Water Delivery (Health Protected) -> 24-Hour Joint SPCB Water Audit -> Interim Line Halt with Paid Wages -> ZLD Plant Installation",
       "caseLawsOrArticlesOrCommittees": ["M.C. Mehta v. Union of India (Polluter Pays Principle)", "Vellore Citizens' Welfare Forum (Precautionary Principle)", "Article 21 & Article 48A"],
+      "fullModelAnswer": "Case Analysis:\nThis case involves an administrative conflict between the non-negotiable Right to Life and Health (Article 21) of downstream villagers and the economic livelihood of 5,000 industrial workers.\n\n(a) Ethical Dilemmas:\n1. Right to Life and Clean Water (Article 21) vs. Right to Livelihood (Article 19(1)(g)).\n2. Precautionary Principle (Environmental Ethics) vs. Corporate Economic Growth.\n3. Procedural Natural Justice (Evidence Verification) vs. Urgent Humanitarian Action.\n\n(b) Evaluation of Options:\n• Option 1: Immediate Complete Factory Shutdown.\n  - Pros: Completely stops river pollution immediately.\n  - Cons: Violates natural justice without conclusive forensic evidence; triggers severe labor unrest and economic distress for 5,000 families.\n• Option 2: Delay Action Pending Routine Inquiry.\n  - Pros: Maintains economic output and industrial peace.\n  - Cons: Severe dereliction of public health duty; risks toxic poisoning of thousands.\n• Option 3: Interim Preventive Action + Rapid Scientific Audit + Worker Wage Protection.\n  - Pros: Safeguards public health immediately, follows due process, and protects innocent workers.\n\n(c) Adopted Course of Action:\n1. Emergency Humanitarian Relief (Immediate):\n• Deploy mobile water tankers to supply safe drinking water to all affected downstream villages.\n• Establish emergency medical health camps for immediate treatment and epidemiological tracking.\n\n2. Joint Scientific Inspection (Within 24 Hours):\n• Form a multidisciplinary inspection team (State Pollution Control Board, independent academic experts, and civil society representatives) to take multi-point effluent and river water samples.\n\n3. Interim Operational Restraint:\n• Issue an interim order suspending operations of the suspected toxic effluent chemical units.\n• Mandate that the factory management continue paying full wages to all 5,000 workers during the audit period under the Industrial Disputes Act.\n\n4. Long-Term Remediation (Polluter Pays Principle):\n• If pollution is confirmed, mandate immediate installation of a Zero Liquid Discharge (ZLD) system and real-time Continuous Emission Monitoring Systems (CEMS).\n• Direct the company to fund environmental river cleaning and compensate affected villagers under the Polluter Pays Principle.\n\nConclusion:\nEconomic growth cannot be achieved at the cost of human lives. This balanced approach upholds the Precautionary Principle while protecting worker livelihoods and democratic trust.",
       "conclusion": "Economic activity cannot be subsidized by the compromised health of citizens; the course of action balances decisive environmental protection with worker welfare and procedural fairness.",
       "keywords": ["Polluter Pays Principle", "Precautionary Principle", "Zero Liquid Discharge", "Right to Life", "Corporate Accountability"]
     },
     "important": true,
     "syllabusTags": ["Ethical Dilemmas", "Case Studies", "Environmental Ethics", "Public Administration"]
+  },
+  {
+    "id": "UPSC-MAINS-2024-GS4-01",
+    "year": 2024,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Emotional Intelligence & Governance",
+    "subtopic": "Emotional Intelligence in Crisis Administration",
+    "question": "Emotional intelligence is not the suppression of emotions, but their intelligent regulation for public good. Explain how emotional intelligence helps a civil servant manage public agitation and bureaucratic stress.",
+    "marks": 10,
+    "wordLimit": 150,
+    "directive": "Explain",
+    "directiveGuidance": "Use Daniel Goleman's 4-domain model (Self-Awareness, Self-Management, Social Awareness, Relationship Management) applied to public administration.",
+    "framework": {
+      "introduction": "Emotional Intelligence (EI), as conceptualized by Daniel Goleman, is the capacity to recognize, understand, and regulate one’s own emotions while empathetically perceiving and influencing the emotions of others, transforming emotional awareness into constructive public service leadership.",
+      "dimensions": [
+        {
+          "heading": "1. Managing Public Agitations & Hostile Crowds",
+          "points": [
+            "De-escalation Through Active Empathy: Recognizing the legitimate underlying grievances of protestors rather than viewing them solely as law-and-order adversaries.",
+            "Maintaining Composure: Emotional self-regulation under verbal provocation prevents impulsive reactions, retaliatory police brutality, or panic firing."
+          ]
+        },
+        {
+          "heading": "2. Mitigating Bureaucratic Stress & Political Coercion",
+          "points": [
+            "Stress Resilience: Preventing administrative burnout, cynicism, and moral fatigue in high-pressure postings.",
+            "Empathetic Leadership: Motivating junior frontline staff and field officers during disaster emergencies."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Goleman Matrix: Self-Awareness (Identify Stress) -> Self-Management (Stay Composed) -> Social Empathy (Hear Citizens) -> Relationship Management (Peaceful Resolution)",
+      "caseLawsOrArticlesOrCommittees": ["Daniel Goleman's Emotional Intelligence in Leadership", "2nd ARC 10th Report on Refurbishing Personnel Administration"],
+      "fullModelAnswer": "Emotional Intelligence (EI) is the ability to recognize, understand, and regulate emotions in oneself and others to guide constructive thought and action. In public administration, it serves as an indispensable tool for crisis governance.\n\n1. Managing Public Agitation and Conflict De-escalation:\n• Social Awareness & Empathy: An emotionally intelligent civil servant listens actively to agitated citizen groups, understanding the real distress (e.g., delayed compensation, farmer distress) behind vocal protests.\n• Emotional Self-Management: Remaining calm in the face of hostility prevents emotional contagion, panic decisions, or unnecessary use of police force, enabling peaceful dialogue.\n\n2. Managing Bureaucratic Stress and Political Pressures:\n• Self-Awareness: Helps administrators recognize personal fatigue, stress triggers, and cognitive biases, preventing ethical fading.\n• Navigating Coercion: High EI enables officers to maintain professional detachment, refusing unethical political directives politely yet firmly without creating institutional paralysis.\n• Team Leadership: Fosters empathy and psychological safety for frontline staff during grueling disaster relief operations.\n\nConclusion:\nWhile technical aptitude and intellectual quotient (IQ) design public policies, emotional intelligence (EQ) ensures they are executed with constitutional compassion, composure, and human dignity.",
+      "conclusion": "In modern citizen-centric governance, high IQ provides technical acumen, but high EQ guarantees constitutional compassion and moral leadership under fire.",
+      "keywords": ["Emotional Intelligence", "Daniel Goleman", "Empathy", "Self-Regulation", "De-escalation", "Crisis Governance"]
+    },
+    "important": true,
+    "syllabusTags": ["Emotional Intelligence", "Civil Services", "Crisis Management", "Ethics"]
+  },
+  {
+    "id": "UPSC-MAINS-2023-GS4-01",
+    "year": 2023,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Probity in Governance",
+    "subtopic": "Conflict of Interest & Moral Courage",
+    "question": "What do you understand by 'Conflict of Interest' in public service? How should a civil servant navigate situations where personal interests or relationships intersect with public duty?",
+    "marks": 10,
+    "wordLimit": 150,
+    "directive": "Define & Prescribe",
+    "directiveGuidance": "Differentiate actual, potential, and perceived conflict of interest; outline recusal, disclosure, and ethical decision matrices.",
+    "framework": {
+      "introduction": "A Conflict of Interest arises when a public servant's private personal, familial, or financial interests clash with their official obligation to serve the public interest impartially, undermining institutional trust and probity.",
+      "dimensions": [
+        {
+          "heading": "1. Typology of Conflicts of Interest",
+          "points": [
+            "Actual Conflict: Direct intersection between private gain and official decision (e.g., awarding a procurement tender to a firm owned by a close relative).",
+            "Potential Conflict: Future interests that may bias decisions (e.g., seeking post-retirement employment in a regulated corporate entity).",
+            "Perceived Conflict: Circumstances where a reasonable observer could doubt the officer’s impartiality, compromising public confidence."
+          ]
+        },
+        {
+          "heading": "2. Navigating Intersection with Public Duty",
+          "points": [
+            "Proactive Upfront Disclosure: Formally notifying the competent authority in writing about the conflict immediately.",
+            "Voluntary Recusal: Stepping aside from tender boards, selection panels, or regulatory proceedings involving personal connections.",
+            "Upholding Nolan Principles: Prioritizing Selflessness, Objectivity, and Integrity above private convenience."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Conflict of Interest Protocol: Identify Private Intersection -> Formal Written Disclosure -> Voluntary Recusal -> Independent Alternate Adjudication",
+      "caseLawsOrArticlesOrCommittees": ["Nolan Committee Principles of Public Life", "2nd ARC 4th Report - Ethics in Governance", "Central Civil Services (Conduct) Rules 1964"],
+      "fullModelAnswer": "A Conflict of Interest occurs when a public servant has a private, financial, or relational interest that could improperly influence—or reasonably appear to influence—the impartial performance of their official duties.\n\n1. Typologies of Conflict:\n• Actual: Directly making official decisions where personal benefits exist (e.g., approving permits for a family-owned enterprise).\n• Potential: Situations where future private opportunities (e.g., post-retirement board seats) compromise present regulatory rigor.\n• Perceived: Situations where no actual bias exists, but public perception of bias undermines institutional credibility.\n\n2. Framework for Navigating Conflicts:\n• Prompt Mandatory Disclosure: The officer must formally submit a written declaration of interest to their administrative superior at the earliest opportunity.\n• Voluntary Recusal: The officer should voluntarily recuse themselves from all deliberations, committee meetings, and file movements concerning the matter.\n• Transfer to Independent Committee: Reallocating the decision to an alternate, non-conflicted officer or an independent selection panel.\n• Compliance with Conduct Rules: Strict adherence to Central Civil Services (Conduct) Rules prohibiting private commercial transactions with entities under official jurisdiction.\n\nConclusion:\nPublic office is a public trust. Civil servants must not only act with impeccable integrity, but must also ensure that their decisions remain above all suspicion of private bias.",
+      "conclusion": "Public office is a sacred public trust; avoiding even the appearance of impropriety through voluntary recusal is the hallmark of ethical statecraft.",
+      "keywords": ["Conflict of Interest", "Public Trust", "Recusal", "Nolan Principles", "Revolving Door", "Probity in Governance"]
+    },
+    "important": true,
+    "syllabusTags": ["Conflict of Interest", "Probity in Governance", "Nolan Principles", "Ethics"]
+  },
+  {
+    "id": "UPSC-MAINS-2022-GS4-01",
+    "year": 2022,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Case Studies",
+    "subtopic": "Illegal Mining Mafia & Administrative Courage",
+    "question": "You are a young SDM newly posted in a river basin sub-division notorious for illegal sand mining. Previous officers who tried to crack down were transferred or faced physical attacks. The local mining mafia is patronized by an influential minister. A major bridge in the region has developed structural cracks due to unscientific riverbed dredging. (a) Identify the ethical challenges before you. (b) What steps will you take to enforce the law while ensuring personal safety and team morale?",
+    "marks": 20,
+    "wordLimit": 250,
+    "directive": "Analyze and Decide",
+    "directiveGuidance": "Structure: Stakeholder Mapping -> Ethical Dilemmas -> Tactical Multi-Agency Action Plan -> Long-term Structural Prevention.",
+    "framework": {
+      "introduction": "This case illustrates an administrative officer confronting organized environmental crime, political patronage, physical intimidation, and urgent public infrastructure safety hazards (bridge collapse risk).",
+      "dimensions": [
+        {
+          "heading": "1. Key Stakeholders & Ethical Dilemmas",
+          "points": [
+            "Stakeholders: Commuters/General Public, Sub-Divisional Administration & Police team, Local Mining Mafia & Political Patrons, River Basin Ecology.",
+            "Public Safety & Duty of Care (preventing bridge catastrophe) vs. Personal Safety & Career Security.",
+            "Integrity & Moral Courage vs. Resignation and Bureaucratic Conformity.",
+            "Protecting Junior Staff: Sustaining the morale and physical safety of vulnerable field inspectors and revenue staff."
+          ]
+        },
+        {
+          "heading": "2. Action Plan to Enforce Law and Protect Team",
+          "points": [
+            "Immediate Bridge Protection: Direct PWD to conduct an ultrasonic structural audit; immediately ban heavy vehicle movement and post static police checkpoints.",
+            "Multi-Agency Enforcement Taskforce: Form a combined enforcement squad (Police, Mining, Revenue, Transport) equipped with body-worn cameras and drone surveillance to avoid unilateral vulnerability.",
+            "Technology-Driven Traceability: Enforce GPS-tagged RFID transit passes (e-Ravanna) and geo-fence legal sand quarry boundaries.",
+            "Institutional Documentation: Submit comprehensive formal reports with GIS mapping and photographic evidence to District Magistrate, Divisional Commissioner, and National Green Tribunal (NGT) creating indelible institutional paper trails."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Enforcement Architecture: Public Safety (Traffic Diverted) -> Multi-Agency Raid Taskforce -> Drone / GPS Geo-Fencing -> Documented NGT / DM Paper Trail",
+      "caseLawsOrArticlesOrCommittees": ["Deepak Kumar v. State of Haryana (SC Sand Mining Mandate)", "NGT Guidelines on Sustainable Sand Mining Management", "2nd ARC on Whistleblower Protection"],
+      "fullModelAnswer": "Case Analysis:\nThis case involves an urgent administrative challenge combining public safety risks (threat of bridge collapse), entrenched corruption, political intimidation, and environmental degradation.\n\n(a) Ethical Challenges:\n1. Duty of Care & Public Safety vs. Personal Safety and Career Preservation.\n2. Upholding the Rule of Law and Professional Integrity against Political Patronage.\n3. Ensuring the Physical Security and Sustaining the Morale of Junior Field Staff.\n4. Ecological Stewardship: Preventing irreversible riverbed erosion and groundwater depletion.\n\n(b) Strategic Action Plan:\n1. Immediate Public Safety Measures:\n• Order an emergency structural stability audit of the bridge by the Public Works Department (PWD).\n• Divert heavy commercial traffic immediately and deploy round-the-clock police checkpoints on bridge approaches.\n\n2. Institutional and Multi-Agency Strategy:\n• Form a Joint Enforcement Task Force comprising Police, Revenue, Transport, and Mining officials. Operating collectively insulates individual officers from targeted physical or political retaliation.\n• Deploy drone surveillance and mandate body-worn cameras during raids to ensure transparent, indisputable evidence collection.\n\n3. Technology-Driven Enforcement:\n• Implement geo-fencing for authorized sand mining zones and mandate GPS-enabled electronic transit passes (e-Ravanna) to confiscate unverified transport trucks.\n• Set up integrated CCTV-monitored weighing bridges along exit highways.\n\n4. Transparent Institutional Paper Trail:\n• Send documented, evidence-backed reports to the District Magistrate, State Environment Impact Assessment Authority (SEIAA), and National Green Tribunal (NGT).\n• Transparent institutional reporting deters arbitrary punitive transfers and elevates the issue to judicial oversight.\n\n5. Team Protection and Morale:\n• Stand firmly with field inspectors, provide armed police escorts for all inspection rounds, and publicly commend honest subordinates.\n\nConclusion:\nMoral courage in administration is not reckless heroism, but the strategic application of law, technology, and collective institutional action to protect public safety and the rule of law.",
+      "conclusion": "Administrative courage is not reckless martyrdom, but strategic resilience—leveraging technology, multi-agency solidarity, and transparent institutional documentation to crush illegal extortion.",
+      "keywords": ["Sand Mining Mafia", "Moral Courage", "Multi-Agency Taskforce", "Geo-Fencing", "NGT Guidelines", "Duty of Care"]
+    },
+    "important": true,
+    "syllabusTags": ["Case Studies", "Moral Courage", "Environmental Crimes", "Public Administration"]
+  },
+  {
+    "id": "UPSC-MAINS-2021-GS4-01",
+    "year": 2021,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Moral Thinkers & Philosophy",
+    "subtopic": "Gandhian Seven Social Sins",
+    "question": "'Commerce without morality' and 'Science without humanity' are two of Mahatma Gandhi's Seven Social Sins. Explain their contemporary relevance with suitable examples.",
+    "marks": 10,
+    "wordLimit": 150,
+    "directive": "Explain & Illustrate",
+    "directiveGuidance": "Define Gandhi's concept and link to contemporary corporate greed, pharmaceutical patents, AI weapons, and environmental dumping.",
+    "framework": {
+      "introduction": "Published in 'Young India' in 1925, Mahatma Gandhi’s Seven Social Sins identify systemic ethical failures where human achievements are detached from moral values, dehumanizing society and degrading human dignity.",
+      "dimensions": [
+        {
+          "heading": "1. Commerce without Morality (Contemporary Relevance)",
+          "points": [
+            "Corporate Greed & Greenwashing: Maximizing shareholder returns through sweatshops, illegal toxic dumping, and tobacco/ultra-processed food promotion targeting children.",
+            "Predatory Lending & Financial Scams: Unregulated loan apps, crypto scams, and subprime crises exploiting financially vulnerable citizens."
+          ]
+        },
+        {
+          "heading": "2. Science without Humanity (Contemporary Relevance)",
+          "points": [
+            "Autonomous Lethal Weapons (AI Slaughterbots): Delegating the decision to kill to algorithms without human empathy or moral accountability.",
+            "Vaccine Apartheid & Bioethics: Monopolizing lifesaving medical patents during global pandemics, denying access to low-income nations."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Gandhian Ethical Nexus: Economic / Scientific Progress ──Guided by Moral Values──► Universal Human Flourishing (Sarvodaya)",
+      "caseLawsOrArticlesOrCommittees": ["Mahatma Gandhi's Young India (1925)", "Trusteeship Doctrine", "Universal Declaration on Bioethics and Human Rights (UNESCO)"],
+      "fullModelAnswer": "Published by Mahatma Gandhi in 'Young India' (1925), the Seven Social Sins highlight how human pursuits lose their legitimacy when disconnected from ethical foundations.\n\n1. Commerce Without Morality:\n• Significance: Capitalism devoid of ethics prioritizes unbridled profit over human well-being and ecological sustainability.\n• Contemporary Examples:\n- Corporate Fraud & Deception: Misleading marketing of opioids and ultra-processed foods that fuel public health crises.\n- Environmental Dumping: Multinational corporations relocating polluting chemical factories to developing nations with lax environmental regulations.\n- Gandhian Solution: The doctrine of 'Trusteeship', where wealth is held in trust for societal welfare (Corporate Social Responsibility and ESG investing).\n\n2. Science Without Humanity:\n• Significance: Technological innovation devoid of empathy turns human ingenuity into an instrument of destruction and inequality.\n• Contemporary Examples:\n- Autonomous Weapons: Developing AI-powered killer drones capable of launching lethal strikes without human moral oversight.\n- Vaccine Nationalism: Hoarding pharmaceutical patents during pandemics, leaving impoverished nations vulnerable.\n- Surveillance Capitalism: Harvesting citizen data without informed consent.\n\nConclusion:\nGandhian ethics remind us that commerce and science are not ends in themselves; their true worth is judged by their capacity to uplift the last person in society (Antyodaya).",
+      "conclusion": "Gandhian philosophy reminds us that economic progress and scientific ingenuity are mere tools; their legitimacy derives exclusively from how compassionately they elevate the last person.",
+      "keywords": ["Seven Social Sins", "Commerce Without Morality", "Science Without Humanity", "Trusteeship", "Ethical Capitalism", "Vaccine Apartheid"]
+    },
+    "important": true,
+    "syllabusTags": ["Gandhian Ethics", "Moral Thinkers", "Applied Ethics", "Corporate Ethics"]
+  },
+  {
+    "id": "UPSC-MAINS-2020-GS4-01",
+    "year": 2020,
+    "paper": "GS-4",
+    "subject": "Ethics, Integrity & Aptitude",
+    "topic": "Foundational Values of Civil Services",
+    "subtopic": "Empathy & Compassion towards Weaker Sections",
+    "question": "Differentiate between 'Empathy', 'Sympathy', and 'Compassion'. Why is compassion considered the crown virtue of a civil servant in a welfare state?",
+    "marks": 10,
+    "wordLimit": 150,
+    "directive": "Differentiate & Justify",
+    "directiveGuidance": "Provide conceptual clarity: Sympathy (Pity) -> Empathy (Feeling with) -> Compassion (Action to alleviate suffering).",
+    "framework": {
+      "introduction": "Sympathy, Empathy, and Compassion represent a progressive continuum of emotional resonance and moral responsibility toward human suffering, moving from passive emotion to active administrative intervention.",
+      "dimensions": [
+        {
+          "heading": "1. Conceptual Differentiation",
+          "points": [
+            "Sympathy (Passive Feeling): Intellectual pity for another's distress ('I feel sorry for your situation') while maintaining emotional distance.",
+            "Empathy (Emotional Resonance): Experiencing and understanding another's emotional perspective from within ('I feel and understand your pain').",
+            "Compassion (Action-Oriented Empathy): Empathy accompanied by an active, tangible commitment to alleviate suffering ('I feel your pain and will take action to remove it')."
+          ]
+        },
+        {
+          "heading": "2. Why Compassion is the Crown Virtue in a Welfare State",
+          "points": [
+            "Humanizing Bureaucracy: Prevents civil servants from becoming indifferent rule-following automatons, prompting proactive solutions for marginalized citizens.",
+            "Realizing Constitutional Mandates: Direct vehicle for implementing Directive Principles of State Policy and social justice (Preamble).",
+            "Gandhian Talisman in Practice: Acts as the definitive filter during discretionary policy decisions."
+          ]
+        }
+      ],
+      "diagramOrFlowchart": "Virtue Progression: Sympathy (Passive Pity) -> Empathy (Cognitive Resonance) -> Compassion (Decisive Action)",
+      "caseLawsOrArticlesOrCommittees": ["Gandhian Talisman", "2nd ARC 4th Report", "Civil Service Core Competency Framework"],
+      "fullModelAnswer": "Sympathy, Empathy, and Compassion form a hierarchical continuum of moral engagement with human distress.\n\n1. Conceptual Differentiation:\n• Sympathy: An emotional feeling of pity or sorrow for someone’s misfortune from a detached perspective (e.g., feeling bad about urban slum poverty without personal identification).\n• Empathy: The cognitive and emotional ability to put oneself in another's shoes and experience their emotions (e.g., an officer genuinely understanding the humiliation faced by a marginalized citizen seeking basic welfare rights).\n• Compassion: The highest stage, where empathy translates into a tangible, proactive drive to alleviate suffering (e.g., an officer actively reforming the delivery pipeline to ensure food grains reach remote tribal hamlets).\n\n2. Why Compassion is the Crown Virtue in Public Service:\n• Preventing Procedural Tyranny: In a developing welfare state, vulnerable citizens often lack documentation. A compassionate civil servant finds legitimate discretionary avenues to deliver life-saving entitlements rather than mechanically rejecting claims.\n• Realizing Social Justice: Compassion aligns administrative power with the constitutional vision of the Preamble and Directive Principles, transforming cold bureaucratic machinery into an engine of human dignity.\n• Gandhian Talisman: It serves as the ultimate moral litmus test for resolving complex policy dilemmas.\n\nConclusion:\nWhile competence and integrity make a civil servant efficient, compassion makes administration humane and just.",
+      "conclusion": "While competence and integrity make an administrator efficient, compassion makes an administrator humane, turning bureaucratic power into an instrument of societal healing.",
+      "keywords": ["Empathy", "Sympathy", "Compassion", "Crown Virtue", "Gandhian Talisman", "Social Justice", "Humanized Bureaucracy"]
+    },
+    "important": true,
+    "syllabusTags": ["Foundational Values", "Empathy and Compassion", "Ethics in Administration"]
   }
 ]

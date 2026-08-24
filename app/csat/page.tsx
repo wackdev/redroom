@@ -1,30 +1,38 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { sound } from "@/lib/audio/sound-engine";
-import { idb, DB_STORES } from "@/lib/db/indexed-db";
+import { mutateWithOutbox, dexieDb } from "@/lib/db/dexie";
 import rawCsatQuestions from "@/data/csat-questions.json";
+import { getCompleteCSATQuestionBank, CSATQuestionItem } from "@/lib/csat/csat-bank";
 import SyllogismVennVisualizer from "@/components/SyllogismVennVisualizer";
 import CSATSpeedMathTrainer from "@/components/CSATSpeedMathTrainer";
 import AuthGuard from "@/components/auth/AuthGuard";
 
-interface CSATQuestion {
-  id: string;
-  year: number;
-  category: "Comprehension" | "Quant" | "Reasoning";
-  subtopic: string;
-  difficulty: string;
-  passage?: string;
-  question: string;
-  options: Array<{ id: string; text: string }>;
-  correctAnswer: string;
-  explanation: string;
-  trapInsight: string;
-  formulaTrick: string;
-}
+type CSATQuestion = CSATQuestionItem;
 
-const csatDataset: CSATQuestion[] = rawCsatQuestions as CSATQuestion[];
+// Merge static curated questions with dynamic 100+ question bank
+const combinedPool: CSATQuestion[] = [
+  ...(rawCsatQuestions as CSATQuestion[]),
+  ...getCompleteCSATQuestionBank(),
+];
+
+// De-duplicate by ID
+const csatDataset: CSATQuestion[] = Array.from(
+  new Map(combinedPool.map((q) => [q.id, q])).values()
+);
+
+interface CSATAttemptRecord {
+  id?: number | string;
+  test_title?: string;
+  score: number;
+  total_questions?: number;
+  correct: number;
+  wrong: number;
+  accuracy?: number;
+  completed_at?: string;
+}
 
 export default function CSATMatrixArena() {
   const router = useRouter();
@@ -43,6 +51,7 @@ export default function CSATMatrixArena() {
   const [formulaDrawerOpen, setFormulaDrawerOpen] = useState<boolean>(false);
   const [showSyllogismVisualizer, setShowSyllogismVisualizer] = useState<boolean>(false);
   const [showSpeedMath, setShowSpeedMath] = useState<boolean>(false);
+  const [pastAttempts, setPastAttempts] = useState<CSATAttemptRecord[]>([]);
 
   // Mock Arena Timer State
   const [mockTimeRemaining, setMockTimeRemaining] = useState<number>(120 * 60); // 120 mins
@@ -65,24 +74,6 @@ export default function CSATMatrixArena() {
   }, [selectedCategory, selectedDifficulty, search]);
 
   const currentQ = filteredQuestions[activeQuestionIndex] || filteredQuestions[0];
-
-  // Timer for Mock Arena
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (mockActive && !mockSubmitted && mockTimeRemaining > 0) {
-      timer = setInterval(() => {
-        setMockTimeRemaining((prev) => {
-          if (prev <= 1) {
-            setMockSubmitted(true);
-            sound.playWarp();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [mockActive, mockSubmitted, mockTimeRemaining]);
 
   // Score Calculations (+2.5 for correct, -0.83 for wrong)
   const stats = useMemo(() => {
@@ -116,7 +107,97 @@ export default function CSATMatrixArena() {
     };
   }, [userAnswers]);
 
+  // Load Past CSAT Attempts from Dexie
+  const loadPastAttempts = useCallback(async () => {
+    try {
+      const results = await dexieDb.test_results
+        .where("subject")
+        .equals("CSAT")
+        .reverse()
+        .limit(10)
+        .toArray();
+
+      setPastAttempts(
+        results.map((r) => ({
+          id: r.id,
+          test_title: r.test_title || r.title || "CSAT Session",
+          score: r.score,
+          total_questions: r.total_questions || r.total || 0,
+          correct: r.correct,
+          wrong: r.wrong,
+          accuracy: r.accuracy || (r.total ? Math.round((r.correct / r.total) * 100) : 0),
+          completed_at: r.completed_at || r.createdAt || r.date || new Date().toISOString(),
+        }))
+      );
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    void loadPastAttempts();
+  }, [loadPastAttempts]);
+
+  // Persistent Outbox Save Function
+  const saveCSATResultToOutbox = useCallback(
+    async (finalStats: typeof stats, totalQ: number, timeSpent: number) => {
+      sound.playWarp();
+      try {
+        const now = new Date().toISOString();
+        const testTitle = `CSAT ${mode === "mock" ? "120-Min Simulation" : "Speed Matrix Drill"}`;
+        const testResult = {
+          title: testTitle,
+          test_title: testTitle,
+          subject: "CSAT",
+          score: finalStats.netScore,
+          total: totalQ,
+          total_questions: totalQ,
+          attempted: finalStats.attempted,
+          skipped: Math.max(0, totalQ - finalStats.attempted),
+          correct: finalStats.correct,
+          wrong: finalStats.wrong,
+          accuracy: finalStats.accuracy,
+          date: now,
+          completed_at: now,
+          createdAt: now,
+          time_spent_seconds: timeSpent,
+          userId: "local-cadet",
+        };
+
+        await mutateWithOutbox({
+          entityType: "test_results",
+          action: "INSERT",
+          entityId: Date.now(),
+          data: testResult,
+        });
+
+        void loadPastAttempts();
+      } catch (err) {
+        console.warn("Failed to persist CSAT attempt to outbox:", err);
+      }
+    },
+    [mode, stats, loadPastAttempts]
+  );
+
+  // Timer for Mock Arena
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (mockActive && !mockSubmitted && mockTimeRemaining > 0) {
+      timer = setInterval(() => {
+        setMockTimeRemaining((prev) => {
+          if (prev <= 1) {
+            setMockSubmitted(true);
+            sound.playVictory();
+            void saveCSATResultToOutbox(stats, filteredQuestions.length, 120 * 60);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [mockActive, mockSubmitted, mockTimeRemaining, stats, filteredQuestions.length, saveCSATResultToOutbox]);
+
   const handleSelectOption = (qId: string, optId: string) => {
+    if (mockSubmitted) return;
     sound.playHover();
     setUserAnswers((prev) => ({
       ...prev,
@@ -140,23 +221,11 @@ export default function CSATMatrixArena() {
     setBookmarkedIds(next);
   };
 
-  const handleSaveMockToIndexedDB = async () => {
-    sound.playWarp();
-    try {
-      await idb.put(DB_STORES.TEST_RESULTS, {
-        id: `csat-mock-${Date.now()}`,
-        test_title: "CSAT Full Arena Simulation",
-        subject: "CSAT",
-        score: stats.netScore,
-        total_questions: filteredQuestions.length,
-        correct: stats.correct,
-        wrong: stats.wrong,
-        accuracy: stats.accuracy,
-        time_spent_seconds: 120 * 60 - mockTimeRemaining,
-        completed_at: new Date().toISOString(),
-      });
-      alert("✓ CSAT Simulation result saved into local database!");
-    } catch {}
+  const handleSubmitMock = () => {
+    setMockSubmitted(true);
+    sound.playVictory();
+    const timeSpent = 120 * 60 - mockTimeRemaining;
+    void saveCSATResultToOutbox(stats, filteredQuestions.length, timeSpent);
   };
 
   const formatTime = (seconds: number) => {
@@ -338,10 +407,7 @@ export default function CSATMatrixArena() {
                 TIME REMAINING: {formatTime(mockTimeRemaining)}
               </span>
               <button
-                onClick={() => {
-                  setMockSubmitted(true);
-                  handleSaveMockToIndexedDB();
-                }}
+                onClick={handleSubmitMock}
                 className="rounded-xl bg-amber-500 px-4 py-1.5 font-bold text-black hover:bg-amber-400 transition"
               >
                 Submit Simulation ✓
@@ -570,6 +636,37 @@ export default function CSATMatrixArena() {
                     <strong className="text-[#F4C95D] text-sm">{stats.netScore}</strong>
                   </div>
                 </div>
+              </div>
+
+              {/* CSAT ATTEMPT LEDGER & HISTORY */}
+              <div className="flex flex-col rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 shadow-xl font-mono text-xs">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                  <span className="font-bold text-[#F4C95D] uppercase">
+                    📜 PAST ATTEMPTS ({pastAttempts.length})
+                  </span>
+                  <span className="text-[10px] text-emerald-400">Synced</span>
+                </div>
+                {pastAttempts.length === 0 ? (
+                  <p className="text-[11px] text-[#8C8C8C]">No recorded attempts yet. Complete a session to log telemetry.</p>
+                ) : (
+                  <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
+                    {pastAttempts.map((att, i) => (
+                      <div key={att.id || i} className="rounded-xl border border-white/5 bg-white/[0.02] p-2.5 flex items-center justify-between">
+                        <div>
+                          <div className="text-[11px] font-bold text-white">{att.test_title}</div>
+                          <div className="text-[10px] text-[#8C8C8C]">
+                            {new Date(att.completed_at || Date.now()).toLocaleDateString([], { month: "short", day: "numeric" })} • {att.accuracy}% Acc
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <span className={`text-xs font-bold ${att.score >= 66.67 ? "text-emerald-400" : "text-[#D8A63A]"}`}>
+                            {att.score} pts
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </aside>
           </div>

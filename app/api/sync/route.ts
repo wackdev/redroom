@@ -3,10 +3,7 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { ApiResponse, DayPlan, NoteItem, TestResultRecord, RevisionItem } from "@/lib/core/types";
 import { safeArray } from "@/lib/core/utils";
 
-// ============================================================================
-// VERCEL HOBBY COMPLIANCE: EDGE RUNTIME (ELIMINATES 10S SERVERLESS TIMEOUT)
-// ============================================================================
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 interface SyncTask {
   id?: number;

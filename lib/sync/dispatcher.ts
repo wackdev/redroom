@@ -298,3 +298,10 @@ export function initSyncDispatcher(): void {
     void cleanupLocalDatabase();
   }
 }
+
+/**
+ * Triggers an immediate outbox sync flush (called on network reconnection or SW event).
+ */
+export async function triggerOutboxFlush(): Promise<void> {
+  await syncDispatcher.flushOutbox();
+}

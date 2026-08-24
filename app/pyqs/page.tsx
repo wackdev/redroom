@@ -20,7 +20,13 @@ import { sound } from "@/lib/audio/sound-engine";
 import NeuralKnowledgeGraph from "@/components/NeuralKnowledgeGraph";
 import HistoryTimeTunnel from "@/components/HistoryTimeTunnel";
 import GeographyGlobe3D from "@/components/GeographyGlobe3D";
+import ConstitutionalAtlas from "@/components/ConstitutionalAtlas";
 import PrelimsEliminationLab from "@/components/PrelimsEliminationLab";
+import ArtCultureMuseum3D from "@/components/ArtCultureMuseum3D";
+import PredictiveForecastEngine from "@/components/PredictiveForecastEngine";
+import MnemonicIndexVault from "@/components/MnemonicIndexVault";
+import ReverseQuestionStudio from "@/components/ReverseQuestionStudio";
+import SpatialMapTrainer from "@/components/SpatialMapTrainer";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 
@@ -61,7 +67,9 @@ export default function PYQCommandCenter() {
 
   // View Mode: 'list' | 'daily_challenge' | 'exam_sim'
   const [viewMode, setViewMode] = useState<"list" | "daily_challenge" | "exam_sim">("list");
-  const [explorationTab, setExplorationTab] = useState<"matrix" | "constellation" | "history_tunnel" | "geo_globe" | "elimination_lab">("matrix");
+  const [explorationTab, setExplorationTab] = useState<
+    "matrix" | "constellation" | "history_tunnel" | "geo_globe" | "polity_3d" | "elimination_lab" | "art_culture_3d" | "predictive_forecast" | "mnemonic_vault" | "reverse_question" | "spatial_map"
+  >("matrix");
 
 
   // Elimination Mode & Trap States
@@ -1008,6 +1016,22 @@ export default function PYQCommandCenter() {
           <button
             onClick={() => {
               sound.playHover();
+              setExplorationTab("polity_3d");
+            }}
+            data-cursor="POLITY"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "polity_3d"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>📜</span>
+            <span>Polity 3D Constitution Matrix</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
               setExplorationTab("elimination_lab");
             }}
             data-cursor="LAB"
@@ -1019,6 +1043,86 @@ export default function PYQCommandCenter() {
           >
             <span>🎯</span>
             <span>Elimination & Risk Lab</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("art_culture_3d");
+            }}
+            data-cursor="MUSEUM"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "art_culture_3d"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🏺</span>
+            <span>3D Art, Culture & History Museum</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("predictive_forecast");
+            }}
+            data-cursor="FORECAST"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "predictive_forecast"
+                ? "border border-purple-500 bg-purple-600 text-white font-black shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🔮</span>
+            <span>PYQ Predictive Forecast (1995-2026)</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("mnemonic_vault");
+            }}
+            data-cursor="MNEMONIC"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "mnemonic_vault"
+                ? "border border-emerald-500 bg-emerald-600 text-white font-black shadow-[0_0_15px_rgba(16,185,129,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🗃️</span>
+            <span>Mnemonic & Index Vault</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("reverse_question");
+            }}
+            data-cursor="REVERSE"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "reverse_question"
+                ? "border border-red-500 bg-red-600 text-white font-black shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🎯</span>
+            <span>Examiner Reverse Question Studio</span>
+          </button>
+
+          <button
+            onClick={() => {
+              sound.playHover();
+              setExplorationTab("spatial_map");
+            }}
+            data-cursor="GIS"
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              explorationTab === "spatial_map"
+                ? "border border-cyan-500 bg-cyan-600 text-white font-black shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>🗺️</span>
+            <span>UPSC GIS Spatial Map Trainer</span>
           </button>
         </section>
 
@@ -1048,9 +1152,45 @@ export default function PYQCommandCenter() {
           </div>
         )}
 
+        {explorationTab === "polity_3d" && (
+          <div className="mb-8">
+            <ConstitutionalAtlas />
+          </div>
+        )}
+
         {explorationTab === "elimination_lab" && (
           <div className="mb-8">
             <PrelimsEliminationLab />
+          </div>
+        )}
+
+        {explorationTab === "art_culture_3d" && (
+          <div className="mb-8">
+            <ArtCultureMuseum3D />
+          </div>
+        )}
+
+        {explorationTab === "predictive_forecast" && (
+          <div className="mb-8">
+            <PredictiveForecastEngine />
+          </div>
+        )}
+
+        {explorationTab === "mnemonic_vault" && (
+          <div className="mb-8">
+            <MnemonicIndexVault />
+          </div>
+        )}
+
+        {explorationTab === "reverse_question" && (
+          <div className="mb-8">
+            <ReverseQuestionStudio />
+          </div>
+        )}
+
+        {explorationTab === "spatial_map" && (
+          <div className="mb-8">
+            <SpatialMapTrainer />
           </div>
         )}
 

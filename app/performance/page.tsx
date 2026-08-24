@@ -11,6 +11,8 @@ import {
   useCloudSync,
 } from "@/lib/sync/sync-engine";
 import AuthGuard from "@/components/auth/AuthGuard";
+import WeeklyRadarChart from "@/components/WeeklyRadarChart";
+import PushNotificationManager from "@/components/PushNotificationManager";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
 
@@ -117,6 +119,46 @@ export default function PerformancePage() {
       alert("Failed to generate AI mentor review. Using deterministic evaluation.");
     } finally {
       setGeneratingAI(false);
+    }
+  };
+
+  const [dispatchingTelegram, setDispatchingTelegram] = useState(false);
+  const [telegramFeedback, setTelegramFeedback] = useState<string | null>(null);
+
+  // Dispatch Weekly Audit & PDF Digest to Telegram
+  const handleDispatchTelegramAudit = async () => {
+    setDispatchingTelegram(true);
+    setTelegramFeedback(null);
+    try {
+      let customChatId: string | undefined;
+      try {
+        const saved = localStorage.getItem("whynotupsc_telegram_chat_id");
+        if (saved) customChatId = saved.trim();
+      } catch {}
+
+      const res = await fetch("/api/telegram/dispatch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "weekly_audit",
+          chatId: customChatId,
+          weeklySummary: weeklyReport,
+          starredNotes: weeklyReport.weeklyNotesSummary,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setTelegramFeedback("✓ Weekly Audit & Condensed Digest dispatched to Telegram!");
+        if (data.data?.formattedText) {
+          navigator.clipboard.writeText(data.data.formattedText);
+        }
+      } else {
+        setTelegramFeedback(`⚠️ ${data.error?.message || "Failed to dispatch Telegram alert"}`);
+      }
+    } catch {
+      setTelegramFeedback("⚠️ Dispatch failed. Please check network connection.");
+    } finally {
+      setDispatchingTelegram(false);
     }
   };
 
@@ -229,9 +271,19 @@ ${
           </div>
         </section>
 
+        {/* NATIVE PWA PUSH NOTIFICATIONS */}
+        <section className="mb-8">
+          <PushNotificationManager />
+        </section>
+
         {/* TAB 1: TEST SERIES ANALYTICS */}
         {activeTab === "analytics" && (
           <>
+            {/* WEEKLY RADAR & VELOCITY AUDIT */}
+            <section className="mb-8">
+              <WeeklyRadarChart summary={weeklyReport} />
+            </section>
+
             {/* STATS OVERVIEW */}
             <section className="mb-8 grid gap-4 grid-cols-2 lg:grid-cols-4">
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
@@ -413,7 +465,7 @@ ${
           <div className="space-y-8">
             {/* WEEK SELECTOR CONTROLS */}
             <section className="flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <button
                   onClick={() => setSelectedWeekDate(shiftDateKey(selectedWeekDate, -7))}
                   className="rounded-xl bg-white/5 px-4 py-2 text-xs font-bold hover:bg-white/10 transition"
@@ -432,6 +484,23 @@ ${
                 >
                   Next Week →
                 </button>
+
+                <button
+                  onClick={handleDispatchTelegramAudit}
+                  disabled={dispatchingTelegram}
+                  className="flex items-center gap-1.5 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-3.5 py-2 text-xs font-bold text-cyan-300 hover:bg-cyan-500/20 transition disabled:opacity-50 shadow-lg shadow-cyan-950/40"
+                >
+                  <span>🚀</span>
+                  <span>{dispatchingTelegram ? "Dispatching..." : "Dispatch to Telegram"}</span>
+                </button>
+
+                <button
+                  onClick={handleCopyWeeklyReport}
+                  className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-bold text-white/80 hover:bg-white/10 transition"
+                >
+                  <span>📋</span>
+                  <span>Copy Report</span>
+                </button>
               </div>
 
               <div className="text-left md:text-right">
@@ -442,6 +511,19 @@ ${
                   {formatWeekSpan(weeklyReport.startDate, weeklyReport.endDate)}
                 </h2>
               </div>
+            </section>
+
+            {/* TELEGRAM FEEDBACK TOAST */}
+            {telegramFeedback && (
+              <div className="rounded-2xl border border-cyan-500/30 bg-cyan-950/40 p-4 text-xs font-semibold text-cyan-200 flex items-center justify-between">
+                <span>{telegramFeedback}</span>
+                <button onClick={() => setTelegramFeedback(null)} className="text-cyan-400 hover:text-white">✕</button>
+              </div>
+            )}
+
+            {/* GS RADAR & VELOCITY AUDIT */}
+            <section>
+              <WeeklyRadarChart summary={weeklyReport} />
             </section>
 
             {/* WEEKLY METRICS OVERVIEW */}

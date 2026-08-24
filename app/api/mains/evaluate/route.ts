@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { queryAI } from "@/lib/ai/client";
 import { ApiResponse } from "@/lib/core/types";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 interface MainsEvaluationRequest {
   question: string;

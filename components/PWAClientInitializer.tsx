@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { idb } from "@/lib/db/indexed-db";
-import { initSyncDispatcher } from "@/lib/sync/dispatcher";
+import { initSyncDispatcher, triggerOutboxFlush } from "@/lib/sync/dispatcher";
+import { registerPeriodicBackgroundSync, scheduleCadetDailyAlert } from "@/lib/pwa/notifications";
 
 export default function PWAClientInitializer() {
   useEffect(() => {
@@ -12,13 +13,24 @@ export default function PWAClientInitializer() {
     // 2. Start Background Outbox Sync Dispatcher
     initSyncDispatcher();
 
-    // 2. Service Worker Registration for True Offline Usage
-    if (typeof window !== "undefined" && "serviceWorker" in navigator && process.env.NODE_ENV === "production") {
+    // 3. Service Worker Registration & Background Sync
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      // Listen for messages from Service Worker (e.g. outbox flush on reconnect)
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data?.type === "TRIGGER_OUTBOX_FLUSH") {
+          void triggerOutboxFlush();
+        }
+      });
+
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/sw.js")
-          .then((reg) => {
+          .then(async (reg) => {
             console.log("WHYNOTUPSC Offline Service Worker registered:", reg.scope);
+            // Register periodic background sync
+            await registerPeriodicBackgroundSync();
+            // Schedule daily study alerts
+            scheduleCadetDailyAlert();
           })
           .catch((err) => {
             console.warn("Service worker registration failed:", err);

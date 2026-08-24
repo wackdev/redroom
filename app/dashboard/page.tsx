@@ -332,7 +332,105 @@ export default function DashboardPage() {
         {/* 5. AI STRATEGIST "WHY" WIDGET */}
         <AIStrategistWhy />
 
-        {/* 5. CORE SYSTEM SECTOR LAUNCHER */}
+        {/* 5. ADVANCED TACTICAL ARSENAL & SIMULATORS */}
+        <section className="rounded-3xl border border-[#D8A63A]/30 bg-gradient-to-r from-[#161208] via-[#0d0d0d] to-[#12081f] p-6 shadow-2xl space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-[#F4C95D]">
+                TACTICAL UPGRADES & SIMULATION LABORATORIES
+              </span>
+              <h2 className="text-lg font-black text-white">Next-Gen UPSC Arsenal</h2>
+            </div>
+            <span className="rounded-full bg-[#D8A63A]/20 px-3 py-1 font-mono text-xs font-bold text-[#F4C95D]">
+              9 Active Laboratories
+            </span>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+            <div
+              onClick={() => router.push("/pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-cyan-500 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">🗺️</span>
+              <h3 className="font-bold text-white">Spatial GIS Map Plotter</h3>
+              <p className="text-[11px] text-white/50">Rivers, Passes, IVC Sites & 60s Pin-Drop Spatial Drill</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-[#D8A63A] hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">🏺</span>
+              <h3 className="font-bold text-white">3D Art & History Museum</h3>
+              <p className="text-[11px] text-white/50">Temples, Sculptures, Coins & Modern History Vault</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-purple-500 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">🔮</span>
+              <h3 className="font-bold text-white">Predictive PYQ Forecast</h3>
+              <p className="text-[11px] text-white/50">30-Year Trend Modeler & Overdue Topic Radar</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-emerald-500 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">🗃️</span>
+              <h3 className="font-bold text-white">Mnemonic & Index Vault</h3>
+              <p className="text-[11px] text-white/50">Global Reports Master & Spatial Sea Mnemonics</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/mains-pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-amber-500 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">✍️</span>
+              <h3 className="font-bold text-white">Essay Architecture Studio</h3>
+              <p className="text-[11px] text-white/50">1,200-Word Multi-Dimensional Essay Deconstruction</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/mains-pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-blue-500 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">📄</span>
+              <h3 className="font-bold text-white">Printable QCAB Generator</h3>
+              <p className="text-[11px] text-white/50">Official 250M UPSC Mains Question-Cum-Answer Booklet</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/mains-pyqs")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-pink-500 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">🪞</span>
+              <h3 className="font-bold text-white">Topper Mirror Analyzer</h3>
+              <p className="text-[11px] text-white/50">Rank 1-10 Structural Scannability & Legal Density</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/syllabus")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-purple-400 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">🧠</span>
+              <h3 className="font-bold text-white">Syllabus Neural Mindmap</h3>
+              <p className="text-[11px] text-white/50">1,200+ Cross-Syllabus Interdisciplinary Chain Reactions</p>
+            </div>
+
+            <div
+              onClick={() => router.push("/chill-zone")}
+              className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-emerald-400 hover:bg-black/80 space-y-1"
+            >
+              <span className="text-xl">⏳</span>
+              <h3 className="font-bold text-white">24/7 Virtual Study Hall</h3>
+              <p className="text-[11px] text-white/50">50m Pomodoro, Ambient LBSNAA Audio & Forest Trees</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. CORE SYSTEM SECTOR LAUNCHER */}
         <section>
           <h2 className="mb-4 font-mono text-sm font-black uppercase tracking-wider text-white/70">
             WHYNOTUPSC System Matrix

@@ -58,7 +58,7 @@ export function diagnoseQuestionTraps(question: PYQQuestion): TrapDiagnosis {
     for (const word of EXTREME_QUALIFIERS) {
       const regex = new RegExp(`\\b${word}\\b`, "i");
       if (regex.test(textLower)) {
-        suspectOptions.push(opt.id);
+        suspectOptions.push(opt.id as ("A" | "B" | "C" | "D"));
         break;
       }
     }

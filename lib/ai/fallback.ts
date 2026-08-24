@@ -12,27 +12,25 @@ export interface AIProviderResult {
  * Resolves the appropriate API key from environment variables for a given model provider.
  */
 function resolveApiKey(model: ModelEndpointConfig): string {
+  let key = "";
   if (model.envKeyName && process.env[model.envKeyName]) {
-    return process.env[model.envKeyName] || "";
+    key = process.env[model.envKeyName] || "";
+  } else if (model.provider === "huggingface") {
+    key = process.env.HF_TOKEN || process.env.HUGGINGFACE_API_KEY || "";
+  } else if (model.provider === "openrouter") {
+    key = process.env.OPENROUTER_API_KEY || "";
+  } else if (model.provider === "groq") {
+    key = process.env.GROQ_API_KEY || "";
+  } else if (model.provider === "gemini") {
+    key = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || "";
+  } else {
+    key = process.env.OPENAI_API_KEY || process.env.HF_TOKEN || "";
   }
 
-  if (model.provider === "huggingface") {
-    return process.env.HF_TOKEN || process.env.HUGGINGFACE_API_KEY || "";
+  if (key && (key.includes("fake") || key.includes("your_token") || key.trim() === "")) {
+    return "";
   }
-
-  if (model.provider === "openrouter") {
-    return process.env.OPENROUTER_API_KEY || "";
-  }
-
-  if (model.provider === "groq") {
-    return process.env.GROQ_API_KEY || "";
-  }
-
-  if (model.provider === "gemini") {
-    return process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || "";
-  }
-
-  return process.env.OPENAI_API_KEY || process.env.HF_TOKEN || "";
+  return key;
 }
 
 /**
@@ -46,16 +44,47 @@ async function callSingleModel(
   maxTokens = 2048
 ): Promise<AIProviderResult> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s timeout per provider
+  const timeoutId = setTimeout(() => controller.abort(), 3500); // 3.5s timeout per provider
 
   try {
     // 1. Special Handling for Pollinations Zero-Auth Gateway
     if (model.provider === "pollinations") {
       const lastUserMsg = messages[messages.length - 1]?.content || "";
       const systemMsg = messages.find((m) => m.role === "system")?.content || "";
-      const fullPrompt = systemMsg ? `${systemMsg}\n\nTask: ${lastUserMsg}` : lastUserMsg;
+      
+      try {
+        const postRes = await fetch("https://text.pollinations.ai/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: [
+              { role: "system", content: systemMsg },
+              { role: "user", content: lastUserMsg },
+            ],
+            model: "openai",
+            stream: false,
+          }),
+          signal: controller.signal,
+        });
 
-      const encoded = encodeURIComponent(fullPrompt.slice(0, 1500));
+        if (postRes.ok) {
+          const postText = await postRes.text();
+          if (postText && postText.trim()) {
+            clearTimeout(timeoutId);
+            return {
+              content: postText.trim(),
+              modelUsed: "pollinations-free-ai",
+              provider: model.provider,
+              success: true,
+            };
+          }
+        }
+      } catch {
+        // Fallback to GET
+      }
+
+      const fullPrompt = systemMsg ? `${systemMsg}\n\nTask: ${lastUserMsg}` : lastUserMsg;
+      const encoded = encodeURIComponent(fullPrompt.slice(0, 1000));
       const response = await fetch(`https://text.pollinations.ai/${encoded}`, {
         method: "GET",
         signal: controller.signal,

@@ -64,22 +64,35 @@ export default function QuickDuel({ onBack, onFinish }: QuickDuelProps) {
 
   const startQuickMatch = () => {
     cleanupDuel();
-    const code = generateRoomCode();
-    setDuelState({
-      roomId: `room_${code}`,
-      roomCode: code,
-      status: "searching",
-      isHost: true,
-      playerRole: "player1",
-      opponentName: "Searching...",
-    });
     setMode("duel");
     setPlayerWins(0);
     setOpponentWins(0);
+    setDuelState({
+      roomId: "matchmaking_lobby",
+      roomCode: "LOBBY",
+      isHost: true,
+      playerRole: "player1",
+      status: "searching",
+      opponentName: "Searching for live Cadet...",
+    });
 
-    const manager = new QuickDuelChannelManager(code, handleStateChange);
-    channelManagerRef.current = manager;
-    manager.initialize(true, "Cadet (You)");
+    const dummyManager = new QuickDuelChannelManager("LOBBY", handleStateChange);
+    channelManagerRef.current = dummyManager;
+
+    void dummyManager.findOrHostQuickMatch("Cadet", (code, isHost) => {
+      setDuelState({
+        roomId: `room_${code}`,
+        roomCode: code,
+        status: "searching",
+        isHost,
+        playerRole: isHost ? "player1" : "player2",
+        opponentName: isHost ? "Waiting for Challenger..." : "Connecting to Host...",
+      });
+
+      const actualManager = new QuickDuelChannelManager(code, handleStateChange);
+      channelManagerRef.current = actualManager;
+      actualManager.initialize(isHost, isHost ? "Cadet (Host)" : "Cadet (Challenger)");
+    });
   };
 
   const createPrivateRoom = () => {

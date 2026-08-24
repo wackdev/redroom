@@ -3,7 +3,9 @@ export type AdminRole =
   | "ADMIN"
   | "CONTENT_ADMIN"
   | "MODERATOR"
-  | "ANALYST";
+  | "ANALYST"
+  | "ASPIRANT"
+  | "USER";
 
 export interface AdminUserSession {
   userId: string;

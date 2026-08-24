@@ -14,6 +14,8 @@ import {
   useCloudSync,
 } from "@/lib/sync/sync-engine";
 import ConstitutionalAtlas from "@/components/ConstitutionalAtlas";
+import SyllabusNeuralMindmap from "@/components/SyllabusNeuralMindmap";
+import SpatialMapTrainer from "@/components/SpatialMapTrainer";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const STORAGE_KEY = "redroom_syllabus_progress";
@@ -29,6 +31,8 @@ export default function SyllabusPage() {
   const [yieldFilter, setYieldFilter] = useState<"All" | "High" | "Medium" | "Low">("All");
   const [selectedSubject, setSelectedSubject] = useState<string>("all");
   const [showConstitutionalAtlas, setShowConstitutionalAtlas] = useState(false);
+  const [showNeuralMindmap, setShowNeuralMindmap] = useState(false);
+  const [showSpatialGIS, setShowSpatialGIS] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   // Load Saved Progress & Subscribe to Cross-Tab Changes
@@ -161,6 +165,28 @@ export default function SyllabusPage() {
               </span>
             </button>
             <button
+              onClick={() => setShowSpatialGIS((p) => !p)}
+              className={`rounded-xl border px-3.5 py-1.5 text-xs font-bold transition ${
+                showSpatialGIS
+                  ? "border-cyan-500 bg-cyan-600 text-white shadow-lg shadow-cyan-950/50"
+                  : "border-cyan-500/40 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20"
+              }`}
+            >
+              🗺️ {showSpatialGIS ? "Hide GIS Map" : "Spatial GIS Map Plotter"}
+            </button>
+
+            <button
+              onClick={() => setShowNeuralMindmap((p) => !p)}
+              className={`rounded-xl border px-3.5 py-1.5 text-xs font-bold transition ${
+                showNeuralMindmap
+                  ? "border-purple-500 bg-purple-600 text-white shadow-lg shadow-purple-950/50"
+                  : "border-purple-500/40 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+              }`}
+            >
+              🧠 {showNeuralMindmap ? "Hide Mindmap" : "Syllabus Neural Mindmap"}
+            </button>
+
+            <button
               onClick={() => setShowConstitutionalAtlas((p) => !p)}
               className={`rounded-xl border px-3.5 py-1.5 text-xs font-bold transition ${
                 showConstitutionalAtlas
@@ -182,6 +208,20 @@ export default function SyllabusPage() {
       </header>
 
       <div className="mx-auto max-w-7xl px-5 py-8">
+        {/* SPATIAL GIS MAP TRAINER */}
+        {showSpatialGIS && (
+          <section className="mb-8">
+            <SpatialMapTrainer />
+          </section>
+        )}
+
+        {/* INTERACTIVE NEURAL MINDMAP */}
+        {showNeuralMindmap && (
+          <section className="mb-8">
+            <SyllabusNeuralMindmap />
+          </section>
+        )}
+
         {/* CONSTITUTIONAL & LANDMARK JUDGEMENTS ATLAS */}
         {showConstitutionalAtlas && (
           <section className="mb-8">

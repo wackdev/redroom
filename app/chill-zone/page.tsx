@@ -15,6 +15,7 @@ import FocusFlow from "@/features/chill-zone/games/focus-flow/FocusFlow";
 import QuickDuel from "@/features/chill-zone/games/quick-duel/QuickDuel";
 import WordRush from "@/features/chill-zone/games/word-rush/WordRush";
 import BlinkGame from "@/features/chill-zone/games/blink/BlinkGame";
+import VirtualStudyHall from "@/components/VirtualStudyHall";
 import { sound } from "@/lib/audio/sound-engine";
 import AuthGuard from "@/components/auth/AuthGuard";
 
@@ -140,6 +141,9 @@ export default function ChillZonePage() {
               onOpenStats={() => setShowStatsModal(true)}
               totalGames={stats.totalGamesPlayed}
             />
+
+            {/* 24/7 VIRTUAL REDROOM STUDY HALL & DEEP FOCUS */}
+            <VirtualStudyHall />
 
             {/* 6 Game Portals Grid */}
             <div className="space-y-4">
