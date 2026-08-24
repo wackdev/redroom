@@ -247,8 +247,8 @@ async function executeDispatch(params: {
       );
     }
 
-    // Send Message Text
-    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    // Send Message Text (with automatic plain text fallback if Markdown parsing fails)
+    let res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -259,10 +259,24 @@ async function executeDispatch(params: {
       }),
     });
 
-    const resJson = await res.json().catch(() => ({}));
+    let resJson = await res.json().catch(() => ({}));
     if (!res.ok || !resJson.ok) {
-      const errMsg = resJson.description || `Telegram API error (${res.status})`;
-      throw new Error(errMsg);
+      // Fallback to plain text without Markdown parsing if special character issue occurred
+      res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: targetChatId,
+          text: dispatchText.replace(/[*_`\[\]()~>#+\-=|{}.!]/g, ""),
+          disable_web_page_preview: true,
+        }),
+      });
+
+      resJson = await res.json().catch(() => ({}));
+      if (!res.ok || !resJson.ok) {
+        const errMsg = resJson.description || `Telegram API error (${res.status})`;
+        throw new Error(errMsg);
+      }
     }
   }
 

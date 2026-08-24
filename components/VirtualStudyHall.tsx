@@ -1,8 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { sound } from "@/lib/audio/sound-engine";
 import { UserSessionManager } from "@/lib/core/user-context";
+
+const POMODORO_STORAGE_KEY = "whynotupsc_pomodoro_state";
+
+interface PersistentTimerState {
+  isRunning: boolean;
+  initialSeconds: number;
+  remainingSeconds: number;
+  lastUpdatedTimestamp: number;
+  ambientTrack: "none" | "binaural" | "lbsnaa_rain" | "library";
+}
 
 export default function VirtualStudyHall() {
   const [sessionSeconds, setSessionSeconds] = useState(50 * 60); // 50m focus sprint
@@ -12,21 +22,60 @@ export default function VirtualStudyHall() {
   const [treeStage, setTreeStage] = useState<number>(1); // 1: Seed, 2: Sprout, 3: Sapling, 4: Mighty Banyan
   const [totalFocusedMinutesToday, setTotalFocusedMinutesToday] = useState(0);
   const [activeCadets, setActiveCadets] = useState<string[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   const audioCtxRef = useRef<AudioContext | null>(null);
   const oscNodesRef = useRef<any[]>([]);
 
-  // Load Saved Focus Minutes & Active Presence
+  // 1. Load Saved Focus Minutes, Active Presence & Persistent Timer on Mount
   useEffect(() => {
     try {
       const today = new Date().toISOString().slice(0, 10);
-      const saved = localStorage.getItem(`redroom_focus_mins_${today}`);
-      if (saved) {
-        setTotalFocusedMinutesToday(parseInt(saved, 10) || 0);
+      const savedMins = localStorage.getItem(`redroom_focus_mins_${today}`);
+      if (savedMins) {
+        setTotalFocusedMinutesToday(parseInt(savedMins, 10) || 0);
       }
-    } catch {}
 
-    // Fetch real presence
+      // Load persistent timer state across refreshes
+      const savedTimerRaw = localStorage.getItem(POMODORO_STORAGE_KEY);
+      if (savedTimerRaw) {
+        const parsed: PersistentTimerState = JSON.parse(savedTimerRaw);
+        if (parsed && typeof parsed === "object") {
+          setInitialSeconds(parsed.initialSeconds || 50 * 60);
+          setAmbientTrack(parsed.ambientTrack || "none");
+
+          if (parsed.isRunning) {
+            const elapsed = Math.floor((Date.now() - parsed.lastUpdatedTimestamp) / 1000);
+            const remaining = Math.max(0, parsed.remainingSeconds - elapsed);
+
+            if (remaining > 0) {
+              setSessionSeconds(remaining);
+              setIsRunning(true);
+            } else {
+              // Timer finished while user was away / refreshing!
+              setIsRunning(false);
+              setSessionSeconds(parsed.initialSeconds || 50 * 60);
+              const addedMins = Math.round((parsed.initialSeconds || 50 * 60) / 60);
+              setTotalFocusedMinutesToday((prev) => {
+                const nextTotal = prev + addedMins;
+                try {
+                  localStorage.setItem(`redroom_focus_mins_${today}`, String(nextTotal));
+                } catch {}
+                return nextTotal;
+              });
+              setTreeStage(4);
+            }
+          } else {
+            setSessionSeconds(parsed.remainingSeconds || parsed.initialSeconds || 50 * 60);
+            setIsRunning(false);
+          }
+        }
+      }
+    } catch {} finally {
+      setLoaded(true);
+    }
+
+    // Fetch real-time active users currently browsing website
     const fetchPresence = () => {
       fetch("/api/presence/heartbeat")
         .then((res) => res.json())
@@ -39,13 +88,30 @@ export default function VirtualStudyHall() {
     };
 
     fetchPresence();
-    const interval = setInterval(fetchPresence, 20000);
+    const interval = setInterval(fetchPresence, 10000); // Poll presence every 10s
     return () => clearInterval(interval);
   }, []);
 
-  // Pomodoro Timer Effect
+  // 2. Persist Timer State to LocalStorage
+  const persistState = useCallback(
+    (running: boolean, remaining: number, initial: number, track: typeof ambientTrack) => {
+      try {
+        const state: PersistentTimerState = {
+          isRunning: running,
+          initialSeconds: initial,
+          remainingSeconds: remaining,
+          lastUpdatedTimestamp: Date.now(),
+          ambientTrack: track,
+        };
+        localStorage.setItem(POMODORO_STORAGE_KEY, JSON.stringify(state));
+      } catch {}
+    },
+    []
+  );
+
+  // 3. Pomodoro Timer Effect
   useEffect(() => {
-    let interval: any = null;
+    let interval: NodeJS.Timeout;
     if (isRunning && sessionSeconds > 0) {
       interval = setInterval(() => {
         setSessionSeconds((prev) => {
@@ -62,21 +128,26 @@ export default function VirtualStudyHall() {
               } catch {}
               return updated;
             });
+            persistState(false, initialSeconds, initialSeconds, ambientTrack);
             return initialSeconds;
           }
+
           // Grow tree based on time elapsed
           const elapsed = initialSeconds - prev;
           if (elapsed > initialSeconds * 0.75) setTreeStage(4);
           else if (elapsed > initialSeconds * 0.45) setTreeStage(3);
           else if (elapsed > initialSeconds * 0.15) setTreeStage(2);
-          return prev - 1;
+
+          const nextSec = prev - 1;
+          persistState(true, nextSec, initialSeconds, ambientTrack);
+          return nextSec;
         });
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isRunning, sessionSeconds, initialSeconds]);
+  }, [isRunning, sessionSeconds, initialSeconds, ambientTrack, persistState]);
 
-  // Procedural Web Audio Ambient Sound Generator
+  // 4. Procedural Web Audio Ambient Sound Generator
   useEffect(() => {
     const cleanupAudio = () => {
       oscNodesRef.current.forEach((n) => {
@@ -161,7 +232,9 @@ export default function VirtualStudyHall() {
 
   const toggleTimer = () => {
     sound.playClick();
-    setIsRunning(!isRunning);
+    const nextRunning = !isRunning;
+    setIsRunning(nextRunning);
+    persistState(nextRunning, sessionSeconds, initialSeconds, ambientTrack);
   };
 
   const handleReset = (mins: number) => {
@@ -170,6 +243,7 @@ export default function VirtualStudyHall() {
     setInitialSeconds(mins * 60);
     setSessionSeconds(mins * 60);
     setTreeStage(1);
+    persistState(false, mins * 60, mins * 60, ambientTrack);
   };
 
   const user = UserSessionManager.getActiveUser();
@@ -180,7 +254,7 @@ export default function VirtualStudyHall() {
   const timeFormatted = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
   return (
-    <div className="rounded-3xl border border-[#D8A63A]/20 bg-[#080511] p-6 shadow-2xl backdrop-blur-2xl">
+    <div className="rounded-3xl border border-[#D8A63A]/30 bg-[#080511] p-6 shadow-2xl backdrop-blur-2xl">
       {/* HEADER */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
         <div>
@@ -193,60 +267,53 @@ export default function VirtualStudyHall() {
             </h2>
           </div>
           <p className="text-xs text-white/50 mt-0.5">
-            Calibrated study sprints, procedural binaural focus beats, and forest tree cultivation.
+            Calibrated study sprints, persistent countdown across page refreshes, and live cadet network
           </p>
         </div>
 
         <div className="flex items-center gap-3 font-mono text-xs text-emerald-300">
-          <span className="rounded-full bg-emerald-500/20 px-3 py-1 font-bold border border-emerald-500/30">
-            🔥 Today's Deep Work: {Math.floor(totalFocusedMinutesToday / 60)}h {totalFocusedMinutesToday % 60}m
+          <span className="rounded-full bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 font-bold">
+            🌱 Today's Focus: {totalFocusedMinutesToday} Mins
           </span>
         </div>
       </div>
 
-      {/* FOCUS CENTER GRID */}
-      <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-        {/* LEFT: TIMER & FOREST TREE CULTIVATION */}
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-[#D8A63A]/30 bg-[#0d091a]/60 p-8 space-y-6 text-center shadow-inner">
-          {/* VIRTUAL TREE ANIMATION */}
-          <div className="flex flex-col items-center">
-            <div className="text-6xl animate-bounce transition-transform duration-500">
-              {treeStage === 1 ? "🌱" : treeStage === 2 ? "🌿" : treeStage === 3 ? "🪴" : "🌳"}
-            </div>
-            <span className="mt-2 text-xs font-mono text-[#F4C95D] font-bold">
-              {treeStage === 1
-                ? "Cultivating Knowledge Seedling..."
-                : treeStage === 2
-                ? "Sprouting Focus..."
-                : treeStage === 3
-                ? "Sapling Growing..."
-                : "Mighty Banyan Tree Grown! (+50 XP)"}
-            </span>
-          </div>
-
-          {/* DURATION SELECTOR PILLS */}
-          <div className="flex items-center gap-2 font-mono text-xs">
-            {[25, 50, 90].map((m) => (
+      <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
+        {/* LEFT: TIMER DIAL & FOCUS TREE */}
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-black/40 p-6 space-y-6">
+          {/* INTERVAL SELECTOR */}
+          <div className="flex rounded-xl border border-white/10 bg-white/[0.03] p-1 gap-1">
+            {[25, 50, 90].map((mins) => (
               <button
-                key={m}
-                onClick={() => handleReset(m)}
-                className={`rounded-xl px-3 py-1 font-bold transition ${
-                  initialSeconds === m * 60
-                    ? "bg-[#D8A63A] text-black"
-                    : "bg-white/5 text-white/60 hover:bg-white/10"
+                key={mins}
+                onClick={() => handleReset(mins)}
+                className={`rounded-lg px-3.5 py-1.5 font-mono text-xs font-bold transition ${
+                  initialSeconds === mins * 60
+                    ? "bg-[#D8A63A] text-black shadow"
+                    : "text-white/60 hover:text-white"
                 }`}
               >
-                {m}m Sprint
+                {mins} Mins {mins === 50 ? "(Standard)" : mins === 90 ? "(Deep Wave)" : "(Sprint)"}
               </button>
             ))}
           </div>
 
-          {/* TIMER DISPLAY */}
-          <div className="font-mono text-6xl sm:text-7xl font-black tracking-tight text-white drop-shadow-[0_0_25px_rgba(216,166,58,0.3)]">
-            {timeFormatted}
+          {/* TIMER DISPLAY & TREE */}
+          <div className="flex flex-col items-center space-y-3">
+            <div className="text-4xl sm:text-5xl transition-all duration-500 transform hover:scale-110">
+              {treeStage === 1 ? "🌱" : treeStage === 2 ? "🌿" : treeStage === 3 ? "🌳" : "🌲"}
+            </div>
+            <div className="font-mono text-5xl sm:text-7xl font-black tracking-widest text-white drop-shadow-[0_0_20px_rgba(216,166,58,0.3)]">
+              {timeFormatted}
+            </div>
+            <p className="font-mono text-xs text-[#8C8C8C]">
+              {isRunning
+                ? "⚡ Focus Protocol Active • Forest Tree Growing"
+                : "Sprint Paused • Ready when you are"}
+            </p>
           </div>
 
-          {/* TIMER CONTROLS */}
+          {/* CONTROLS */}
           <div className="flex items-center gap-3">
             <button
               onClick={toggleTimer}
@@ -272,7 +339,10 @@ export default function VirtualStudyHall() {
             {(["none", "binaural", "lbsnaa_rain", "library"] as const).map((track) => (
               <button
                 key={track}
-                onClick={() => setAmbientTrack(track)}
+                onClick={() => {
+                  setAmbientTrack(track);
+                  persistState(isRunning, sessionSeconds, initialSeconds, track);
+                }}
                 className={`rounded-xl px-2.5 py-1 text-[11px] font-mono transition ${
                   ambientTrack === track
                     ? "bg-[#D8A63A] text-black font-bold"
@@ -301,7 +371,7 @@ export default function VirtualStudyHall() {
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="font-mono text-[10px] text-emerald-400 font-bold">
-                  {Math.max(1, activeCadets.length)} Active
+                  {Math.max(1, activeCadets.length)} Active Cadets
                 </span>
               </div>
             </div>
@@ -324,7 +394,7 @@ export default function VirtualStudyHall() {
               {/* Other Active Cadets */}
               {activeCadets
                 .filter((name) => name !== userName)
-                .slice(0, 4)
+                .slice(0, 5)
                 .map((name, idx) => (
                   <div
                     key={idx}
@@ -341,7 +411,7 @@ export default function VirtualStudyHall() {
           </div>
 
           <div className="rounded-xl border border-white/5 bg-white/[0.01] p-3 text-[11px] font-mono text-[#8C8C8C]">
-            💡 <strong>Pro Tip:</strong> 50-minute focused blocks followed by a 10-minute break maximize syllabus retention by 42%.
+            💡 <strong>Persistent Focus:</strong> Timer state is saved in your browser and will continue running even if you refresh or switch tabs.
           </div>
         </div>
       </div>

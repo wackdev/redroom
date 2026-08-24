@@ -190,8 +190,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       reply = reply.slice(0, 3950) + "\n\n_...[Response truncated]_";
     }
 
-    // Send response back to Telegram Admin
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    // Send response back to Telegram Admin (with fallback to plain text)
+    let sendRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -200,6 +200,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         parse_mode: "Markdown",
       }),
     });
+
+    let sendJson = await sendRes.json().catch(() => ({}));
+    if (!sendRes.ok || !sendJson.ok) {
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: reply.replace(/[*_`\[\]()~>#+\-=|{}.!]/g, ""),
+        }),
+      });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
