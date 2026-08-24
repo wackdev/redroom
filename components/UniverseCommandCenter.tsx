@@ -33,12 +33,8 @@ export default function UniverseCommandCenter() {
   });
 
   const [hoveredSectorId, setHoveredSectorId] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
-
-  const hoveredSectorRef = useRef<string | null>(null);
   const mousePosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  hoveredSectorRef.current = hoveredSectorId;
 
   // Sector Nodes definition
   const sectors: SectorNode[] = useMemo(() => [
@@ -98,54 +94,56 @@ export default function UniverseCommandCenter() {
       code: "SYSTEM-06",
       route: "/syllabus",
       icon: "🗺️",
-      description: "From Confusion to Clarity · High-Yield Heatmap & Yield Radar",
-      color: "#F4C95D",
+      description: "GS 1-4 Complete Micro-Topic Breakdown · Yield Weightings",
+      color: "#D8A63A",
       status: `${stats.syllabusDone} TOPICS`,
     },
     {
       id: "revision",
-      title: "SPACED RECALL",
+      title: "SPACED ACTIVE RECALL",
       code: "SYSTEM-07",
       route: "/revision",
-      icon: "⚡",
-      description: "Active Recall Intervals · SM-2 Memory Health · Reconnect Radar",
-      color: stats.revisionPending > 5 ? "#F97316" : "#D8A63A",
-      status: stats.revisionPending > 0 ? `⚠️ ${stats.revisionPending} DUE` : "OPTIMAL",
+      icon: "🔄",
+      description: "SM-2 Leitner Memory Vault · Forgetting Curve Diagnostics",
+      color: "#F4C95D",
+      status: stats.revisionPending > 0 ? `${stats.revisionPending} DUE` : "OPTIMAL",
     },
     {
-      id: "mocks",
-      title: "MOCK SIMULATION",
+      id: "tests",
+      title: "MOCK TEST ARENA",
       code: "SYSTEM-08",
       route: "/tests",
       icon: "🏛️",
-      description: "Subject-Wise Modules · Multi-Statement Matrix · Timer Arena",
+      description: "Sectional & Full-Length UPSC Simulations · 2-Hour Timed Radar",
       color: "#D8A63A",
-      status: `${stats.testsTaken} TAKEN`,
+      status: `${stats.testsTaken} ATTEMPTS`,
     },
     {
-      id: "analytics",
-      title: "PROGRESS TELEMETRY",
+      id: "study_plan",
+      title: "FOCUS SANCTUARY",
       code: "SYSTEM-09",
-      route: "/performance",
-      icon: "📊",
-      description: "Consistency Matrix · Gap Diagnostics · Preparation Trajectory",
+      route: "/study-plan",
+      icon: "🧘",
+      description: "Pomodoro Sprints · Binaural Soundscapes · Daily Velocity Tracker",
       color: "#E5B94E",
-      status: "TELEMETRY",
+      status: "ACTIVE RADAR",
     },
     {
-      id: "ai",
-      title: "STRATEGY ENGINE (WHY)",
+      id: "chill_zone",
+      title: "COGNITIVE ARCADE",
       code: "SYSTEM-10",
-      route: "/assistant",
-      icon: "🤖",
-      description: "Internal Strategist · Tactical Missions · Personalized Battle Plan",
+      route: "/chill-zone",
+      icon: "🎮",
+      description: "6 Fast Reaction & Spatial Games · Memory Reload · Leaderboard",
       color: "#D8A63A",
-      status: "ONLINE",
+      status: "UNLOCKED",
     },
   ], [stats]);
 
-  // Load User Preparation Telemetry
+  // Read Local Preparation Data
   useEffect(() => {
+    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
     try {
       const activeUser = UserSessionManager.getActiveUser();
       const userPrefix = activeUser?.id ? `_${activeUser.id}` : "";
@@ -178,16 +176,10 @@ export default function UniverseCommandCenter() {
         streakDays: Math.max(1, Math.min(30, Math.floor(totalActivities / 4) + 1)),
         coreHealth: calculatedHealth,
       });
-
-      setIsMuted(sound.getMuted());
     } catch {}
-
-    if (typeof window !== "undefined") {
-      setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-    }
   }, []);
 
-  // 3D Canvas Orbital Animation (Possibility Core) - Stable 60fps with Zero React State Thrashing
+  // 3D Kinetic Possibility Core Orbital Simulation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -195,17 +187,51 @@ export default function UniverseCommandCenter() {
     if (!ctx) return;
 
     let rafId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
+    let height = (canvas.height = canvas.parentElement?.clientHeight || 650);
 
     const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
+      if (!canvas || !canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.clientWidth;
+      height = canvas.height = canvas.parentElement.clientHeight || 650;
     };
-    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("resize", handleResize);
 
+    interface Particle3D {
+      x: number;
+      y: number;
+      z: number;
+      baseRadius: number;
+      speed: number;
+      angle: number;
+      elevation: number;
+      size: number;
+      color: string;
+    }
+
+    const particleCount = 120;
+    const particles: Particle3D[] = [];
+    const colorPalette = ["#FFFFFF", "#D8A63A", "#F4C95D", "#FFE599"];
+
+    for (let i = 0; i < particleCount; i++) {
+      const baseRadius = 60 + Math.random() * 220;
+      const angle = Math.random() * Math.PI * 2;
+      const elevation = (Math.random() - 0.5) * Math.PI * 0.7;
+
+      particles.push({
+        x: 0,
+        y: 0,
+        z: 0,
+        baseRadius,
+        speed: 0.004 + Math.random() * 0.007,
+        angle,
+        elevation,
+        size: 1 + Math.random() * 2.2,
+        color: colorPalette[Math.floor(Math.random() * colorPalette.length)],
+      });
+    }
+
+    let coreRotationY = 0;
     let angleStep = 0;
 
     const render = () => {
@@ -214,33 +240,35 @@ export default function UniverseCommandCenter() {
 
       const centerX = width / 2;
       const centerY = height / 2;
-      angleStep += 0.003;
 
-      // Subtle Background Grid Lines
-      ctx.strokeStyle = "rgba(216, 166, 58, 0.035)";
+      coreRotationY += 0.006;
+      angleStep += 0.02;
+
+      // Coordinate Grid Lines
+      ctx.strokeStyle = "rgba(216, 166, 58, 0.04)";
       ctx.lineWidth = 1;
-      const gridSize = 60;
-      for (let x = 0; x < width; x += gridSize) {
+      const step = 60;
+      for (let x = 0; x < width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, height);
         ctx.stroke();
       }
-      for (let y = 0; y < height; y += gridSize) {
+      for (let y = 0; y < height; y += step) {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(width, y);
         ctx.stroke();
       }
 
-      // Volumetric Core Aura (Gold & Amber)
+      // Orbital Aura Gradient
       const coreAura = ctx.createRadialGradient(
         centerX,
         centerY,
         20,
         centerX,
         centerY,
-        width > 768 ? 320 : 180
+        width > 768 ? 260 : 150
       );
       coreAura.addColorStop(0, "rgba(244, 201, 93, 0.22)");
       coreAura.addColorStop(0.4, "rgba(216, 166, 58, 0.07)");
@@ -248,45 +276,56 @@ export default function UniverseCommandCenter() {
       ctx.fillStyle = coreAura;
       ctx.fillRect(0, 0, width, height);
 
-      // Orbital Concentric Energy Rings
-      const ringRadius = width > 768 ? 290 : 150;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(216, 166, 58, 0.15)";
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([6, 8]);
-      ctx.stroke();
-      ctx.setLineDash([]);
+      // Render 3D Rotating Particles
+      const fov = 380;
+      particles.forEach((p) => {
+        p.angle += p.speed;
+
+        const x1 = p.baseRadius * Math.cos(p.angle) * Math.cos(p.elevation);
+        const z1 = p.baseRadius * Math.sin(p.angle) * Math.cos(p.elevation);
+        const y1 = p.baseRadius * Math.sin(p.elevation);
+
+        const x2 = x1 * Math.cos(coreRotationY) + z1 * Math.sin(coreRotationY);
+        const z2 = -x1 * Math.sin(coreRotationY) + z1 * Math.cos(coreRotationY);
+
+        const zFinal = z2 + 400;
+        if (zFinal > 10) {
+          const scale = fov / zFinal;
+          const projX = centerX + x2 * scale;
+          const projY = centerY + y1 * scale;
+          const projSize = Math.max(0.6, p.size * scale);
+          const alpha = Math.max(0.15, Math.min(0.9, (z2 + 200) / 400));
+
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = alpha;
+          ctx.beginPath();
+          ctx.arc(projX, projY, projSize, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+      ctx.globalAlpha = 1.0;
 
       // Inner Core Geodesic Rings
-      const innerSize = width > 768 ? 60 : 38;
-      for (let i = 0; i < 4; i++) {
+      const innerSize = width > 768 ? 50 : 32;
+      for (let i = 0; i < 3; i++) {
         ctx.beginPath();
-        const radX = Math.max(0.1, Math.abs(innerSize * Math.cos(angleStep * 1.8 + (i * Math.PI) / 4)));
+        const radX = Math.max(0.1, Math.abs(innerSize * Math.cos(angleStep * 1.5 + (i * Math.PI) / 3)));
         const radY = Math.max(0.1, innerSize * 1.1);
-        ctx.ellipse(
-          centerX,
-          centerY,
-          radX,
-          radY,
-          (mousePosRef.current.y / Math.max(1, height) - 0.5) * 0.3,
-          0,
-          Math.PI * 2
-        );
-        ctx.strokeStyle = `rgba(244, 201, 93, ${0.3 + i * 0.15})`;
+        ctx.ellipse(centerX, centerY, radX, radY, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(244, 201, 93, ${0.3 + i * 0.2})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
 
-      // Glowing Center Energy Sphere
-      const sphereGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, innerSize * 0.75);
+      // Glowing Center Singularity
+      const sphereGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, innerSize * 0.7);
       sphereGrad.addColorStop(0, "#FFFFFF");
-      sphereGrad.addColorStop(0.35, "#F4C95D");
+      sphereGrad.addColorStop(0.4, "#F4C95D");
       sphereGrad.addColorStop(0.8, "#D8A63A");
       sphereGrad.addColorStop(1, "rgba(5, 5, 5, 0)");
       ctx.fillStyle = sphereGrad;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, innerSize * 0.75, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, innerSize * 0.7, 0, Math.PI * 2);
       ctx.fill();
 
       rafId = requestAnimationFrame(render);
@@ -304,11 +343,6 @@ export default function UniverseCommandCenter() {
     mousePosRef.current = { x: e.clientX, y: e.clientY };
   };
 
-  const handleToggleSound = () => {
-    const isMute = sound.toggleMute();
-    setIsMuted(isMute);
-  };
-
   const handleNavigate = (route: string) => {
     sound.playWarp();
     router.push(route);
@@ -317,82 +351,44 @@ export default function UniverseCommandCenter() {
   return (
     <div
       onPointerMove={handlePointerMove}
-      className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-[#050505] text-[#F5F5F5] font-sans select-none"
+      className="relative flex w-full flex-col overflow-hidden rounded-3xl border border-[#D8A63A]/40 bg-[#050505] p-6 sm:p-8 text-[#F5F5F5] font-sans shadow-[0_0_40px_rgba(216,166,58,0.15)]"
     >
-      {/* 3D CANVAS UNIVERSE */}
-      <canvas ref={canvasRef} className="fixed inset-0 z-0 h-full w-full pointer-events-none" />
+      {/* 3D CANVAS BACKGROUND */}
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full pointer-events-none opacity-60" />
 
-      {/* TOP COMMAND HUD BAR */}
-      <header className="relative z-20 flex w-full items-center justify-between border-b border-white/10 bg-[#050505]/85 px-4 py-3.5 backdrop-blur-xl sm:px-8">
-        <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 font-mono text-xs font-black text-[#F4C95D] shadow-[0_0_12px_rgba(216,166,58,0.4)]">
-            ↑
-          </div>
-          <div>
-            <h1 className="font-mono text-xs font-black tracking-[0.25em] text-[#F5F5F5] uppercase">
-              WHYNOTUPSC // COMMAND HUB
-            </h1>
-            <p className="text-[10px] font-mono text-[#8C8C8C]">
-              JOURNEY MOMENTUM: <strong className="text-[#F4C95D]">{stats.coreHealth}%</strong> · STREAK:{" "}
-              <strong className="text-amber-300">🔥 {stats.streakDays}d</strong>
-            </p>
-          </div>
-        </div>
-
-        {/* QUICK HUD ACTIONS */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {stats.revisionPending > 0 && (
-            <div className="hidden md:flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-xs font-mono font-bold text-amber-300 animate-pulse">
-              <span>⚠️</span>
-              <span>{stats.revisionPending} DUE</span>
+      {/* FOREGROUND CONTENT */}
+      <div className="relative z-10 space-y-6">
+        {/* HEADER BADGE */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#D8A63A] font-mono font-black text-black shadow-[0_0_20px_rgba(216,166,58,0.4)] text-lg">
+              🌌
             </div>
-          )}
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="rounded-md bg-[#D8A63A] px-2 py-0.5 font-mono text-[9px] font-black uppercase text-black">
+                  LIVING 3D KINETIC SYSTEM
+                </span>
+                <span className="font-mono text-xs text-[#8C8C8C]">10 Interconnected Systems</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-white mt-1">The Possibility Core</h2>
+            </div>
+          </div>
 
-          <button
-            onClick={handleToggleSound}
-            className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-[#8C8C8C] hover:border-[#D8A63A]/50 hover:text-white transition touch-manipulation"
-          >
-            <span>{isMuted ? "🔇" : "🔊"}</span>
-            <span className="hidden sm:inline">{isMuted ? "MUTED" : "SOUND ON"}</span>
-          </button>
-
-          <button
-            onClick={() => handleNavigate("/chill-zone")}
-            className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-[#8C8C8C] hover:border-[#D8A63A] hover:text-[#F4C95D] transition touch-manipulation"
-          >
-            <span>🎮</span>
-            <span className="hidden sm:inline">CHILL ZONE</span>
-          </button>
-
-          <button
-            onClick={() => {
-              sound.playLock();
-              window.dispatchEvent(new CustomEvent("redroom_open_command_palette"));
-            }}
-            className="flex items-center gap-2 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-mono text-xs font-bold text-[#F4C95D] shadow-[0_0_15px_rgba(216,166,58,0.25)] hover:bg-[#D8A63A]/20 transition touch-manipulation"
-          >
-            <span>⚡</span>
-            <span>COMMAND [Ctrl+K]</span>
-          </button>
-        </div>
-      </header>
-
-      {/* CENTER STABLE COMMAND CENTER WORKSPACE */}
-      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-4 py-8 sm:px-8">
-        {/* CENTER LIVING POSSIBILITY CORE TELEMETRY BADGE */}
-        <div className="mb-6 flex flex-col items-center justify-center text-center">
-          <div className="rounded-full border border-[#D8A63A]/50 bg-[#050505]/90 px-5 py-2 backdrop-blur-md shadow-[0_0_30px_rgba(216,166,58,0.35)]">
-            <span className="font-mono text-[10px] font-black tracking-widest text-[#F4C95D] uppercase">
-              THE POSSIBILITY CORE
-            </span>
-            <p className="mt-0.5 font-mono text-xs font-bold text-white">
-              {stats.coreHealth >= 80 ? "PEAK MOMENTUM ACTIVE" : "THE SYSTEM IS READY WHEN YOU ARE"}
-            </p>
+          <div className="flex items-center gap-3 font-mono text-xs">
+            <div className="rounded-2xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-4 py-2 text-center">
+              <span className="block text-[9px] text-[#8C8C8C] uppercase font-bold">Aspirant Health</span>
+              <strong className="text-sm text-[#F4C95D] font-black">{stats.coreHealth}% Momentum</strong>
+            </div>
+            <div className="rounded-2xl border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-center">
+              <span className="block text-[9px] text-[#8C8C8C] uppercase font-bold">Active Streak</span>
+              <strong className="text-sm text-amber-300 font-black">🔥 {stats.streakDays} Days</strong>
+            </div>
           </div>
         </div>
 
-        {/* 10 ROCK-SOLID RESPONSIVE SYSTEM NODES GRID */}
-        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-5">
+        {/* 10 SYSTEM NODES GRID */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {sectors.map((sec) => {
             const isHovered = hoveredSectorId === sec.id;
 
@@ -409,10 +405,10 @@ export default function UniverseCommandCenter() {
                   if (!isTouchDevice) setHoveredSectorId(null);
                 }}
                 onClick={() => handleNavigate(sec.route)}
-                className={`group relative flex cursor-pointer flex-col justify-between rounded-2xl border p-4 backdrop-blur-xl transition-all duration-200 touch-manipulation active:scale-[0.98] ${
+                className={`group relative flex cursor-pointer flex-col justify-between rounded-2xl border p-4 backdrop-blur-xl transition-all duration-200 active:scale-[0.98] ${
                   isHovered
-                    ? "border-[#D8A63A] bg-[#0d0d0d]/95 shadow-[0_0_30px_rgba(216,166,58,0.35)] scale-[1.03] z-20"
-                    : "border-white/10 bg-[#0d0d0d]/80 shadow-[0_4px_20px_rgba(0,0,0,0.6)] hover:border-white/25 hover:bg-[#121212]/90"
+                    ? "border-[#D8A63A] bg-[#0d0d0d]/95 shadow-[0_0_25px_rgba(216,166,58,0.35)] scale-[1.02] z-20"
+                    : "border-white/10 bg-[#0d0d0d]/80 hover:border-white/25 hover:bg-[#121212]/90"
                 }`}
               >
                 <div>
@@ -442,25 +438,7 @@ export default function UniverseCommandCenter() {
             );
           })}
         </div>
-      </main>
-
-      {/* BOTTOM TELEMETRY BAR */}
-      <footer className="relative z-20 flex w-full flex-wrap items-center justify-between gap-4 border-t border-white/10 bg-[#050505]/90 px-4 py-3 sm:px-8 text-xs font-mono text-[#8C8C8C]">
-        <div className="flex items-center gap-4">
-          <span>WHYNOTUPSC CIVIL SERVICES OS</span>
-          <span className="hidden sm:inline">CONFUSION → CLARITY → CONSISTENCY → MASTERY</span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => handleNavigate("/pyqs")}
-            className="text-xs text-[#F4C95D] hover:underline touch-manipulation"
-          >
-            Launch Question Archive →
-          </button>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
-

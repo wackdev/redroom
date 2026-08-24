@@ -1,6 +1,7 @@
 -- ============================================================================
--- REDROOM / WHYNOTUPSC — COMPLETE PRODUCTION MIGRATION
--- Migration Date: 2026-08-24
+-- WHYNOTUPSC / REDROOM — COMPLETE PRODUCTION DATABASE SCHEMA MIGRATION
+-- Platforms: Supabase PostgreSQL 15+ (Compatible with Vercel & GitHub Actions)
+-- Instructions: Copy and paste this script directly into your Supabase SQL Editor.
 -- ============================================================================
 
 -- ----------------------------------------------------------------------------
@@ -34,7 +35,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- ----------------------------------------------------------------------------
--- 2. CADET IDENTITY & PROFILES
+-- 2. ASPIRANT IDENTITY & PROFILES
 -- ----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -46,7 +47,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   daily_goal_hours NUMERIC(4,1) DEFAULT 6.0,
   streak_days INT DEFAULT 0,
   longest_streak INT DEFAULT 0,
-  rank_tier TEXT DEFAULT 'Cadet Aspirant',
+  rank_tier TEXT DEFAULT 'Aspirant Tier',
   persona TEXT DEFAULT 'Strategist',
   telegram_chat_id TEXT,
   created_at TIMESTAMPTZ DEFAULT now(),
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS public.user_roles (
 CREATE TABLE IF NOT EXISTS public.live_presence (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id TEXT NOT NULL UNIQUE,
-  display_name TEXT NOT NULL DEFAULT 'Cadet Aspirant',
+  display_name TEXT NOT NULL DEFAULT 'UPSC Aspirant',
   current_path TEXT NOT NULL DEFAULT '/',
   last_seen_at TIMESTAMPTZ DEFAULT now(),
   ip_hash TEXT,
@@ -124,14 +125,16 @@ CREATE TABLE IF NOT EXISTS public.study_tasks (
 );
 
 CREATE TABLE IF NOT EXISTS public.focus_sessions (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   duration_minutes INT NOT NULL DEFAULT 25,
-  mode TEXT DEFAULT 'pomodoro',
-  subject TEXT,
-  soundscape TEXT DEFAULT 'gamma_focus',
-  focus_rating INT DEFAULT 5,
+  mode TEXT DEFAULT 'pomodoro', -- pomodoro, deep_work, sprint
+  subject TEXT DEFAULT 'General Studies',
+  topic TEXT DEFAULT 'Deep Work Focus Sprint',
+  soundscape TEXT DEFAULT 'gamma_focus', -- gamma_focus, lbsnaa_rain, old_library
+  focus_rating INT DEFAULT 5, -- 1 to 5
   notes TEXT,
+  date DATE DEFAULT CURRENT_DATE,
   completed_at TIMESTAMPTZ DEFAULT now(),
   created_at TIMESTAMPTZ DEFAULT now()
 );
@@ -191,7 +194,7 @@ CREATE TABLE IF NOT EXISTS public.pyq_mistakes (
   topic TEXT NOT NULL,
   selected_option TEXT,
   correct_answer TEXT,
-  mistake_type TEXT NOT NULL,
+  mistake_type TEXT NOT NULL, -- conceptual_error, factual_memory_loss, misread_question, extreme_word_trap, time_pressure, wild_guess
   explanation TEXT,
   reviewed BOOLEAN DEFAULT false,
   created_at TIMESTAMPTZ DEFAULT now(),
@@ -199,83 +202,84 @@ CREATE TABLE IF NOT EXISTS public.pyq_mistakes (
 );
 
 -- ----------------------------------------------------------------------------
--- 5. MAINS PYQ, ANSWER DRAFTS & AI EVALUATIONS
+-- 5. MAINS QUESTION BANK & ANSWER EVALUATION ENGINE
 -- ----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.mains_pyqs (
-  id TEXT PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY,
   year INT NOT NULL,
-  paper TEXT NOT NULL,
+  paper VARCHAR(10) NOT NULL, -- GS-1, GS-2, GS-3, GS-4, Essay
   subject TEXT NOT NULL,
-  topic TEXT NOT NULL,
-  subtopic TEXT,
+  topic TEXT,
+  question_number INT,
+  marks INT DEFAULT 15,
+  word_limit INT DEFAULT 250,
   question TEXT NOT NULL,
-  marks INT NOT NULL DEFAULT 10,
-  word_limit INT NOT NULL DEFAULT 150,
-  directive TEXT,
-  directive_guidance TEXT,
-  framework JSONB DEFAULT '{}'::JSONB,
-  important BOOLEAN DEFAULT false,
-  syllabus_tags TEXT[] DEFAULT '{}',
+  syllabus_mapping TEXT[] DEFAULT '{}',
+  dimensions TEXT[] DEFAULT '{}',
+  framework TEXT,
+  model_answer TEXT,
+  topper_copy_sample TEXT,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS public.mains_answers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  question_id TEXT REFERENCES public.mains_pyqs(id) ON DELETE CASCADE NOT NULL,
-  draft_text TEXT NOT NULL,
+  question_id BIGINT REFERENCES public.mains_pyqs(id) ON DELETE CASCADE,
+  custom_question TEXT,
+  paper VARCHAR(10) DEFAULT 'GS-1',
+  marks INT DEFAULT 15,
+  word_limit INT DEFAULT 250,
+  answer_text TEXT NOT NULL,
   word_count INT DEFAULT 0,
   time_spent_seconds INT DEFAULT 0,
-  self_rating INT DEFAULT 3,
-  saved_at TIMESTAMPTZ DEFAULT now(),
+  stencil_used TEXT, -- PESTLE, Stakeholder, Chronological, Spatial
+  is_submitted BOOLEAN DEFAULT true,
+  submitted_at TIMESTAMPTZ DEFAULT now(),
   created_at TIMESTAMPTZ DEFAULT now(),
-  updated_at TIMESTAMPTZ DEFAULT now(),
-  CONSTRAINT user_mains_question_unique UNIQUE (user_id, question_id)
+  updated_at TIMESTAMPTZ DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS public.mains_evaluations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  answer_id UUID REFERENCES public.mains_answers(id) ON DELETE CASCADE UNIQUE NOT NULL,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  question_id TEXT REFERENCES public.mains_pyqs(id) ON DELETE CASCADE NOT NULL,
-  draft_id UUID REFERENCES public.mains_answers(id) ON DELETE SET NULL,
-  score NUMERIC(5,2) NOT NULL DEFAULT 0,
-  max_marks INT NOT NULL DEFAULT 10,
-  intro_feedback TEXT,
-  body_feedback TEXT,
-  conclusion_feedback TEXT,
-  value_addition_tips TEXT[] DEFAULT '{}',
-  raw_ai_payload JSONB DEFAULT '{}'::JSONB,
-  evaluated_at TIMESTAMPTZ DEFAULT now(),
-  created_at TIMESTAMPTZ DEFAULT now()
+  overall_score NUMERIC(4,1) NOT NULL,
+  max_marks INT DEFAULT 15,
+  scannability_rating INT DEFAULT 7, -- 1 to 10
+  dimensions_identified INT DEFAULT 4,
+  strengths TEXT[] DEFAULT '{}',
+  weaknesses TEXT[] DEFAULT '{}',
+  improvements TEXT[] DEFAULT '{}',
+  model_intro TEXT,
+  model_conclusion TEXT,
+  ai_raw_evaluation JSONB DEFAULT '{}'::JSONB,
+  evaluated_at TIMESTAMPTZ DEFAULT now()
 );
 
 -- ----------------------------------------------------------------------------
--- 6. MOCK TEST ARENA & SCORECARDS
+-- 6. MOCK TESTS & TEST SERIES RESULTS
 -- ----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.test_results (
-  id BIGSERIAL PRIMARY KEY,
+  id TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  test_id TEXT,
   title TEXT NOT NULL,
-  subject TEXT DEFAULT 'General Studies',
-  module_number INT,
-  score NUMERIC(6,2) DEFAULT 0,
-  max_score NUMERIC(6,2) DEFAULT 200,
-  correct INT DEFAULT 0,
-  wrong INT DEFAULT 0,
-  skipped INT DEFAULT 0,
-  attempted INT DEFAULT 0,
-  total INT DEFAULT 0,
-  accuracy NUMERIC(5,2) DEFAULT 0,
+  subject TEXT NOT NULL,
+  score NUMERIC(5,2) NOT NULL,
+  total NUMERIC(5,2) NOT NULL,
+  correct INT NOT NULL,
+  incorrect INT NOT NULL,
+  unattempted INT NOT NULL,
+  accuracy NUMERIC(5,2) NOT NULL,
   time_spent_seconds INT DEFAULT 0,
-  breakdown JSONB DEFAULT '{}'::JSONB,
-  detailed_answers JSONB DEFAULT '[]'::JSONB,
+  paper TEXT DEFAULT 'GS-1',
   date TIMESTAMPTZ DEFAULT now(),
+  answers JSONB DEFAULT '[]'::JSONB,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
 -- ----------------------------------------------------------------------------
--- 7. SYLLABUS & NEURAL MINDMAP PROGRESS
+-- 7. SYLLABUS TRACKER & KNOWLEDGE RADAR
 -- ----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.syllabus_progress (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -309,7 +313,7 @@ CREATE TABLE IF NOT EXISTS public.revision_items (
 );
 
 -- ----------------------------------------------------------------------------
--- 9. CADET NOTES VAULT & MINDMAP CANVAS
+-- 9. ASPIRANT NOTES VAULT & MINDMAP CANVAS
 -- ----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.notes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -459,7 +463,7 @@ CREATE TABLE IF NOT EXISTS public.push_subscriptions (
 
 CREATE TABLE IF NOT EXISTS public.user_notifications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  user_id REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   type TEXT DEFAULT 'reminder',
@@ -469,11 +473,15 @@ CREATE TABLE IF NOT EXISTS public.user_notifications (
 );
 
 CREATE TABLE IF NOT EXISTS public.admin_broadcasts (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   message TEXT NOT NULL,
-  priority TEXT DEFAULT 'NORMAL',
-  active BOOLEAN DEFAULT true,
+  type TEXT DEFAULT 'directive',
+  priority TEXT DEFAULT 'High',
+  action_link TEXT,
+  action_label TEXT,
+  author TEXT DEFAULT 'Admin Command',
+  is_active BOOLEAN DEFAULT true,
   created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ DEFAULT now()
 );
@@ -570,7 +578,7 @@ CREATE INDEX IF NOT EXISTS idx_revision_items_next_review ON public.revision_ite
 CREATE INDEX IF NOT EXISTS idx_notes_user_subject ON public.notes(user_id, subject);
 CREATE INDEX IF NOT EXISTS idx_game_scores_slug_score ON public.game_scores(game_slug, score DESC);
 CREATE INDEX IF NOT EXISTS idx_live_presence_last_seen ON public.live_presence(last_seen_at DESC);
-CREATE INDEX IF NOT EXISTS idx_user_notif_user ON public.user_notifications(user_id, is_read);
+CREATE INDEX IF NOT EXISTS idx_admin_broadcasts_active ON public.admin_broadcasts(is_active, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_activity_events_time ON public.activity_events(created_at DESC);
 
 -- ----------------------------------------------------------------------------
@@ -626,7 +634,10 @@ DROP POLICY IF EXISTS "Public can view feature_flags" ON public.feature_flags;
 CREATE POLICY "Public can view feature_flags" ON public.feature_flags FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Public can view broadcasts" ON public.admin_broadcasts;
-CREATE POLICY "Public can view broadcasts" ON public.admin_broadcasts FOR SELECT USING (active = true);
+CREATE POLICY "Public can view broadcasts" ON public.admin_broadcasts FOR SELECT USING (is_active = true);
+
+DROP POLICY IF EXISTS "Admin can manage broadcasts" ON public.admin_broadcasts;
+CREATE POLICY "Admin can manage broadcasts" ON public.admin_broadcasts FOR ALL USING (true);
 
 DROP POLICY IF EXISTS "Public can view presence" ON public.live_presence;
 CREATE POLICY "Public can view presence" ON public.live_presence FOR SELECT USING (true);
@@ -671,7 +682,6 @@ SELECT create_user_isolation_policies('interview_transcripts');
 SELECT create_user_isolation_policies('game_sessions');
 SELECT create_user_isolation_policies('game_scores');
 SELECT create_user_isolation_policies('push_subscriptions');
-SELECT create_user_isolation_policies('user_notifications');
 SELECT create_user_isolation_policies('weekly_reports');
 SELECT create_user_isolation_policies('sync_audit_logs');
 
@@ -687,3 +697,7 @@ CREATE POLICY "Users can insert own profile" ON public.profiles FOR INSERT WITH 
 
 -- Clean up helper function
 DROP FUNCTION IF EXISTS create_user_isolation_policies(TEXT);
+
+-- ============================================================================
+-- SCHEMA SETUP COMPLETE
+-- ============================================================================

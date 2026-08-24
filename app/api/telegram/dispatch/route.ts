@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDailyCurrentAffairs } from "@/lib/current-affairs/cache";
 import { ApiResponse, WeeklyReportSummary } from "@/lib/core/types";
+import { createAdminClient } from "@/lib/db/supabase";
+import { addBroadcastToStore } from "@/app/api/admin/broadcast/route";
 
 /**
  * Generates a clean, formatted 1-page Sunday PDF / Text Document
@@ -279,6 +281,41 @@ async function executeDispatch(params: {
       }
     }
   }
+
+  // Save as active portal broadcast so it immediately shows on the dashboard
+  const broadcastTitle = params.title || (params.type === "daily_brief" ? "📰 Daily GS Editorial Brief" : params.type === "weekly_audit" ? "📊 Sunday Performance Audit" : "⚡ Telegram Notification Alert");
+  const broadcastMsg = params.message || dispatchText.slice(0, 300);
+  const isAlert = params.type === "alert" || params.type === "emergency_alert";
+  const bcId = `dispatch-${Date.now()}`;
+
+  const broadcastRecord = {
+    id: bcId,
+    title: broadcastTitle,
+    message: broadcastMsg,
+    type: (isAlert ? "alert" : "directive") as "alert" | "directive",
+    priority: (params.priority === "URGENT" || isAlert ? "Urgent" : "High") as "Urgent" | "High",
+    actionLink: "/dashboard",
+    actionLabel: "View Dashboard →",
+    author: "Telegram Dispatcher",
+    createdAt: new Date().toISOString(),
+    isActive: true,
+  };
+
+  addBroadcastToStore(broadcastRecord);
+
+  try {
+    const supabase = createAdminClient();
+    await supabase.from("admin_broadcasts").insert({
+      id: broadcastRecord.id,
+      title: broadcastRecord.title,
+      message: broadcastRecord.message,
+      type: broadcastRecord.type,
+      priority: broadcastRecord.priority,
+      author: broadcastRecord.author,
+      is_active: true,
+      created_at: broadcastRecord.createdAt,
+    });
+  } catch {}
 
   return {
     message: token && targetChatId ? "Dispatched successfully to Telegram." : "Generated digest successfully (No bot token configured).",

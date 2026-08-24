@@ -238,7 +238,7 @@ export default function WhyNotUpscHeroExperience() {
           {activeUser ? (
             <div className="flex items-center gap-2">
               <span className="hidden sm:inline text-[#8C8C8C]">
-                CADET: <strong className="text-white">{activeUser.fullName}</strong>
+                ASPIRANT: <strong className="text-white">{activeUser.fullName}</strong>
               </span>
               <button
                 onClick={handleLogout}
@@ -259,7 +259,7 @@ export default function WhyNotUpscHeroExperience() {
                 href="/login"
                 className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-white hover:border-[#D8A63A] hover:text-[#F4C95D] transition"
               >
-                CADET SIGN IN →
+                ASPIRANT SIGN IN →
               </Link>
               <button
                 onClick={() => handleBeginJourney("/dashboard")}

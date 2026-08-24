@@ -75,7 +75,7 @@ export default function CadetRankBadge({
                 <span className="text-3xl">{currentRank.icon}</span>
                 <div>
                   <span className="font-mono text-[10px] font-black uppercase tracking-widest text-[#D8A63A]">
-                    CIVIL SERVICES RANK INVENTORY // CADET DOSSIER
+                    CIVIL SERVICES RANK INVENTORY // ASPIRANT DOSSIER
                   </span>
                   <h2 className="font-mono text-lg font-bold text-white">{currentRank.title}</h2>
                   <p className="text-xs text-[#8C8C8C]">{currentRank.cadre}</p>

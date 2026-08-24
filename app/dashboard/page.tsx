@@ -120,13 +120,26 @@ export default function DashboardPage() {
       void loadDashboardData();
     });
 
-    // Poll broadcasts every 20s for real-time Telegram updates
-    const pollInterval = setInterval(() => {
+    const handleLocalBroadcast = () => {
       void loadDashboardData();
-    }, 20000);
+    };
+    window.addEventListener("redroom_new_broadcast", handleLocalBroadcast);
+
+    // Fast poll broadcasts every 4s for instant real-time Telegram updates
+    const pollInterval = setInterval(() => {
+      fetch("/api/admin/broadcast")
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.success && Array.isArray(json.data)) {
+            setTelegramBroadcasts(json.data);
+          }
+        })
+        .catch(() => {});
+    }, 4000);
 
     return () => {
       unsubscribe();
+      window.removeEventListener("redroom_new_broadcast", handleLocalBroadcast);
       clearInterval(pollInterval);
     };
   }, [loadDashboardData]);
@@ -139,6 +152,28 @@ export default function DashboardPage() {
   const handleDismissBroadcast = (id: string) => {
     sound.playSelect();
     setDismissedBroadcastIds((prev) => new Set([...prev, id]));
+  };
+
+  const handleSendQuickBroadcast = async () => {
+    sound.playLock();
+    try {
+      const res = await fetch("/api/telegram/dispatch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "alert",
+          title: "⚡ LIVE TELEGRAM NOTIFICATION ALERT",
+          message: `UPSC Mission Directive dispatched from Commander Hub at ${new Date().toLocaleTimeString()}. Focus sprint active!`,
+          priority: "URGENT",
+        }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        sound.playVictory();
+        window.dispatchEvent(new CustomEvent("redroom_new_broadcast"));
+        void loadDashboardData();
+      }
+    } catch {}
   };
 
   const logout = async () => {
@@ -171,12 +206,12 @@ export default function DashboardPage() {
 
   return (
     <AuthGuard>
-      <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+      <main className="min-h-screen bg-[#040406] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
         {/* TOP COMMAND HUD */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl shadow-2xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#D8A63A] font-mono font-black text-black shadow-[0_0_15px_rgba(216,166,58,0.4)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#D8A63A] to-[#B38322] font-mono font-black text-black shadow-[0_0_20px_rgba(216,166,58,0.45)]">
                 ↑
               </div>
               <div>
@@ -184,7 +219,7 @@ export default function DashboardPage() {
                   WHYNOTUPSC <span className="text-[#F4C95D]">COMMAND</span>
                 </span>
                 <span className="ml-2 hidden rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[9px] font-bold text-[#F4C95D] sm:inline-block">
-                  SINGLE OPERATING SYSTEM
+                  ASPIRANT OPERATING SYSTEM
                 </span>
               </div>
             </div>
@@ -210,6 +245,15 @@ export default function DashboardPage() {
                 mainsAnswerCount={4}
                 pyqSolvedCount={safeArray(results).length * 15}
               />
+
+              <button
+                onClick={handleSendQuickBroadcast}
+                title="Send Live Test Telegram Alert"
+                className="hidden md:flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 font-bold text-amber-300 hover:bg-amber-500/20 transition shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+              >
+                <span>📡</span>
+                <span>Test Alert</span>
+              </button>
 
               <button
                 onClick={handleToggleSound}
@@ -313,12 +357,22 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
+              <button
+                onClick={() => {
+                  sound.playWarp();
+                  router.push("/3d-zone?lab=universe_core");
+                }}
+                className="flex items-center gap-2 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-[#211505] to-[#141005] px-4 py-2 font-bold text-amber-300 hover:border-amber-400 hover:bg-amber-500/20 transition shadow-[0_0_25px_rgba(245,158,11,0.25)]"
+              >
+                <span>🌀</span>
+                <span>THE POSSIBILITY CORE →</span>
+              </button>
               <Link
                 href="/3d-zone"
                 className="flex items-center gap-2 rounded-2xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-4 py-2 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow-[0_0_20px_rgba(216,166,58,0.25)]"
               >
                 <span>🌌</span>
-                <span>3D SIMULATION ZONE →</span>
+                <span>3D SIMULATION ZONE</span>
               </Link>
               <Link
                 href="/chill-zone"
@@ -453,21 +507,21 @@ export default function DashboardPage() {
             <div
               onClick={() => {
                 sound.playWarp();
-                router.push("/3d-zone");
+                router.push("/3d-zone?lab=universe_core");
               }}
-              className="cursor-pointer rounded-3xl border border-[#D8A63A]/40 bg-[#141005] p-5 transition hover:border-[#D8A63A] hover:bg-[#1c1608] shadow-[0_0_20px_rgba(216,166,58,0.15)] flex flex-col justify-between"
+              className="cursor-pointer rounded-3xl border border-amber-500/40 bg-gradient-to-br from-[#1c1304] to-[#0a0701] p-5 transition hover:border-amber-400 hover:scale-[1.02] shadow-[0_0_25px_rgba(245,158,11,0.2)] flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl">🌌</span>
-                  <span className="rounded-full border border-[#D8A63A]/50 bg-[#D8A63A]/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#F4C95D]">
-                    10 Simulators
+                  <span className="text-2xl">🌀</span>
+                  <span className="rounded-full border border-amber-500/50 bg-amber-500/20 px-2.5 py-0.5 font-mono text-[10px] font-bold text-amber-300 animate-pulse">
+                    Possibility Core
                   </span>
                 </div>
-                <p className="mt-3 text-sm font-bold truncate text-white">3D Reality & GIS Labs</p>
-                <p className="text-xs font-semibold text-white/60">Globe, History Tunnel & Atlas</p>
+                <p className="mt-3 text-sm font-bold truncate text-white">Kinetic Orbital System</p>
+                <p className="text-xs font-semibold text-white/60">Live 3D telemetry for all 10 hubs</p>
               </div>
-              <p className="mt-3 font-mono text-[11px] text-[#F4C95D]">Open 3D Reality Lab →</p>
+              <p className="mt-3 font-mono text-[11px] text-amber-300">Launch Possibility Core →</p>
             </div>
           </section>
 
@@ -476,7 +530,106 @@ export default function DashboardPage() {
             <PomodoroStudyTracker />
           </section>
 
-          {/* 6. CORE UPSC SYSTEM LAUNCHPAD (ALL ESSENTIAL SECTORS) */}
+          {/* 6. INTERACTIVE 3D SIMULATION REALITY LABS SHOWCASE */}
+          <section className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-mono text-[10px] font-black uppercase tracking-wider text-[#F4C95D]">
+                  SPATIAL & VISUAL SIMULATION CENTER
+                </p>
+                <h2 className="text-lg sm:text-2xl font-black text-white">
+                  3D Reality & GIS Visual Labs
+                </h2>
+              </div>
+              <Link
+                href="/3d-zone"
+                className="font-mono text-xs font-bold text-[#F4C95D] hover:underline"
+              >
+                View All 10 Labs →
+              </Link>
+            </div>
+
+            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  id: "universe_core",
+                  title: "The Possibility Core",
+                  category: "Central Kinetic Hub",
+                  icon: "🌀",
+                  desc: "Real-time 60fps kinetic particle universe connecting all 10 preparation sectors.",
+                },
+                {
+                  id: "geo_globe",
+                  title: "3D Earth GIS Globe",
+                  category: "Geography & Oceanography",
+                  icon: "🌍",
+                  desc: "Interactive planetary globe with tectonic fault lines, ocean currents & global straits.",
+                },
+                {
+                  id: "history_tunnel",
+                  title: "History 3D Time Tunnel",
+                  category: "Ancient to Modern",
+                  icon: "⏳",
+                  desc: "Chronological immersive visual timeline from Indus Valley to 1947.",
+                },
+                {
+                  id: "polity_3d",
+                  title: "Constitutional 3D Atlas",
+                  category: "Polity & Supreme Court",
+                  icon: "📜",
+                  desc: "Articles 1-395, Schedules 1-12 & Landmark Supreme Court Judgments.",
+                },
+                {
+                  id: "spatial_map",
+                  title: "Spatial GIS Map Trainer",
+                  category: "Environment & Geography",
+                  icon: "🗺️",
+                  desc: "Cartographic GIS trainer for 106+ National Parks, Ramsar Wetlands & River Basins.",
+                },
+                {
+                  id: "mindmap",
+                  title: "Neural Knowledge Mindmap",
+                  category: "Inter-Subject Cross-Links",
+                  icon: "🧠",
+                  desc: "Dynamic graph node network illuminating hidden overlaps between GS 1-4 topics.",
+                },
+              ].map((lab) => (
+                <div
+                  key={lab.id}
+                  onClick={() => {
+                    sound.playWarp();
+                    router.push(`/3d-zone?lab=${lab.id}`);
+                  }}
+                  className="group flex cursor-pointer flex-col justify-between rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl hover:scale-[1.01]"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 text-xl group-hover:scale-110 group-hover:bg-[#D8A63A]/10 transition">
+                        {lab.icon}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase font-bold text-[#F4C95D] bg-[#D8A63A]/10 px-2 py-0.5 rounded-full border border-[#D8A63A]/20">
+                        {lab.category}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-sm text-white group-hover:text-[#F4C95D] transition">
+                        {lab.title}
+                      </h3>
+                      <p className="text-xs text-white/50 mt-1 line-clamp-2">
+                        {lab.desc}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-2 font-mono text-[11px] text-white/40 group-hover:text-[#F4C95D]">
+                    <span>Enter Simulator</span>
+                    <span>→</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* 7. CORE UPSC SYSTEM LAUNCHPAD (ALL ESSENTIAL SECTORS) */}
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -525,22 +678,22 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          {/* 7. REVISION & DAILY CONSISTENCY HEATMAP */}
+          {/* 8. REVISION & DAILY CONSISTENCY HEATMAP */}
           <section className="space-y-3">
             <RevisionHeatmap plans={plans} testResults={results} />
           </section>
 
-          {/* 8. FUTURE YOU TRAJECTORY SIMULATOR */}
+          {/* 9. FUTURE YOU TRAJECTORY SIMULATOR */}
           <section className="space-y-3">
             <FutureYouSimulator />
           </section>
 
-          {/* 9. AI STRATEGIST "WHY" DIAGNOSTIC ENGINE */}
+          {/* 10. AI STRATEGIST "WHY" DIAGNOSTIC ENGINE */}
           <section className="space-y-3">
             <AIStrategistWhy />
           </section>
 
-          {/* 10. RECENT SIMULATION LOGS & SCORE TRACKER */}
+          {/* 11. RECENT SIMULATION LOGS & SCORE TRACKER */}
           <section className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-6 shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <div>

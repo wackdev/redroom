@@ -215,6 +215,19 @@ export default function CommandPalette() {
       },
     });
 
+    items.push({
+      id: "action-possibility-core",
+      title: "The Possibility Core · 3D Kinetic Universe Orbit",
+      category: "Action",
+      subtitle: "Interactive 3D kinetic system linking all 10 preparation sectors",
+      icon: "🌌",
+      onSelect: () => {
+        sound.playWarp();
+        setIsOpen(false);
+        router.push("/3d-zone?lab=universe_core");
+      },
+    });
+
     // 3. Syllabus Topics
     UPSC_FULL_SYLLABUS.forEach((subj) => {
       safeArray<SyllabusTopic>(subj.topics).slice(0, 8).forEach((item: SyllabusTopic) => {

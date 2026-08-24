@@ -96,8 +96,8 @@ export default function PushNotificationManager() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "admin_alert",
-          title: "🎯 REDROOM CADET TELEGRAM CONNECTION TEST",
-          message: "Your Telegram Intelligence Node is active and connected to REDROOM OS!",
+          title: "🎯 WHYNOTUPSC ASPIRANT TELEGRAM CONNECTION TEST",
+          message: "Your Telegram Intelligence Node is active and connected to WHYNOTUPSC OS!",
           priority: "NORMAL",
           chatId: customChatId.trim() || undefined,
         }),

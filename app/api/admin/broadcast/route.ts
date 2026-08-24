@@ -16,7 +16,7 @@ export interface AdminBroadcastMessage {
 }
 
 // In-memory persistent fallback store
-let globalBroadcastStore: AdminBroadcastMessage[] = [
+export let globalBroadcastStore: AdminBroadcastMessage[] = [
   {
     id: "broadcast-seed-1",
     title: "⚡ Prelims 2026 High-Yield Mission Active",
@@ -31,6 +31,89 @@ let globalBroadcastStore: AdminBroadcastMessage[] = [
   },
 ];
 
+export function addBroadcastToStore(item: AdminBroadcastMessage) {
+  globalBroadcastStore = [item, ...globalBroadcastStore.filter((b) => b.id !== item.id)];
+}
+
+/**
+ * Checks for recent messages sent to the Telegram bot via getUpdates fallback
+ */
+async function fetchRecentTelegramUpdates(): Promise<AdminBroadcastMessage[]> {
+  const rawToken = process.env.TELEGRAM_BOT_TOKEN;
+  const token = rawToken ? rawToken.replace(/^:+/, "").trim() : "";
+
+  if (!token || token.includes("placeholder")) {
+    return [];
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1500);
+
+    const res = await fetch(`https://api.telegram.org/bot${token}/getUpdates?limit=5`, {
+      cache: "no-store",
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    const json = await res.json().catch(() => ({}));
+    if (json.ok && Array.isArray(json.result) && json.result.length > 0) {
+      const messages: AdminBroadcastMessage[] = [];
+
+      for (const update of json.result) {
+        const msg = update.message;
+        if (!msg || !msg.text) continue;
+
+        let text = msg.text.trim();
+        let title = "⚡ TELEGRAM DISPATCH";
+        let priority: "Urgent" | "High" | "Normal" = "High";
+        let type: "directive" | "announcement" | "alert" | "system" = "directive";
+
+        if (text.startsWith("/alert")) {
+          type = "alert";
+          priority = "Urgent";
+          text = text.replace(/^\/alert\s*/i, "");
+        } else if (text.startsWith("/broadcast")) {
+          text = text.replace(/^\/broadcast\s*/i, "");
+        } else if (text.startsWith("/notify") || text.startsWith("/msg")) {
+          text = text.replace(/^\/(notify|msg)\s*/i, "");
+        } else if (text.startsWith("/start") || text.startsWith("/help") || text.startsWith("/stats") || text.startsWith("/telemetry") || text.startsWith("/brief") || text.startsWith("/quiz")) {
+          // Internal bot commands don't need to be broadcast banners
+          continue;
+        }
+
+        if (text.includes("|")) {
+          const parts = text.split("|");
+          title = parts[0].trim();
+          text = parts.slice(1).join("|").trim();
+        }
+
+        const authorName = msg.from?.username
+          ? `@${msg.from.username}`
+          : msg.from?.first_name || "Telegram Admin";
+
+        const broadcastItem: AdminBroadcastMessage = {
+          id: `tg-${update.update_id}`,
+          title: title,
+          message: text,
+          type: type,
+          priority: priority,
+          author: `Telegram (${authorName})`,
+          createdAt: msg.date ? new Date(msg.date * 1000).toISOString() : new Date().toISOString(),
+          isActive: true,
+        };
+
+        messages.push(broadcastItem);
+        addBroadcastToStore(broadcastItem);
+      }
+
+      return messages;
+    }
+  } catch {}
+
+  return [];
+}
+
 /**
  * GET /api/admin/broadcast
  * Returns all active broadcast announcements.
@@ -40,6 +123,10 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
     const { searchParams } = new URL(request.url);
     const all = searchParams.get("all") === "true";
 
+    // 1. Check for live Telegram updates
+    const tgUpdates = await fetchRecentTelegramUpdates();
+
+    // 2. Fetch from Supabase
     try {
       const supabase = createAdminClient();
       const { data, error } = await supabase
@@ -61,15 +148,23 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
           isActive: Boolean(row.is_active),
         }));
 
-        globalBroadcastStore = mapped;
-        const result = all ? mapped : mapped.filter((b) => b.isActive);
+        // Merge mapped with tgUpdates and in-memory store
+        const combined = [...tgUpdates, ...globalBroadcastStore, ...mapped];
+        const unique = Array.from(new Map(combined.map((item) => [item.id, item])).values());
+        unique.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        const result = all ? unique : unique.filter((b) => b.isActive);
         return NextResponse.json({ success: true, data: result });
       }
     } catch {
       // Offline fallback
     }
 
-    const result = all ? globalBroadcastStore : globalBroadcastStore.filter((b) => b.isActive);
+    const combined = [...tgUpdates, ...globalBroadcastStore];
+    const unique = Array.from(new Map(combined.map((item) => [item.id, item])).values());
+    unique.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    const result = all ? unique : unique.filter((b) => b.isActive);
     return NextResponse.json({ success: true, data: result });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to load broadcasts";
@@ -118,7 +213,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     };
 
     // Prepend to in-memory store
-    globalBroadcastStore = [newBroadcast, ...globalBroadcastStore];
+    addBroadcastToStore(newBroadcast);
 
     // Persist to Supabase if connected
     try {

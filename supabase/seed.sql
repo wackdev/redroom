@@ -21,7 +21,7 @@ INSERT INTO public.feature_flags (id, key, name, description, is_enabled, is_bet
 VALUES
 ('flag-ai-copilot', 'ai_copilot', 'AI Strategy Copilot', 'Enables deep-learning UPSC mentor and evaluation features.', true, false, 'ALL'),
 ('flag-offline-sync', 'offline_sync', 'Dexie Offline Cloud Sync', 'Enables zero-latency offline database sync with auto-outbox.', true, false, 'ALL'),
-('flag-chill-zone', 'chill_zone', 'Chill Zone Arcade', 'Enables cognitive arcade and reflex games for cadets.', true, false, 'ALL'),
+('flag-chill-zone', 'chill_zone', 'Chill Zone Arcade', 'Enables cognitive arcade and reflex games for aspirants.', true, false, 'ALL'),
 ('flag-mains-diagram', 'mains_diagram_studio', 'Mains Diagram Studio', 'Enables dynamic flowchart and map diagram generators.', true, false, 'ALL'),
 ('flag-voice-briefs', 'voice_briefs', 'Daily Audio Briefs', 'Enables procedural WebAudio synthesis for daily news.', true, false, 'ALL')
 ON CONFLICT (key) DO UPDATE SET
