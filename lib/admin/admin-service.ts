@@ -75,6 +75,9 @@ export class AdminService {
   public static async getLiveStats(): Promise<PlatformLiveStats> {
     const startTime = Date.now();
     let userCount = 1;
+    let liveNowCount = 1;
+    let newTodayCount = 0;
+    let activeTodayCount = 1;
     let pyqsAttempted = 0;
     let revisionsDone = 0;
     let mockTestsTaken = 0;
@@ -84,25 +87,46 @@ export class AdminService {
     if (isSupabaseConfigured()) {
       try {
         const supabase = createAdminClient();
-        const [usersRes, scoresRes, testRes, pyqRes, revRes] = await Promise.all([
-          supabase.from("profiles").select("id", { count: "exact" }),
-          supabase.from("game_scores").select("id", { count: "exact" }),
-          supabase.from("test_results").select("id", { count: "exact" }),
-          supabase.from("user_pyq_progress").select("id", { count: "exact" }),
-          supabase.from("revision_items").select("id", { count: "exact" }),
+        const todayCutoff = new Date();
+        todayCutoff.setHours(0, 0, 0, 0);
+        const todayIso = todayCutoff.toISOString();
+        const presenceCutoff = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+
+        const [usersRes, scoresRes, testRes, pyqRes, revRes, presenceRes, authUsersRes] = await Promise.all([
+          supabase.from("profiles").select("id", { count: "exact", head: true }),
+          supabase.from("game_scores").select("id", { count: "exact", head: true }),
+          supabase.from("test_results").select("id", { count: "exact", head: true }),
+          supabase.from("user_pyq_progress").select("id", { count: "exact", head: true }),
+          supabase.from("revision_items").select("id", { count: "exact", head: true }),
+          supabase.from("live_presence").select("id", { count: "exact", head: true }).gte("last_seen_at", presenceCutoff),
+          supabase.auth.admin.listUsers({ perPage: 100 }).catch(() => ({ data: { users: [] } })),
         ]);
 
-        userCount = Math.max(1, usersRes.count || 1);
+        const allUsers = authUsersRes.data?.users || [];
+        userCount = Math.max(1, allUsers.length || usersRes.count || 1);
+        liveNowCount = Math.max(1, presenceRes.count || 1);
+
+        newTodayCount = allUsers.filter((u) => u.created_at && u.created_at >= todayIso).length;
+        activeTodayCount = Math.max(
+          liveNowCount,
+          allUsers.filter((u) => u.last_sign_in_at && u.last_sign_in_at >= todayIso).length || userCount
+        );
+
         chillGamesCount = scoresRes.count || 0;
         mockTestsTaken = testRes.count || 0;
         pyqsAttempted = pyqRes.count || 0;
         revisionsDone = revRes.count || 0;
-      } catch {}
+
+        totalStudyHours = Math.round((pyqsAttempted * 2.5 + mockTestsTaken * 45) / 60);
+      } catch (e) {
+        console.warn("Live stats fetch exception:", e);
+      }
     } else {
       if (typeof window !== "undefined") {
         try {
           const cadets = UserSessionManager.getAllRegisteredCadets();
           userCount = Math.max(1, cadets.length + 1);
+          activeTodayCount = userCount;
         } catch {}
       }
     }
@@ -110,14 +134,14 @@ export class AdminService {
     const latency = Math.max(8, Date.now() - startTime);
 
     return {
-      liveNow: userCount,
-      activeToday: userCount,
-      newUsersToday: userCount,
-      totalStudyHours: Math.max(totalStudyHours, userCount * 6.5),
+      liveNow: liveNowCount,
+      activeToday: activeTodayCount,
+      newUsersToday: newTodayCount,
+      totalStudyHours: Math.max(totalStudyHours, 1),
       pyqsAttemptedToday: pyqsAttempted,
       revisionsDoneToday: revisionsDone,
-      mockTestsActive: 10,
-      chillZoneActivePlayers: chillGamesCount > 0 ? Math.min(chillGamesCount, 12) : 0,
+      mockTestsActive: mockTestsTaken,
+      chillZoneActivePlayers: chillGamesCount,
       platformHealthPercent: 99.9,
       healthStatus: "EXCELLENT",
       dbLatencyMs: latency,
@@ -219,7 +243,7 @@ export class AdminService {
   public static async getUsersList(query?: string, roleFilter?: string): Promise<UserAdminSummary[]> {
     let result: UserAdminSummary[] = [];
 
-    // Master Admin Summary
+    // Master Admin Base
     const masterAdmin: UserAdminSummary = {
       id: SINGLE_ADMIN_CREDENTIALS.id,
       email: SINGLE_ADMIN_CREDENTIALS.email,
@@ -228,13 +252,13 @@ export class AdminService {
       accountStatus: "ACTIVE",
       joinedAt: "2026-01-01",
       lastActiveAt: "Active Now",
-      totalStudyHours: 42.5,
-      pyqsSolved: 120,
-      pyqAccuracy: 95.5,
-      testsTaken: 8,
-      mainsDraftsCount: 5,
-      revisionsPending: 2,
-      chillGamesCount: 14,
+      totalStudyHours: 0,
+      pyqsSolved: 0,
+      pyqAccuracy: 0,
+      testsTaken: 0,
+      mainsDraftsCount: 0,
+      revisionsPending: 0,
+      chillGamesCount: 0,
     };
 
     if (isSupabaseConfigured()) {
@@ -245,29 +269,57 @@ export class AdminService {
         const { data: authUsersData } = await supabase.auth.admin.listUsers({ perPage: 100 });
         const authUsers = authUsersData?.users || [];
 
-        // 2. Fetch profiles and roles with bounded limits
-        const [profilesRes, rolesRes, testRes, pyqRes] = await Promise.all([
-          supabase.from("profiles").select("*").limit(200),
-          supabase.from("user_roles").select("*").limit(200),
-          supabase.from("test_results").select("user_id, score, accuracy").limit(500),
-          supabase.from("user_pyq_progress").select("user_id, completed").limit(500),
-        ]);
+        // 2. Fetch profiles, roles, tests, and pyq progress safely
+        let profilesData: any[] = [];
+        let rolesData: any[] = [];
+        let testsData: any[] = [];
+        let pyqData: any[] = [];
+        let scoresData: any[] = [];
 
-        const profilesMap = new Map((profilesRes.data || []).map((p) => [p.id, p]));
-        const rolesMap = new Map((rolesRes.data || []).map((r) => [r.user_id, r.role]));
-        const testsData = testRes.data || [];
-        const pyqData = pyqRes.data || [];
+        try {
+          const res = await supabase.from("profiles").select("*").limit(200);
+          if (res.data) profilesData = res.data;
+        } catch {}
+
+        try {
+          const res = await supabase.from("user_roles").select("*").limit(200);
+          if (res.data) rolesData = res.data;
+        } catch {}
+
+        try {
+          const res = await supabase.from("test_results").select("user_id, score, accuracy").limit(500);
+          if (res.data) testsData = res.data;
+        } catch {}
+
+        try {
+          const res = await supabase.from("user_pyq_progress").select("user_id, completed, is_correct").limit(500);
+          if (res.data) pyqData = res.data;
+        } catch {}
+
+        try {
+          const res = await supabase.from("game_scores").select("user_id").limit(500);
+          if (res.data) scoresData = res.data;
+        } catch {}
+
+        const profilesMap = new Map(profilesData.map((p: any) => [p.id, p]));
+        const rolesMap = new Map(rolesData.map((r: any) => [r.user_id, r.role]));
 
         const usersList: UserAdminSummary[] = authUsers.map((u) => {
           const prof = profilesMap.get(u.id);
           const role = (rolesMap.get(u.id) || u.user_metadata?.role || "ASPIRANT") as AdminRole;
           const userTests = testsData.filter((t) => t.user_id === u.id);
           const userPyqs = pyqData.filter((p) => p.user_id === u.id && p.completed);
+          const userGames = scoresData.filter((s) => s.user_id === u.id);
+
+          const correctPyqs = userPyqs.filter((p) => p.is_correct).length;
+          const pyqAcc = userPyqs.length > 0 ? Math.round((correctPyqs / userPyqs.length) * 100) : 0;
 
           const avgAcc =
             userTests.length > 0
               ? Math.round(userTests.reduce((acc, t) => acc + (t.accuracy || 0), 0) / userTests.length)
-              : 0;
+              : pyqAcc;
+
+          const totalHours = Math.round((userPyqs.length * 2.5 + userTests.length * 45) / 60);
 
           return {
             id: u.id,
@@ -279,17 +331,17 @@ export class AdminService {
             lastActiveAt: u.last_sign_in_at
               ? new Date(u.last_sign_in_at).toLocaleDateString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
               : "Recently",
-            totalStudyHours: prof?.daily_goal_hours ? Math.round(prof.daily_goal_hours * 7) : 15,
+            totalStudyHours: totalHours,
             pyqsSolved: userPyqs.length,
             pyqAccuracy: avgAcc,
             testsTaken: userTests.length,
             mainsDraftsCount: 0,
             revisionsPending: 0,
-            chillGamesCount: 0,
+            chillGamesCount: userGames.length,
           };
         });
 
-        // Ensure master admin is included
+        // Ensure master admin is included if not in auth
         if (!usersList.some((u) => u.email.toLowerCase() === masterAdmin.email.toLowerCase())) {
           result = [masterAdmin, ...usersList];
         } else {
@@ -313,7 +365,7 @@ export class AdminService {
             accountStatus: "ACTIVE",
             joinedAt: c.createdAt ? c.createdAt.split("T")[0] : "2026-01-01",
             lastActiveAt: "Recently",
-            totalStudyHours: 20,
+            totalStudyHours: 0,
             pyqsSolved: 0,
             pyqAccuracy: 0,
             testsTaken: 0,

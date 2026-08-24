@@ -388,6 +388,72 @@ const GIS_FEATURE_DATASET: MapFeature[] = [
       "Historically associated with freedom fighter Veer Surendra Sai who took shelter in Barapathar caves."
     ],
     pyqHook: "UPSC Prelims 2023 & 2024: Debrigarh Sanctuary and its eco-tourism & tiger corridor status."
+  },
+  {
+    id: "riv-mahanadi",
+    name: "Mahanadi River Basin",
+    category: "rivers",
+    stateOrRegion: "Chhattisgarh, Odisha",
+    coordinates: { x: 350, y: 320 },
+    tributaryInfo: {
+      originAndEnd: "Origin: Sihawa near Dhamtari (Raipur plateau, Chhattisgarh). Drains through Chhattisgarh basin and Odisha plains into Bay of Bengal at False Point.",
+      leftBank: ["Seonath", "Hasdeo (Hasdeo Arand coal belt)", "Mand", "Ib (Ib river coalfields)"],
+      rightBank: ["Ong", "Tel (originates in Nabarangpur)", "Jonk"]
+    },
+    keyDetails: [
+      "Hirakud Dam near Sambalpur is the longest earthen dam in the world (25.8 km).",
+      "Forms rich delta near Cuttack and Paradip; mangrove estuary at Kendrapara."
+    ],
+    pyqHook: "UPSC Prelims 2022 & 2016: Tributaries of Mahanadi (Tel, Hasdeo, Ib, Seonath, Jonk)."
+  },
+  {
+    id: "pass-banihal",
+    name: "Banihal Pass (Jawahar Tunnel)",
+    category: "passes",
+    stateOrRegion: "Jammu & Kashmir (Pir Panjal Range)",
+    coordinates: { x: 195, y: 95 },
+    keyDetails: [
+      "Crosses Pir Panjal Range connecting Jammu with Kashmir Valley.",
+      "Houses the 2.85 km Jawahar Tunnel and the 11.2 km Qazigund-Banihal Railway Tunnel (Pir Panjal Railway Tunnel)."
+    ],
+    pyqHook: "UPSC Prelims 2018: Passes cutting across the Pir Panjal mountain range (Banihal Pass)."
+  },
+  {
+    id: "pass-khardungla",
+    name: "Khardung La Pass (Elevation: 5,359 m)",
+    category: "passes",
+    stateOrRegion: "Ladakh Range, Ladakh UT",
+    coordinates: { x: 215, y: 70 },
+    keyDetails: [
+      "Gateway to the Shyok and Nubra river valleys; strategic military logistics route to Siachen Glacier base camp.",
+      "One of the highest motorable mountain passes in the world."
+    ],
+    pyqHook: "UPSC Prelims 2020: Valley accessed via Khardung La Pass (Nubra Valley & Siachen)."
+  },
+  {
+    id: "prot-panna",
+    name: "Panna Tiger Reserve & Biosphere Reserve",
+    category: "protected",
+    stateOrRegion: "Panna & Chhatarpur Districts, Madhya Pradesh",
+    coordinates: { x: 300, y: 260 },
+    keyDetails: [
+      "UNESCO World Network of Biosphere Reserves (2020).",
+      "Ken River flows through the park; central site of the Ken-Betwa River Interlinking Project (submerging parts of core tiger habitat).",
+      "Remarkable tiger reintroduction and vulture conservation breeding program."
+    ],
+    pyqHook: "UPSC Prelims 2022 & 2017: River flowing through Panna Tiger Reserve (Ken River)."
+  },
+  {
+    id: "arch-bhimbetka",
+    name: "Bhimbetka Rock Shelters (Paleolithic & Mesolithic)",
+    category: "archaeology",
+    stateOrRegion: "Raisen District, Madhya Pradesh (UNESCO 2003)",
+    coordinates: { x: 275, y: 310 },
+    keyDetails: [
+      "Discovered by V.S. Wakankar (1957); over 750 rock shelters spanning Upper Paleolithic to Medieval times.",
+      "Rock art depicts hunting scenes, dancing figures, rhinoceros, elephants, and ritual dances using natural hematite (red) and plant (green/white) mineral pigments."
+    ],
+    pyqHook: "UPSC Prelims 2019 & 2011: Prehistoric rock painting caves in India (Bhimbetka)."
   }
 ];
 

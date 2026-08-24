@@ -15,11 +15,13 @@ import {
   LOCAL_STORAGE_CUSTOM_MODULES_KEY,
   parseRawModulePayload,
   getSubjectTheme,
+  filterModulesBySubject,
+  getDistinctTopicsForSubject,
 } from "@/lib/mock-tests/module-engine";
+import { UPSC_SUBJECT_TAXONOMY } from "@/lib/mock-tests/taxonomy";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
-
 
 export default function TestsPage() {
   const router = useRouter();
@@ -31,6 +33,7 @@ export default function TestsPage() {
 
   // Selection & Navigation State
   const [selectedSubject, setSelectedSubject] = useState<string>("All Subjects");
+  const [selectedTopic, setSelectedTopic] = useState<string>("All Topics");
   const [selectedTest, setSelectedTest] = useState<MockTest | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -109,10 +112,23 @@ export default function TestsPage() {
     return ["All Subjects", ...subs];
   }, [modules]);
 
+  // Distinct Topics for Selected Subject
+  const availableTopics = useMemo(() => {
+    const topics = getDistinctTopicsForSubject(modules, selectedSubject);
+    return ["All Topics", ...topics];
+  }, [modules, selectedSubject]);
+
   const filteredModules = useMemo(() => {
     return modules
       .filter((m) => {
-        const matchesSubject = selectedSubject === "All Subjects" || m.subject === selectedSubject;
+        const matchesSubject = selectedSubject === "All Subjects" || filterModulesBySubject([m], selectedSubject).length > 0;
+        const matchesTopic =
+          selectedTopic === "All Topics" ||
+          (m.topic && m.topic.toLowerCase().includes(selectedTopic.toLowerCase())) ||
+          (m.moduleTitle && m.moduleTitle.toLowerCase().includes(selectedTopic.toLowerCase())) ||
+          safeArray(m.questionList).some((q) =>
+            Boolean(q.syllabusSubtopic && q.syllabusSubtopic.toLowerCase().includes(selectedTopic.toLowerCase()))
+          );
         const q = searchQuery.toLowerCase();
         const matchesSearch =
           !searchQuery.trim() ||
@@ -120,7 +136,7 @@ export default function TestsPage() {
           (m.moduleTitle && m.moduleTitle.toLowerCase().includes(q)) ||
           (m.topic && m.topic.toLowerCase().includes(q)) ||
           (m.description && m.description.toLowerCase().includes(q));
-        return matchesSubject && matchesSearch;
+        return matchesSubject && matchesTopic && matchesSearch;
       })
       .sort((a, b) => {
         if (a.subject === b.subject) {
@@ -128,7 +144,7 @@ export default function TestsPage() {
         }
         return a.subject.localeCompare(b.subject);
       });
-  }, [modules, selectedSubject, searchQuery]);
+  }, [modules, selectedSubject, selectedTopic, searchQuery]);
 
 
 
@@ -894,16 +910,18 @@ export default function TestsPage() {
         <section className="flex flex-wrap gap-2">
           {subjectList.map((sub) => {
             const isSelected = selectedSubject === sub;
-            const count = sub === "All Subjects" ? modules.length : modules.filter((m) => m.subject === sub).length;
-            const theme = getSubjectTheme(sub);
+            const count = sub === "All Subjects" ? modules.length : filterModulesBySubject(modules, sub).length;
 
             return (
               <button
                 key={sub}
-                onClick={() => setSelectedSubject(sub)}
+                onClick={() => {
+                  setSelectedSubject(sub);
+                  setSelectedTopic("All Topics");
+                }}
                 className={`flex items-center gap-2 rounded-2xl px-4 py-2.5 text-xs font-bold transition-all ${
                   isSelected
-                    ? "bg-purple-600 text-white shadow-lg shadow-purple-600/30 scale-105"
+                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-600/30 scale-105"
                     : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
                 }`}
               >
@@ -919,6 +937,29 @@ export default function TestsPage() {
             );
           })}
         </section>
+
+        {/* TOPIC FILTER CHIPS */}
+        {availableTopics.length > 2 && (
+          <section className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+            <span className="shrink-0 text-[11px] font-bold uppercase text-white/40">Topic:</span>
+            {availableTopics.map((top) => {
+              const isTopSelected = selectedTopic === top;
+              return (
+                <button
+                  key={top}
+                  onClick={() => setSelectedTopic(top)}
+                  className={`shrink-0 rounded-xl px-3 py-1.5 font-medium transition ${
+                    isTopSelected
+                      ? "bg-pink-600 text-white font-bold shadow-md shadow-pink-900/40"
+                      : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {top}
+                </button>
+              );
+            })}
+          </section>
+        )}
 
         {/* SEARCH & FILTERS */}
         <section className="flex items-center gap-3">

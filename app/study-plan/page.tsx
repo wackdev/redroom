@@ -28,15 +28,16 @@ import {
   pushStateToCloud,
   useCloudSync,
 } from "@/lib/sync/sync-engine";
+import VirtualStudyHall from "@/components/VirtualStudyHall";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const STORAGE_KEY = "redroom_study_plan";
-
 
 export default function StudyPlanPage() {
   const router = useRouter();
   const { isSyncing, lastSyncTime, triggerManualSync } = useCloudSync();
 
+  const [activeViewMode, setActiveViewMode] = useState<"planner" | "focus_timer">("planner");
   const todayStr = getDateKey();
   const [selectedDate, setSelectedDate] = useState(todayStr);
   const [plans, setPlans] = useState<Record<string, DayPlan>>({});
@@ -272,20 +273,53 @@ export default function StudyPlanPage() {
       </header>
 
       <div className="mx-auto max-w-7xl px-5 py-8">
-        {/* HERO & QUICK NAVIGATION */}
-        <section className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-pink-400">
-              SYNCHRONIZED DAILY SCHEDULE & NOTES
-            </p>
-            <h1 className="mt-1 text-3xl font-black md:text-4xl">Adaptive Study Planner</h1>
-            <p className="mt-1 text-xs text-white/50">
-              Week span: {formatWeekSpan(weekRange.startDate, weekRange.endDate)}
-            </p>
-          </div>
+        {/* VIEW MODE SWITCHER: PLANNER VS POMODORO FOCUS */}
+        <div className="mb-6 flex flex-wrap items-center gap-2 rounded-2xl border border-[#D8A63A]/30 bg-[#0d0d0d] p-1.5 shadow-xl">
+          <button
+            onClick={() => setActiveViewMode("planner")}
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              activeViewMode === "planner"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>📅</span>
+            <span>Daily Schedule & Tasks</span>
+          </button>
 
-          {/* QUICK JUMP CONTROLS */}
-          <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setActiveViewMode("focus_timer")}
+            className={`flex items-center gap-2 rounded-xl px-4 py-2 font-mono text-xs font-bold transition ${
+              activeViewMode === "focus_timer"
+                ? "border border-[#D8A63A] bg-[#D8A63A] text-black font-black shadow-[0_0_15px_rgba(216,166,58,0.4)]"
+                : "text-[#8C8C8C] hover:text-white"
+            }`}
+          >
+            <span>⏳</span>
+            <span>Deep Work Pomodoro Sprint</span>
+          </button>
+        </div>
+
+        {activeViewMode === "focus_timer" ? (
+          <div className="mb-8 animate-fadeIn">
+            <VirtualStudyHall />
+          </div>
+        ) : (
+          <>
+            {/* HERO & QUICK NAVIGATION */}
+            <section className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#F4C95D]">
+                  SYNCHRONIZED DAILY SCHEDULE & NOTES
+                </p>
+                <h1 className="mt-1 text-3xl font-black md:text-4xl text-white">Adaptive Study Planner</h1>
+                <p className="mt-1 text-xs text-white/50">
+                  Week span: {formatWeekSpan(weekRange.startDate, weekRange.endDate)}
+                </p>
+              </div>
+
+              {/* QUICK JUMP CONTROLS */}
+              <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setSelectedDate(shiftDateKey(selectedDate, -7))}
               className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold hover:bg-white/10 transition"
@@ -704,6 +738,8 @@ export default function StudyPlanPage() {
             )}
           </div>
         </div>
+        </>
+        )}
       </div>
     </main>
     </AuthGuard>

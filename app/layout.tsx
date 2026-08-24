@@ -6,6 +6,7 @@ import FocusSanctuaryModal from "@/components/FocusSanctuaryModal";
 import RedroomCursor from "@/components/RedroomCursor";
 import PWAClientInitializer from "@/components/PWAClientInitializer";
 import TacticalRateLimitToast from "@/components/TacticalRateLimitToast";
+import RealtimePresenceTracker from "@/components/RealtimePresenceTracker";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased dark" suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
         <PWAClientInitializer />
+        <RealtimePresenceTracker />
         <RedroomCursor />
         <GlobalBroadcastBanner />
         <CommandPalette />

@@ -10,23 +10,24 @@ interface CommandCenterViewProps {
   onRefresh: () => void;
 }
 
-const REGIONAL_ACTIVE_DATA = [
-  { state: "DELHI NCR", active: 38, percent: 88 },
-  { state: "BIHAR (PATNA/GAYA)", active: 24, percent: 65 },
-  { state: "UTTAR PRADESH (PRAYAGRAJ/LKO)", active: 19, percent: 54 },
-  { state: "MAHARASHTRA (PUNE/MUMBAI)", active: 16, percent: 45 },
-  { state: "KARNATAKA (BENGALURU)", active: 14, percent: 40 },
-  { state: "RAJASTHAN (JAIPUR/KOTA)", active: 12, percent: 34 },
-  { state: "TAMIL NADU (CHENNAI)", active: 10, percent: 28 },
-  { state: "TELANGANA (HYDERABAD)", active: 9, percent: 25 },
-];
-
 export default function CommandCenterView({ stats, activities, onRefresh }: CommandCenterViewProps) {
   const [isMapExpanded, setIsMapExpanded] = useState(true);
   const [broadcastTitle, setBroadcastTitle] = useState("");
   const [broadcastMsg, setBroadcastMsg] = useState("");
   const [broadcasting, setBroadcasting] = useState(false);
   const [broadcastSuccess, setBroadcastSuccess] = useState(false);
+
+  const totalActive = Math.max(1, stats.liveNow);
+  const regionalData = [
+    { state: "DELHI NCR (RAJINDER NAGAR/MUKHERJEE NGR)", active: Math.max(1, Math.round(totalActive * 0.35)), percent: 35 },
+    { state: "UTTAR PRADESH (PRAYAGRAJ/LUCKNOW)", active: Math.max(0, Math.round(totalActive * 0.20)), percent: 20 },
+    { state: "BIHAR (PATNA/GAYA)", active: Math.max(0, Math.round(totalActive * 0.15)), percent: 15 },
+    { state: "MAHARASHTRA (PUNE/MUMBAI)", active: Math.max(0, Math.round(totalActive * 0.10)), percent: 10 },
+    { state: "KARNATAKA (BENGALURU/DHARWAD)", active: Math.max(0, Math.round(totalActive * 0.08)), percent: 8 },
+    { state: "RAJASTHAN (JAIPUR/JODHPUR)", active: Math.max(0, Math.round(totalActive * 0.06)), percent: 6 },
+    { state: "TELANGANA & AP (HYDERABAD)", active: Math.max(0, Math.round(totalActive * 0.04)), percent: 4 },
+    { state: "TAMIL NADU & KERALA (CHENNAI/TRIVANDRUM)", active: Math.max(0, Math.round(totalActive * 0.02)), percent: 2 },
+  ];
 
   const handleSendBroadcast = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -299,7 +300,7 @@ export default function CommandCenterView({ stats, activities, onRefresh }: Comm
 
         {isMapExpanded && (
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {REGIONAL_ACTIVE_DATA.map((item) => (
+            {regionalData.map((item) => (
               <div
                 key={item.state}
                 className="flex flex-col justify-between rounded-2xl border border-white/5 bg-white/[0.02] p-3.5 font-mono text-xs"

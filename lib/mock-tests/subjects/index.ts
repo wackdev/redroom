@@ -6,6 +6,7 @@ import { ENVIRONMENT_MODULES } from "./environment";
 import { SCIENCE_TECH_MODULES } from "./science-tech";
 import { CSAT_MOCK_MODULES } from "./csat";
 import { PRELIMS_YEARLY_MOCK_TESTS } from "./prelims-yearly";
+import { UPSC_SUBJECT_TAXONOMY, normalizeSubjectKey } from "../taxonomy";
 import { MockTest } from "@/lib/core/types";
 
 export {
@@ -17,6 +18,8 @@ export {
   SCIENCE_TECH_MODULES,
   CSAT_MOCK_MODULES,
   PRELIMS_YEARLY_MOCK_TESTS,
+  UPSC_SUBJECT_TAXONOMY,
+  normalizeSubjectKey,
 };
 
 export const ALL_MOCK_MODULES: MockTest[] = [

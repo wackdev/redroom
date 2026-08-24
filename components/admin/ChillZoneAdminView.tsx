@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CHILL_GAMES } from "@/features/chill-zone/constants/games";
 import { sound } from "@/lib/audio/sound-engine";
 
@@ -21,6 +21,24 @@ export default function ChillZoneAdminView() {
   );
   const [suspiciousList, setSuspiciousList] = useState<SuspiciousScore[]>(INITIAL_SUSPICIOUS);
   const [modSuccess, setModSuccess] = useState<string | null>(null);
+  const [liveStats, setLiveStats] = useState<{ activePlayers: number; totalGames: number }>({
+    activePlayers: 0,
+    totalGames: 0,
+  });
+
+  useEffect(() => {
+    fetch("/api/admin/stats")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data) {
+          setLiveStats({
+            activePlayers: json.data.chillZoneActivePlayers || 0,
+            totalGames: json.data.chillZoneActivePlayers || 0,
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const toggleGameOnline = (gameSlug: string) => {
     sound.playLock();
@@ -55,11 +73,11 @@ export default function ChillZoneAdminView() {
         <div className="flex items-center gap-4 font-mono text-xs">
           <div className="text-right">
             <span className="text-[#8C8C8C] text-[10px]">PLAYING NOW</span>
-            <h3 className="text-xl font-black text-emerald-400">34 CADETS</h3>
+            <h3 className="text-xl font-black text-emerald-400">{liveStats.activePlayers} CADETS</h3>
           </div>
           <div className="text-right">
-            <span className="text-[#8C8C8C] text-[10px]">GAMES TODAY</span>
-            <h3 className="text-xl font-black text-[#F4C95D]">1,284</h3>
+            <span className="text-[#8C8C8C] text-[10px]">GAMES LOGGED</span>
+            <h3 className="text-xl font-black text-[#F4C95D]">{liveStats.totalGames}</h3>
           </div>
         </div>
       </div>

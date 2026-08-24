@@ -692,42 +692,82 @@ export default function CSATMatrixArena() {
             <div className="flex-1 overflow-y-auto p-6 space-y-4 font-mono text-xs">
               <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
                 <span className="font-bold text-[#F4C95D] uppercase block mb-1">
-                  1. Algebraic Divisibility Theorems
+                  1. Unit Digit Cyclicity & Power Periods
                 </span>
-                <p className="text-[#8C8C8C] leading-relaxed">
+                <p className="text-white/80 leading-relaxed">
+                  • <strong>Cycle of 4:</strong> <code>[2, 3, 7, 8]</code> — Divide exponent by 4; remainder gives the effective power index (Remainder 0 = Power of 4).<br />
+                  • <strong>Cycle of 2:</strong> <code>[4, 9]</code> — 4^odd = 4, 4^even = 6; 9^odd = 9, 9^even = 1.<br />
+                  • <strong>Cycle of 1:</strong> <code>[0, 1, 5, 6]</code> — Last digit is always unchanged for all positive integer powers.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
+                <span className="font-bold text-[#F4C95D] uppercase block mb-1">
+                  2. Remainder Theorems & Fermat's Little Theorem
+                </span>
+                <p className="text-white/80 leading-relaxed">
+                  • <strong>Fermat's Theorem:</strong> If <em>p</em> is a prime and <em>gcd(a, p) = 1</em>, then <code>a^(p - 1) % p = 1</code>.<br />
+                  • <strong>Successive Division:</strong> If N leaves remainders r1, r2 when divided by d1, d2: <code>N = d1 × (d2 × q + r2) + r1</code>.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
+                <span className="font-bold text-[#F4C95D] uppercase block mb-1">
+                  3. Algebraic Divisibility & Factor Count Rules
+                </span>
+                <p className="text-white/80 leading-relaxed">
                   • <code>a^n + b^n</code> is always divisible by <code>(a + b)</code> if n is odd.<br />
-                  • <code>a^n - b^n</code> is always divisible by <code>(a - b)</code> for all n, and by <code>(a + b)</code> if n is even.
+                  • <code>a^n - b^n</code> is always divisible by <code>(a - b)</code> for all positive n, and by <code>(a + b)</code> if n is even.<br />
+                  • <strong>Total Factors:</strong> If <code>N = p1^a × p2^b × p3^c</code>, Total Factors = <code>(a + 1)(b + 1)(c + 1)</code>.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
                 <span className="font-bold text-[#F4C95D] uppercase block mb-1">
-                  2. Permutations & Combinations (At Least One Rule)
+                  4. Clock Angle & Hand Coincidence Formula
                 </span>
-                <p className="text-[#8C8C8C] leading-relaxed">
-                  • <code>Ways with At Least 1 = Total Possible Ways - Ways with Exactly 0</code>.<br />
-                  • Number of circular arrangements of n distinct items = <code>(n - 1)!</code>.
+                <p className="text-white/80 leading-relaxed">
+                  • <strong>Angle between Hour & Minute hands:</strong> <code>θ = |30 × H - (11/2) × M|</code>.<br />
+                  • <strong>Hands Coincide (0°):</strong> Exactly 11 times in 12 hours, and 22 times in 24 hours.<br />
+                  • <strong>Hands Opposite (180°):</strong> Exactly 11 times in 12 hours, and 22 times in 24 hours.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
                 <span className="font-bold text-[#F4C95D] uppercase block mb-1">
-                  3. Time, Speed & Distance Unit Normalization
+                  5. Calendar Odd Days Method
                 </span>
-                <p className="text-[#8C8C8C] leading-relaxed">
-                  • Convert km/hr to m/s: Multiply by <code>5/18</code>.<br />
-                  • Convert m/s to km/hr: Multiply by <code>18/5</code>.<br />
-                  • Average Speed for equal distance trips: <code>(2 × S1 × S2) / (S1 + S2)</code>.
+                <p className="text-white/80 leading-relaxed">
+                  • <strong>Ordinary Year (365 days):</strong> 52 weeks + 1 odd day.<br />
+                  • <strong>Leap Year (366 days):</strong> 52 weeks + 2 odd days.<br />
+                  • <strong>Century Odd Days:</strong> 100 yrs = 5 odd days, 200 yrs = 3 odd days, 300 yrs = 1 odd day, 400 yrs = 0 odd days.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
                 <span className="font-bold text-[#F4C95D] uppercase block mb-1">
-                  4. Reading Comprehension Elimination Rules
+                  6. High-Speed Percentage to Fraction Equivalents
                 </span>
-                <p className="text-[#8C8C8C] leading-relaxed">
-                  • Eliminate absolute modifiers: <em>never, always, completely, solely, exclusively</em>.<br />
-                  • Assumption Negation Test: If negating the statement destroys the passage thesis, it is a valid assumption.
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px] text-white/90">
+                  <span className="p-1.5 rounded-lg bg-white/5">1/6 = 16.66%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/7 = 14.28%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/8 = 12.50%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/9 = 11.11%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/11 = 9.09%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/12 = 8.33%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/13 = 7.69%</span>
+                  <span className="p-1.5 rounded-lg bg-white/5">1/14 = 7.14%</span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/50 p-4">
+                <span className="font-bold text-[#F4C95D] uppercase block mb-1">
+                  7. Reading Comprehension Elimination Rules
+                </span>
+                <p className="text-white/80 leading-relaxed">
+                  • <strong>Extreme Tone Trap:</strong> Eliminate absolute words (<em>never, always, completely, solely, exclusively, inevitably</em>).<br />
+                  • <strong>Assumption Negation Test:</strong> If negating the assumption collapses the author's primary conclusion, the assumption is valid.<br />
+                  • <strong>Out of Scope:</strong> Statements factually true in real life but unmentioned in the passage must be rejected.
                 </p>
               </div>
             </div>

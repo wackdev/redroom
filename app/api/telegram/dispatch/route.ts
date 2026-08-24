@@ -122,8 +122,12 @@ async function executeDispatch(params: {
   missedFlashcards?: any[];
   sendPdf?: boolean;
 }) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const targetChatId = params.chatId || process.env.TELEGRAM_CHAT_ID;
+  const rawToken = process.env.TELEGRAM_BOT_TOKEN;
+  const token = rawToken ? rawToken.replace(/^:+/, "").trim() : "";
+  const targetChatId =
+    params.chatId ||
+    process.env.ADMIN_TELEGRAM_CHAT_ID ||
+    process.env.TELEGRAM_CHAT_ID;
 
   let dispatchText = "";
   let documentContent: string | null = null;
@@ -244,7 +248,7 @@ async function executeDispatch(params: {
     }
 
     // Send Message Text
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -254,10 +258,16 @@ async function executeDispatch(params: {
         disable_web_page_preview: true,
       }),
     });
+
+    const resJson = await res.json().catch(() => ({}));
+    if (!res.ok || !resJson.ok) {
+      const errMsg = resJson.description || `Telegram API error (${res.status})`;
+      throw new Error(errMsg);
+    }
   }
 
   return {
-    message: token && targetChatId ? "Dispatched successfully to Telegram." : "Generated digest successfully.",
+    message: token && targetChatId ? "Dispatched successfully to Telegram." : "Generated digest successfully (No bot token configured).",
     formattedText: dispatchText,
   };
 }

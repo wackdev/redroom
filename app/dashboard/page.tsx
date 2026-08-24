@@ -18,7 +18,8 @@ import CadetRankBadge from "@/components/CadetRankBadge";
 import AuthGuard from "@/components/auth/AuthGuard";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
-const PLANS_STORAGE_KEY = "redroom_study_plans";
+const PLANS_STORAGE_KEY = "redroom_study_plan";
+const LEGACY_PLANS_STORAGE_KEY = "redroom_study_plans";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -69,7 +70,7 @@ export default function DashboardPage() {
           }
         }
 
-        const savedPlans = localStorage.getItem(PLANS_STORAGE_KEY);
+        const savedPlans = localStorage.getItem(PLANS_STORAGE_KEY) || localStorage.getItem(LEGACY_PLANS_STORAGE_KEY);
         if (savedPlans) {
           const parsedPlans = JSON.parse(savedPlans);
           if (parsedPlans && typeof parsedPlans === "object") {
@@ -420,7 +421,7 @@ export default function DashboardPage() {
             </div>
 
             <div
-              onClick={() => router.push("/chill-zone")}
+              onClick={() => router.push("/study-plan")}
               className="cursor-pointer rounded-2xl border border-white/10 bg-black/50 p-4 transition hover:border-emerald-400 hover:bg-black/80 space-y-1"
             >
               <span className="text-xl">⏳</span>

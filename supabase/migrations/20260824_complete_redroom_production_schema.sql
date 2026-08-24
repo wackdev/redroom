@@ -1,7 +1,6 @@
 -- ============================================================================
--- REDROOM / WHYNOTUPSC — COMPLETE PRODUCTION DATABASE SCHEMA
--- Platforms: Supabase PostgreSQL 15+ (Compatible with Vercel & GitHub Actions)
--- Instructions: Copy and paste this script directly into your Supabase SQL Editor.
+-- REDROOM / WHYNOTUPSC — COMPLETE PRODUCTION MIGRATION
+-- Migration Date: 2026-08-24
 -- ============================================================================
 
 -- ----------------------------------------------------------------------------
@@ -128,10 +127,10 @@ CREATE TABLE IF NOT EXISTS public.focus_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
   duration_minutes INT NOT NULL DEFAULT 25,
-  mode TEXT DEFAULT 'pomodoro', -- pomodoro, deep_work, sprint
+  mode TEXT DEFAULT 'pomodoro',
   subject TEXT,
-  soundscape TEXT DEFAULT 'gamma_focus', -- gamma_focus, lbsnaa_rain, old_library
-  focus_rating INT DEFAULT 5, -- 1 to 5
+  soundscape TEXT DEFAULT 'gamma_focus',
+  focus_rating INT DEFAULT 5,
   notes TEXT,
   completed_at TIMESTAMPTZ DEFAULT now(),
   created_at TIMESTAMPTZ DEFAULT now()
@@ -192,7 +191,7 @@ CREATE TABLE IF NOT EXISTS public.pyq_mistakes (
   topic TEXT NOT NULL,
   selected_option TEXT,
   correct_answer TEXT,
-  mistake_type TEXT NOT NULL, -- conceptual_error, factual_memory_loss, misread_question, extreme_word_trap, time_pressure, wild_guess
+  mistake_type TEXT NOT NULL,
   explanation TEXT,
   reviewed BOOLEAN DEFAULT false,
   created_at TIMESTAMPTZ DEFAULT now(),
@@ -205,7 +204,7 @@ CREATE TABLE IF NOT EXISTS public.pyq_mistakes (
 CREATE TABLE IF NOT EXISTS public.mains_pyqs (
   id TEXT PRIMARY KEY,
   year INT NOT NULL,
-  paper TEXT NOT NULL, -- GS-1, GS-2, GS-3, GS-4, Essay
+  paper TEXT NOT NULL,
   subject TEXT NOT NULL,
   topic TEXT NOT NULL,
   subtopic TEXT,
@@ -688,7 +687,3 @@ CREATE POLICY "Users can insert own profile" ON public.profiles FOR INSERT WITH 
 
 -- Clean up helper function
 DROP FUNCTION IF EXISTS create_user_isolation_policies(TEXT);
-
--- ============================================================================
--- SCHEMA SETUP COMPLETE
--- ============================================================================

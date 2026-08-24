@@ -4,7 +4,8 @@ import { ApiResponse } from "@/lib/core/types";
 export async function GET(
   request: NextRequest
 ): Promise<NextResponse<ApiResponse<{ botName?: string; username?: string; isOnline: boolean; configured: boolean }>>> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const rawToken = process.env.TELEGRAM_BOT_TOKEN;
+  const token = rawToken ? rawToken.replace(/^:+/, "").trim() : "";
 
   if (!token || token.includes("placeholder")) {
     return NextResponse.json({

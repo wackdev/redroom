@@ -1,7 +1,34 @@
 -- ============================================================================
--- REDROOM SEED DATA (PYQs, Foundational UPSC Datasets)
+-- REDROOM SEED DATA (PYQs, Chill Zone Games, Feature Flags)
 -- ============================================================================
 
+-- 1. SEED GAMES FOR CHILL ZONE
+INSERT INTO public.games (slug, name, description, scoring_direction, is_active)
+VALUES
+('word-rush', 'Word Rush', 'Speed vocabulary and UPSC terminology recall challenge.', 'DESCENDING', true),
+('quick-duel', 'Quick Duel', 'High-speed 1v1 multiplayer fact verification duel.', 'DESCENDING', true),
+('memory-vault', 'Memory Vault', 'Pattern recognition and article recall memory matrix.', 'DESCENDING', true),
+('focus-flow', 'Focus Flow', 'Zen focus and cognitive endurance rhythm test.', 'DESCENDING', true),
+('blink', 'Blink Visualizer', 'Visual reflex and micro-elimination reaction trainer.', 'ASCENDING', true),
+('react', 'Neural Reaction', 'Rapid cognitive split-second reflex evaluation.', 'ASCENDING', true)
+ON CONFLICT (slug) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  is_active = EXCLUDED.is_active;
+
+-- 2. SEED DEFAULT FEATURE FLAGS
+INSERT INTO public.feature_flags (id, key, name, description, is_enabled, is_beta, target_audience)
+VALUES
+('flag-ai-copilot', 'ai_copilot', 'AI Strategy Copilot', 'Enables deep-learning UPSC mentor and evaluation features.', true, false, 'ALL'),
+('flag-offline-sync', 'offline_sync', 'Dexie Offline Cloud Sync', 'Enables zero-latency offline database sync with auto-outbox.', true, false, 'ALL'),
+('flag-chill-zone', 'chill_zone', 'Chill Zone Arcade', 'Enables cognitive arcade and reflex games for cadets.', true, false, 'ALL'),
+('flag-mains-diagram', 'mains_diagram_studio', 'Mains Diagram Studio', 'Enables dynamic flowchart and map diagram generators.', true, false, 'ALL'),
+('flag-voice-briefs', 'voice_briefs', 'Daily Audio Briefs', 'Enables procedural WebAudio synthesis for daily news.', true, false, 'ALL')
+ON CONFLICT (key) DO UPDATE SET
+  is_enabled = EXCLUDED.is_enabled,
+  description = EXCLUDED.description;
+
+-- 3. SEED FOUNDATIONAL UPSC PRELIMS PYQs
 INSERT INTO public.pyqs (year, subject, topic, question, important, option_a, option_b, option_c, option_d, correct_answer, explanation, difficulty)
 VALUES
 (2023, 'Polity', 'Preamble', 'Which one of the following factors constitutes the best safeguard of liberty in a liberal democracy?', true, 'A committed judiciary', 'Centralization of powers', 'Elected government', 'Separation of powers', 'D', 'Separation of powers ensures checks and balances, preventing arbitrary exercise of power and thereby safeguarding liberty.', 'Medium'),
