@@ -30,6 +30,9 @@ import {
 } from "@/lib/sync/sync-engine";
 import VirtualStudyHall from "@/components/VirtualStudyHall";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
+import { dexieDb } from "@/lib/db/dexie";
 
 const STORAGE_KEY = "redroom_study_plan";
 
@@ -224,53 +227,8 @@ export default function StudyPlanPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#080510] text-white">
-        {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push("/dashboard")}
-                className="text-sm text-purple-300 transition hover:text-white"
-              >
-                ← Command Centre
-              </button>
-
-            <span className="text-white/20">|</span>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">📅</span>
-              <span className="font-bold tracking-tight">Adaptive Study Planner & Journal</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => void triggerManualSync()}
-              title="Click to sync data with cloud"
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
-                isSyncing
-                  ? "border-pink-500/40 bg-pink-500/10 text-pink-300 animate-pulse"
-                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <span>{isSyncing ? "🔄" : "☁️"}</span>
-              <span className="hidden sm:inline">
-                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
-              </span>
-            </button>
-            <button
-              onClick={() => router.push("/performance")}
-              className="hidden rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white sm:block"
-            >
-              📊 Weekly Reports
-            </button>
-            <button
-              onClick={handleAutoReschedule}
-              className="rounded-xl border border-purple-500/40 bg-purple-500/10 px-4 py-2 text-xs font-bold text-purple-200 transition hover:bg-purple-500/20"
-            >
-              🔄 Auto-Reschedule Missed
-            </button>
-          </div>
-        </div>
-      </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Adaptive Study Planner" moduleBadge="CADET SANCTUARY" />
 
       <div className="mx-auto max-w-7xl px-5 py-8">
         {/* VIEW MODE SWITCHER: PLANNER VS POMODORO FOCUS */}

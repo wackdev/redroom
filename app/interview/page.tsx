@@ -6,6 +6,7 @@ import { sound } from "@/lib/audio/sound-engine";
 import { idb, DB_STORES } from "@/lib/db/indexed-db";
 import DAFProfilerModal from "@/components/DAFProfilerModal";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
 
 interface DAFProfile {
 
@@ -324,57 +325,43 @@ Evaluate the candidate's last answer and ask a crisp, probing, highly intellectu
   return (
     <AuthGuard>
       <main className="relative flex min-h-screen w-full flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-        {/* TOP HEADER */}
-        <header className="sticky top-0 z-30 flex w-full flex-wrap items-center justify-between border-b border-white/10 bg-[#090909]/95 px-6 py-4 backdrop-blur-xl sm:px-10">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => {
-                sound.playHover();
-                router.push("/dashboard");
-              }}
-              className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono text-xs text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
-            >
-              ←
-            </button>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Interview & DAF Viva" moduleBadge="275 MARKS BOARD" />
 
-          <div>
-            <h1 className="font-mono text-xs sm:text-sm font-black tracking-widest text-white uppercase flex items-center gap-2">
-              <span>🎙️</span>
-              <span>UPSC PERSONALITY TEST & DAF VIVA SIMULATOR</span>
-            </h1>
-            <p className="text-[10px] font-mono text-[#8C8C8C]">
-              DHOLPUR HOUSE BOARD ROOM // VERBAL CROSS-EXAMINATION // 275 MARKS BENCHMARK
-            </p>
+        <div className="border-b border-white/10 bg-[#090909]/60 px-6 py-2.5 sm:px-10">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+            <span className="font-mono text-xs text-white/50">
+              DHOLPUR HOUSE BOARD ROOM // 275 MARKS BENCHMARK
+            </span>
+
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={() => {
+                  setShowDafStudio((p) => !p);
+                  sound.playHover();
+                }}
+                className={`rounded-xl border px-3 py-1 font-mono text-xs font-bold transition ${
+                  showDafStudio
+                    ? "border-pink-500 bg-pink-500 text-white shadow-lg"
+                    : "border-pink-500/40 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20"
+                }`}
+              >
+                <span>🎯</span>
+                <span>{showDafStudio ? "Hide DAF Profiler" : "DAF-II Cross-Examination Studio"}</span>
+              </button>
+
+              {interviewStarted && !scorecard && (
+                <button
+                  onClick={handleConcludeInterview}
+                  disabled={evaluating}
+                  className="rounded-xl border border-[#D8A63A] bg-gradient-to-r from-[#D8A63A] to-[#F4C95D] px-3.5 py-1 font-mono text-xs font-black text-black shadow-[0_0_20px_rgba(216,166,58,0.3)] hover:scale-105 transition"
+                >
+                  {evaluating ? "Evaluating..." : "Conclude Viva & View Scorecard →"}
+                </button>
+              )}
+            </div>
           </div>
         </div>
-
-        <div className="flex items-center gap-2.5">
-          <button
-            onClick={() => {
-              setShowDafStudio((p) => !p);
-              sound.playHover();
-            }}
-            className={`rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold transition ${
-              showDafStudio
-                ? "border-pink-500 bg-pink-500 text-white shadow-lg"
-                : "border-pink-500/40 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20"
-            }`}
-          >
-            <span>🎯</span>
-            <span>{showDafStudio ? "Hide DAF Profiler" : "DAF-II Cross-Examination Studio"}</span>
-          </button>
-
-          {interviewStarted && !scorecard && (
-            <button
-              onClick={handleConcludeInterview}
-              disabled={evaluating}
-              className="rounded-xl border border-[#D8A63A] bg-gradient-to-r from-[#D8A63A] to-[#F4C95D] px-4 py-1.5 font-mono text-xs font-black text-black shadow-[0_0_20px_rgba(216,166,58,0.3)] hover:scale-105 transition"
-            >
-              {evaluating ? "Evaluating Transcript..." : "Conclude Viva & View Scorecard →"}
-            </button>
-          )}
-        </div>
-      </header>
 
       {/* WORKSPACE */}
       <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-4 sm:p-8">

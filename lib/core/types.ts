@@ -528,3 +528,71 @@ export interface DailyIntelligence {
   overallSyllabusProgressPercent: number;
   recentTestAccuracy: number;
 }
+
+// ============================================================================
+// OPTIONAL SUBJECTS & ANSWER LAB DOMAIN
+// ============================================================================
+
+export interface OptionalSubjectRecord {
+  id: string;
+  name: string;
+  code: string;
+  isPopular: boolean;
+  strategyNotes: string;
+  paper1Syllabus?: Record<string, unknown>[];
+  paper2Syllabus?: Record<string, unknown>[];
+}
+
+export interface AnswerWritingSessionRecord {
+  id?: string;
+  userId: string;
+  questionText: string;
+  paper: string;
+  marks: number;
+  wordCount: number;
+  timeSpentSeconds: number;
+  wpm: number;
+  dimensionsCovered: string[];
+  rawAnswer: string;
+  createdAt?: string;
+}
+
+export interface NewspaperClipRecord {
+  id: string;
+  source: string;
+  title: string;
+  category: string;
+  gsPaper: string;
+  syllabusTopic: string;
+  summary: string;
+  prelimsPointers: string[];
+  mainsPoints: string[];
+  topperQuote?: string;
+  readTimeMinutes: number;
+  date: string;
+}
+
+export interface NationalLeaderboardCadet {
+  id: string;
+  rank: number;
+  cadetName: string;
+  cadetTitle: string;
+  optionalSubject: string;
+  targetYear: number;
+  totalXp: number;
+  streakDays: number;
+  pyqsSolved: number;
+  avgAccuracy: number;
+  avatarIcon: string;
+}
+
+export interface StudyRoomRecord {
+  id: string;
+  name: string;
+  slug: string;
+  roomType: string;
+  description: string;
+  currentCadetsCount: number;
+  ambientSound: string;
+  isActive: boolean;
+}

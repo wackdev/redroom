@@ -2,6 +2,7 @@
 
 import { dexieDb, SyncOutboxItem } from "../db/dexie";
 import { broadcastSyncChange, SyncEntityType } from "./sync-engine";
+import { UserSessionManager } from "../core/user-context";
 
 export interface SyncDispatcherConfig {
   maxBatchSize: number;
@@ -131,17 +132,31 @@ class SyncDispatcher {
         updatedAt: new Date().toISOString(),
       });
 
+      // Get active cadet identity
+      const activeUser = UserSessionManager.getActiveUser();
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (activeUser?.id) {
+        headers["x-cadet-id"] = activeUser.id;
+      }
+      if (activeUser?.email) {
+        headers["x-cadet-email"] = activeUser.email;
+      }
+
       // Send to /api/sync endpoint
       const response = await fetch("/api/sync", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
+          userId: activeUser?.id,
           batch: pendingItems.map((item) => ({
             id: item.id,
             entityType: item.entityType,
             action: item.action,
             entityId: item.entityId,
-            payload: item.payload,
+            payload: {
+              ...item.payload,
+              userId: activeUser?.id || (item.payload as any)?.userId,
+            },
             createdAt: item.createdAt,
           })),
         }),

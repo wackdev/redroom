@@ -86,7 +86,7 @@ export async function POST(
     const supabase = getEdgeSupabaseClient(request);
     let processedCount = 0;
 
-    if (userId !== "local-user") {
+    if (userId && userId !== "local-user") {
       // ----------------------------------------------------------------------
       // 1. PROCESS DEXIE OUTBOX BATCH
       // ----------------------------------------------------------------------
@@ -100,11 +100,84 @@ export async function POST(
       for (const task of tasksToProcess) {
         try {
           const table = task.entityType;
-          const payload = {
+          let payload: Record<string, unknown> = {
             ...task.payload,
             user_id: userId,
             updated_at: new Date().toISOString(),
           };
+
+          // Transform specific entity types to match Supabase database columns
+          if (table === "test_results") {
+            const raw = task.payload as any;
+            const attempted = Number(raw.attempted) || ((Number(raw.correct) || 0) + (Number(raw.wrong || raw.incorrect) || 0));
+            const correct = Number(raw.correct) || 0;
+            const total = Number(raw.total) || Number(raw.maxScore) || (attempted > 0 ? attempted : 100);
+            const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+            payload = {
+              id: String(raw.id || `test_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`),
+              user_id: userId,
+              title: raw.title || "UPSC Module Test",
+              subject: raw.subject || "General Studies",
+              score: Number(raw.score) || 0,
+              total,
+              correct,
+              incorrect: Number(raw.wrong ?? raw.incorrect ?? 0),
+              unattempted: Number(raw.skipped ?? raw.unattempted ?? 0),
+              accuracy,
+              time_spent_seconds: Number(raw.timeSpentSeconds) || 0,
+              paper: raw.paper || "GS-1",
+              date: raw.date || new Date().toISOString(),
+              answers: raw.userAnswers || raw.answers || {},
+              created_at: raw.createdAt || new Date().toISOString(),
+            };
+          } else if (table === "study_plans") {
+            const raw = task.payload as any;
+            payload = {
+              user_id: userId,
+              plan_date: raw.planDate || raw.date,
+              target_hours: Number(raw.targetHours) || 6.0,
+              notes: raw.notes || null,
+              updated_at: new Date().toISOString(),
+            };
+          } else if (table === "study_tasks") {
+            const raw = task.payload as any;
+            payload = {
+              id: String(raw.id || `task_${Date.now()}`),
+              user_id: userId,
+              plan_date: raw.planDate || raw.date || new Date().toISOString().split("T")[0],
+              subject: raw.subject || "General Studies",
+              title: raw.title || "Study Task",
+              description: raw.description || "",
+              hours: Number(raw.hours) || 1.0,
+              completed: Boolean(raw.completed),
+              task_type: raw.taskType || "Study",
+              priority: raw.priority || "Medium",
+              updated_at: new Date().toISOString(),
+            };
+          } else if (table === "notes") {
+            const raw = task.payload as any;
+            payload = {
+              id: String(raw.id || `note_${Date.now()}`),
+              user_id: userId,
+              subject: raw.subject || "General Studies",
+              topic: raw.topic || raw.title || "Untitled Topic",
+              title: raw.title || "Untitled Note",
+              content: raw.content || "",
+              is_ai_generated: Boolean(raw.isAiGenerated),
+              tags: safeArray(raw.tags || [raw.subject || "General Studies"]),
+              updated_at: new Date().toISOString(),
+            };
+          } else if (table === "pyq_progress") {
+            const raw = task.payload as any;
+            payload = {
+              user_id: userId,
+              pyq_id: Number(raw.pyqId || raw.id) || 1,
+              completed: Boolean(raw.completed ?? true),
+              is_correct: raw.isCorrect !== undefined ? Boolean(raw.isCorrect) : null,
+              updated_at: new Date().toISOString(),
+            };
+          }
 
           if (task.action === "DELETE") {
             await supabase
@@ -143,6 +216,7 @@ export async function POST(
         try {
           for (const n of body.notes) {
             await supabase.from("notes").upsert({
+              id: n.id,
               user_id: userId,
               subject: n.subject,
               topic: n.topic || n.title,
@@ -159,18 +233,55 @@ export async function POST(
       if (Array.isArray(body.testResults)) {
         try {
           for (const t of body.testResults) {
+            const attempted = Number(t.attempted) || ((Number(t.correct) || 0) + (Number(t.wrong) || 0));
+            const correct = Number(t.correct) || 0;
+            const total = Number(t.total) || (attempted > 0 ? attempted : 100);
+            const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
             await supabase.from("test_results").upsert({
+              id: String(t.id || `test_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`),
               user_id: userId,
-              title: t.title,
-              score: t.score,
-              correct: t.correct,
-              wrong: t.wrong,
-              skipped: t.skipped,
-              attempted: t.attempted,
-              total: t.total,
-              date: t.date,
+              title: t.title || "UPSC Module Test",
+              score: Number(t.score) || 0,
+              total,
+              correct,
+              incorrect: Number(t.wrong ?? 0),
+              unattempted: Number(t.skipped ?? 0),
+              accuracy,
+              date: t.date || new Date().toISOString(),
               subject: t.subject || "General Studies",
+              answers: (t as any).userAnswers || (t as any).answers || {},
+              created_at: new Date().toISOString(),
             });
+          }
+        } catch {}
+      }
+
+      if (Array.isArray(body.syllabusProgress)) {
+        try {
+          for (const topicId of body.syllabusProgress) {
+            await supabase.from("syllabus_progress").upsert({
+              user_id: userId,
+              topic_id: String(topicId),
+              completed: true,
+              updated_at: new Date().toISOString(),
+            });
+          }
+        } catch {}
+      }
+
+      if (Array.isArray(body.pyqProgress)) {
+        try {
+          for (const pyqId of body.pyqProgress) {
+            const numId = Number(pyqId);
+            if (!isNaN(numId)) {
+              await supabase.from("user_pyq_progress").upsert({
+                user_id: userId,
+                pyq_id: numId,
+                completed: true,
+                updated_at: new Date().toISOString(),
+              });
+            }
           }
         } catch {}
       }

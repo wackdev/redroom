@@ -39,13 +39,29 @@
       ],
       "diagramOrFlowchart": "Structural Synthesis: Raya Gopuram (Dravida) + Yali Pillars (Hoysala) + Multi-Cusped Arches/Domes (Indo-Islamic Lotus Mahal)",
       "mapDiagram": "Deccan Architectural Axis:\n[Tungabhadra River Basin - Hampi]\n  ├── Sacred Centre (Virupaksha, Vittala - Dravidian Gopurams)\n  └── Royal Centre (Lotus Mahal, Elephant Stables - Indo-Islamic Arches)",
-      "caseLawsOrArticlesOrCommittees": ["Hampi UNESCO World Heritage Site", "Percy Brown's Indian Architecture", "George Michell's Architecture of Vijayanagara"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Hampi UNESCO World Heritage Site",
+        "Percy Brown's Indian Architecture",
+        "George Michell's Architecture of Vijayanagara"
+      ],
       "fullModelAnswer": "Vijayanagara architecture (14th–16th century CE) developed in the Tungabhadra basin as a magnificent synthesis of classical Dravidian temple idioms and Deccan Indo-Islamic courtly styles, creating a unique imperial aesthetic known as the Provida style.\n\n1. Projection of Power through Dravidian Grandeur:\n• Raya Gopurams: Towering entrance gateways (e.g., Virupaksha and Vittala temples) were built at monumental scales to announce imperial presence across vast territories.\n• Monolithic Yali Pillars: Elaborately carved pillars depicting mythical horse-riders (Yalis) symbolized imperial military dominance and chivalry.\n• Kalyana Mandapams: Intricately sculpted marriage pavilions with musical pillars reflected royal patronage of temple ritualism and economic prosperity.\n\n2. Synthesis with Indo-Islamic Elements in Secular Complexes:\n• Lotus Mahal: Features multi-cusped Islamic arches, squinches, and vaulted ribbed ceilings harmonized with traditional tiered Hindu shikhara outlines.\n• Elephant Stables: A row of eleven domed chambers utilizing Deccan Sultanate pointed arches and hemispherical domes to house royal war elephants.\n• Queen’s Bath: Employs ornate stucco plasterwork, corbelled brackets, and arched corridors reflecting Sultanate hydraulic design.\n\n3. Political Symbolism of 'Hindu Raya Suratrana':\nVijayanagara monarchs adopted the title 'Sultan among Hindu Kings', strategically using Indo-Islamic courtly architecture to demonstrate cosmopolitan power while anchoring their legitimacy in the revitalization of Dravidian temple traditions.\n\nConclusion:\nVijayanagara architecture was not an accidental hybrid but a deliberate visual vocabulary of sovereignty. By fusing Dravidian spiritual grandeur with Indo-Islamic engineering, the empire projected itself as an impregnable, cosmopolitan superpower in medieval South India.",
       "conclusion": "Vijayanagara architecture was not mere aesthetic syncretism, but a deliberate visual vocabulary asserting imperial legitimacy, military strength, and cross-cultural sovereignty.",
-      "keywords": ["Raya Gopurams", "Kalyana Mandapam", "Yali Pillars", "Hindu Raya Suratrana", "Indo-Islamic Synthesis", "Lotus Mahal", "Provida Style"]
+      "keywords": [
+        "Raya Gopurams",
+        "Kalyana Mandapam",
+        "Yali Pillars",
+        "Hindu Raya Suratrana",
+        "Indo-Islamic Synthesis",
+        "Lotus Mahal",
+        "Provida Style"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Temple Architecture", "Vijayanagara Empire", "Indo-Islamic Art"]
+    "syllabusTags": [
+      "Temple Architecture",
+      "Vijayanagara Empire",
+      "Indo-Islamic Art"
+    ]
   },
   {
     "id": "UPSC-MAINS-2025-GS1-02",
@@ -83,13 +99,30 @@
       ],
       "diagramOrFlowchart": "Thermal Dome: Rural Ambient T (Low) -> Suburban Gradient -> Megacity Core Peak (Albedo Loss + AC Waste Heat) -> UHI Dome",
       "mapDiagram": "Tropical Megacity UHI Heat Map:\n[Urban Core: Concrete / High Density (38°C)]\n  ├── Commercial / High-Rise Zone (36°C)\n  ├── Informal Settlements / Tin Roofs (39°C - High Vulnerability)\n  └── Blue-Green Buffer Zone / Lakes & Parks (31°C - Mitigation Sinks)",
-      "caseLawsOrArticlesOrCommittees": ["IPCC AR6 Working Group II on Urban Climate Vulnerability", "Ahmedabad Heat Action Plan (HAP)", "National Urban Policy Framework"],
+      "caseLawsOrArticlesOrCommittees": [
+        "IPCC AR6 Working Group II on Urban Climate Vulnerability",
+        "Ahmedabad Heat Action Plan (HAP)",
+        "National Urban Policy Framework"
+      ],
       "fullModelAnswer": "The Urban Heat Island (UHI) phenomenon—where metropolitan cores experience 2°C to 8°C higher temperatures than surrounding peri-urban zones—has emerged as a major climate risk in tropical megacities like Delhi, Mumbai, and Chennai.\n\n1. Multidimensional Impacts:\n• Public Health & Morbidity: Prolonged nocturnal heat traps prevent physiological cooling, leading to heat exhaustion, cardiovascular distress, and rising mortality among outdoor laborers and the elderly.\n• Energy Burden & Emissions: Soaring demand for mechanical space cooling spikes peak electricity load, causing grid instability and escalating greenhouse gas emissions from fossil-fuel peaker plants.\n• Microclimatic & Hydrological Disruption: Intense localized surface heating triggers severe convective updrafts, aggravating urban cloudbursts while impervious paved surfaces worsen flash flooding.\n• Environmental Injustice: Slum dwellers under tin/asbestos roofs face extreme indoor heat traps with zero cooling access, exacerbating socio-economic divides.\n\n2. Climate-Resilient Urban Planning Strategies:\n• High-Albedo & Cool Roof Mandates: Mandatory installation of solar-reflective tiles and coatings, scaling models like the Ahmedabad Cool Roofs Initiative.\n• Blue-Green Infrastructure (BGI): Integrating urban sponge-city concepts—reviving historical stepwells/lakes (e.g., Mission Amrit Sarovar), establishing Miyawaki forests, and permeable pavements.\n• Urban Wind Corridors & Spatial Geometry: Regulating Floor Space Index (FSI) to create unblocked breezeways that facilitate natural convective ventilation.\n• Green Building Standards: Stringent enforcement of the Energy Conservation Building Code (ECBC) and mandating cool rooftop gardens on commercial high-rises.\n\nConclusion:\nMitigating UHI requires transforming cities from concrete heat traps into living ecological sponges. Mainstreaming Nature-Based Solutions into Master Plans is essential for climate-resilient urban futures.",
       "conclusion": "Combating UHI requires moving from reactive heat warnings to proactive spatial design, integrating nature-based solutions into the Master Plans of 21st-century Indian cities.",
-      "keywords": ["Urban Heat Island", "Cool Roofs", "Blue-Green Infrastructure", "Albedo", "Sponge Cities", "Miyawaki Forests", "ECBC"]
+      "keywords": [
+        "Urban Heat Island",
+        "Cool Roofs",
+        "Blue-Green Infrastructure",
+        "Albedo",
+        "Sponge Cities",
+        "Miyawaki Forests",
+        "ECBC"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Urban Heat Island", "Urbanization", "Climate Resilience", "Geography"]
+    "syllabusTags": [
+      "Urban Heat Island",
+      "Urbanization",
+      "Climate Resilience",
+      "Geography"
+    ]
   },
   {
     "id": "UPSC-MAINS-2024-GS1-01",
@@ -118,13 +151,28 @@
       ],
       "diagramOrFlowchart": "Linguistic Flow: Sanskrit Hegemony -> Bhakti Saint Vernacularization -> Institutionalization of Modern Indian Regional Literatures",
       "mapDiagram": "Bhakti Vernacular Map of India:\n• North: Tulsidas & Kabir (Awadhi / Braj)\n• East: Sankardeva (Assamese/Brajavali) & Chaitanya (Bengali)\n• West: Tukaram & Dnyaneshwar (Marathi), Narsi Mehta (Gujarati)\n• South: Basaveshwara (Kannada Vachanas), Purandara Dasa (Kannada)",
-      "caseLawsOrArticlesOrCommittees": ["K.M. Panikkar's A Survey of Indian History", "Sahitya Akademi Regional Studies"],
+      "caseLawsOrArticlesOrCommittees": [
+        "K.M. Panikkar's A Survey of Indian History",
+        "Sahitya Akademi Regional Studies"
+      ],
       "fullModelAnswer": "The Bhakti movement (8th–17th century CE) was a socio-religious revolution that democratized Indian literature by breaking the hegemony of classical Sanskrit and adopting regional spoken dialects (Deshi Bhashas).\n\nKey Regional Contributions:\n1. Northern India (Awadhi & Braj Bhasha):\n• Tulsidas composed 'Ramcharitmanas' in Awadhi, making epics accessible to ordinary citizens.\n• Kabir used colloquial 'Sadhukkadi' (blend of Hindi, Punjabi, Bhojpuri) to challenge orthodoxy, while Surdas and Mirabai enriched Braj Bhasha through devotional pads.\n\n2. Western India (Marathi & Gujarati):\n• Sant Dnyaneshwar translated the Bhagavad Gita into Marathi ('Dnyaneshwari').\n• Sant Tukaram's 'Abhangas' mobilized the masses, while Narsi Mehta laid the foundation of Gujarati literature through devotional poetry.\n\n3. Eastern India (Bengali, Odia, Assamese):\n• Srimanta Sankardeva developed the Brajavali language in Assam, composing 'Borgeets' and 'Ankiya Naats'.\n• Chaitanya Mahaprabhu’s Gaudiya movement sparked a golden age of lyrical Bengali literature (Padavali Sahitya).\n\n4. Southern India (Kannada & Telugu):\n• The Haridasa movement (Purandara Dasa, Kanaka Dasa) enriched Kannada with simple devotional keertanas, while Annamacharya composed thousands of Telugu sankeertanas.\n\nConclusion:\nBy expressing profound philosophical truths in the language of the common person, Bhakti poets transformed regional dialects into robust literary languages, fostering shared cultural identities across India.",
       "conclusion": "Bhakti saints acted as linguistic bridge-builders, embedding egalitarian spiritual values into vernacular poetry and laying the bedrock of modern Indian regional literary identities.",
-      "keywords": ["Bhasha Literature", "Awadhi", "Ramcharitmanas", "Abhangas", "Borgeets", "Dnyaneshwari", "Vernacular Democratization"]
+      "keywords": [
+        "Bhasha Literature",
+        "Awadhi",
+        "Ramcharitmanas",
+        "Abhangas",
+        "Borgeets",
+        "Dnyaneshwari",
+        "Vernacular Democratization"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Bhakti Movement", "Vernacular Literature", "Medieval History"]
+    "syllabusTags": [
+      "Bhakti Movement",
+      "Vernacular Literature",
+      "Medieval History"
+    ]
   },
   {
     "id": "UPSC-MAINS-2024-GS1-02",
@@ -166,13 +214,30 @@
       ],
       "diagramOrFlowchart": "Tribal Struggle Cycle: Colonial Forest Acts + Diku Encroachment -> Customary Dispossession -> Messianic Leadership -> Armed Ulgulan / Hool -> Tenancy Acts (Protective Enclaves)",
       "mapDiagram": "Epicenters of Major Tribal Rebellions:\n• Santhal Parganas / Rajmahal Hills (Santhal Hool 1855)\n• Chotanagpur Plateau (Munda Ulgulan 1899, Kol Uprising 1831)\n• Bastar Region (Bhumkal Rebellion 1910)\n• Rampa / Godavari Hills (Alluri Sitarama Raju 1922)\n• Northeast / Khasi Hills (Tirot Sing 1829)",
-      "caseLawsOrArticlesOrCommittees": ["Chotanagpur Tenancy Act (1908)", "Santhal Parganas Tenancy Act (1876)", "Verrier Elwin Committee on Tribals"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Chotanagpur Tenancy Act (1908)",
+        "Santhal Parganas Tenancy Act (1876)",
+        "Verrier Elwin Committee on Tribals"
+      ],
       "fullModelAnswer": "Tribal uprisings during the 18th and 19th centuries were not localized, reactive disturbances; they represented profound counter-hegemonic struggles to preserve indigenous self-rule, socio-economic independence, and ancestral customary rights over 'Jal, Jangal, Jameen'.\n\n1. Roots of Resistance: Structural Colonial Alienation:\n• Erosion of Customary Forest Access: The Indian Forest Acts of 1865 and 1878 transformed forests into state property, criminalizing shifting cultivation, grazing, and timber collection.\n• Exploitation by 'Dikus': British revenue systems introduced non-tribal landlords and usurious moneylenders who usurped tribal communal lands through fraudulent debt traps.\n• Breakdown of Traditional Systems: Colonial courts replaced communal land ownership (such as the Munda 'Khuntkatti' system) with individualized tenancy.\n\n2. Assertions of Sovereignty and Self-Determination:\n• Santhal Hool (1855–56): Sidhu and Kanhu mobilized over 60,000 Santhals, declared an end to British rule, established parallel administration, and demanded total sovereignty between Bhagalpur and Rajmahal.\n• Birsa Munda’s Ulgulan (1899–1900): Birsa invoked divine authority to proclaim 'Munda Raj', urging tribes to withhold rent, expel British officials, and restore traditional agrarian autonomy.\n• Rampa Rebellion (1922–24): Led by Alluri Sitarama Raju, the Koyas utilized guerrilla warfare against the oppressive Madras Forest Act, defending their ancestral podu cultivation.\n\n3. Institutional Legacies:\nThese rebellions forced the colonial state to recognize tribal distinctiveness, leading to special protective laws like the Santhal Parganas Tenancy Act (1876) and Chotanagpur Tenancy Act (1908).\n\nConclusion:\nTribal movements were early expressions of anti-colonial sovereignty. Their legacy directly informed constitutional safeguards in the Fifth and Sixth Schedules and the Forest Rights Act (FRA, 2006).",
       "conclusion": "Tribal struggles represented the fiercest grassroots anti-imperial resistance, pioneering the constitutional philosophy later enshrined in the Fifth and Sixth Schedules and FRA 2006.",
-      "keywords": ["Customary Rights", "Dikus", "Khuntkatti", "Ulgulan", "Santhal Hool", "Birsa Munda", "Jal Jangal Jameen"]
+      "keywords": [
+        "Customary Rights",
+        "Dikus",
+        "Khuntkatti",
+        "Ulgulan",
+        "Santhal Hool",
+        "Birsa Munda",
+        "Jal Jangal Jameen"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Tribal Movements", "Birsa Munda", "Freedom Struggle", "Modern Indian History"]
+    "syllabusTags": [
+      "Tribal Movements",
+      "Birsa Munda",
+      "Freedom Struggle",
+      "Modern Indian History"
+    ]
   },
   {
     "id": "UPSC-MAINS-2023-GS1-01",
@@ -200,13 +265,27 @@
       ],
       "diagramOrFlowchart": "Geographical Conduit: Indus Basin (Harappa) -> Ganga Basin (Magadha/Mauryas) -> Kaveri Delta (Chola Thalassocracy)",
       "mapDiagram": "Ancient Riverine Civilizational Hubs:\n• Indus-Saraswati: Harappa, Mohenjodaro, Lothal\n• Ganga-Yamuna Doab: Pataliputra, Varanasi, Ujjain (Malwa)\n• Kaveri-Krishna Basins: Thanjavur, Kanchipuram, Amaravati",
-      "caseLawsOrArticlesOrCommittees": ["D.D. Kosambi's Historical Framework", "R.S. Sharma's Material Culture in Ancient India"],
+      "caseLawsOrArticlesOrCommittees": [
+        "D.D. Kosambi's Historical Framework",
+        "R.S. Sharma's Material Culture in Ancient India"
+      ],
       "fullModelAnswer": "Geography and perennial river systems formed the foundational matrix of ancient Indian civilization, dictating demographic settlement patterns, agrarian productivity, and state formation.\n\n1. Indus-Saraswati System & First Urbanization:\nThe fertile floodplains of the Indus and its tributaries sustained the Bronze Age Harappan civilization. Annual silt deposits supported double-cropping (wheat/barley), while riverine routes enabled trade with Mesopotamia via coastal ports like Lothal.\n\n2. Ganga-Yamuna Doab & Second Urbanization:\n• From 6th century BCE, the clearing of dense Gangetic forests using iron technology unleashed immense agricultural surplus.\n• The strategic location of Pataliputra at the confluence of Ganga, Son, and Gandak provided natural riverine defense and control over eastern trade routes (Uttarapath), enabling the rise of Magadha, Mauryan, and Gupta empires.\n\n3. Peninsular Valleys & Maritime States:\n• The fertile Kaveri delta served as the agrarian engine of the Chola Kingdom, financing monumental temple architecture and maritime expeditions to Southeast Asia.\n• Krishna-Godavari basins supported early Andhra urbanism under the Satavahanas (Amaravati).\n\nConclusion:\nFrom Harappan brick cities to Gangetic Mahajanapadas and Chola ports, river systems transformed geographic advantages into enduring civilizational milestones.",
       "conclusion": "From the Sapta Sindhu hymns of Rigveda to Kaveri Delta irrigation networks, river systems shaped not only economic survival but the philosophical and political landscape of Bharatvarsha.",
-      "keywords": ["Ganga-Yamuna Doab", "Second Urbanization", "Pataliputra", "Sapta Sindhu", "Kaveri Basin", "Agrarian Surplus"]
+      "keywords": [
+        "Ganga-Yamuna Doab",
+        "Second Urbanization",
+        "Pataliputra",
+        "Sapta Sindhu",
+        "Kaveri Basin",
+        "Agrarian Surplus"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Ancient Indian History", "Geography", "Civilizational Development"]
+    "syllabusTags": [
+      "Ancient Indian History",
+      "Geography",
+      "Civilizational Development"
+    ]
   },
   {
     "id": "UPSC-MAINS-2023-GS1-02",
@@ -239,13 +318,29 @@
           ]
         }
       ],
-      "caseLawsOrArticlesOrCommittees": ["M.N. Srinivas on Dominant Caste", "B.R. Ambedkar's Annihilation of Caste", "Ghanshyam Shah on Caste & Democratic Politics"],
+      "caseLawsOrArticlesOrCommittees": [
+        "M.N. Srinivas on Dominant Caste",
+        "B.R. Ambedkar's Annihilation of Caste",
+        "Ghanshyam Shah on Caste & Democratic Politics"
+      ],
       "fullModelAnswer": "Caste in contemporary India has undergone a profound transformation. Rather than disappearing under the forces of urbanization and digitization, it has mutated from a rigid ritual hierarchy into a dynamic vehicle for socio-political mobilization and identity assertion.\n\n1. Areas of Dilution and Secularization:\n• Erosion of Ritual Pollution: The anonymity of metropolitan life, shared public transport, food delivery platforms, and corporate workplaces has substantially dismantled traditional commensality and purity-pollution taboos.\n• Economic Mobility & Entrepreneurship: Affirmative action and initiatives like Dalit Indian Chamber of Commerce and Industry (DICCI) have helped marginalized groups build independent economic footprints.\n\n2. Redefinition and Digital Consolidation:\n• Digital Caste Enclaves: Social media, caste-based matrimonial portals, and WhatsApp networks have created digital kinship networks, facilitating endogamy and reinforcing caste solidarity across geographies.\n• Political Mobilization: Caste serves as a potent vehicle for democratic bargaining. Dominant agricultural communities (e.g., Patidars, Marathas, Jats) utilize digital platforms to coordinate mass agitations for quota benefits.\n• Urban Spatial Segregation: Studies show that rental housing markets in tier-1 cities continue to witness caste-based discrimination, showing persistent informal exclusion.\n\nConclusion:\nCaste has adapted to modernity by trading ritual orthodoxy for political and digital capital. True annihilation of caste requires not just economic growth, but conscious social integration through inter-caste alliances, educational reform, and egalitarian civic spaces.",
       "conclusion": "Caste has transformed from a rigid ritual hierarchy into a flexible modern interest group; the annihilation of caste requires structural inter-caste social integration and equitable wealth distribution.",
-      "keywords": ["Caste Sublimation", "Dalit Capitalism", "Endogamy", "Ritual Pollution", "Dominant Caste", "Spatial Segregation"]
+      "keywords": [
+        "Caste Sublimation",
+        "Dalit Capitalism",
+        "Endogamy",
+        "Ritual Pollution",
+        "Dominant Caste",
+        "Spatial Segregation"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Caste System", "Urbanization", "Indian Society", "Social Empowerment"]
+    "syllabusTags": [
+      "Caste System",
+      "Urbanization",
+      "Indian Society",
+      "Social Empowerment"
+    ]
   },
   {
     "id": "UPSC-MAINS-2022-GS1-01",
@@ -273,13 +368,28 @@
       ],
       "diagramOrFlowchart": "Nataraja Stencil: Damru (Creation) -> Agni (Destruction) -> Abhaya Mudra (Protection) -> Apasmara Purusha (Ignorance Crushed) -> Ring of Fire (Cosmic Rhythm)",
       "mapDiagram": "Chola Bronze Casting Hubs (Tamil Nadu):\n• Thanjavur (Brihadeeswara Temple Foundry)\n• Swamimalai (Traditional Sthapati Workshops)\n• Kumbakonam & Nagapattinam (Buddhist Bronze Hubs)",
-      "caseLawsOrArticlesOrCommittees": ["Ananda Coomaraswamy's The Dance of Shiva", "Brihadeeswara UNESCO Inscriptions"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Ananda Coomaraswamy's The Dance of Shiva",
+        "Brihadeeswara UNESCO Inscriptions"
+      ],
       "fullModelAnswer": "Chola bronzes of South India (9th–13th century CE) represent an incomparable high point in world sculpture, celebrated for their metallurgical perfection and spiritual dynamism.\n\n1. Technological Mastery (Cire Perdue):\nUsing the ancient Lost-Wax (Cire Perdue) technique with Panchaloha (five-metal alloy), Chola sculptors (Sthapatis) created solid cast bronzes characterized by seamless anatomical flow, delicate jewelry, and rhythmic drapery.\n\n2. The Masterpiece: Nataraja (Shiva as Cosmic Dancer):\n• Upper Right Hand: Holds the Damru (drum), symbolizing creation (Srishti).\n• Upper Left Hand: Holds the flame of fire (Agni), symbolizing cosmic dissolution (Samhara).\n• Lower Right Hand: Raised in Abhaya Mudra, signifying divine reassurance and protection (Sthiti).\n• Right Foot: Tramples the demon Apasmara Purusha, symbolizing the victory over spiritual ignorance.\n• Surrounding Halo (Prabhamandala): Represents the cosmic cycle of time and nature.\n\n3. Humanized Aesthetics:\nSculptures of Parvati, Somaskanda, and royal patrons exhibit the elegant Tribhanga (triple-bend) posture, combining divine majesty with human warmth.\n\nConclusion:\nPraised by Auguste Rodin for their rhythmic balance, Chola bronzes transformed hard alloy into timeless metaphors of cosmic order and aesthetic sublimity.",
       "conclusion": "Chola bronzes transcended ritual idols to become timeless cosmic metaphors, praised by Auguste Rodin as the most profound artistic representations of cosmic balance in human history.",
-      "keywords": ["Cire Perdue", "Nataraja", "Ananda Tandava", "Panchaloha", "Tribhanga", "Apasmara", "Chola Bronzes"]
+      "keywords": [
+        "Cire Perdue",
+        "Nataraja",
+        "Ananda Tandava",
+        "Panchaloha",
+        "Tribhanga",
+        "Apasmara",
+        "Chola Bronzes"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Chola Art", "Bronze Sculpture", "Art and Culture"]
+    "syllabusTags": [
+      "Chola Art",
+      "Bronze Sculpture",
+      "Art and Culture"
+    ]
   },
   {
     "id": "UPSC-MAINS-2021-GS1-01",
@@ -314,13 +424,28 @@
       ],
       "diagramOrFlowchart": "Subduction Zone Diagram: Oceanic Pacific Plate -> Deep Trench -> Wadati-Benioff Zone (Quakes) -> Magma Chamber -> Volcanic Arc",
       "mapDiagram": "Circum-Pacific Ring of Fire Map:\n[West Coast of Americas: Cascades, Andes]\n  └── Convergent Trench Subduction Zone\n[East Asian Rim: Aleutians, Japan Trench, Marianas, Philippines, New Zealand]\n  └── Island Arc Volcanism & Deep Wadati-Benioff Earthquakes",
-      "caseLawsOrArticlesOrCommittees": ["Sendai Framework for Disaster Risk Reduction", "USGS Pacific Geodynamic Models"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Sendai Framework for Disaster Risk Reduction",
+        "USGS Pacific Geodynamic Models"
+      ],
       "fullModelAnswer": "The Circum-Pacific Belt, or the 'Ring of Fire', is the most seismically and volcanically active zone on Earth, shaped by convergent and transform plate boundaries around the Pacific Plate.\n\n1. Differentiating Causes:\n• Earthquakes (Tectonic Stress Release):\n- Subduction Megathrusts: As dense oceanic plates (e.g., Pacific, Nazca) subduct beneath continental plates (e.g., South American, Eurasian), friction locks the boundary until immense elastic strain suddenly releases along the inclined Wadati-Benioff zone.\n- Transform Faulting: Lateral sliding along conservative margins, such as California’s San Andreas Fault, generates destructive shallow-focus earthquakes.\n• Volcanic Eruptions (Hydrous Flux Melting):\n- As the hydrated oceanic slab sinks into the asthenosphere, trapped water is released into the overlying mantle wedge.\n- This fluid lowers the rock's melting temperature (flux melting), generating silica-rich, viscous andesitic magma that causes explosive eruptions (e.g., Mt. Merapi, Mt. Pinatubo).\n\n2. Socioeconomic Implications:\n• Hazards to Global Supply Chains: Underwater megathrust quakes trigger trans-oceanic tsunamis (e.g., Tohoku 2011), causing critical disruptions in global microchip manufacturing and maritime shipping.\n• Agrarian Benefits vs Disaster Vulnerability: Volcanic ash decomposes into fertile Andisol soils, driving dense agrarian settlements in Indonesia and Japan despite high volcanic risk.\n• Clean Geothermal Power: High geothermal gradients are harnessed for renewable energy in the Philippines, New Zealand, and Iceland.\n\nConclusion:\nManaging risks along the Ring of Fire requires robust tsunami early warning systems, seismic building codes, and international disaster risk governance under the Sendai Framework.",
       "conclusion": "The Ring of Fire highlights the imperative of seismic-resilient architecture, early warning tsunami telemetry, and international disaster response cooperation under the Sendai Framework.",
-      "keywords": ["Circum-Pacific Belt", "Flux Melting", "Subduction Zones", "Wadati-Benioff Zone", "Sendai Framework", "Tohoku 2011"]
+      "keywords": [
+        "Circum-Pacific Belt",
+        "Flux Melting",
+        "Subduction Zones",
+        "Wadati-Benioff Zone",
+        "Sendai Framework",
+        "Tohoku 2011"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Geomorphology", "Earthquakes", "Volcanoes", "Physical Geography"]
+    "syllabusTags": [
+      "Geomorphology",
+      "Earthquakes",
+      "Volcanoes",
+      "Physical Geography"
+    ]
   },
   {
     "id": "UPSC-MAINS-2020-GS1-01",
@@ -348,12 +473,69 @@
       ],
       "diagramOrFlowchart": "Chronology: Mauryan Barabar (Polished Granitic Caves) -> Satavahana/Vakataka Ajanta (Chaityas/Viharas) -> Rashtrakuta Ellora (Monolithic Kailasa)",
       "mapDiagram": "Key Rock-Cut Architectural Sites in India:\n• Bihar: Barabar & Nagarjuni Caves (Mauryan / Ajivika)\n• Maharashtra: Ajanta, Ellora, Karle, Bhaja, Kanheri (Buddhist/Brahmanical/Jain)\n• Tamil Nadu: Mahabalipuram Pancha Rathas & Mandapas (Pallava)\n• Odisha: Udayagiri and Khandagiri Caves (Chedi Dynasty / Jain)",
-      "caseLawsOrArticlesOrCommittees": ["Archaeological Survey of India (ASI) Reports", "Percy Brown's Indian Architecture"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Archaeological Survey of India (ASI) Reports",
+        "Percy Brown's Indian Architecture"
+      ],
       "fullModelAnswer": "Rock-cut architecture in India represents an enduring historical archive, documenting religious evolutions, architectural engineering, and royal patronage over two millennia.\n\n1. Mauryan Beginnings & Pluralism:\nThe Barabar Caves (e.g., Lomas Rishi) constructed under Ashoka for the Ajivika sect exhibit mirror-like Mauryan polish, imitating timber barrel-vaulted huts in solid granite.\n\n2. Buddhist Monastic & Mercantile Life:\n• Chaityas (prayer halls) and Viharas (monasteries) at Karle, Bhaja, and Ajanta reveal the evolution from Hinayana symbolic stupas to Mahayana anthropomorphic Buddha sculptures.\n• Cave inscriptions show that monks, merchant guilds (Srenis), and queens funded these complexes along ancient Dakshinapatha trade routes.\n• Ajanta’s frescoes depict everyday cosmopolitan life, trade with foreign lands, and royal court scenes.\n\n3. Structural Climax at Ellora & Mahabalipuram:\n• Ellora’s monolithic Kailasa Temple (Cave 16), carved top-down from a single basalt cliff under Rashtrakuta King Krishna I, represents the pinnacle of rock excavation.\n• Ellora uniquely integrates Buddhist, Hindu, and Jain caves, demonstrating state-backed religious syncretism.\n\nConclusion:\nRock-cut monuments are not mere shrines; they are durable encyclopedias of ancient Indian social structure, technological prowess, and cultural synthesis.",
       "conclusion": "Rock-cut monuments are enduring testaments where engineering audacity met profound spiritual pluralism, providing authentic epigraphic and iconographic records of early Indian civilization.",
-      "keywords": ["Lomas Rishi", "Ajivika", "Ajanta Frescoes", "Kailasanatha Temple", "Rashtrakutas", "Rock-Cut Architecture"]
+      "keywords": [
+        "Lomas Rishi",
+        "Ajivika",
+        "Ajanta Frescoes",
+        "Kailasanatha Temple",
+        "Rashtrakutas",
+        "Rock-Cut Architecture"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Rock-Cut Architecture", "Ajanta", "Ellora", "Ancient Indian History"]
+    "syllabusTags": [
+      "Rock-Cut Architecture",
+      "Ajanta",
+      "Ellora",
+      "Ancient Indian History"
+    ]
+  },
+  {
+    "id": "MAINS-GS1-2024-01",
+    "year": 2024,
+    "subject": "History & Culture",
+    "paper": "GS-1",
+    "marks": 10,
+    "wordLimit": 150,
+    "question": "How did the Bhakti literature in regional languages serve as a vehicle for social integration and democratization of spiritual knowledge in medieval India?",
+    "modelAnswerOutline": [
+      "Introduction: Bhakti movement shifted religious discourse from elite Sanskrit to regional vernaculars (Avadhi, Braj, Tamil, Marathi, Bengali).",
+      "Democratization of Knowledge: Saints like Kabir, Ravidas, Tukaram, Basaveshwara, and Mirabai challenged caste orthodoxy and monopolized Vedic rituals.",
+      "Socio-Cultural Integration: Popularized community singing (Kirtan/Bhajan), pilgrim networks connecting North and South India, and gender inclusivity.",
+      "Conclusion: Laid the socio-linguistic foundation for composite Indian culture and modern regional identity."
+    ],
+    "dimensions": [
+      "Socio-Religious",
+      "Linguistic",
+      "Cultural Integration",
+      "Subaltern Voice"
+    ]
+  },
+  {
+    "id": "MAINS-GS1-2024-02",
+    "year": 2024,
+    "subject": "Geography",
+    "paper": "GS-1",
+    "marks": 15,
+    "wordLimit": 250,
+    "question": "Account for the spatial variation in vulnerability to urban heat island (UHI) effect across Indian megacities. Suggest climate-resilient urban design interventions.",
+    "modelAnswerOutline": [
+      "Introduction: UHI phenomenon where urban areas experience higher temperatures than rural surroundings due to thermal mass and concrete.",
+      "Spatial Variations: High in dense commercial cores (Delhi NCR, Mumbai, Bengaluru) vs peripheral green wedges. Micro-climate factors: Albedo of asphalt, loss of urban water bodies, high AC anthropogenic heat rejection.",
+      "Vulnerability Factors: Slum settlements with tin roofs, lack of urban tree canopy in low-income wards, sea breeze buffering in coastal vs continental cities.",
+      "Urban Design Interventions: Cool roofs policy (reflective white coatings), sponge city architecture, Miyawaki urban micro-forests, preserving blue-green infrastructure."
+    ],
+    "dimensions": [
+      "Physical Geography",
+      "Urbanization",
+      "Climate Change",
+      "Disaster Mitigation"
+    ]
   }
 ]

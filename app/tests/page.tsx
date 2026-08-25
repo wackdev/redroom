@@ -20,6 +20,9 @@ import {
 } from "@/lib/mock-tests/module-engine";
 import { UPSC_SUBJECT_TAXONOMY } from "@/lib/mock-tests/taxonomy";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
+import { dexieDb } from "@/lib/db/dexie";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
 
@@ -61,16 +64,29 @@ export default function TestsPage() {
   const [importSuccess, setImportSuccess] = useState<string | null>(null);
 
   // Load Saved Results and Custom Modules
-  const loadLocalData = useCallback(() => {
+  const loadLocalData = useCallback(async () => {
     try {
-      // 1. Load test results
+      // 1. Load test results from localStorage + Dexie
+      let loaded: TestResultRecord[] = [];
       const savedRes = localStorage.getItem(RESULT_STORAGE_KEY);
       if (savedRes) {
         const parsed = JSON.parse(savedRes);
-        if (Array.isArray(parsed)) {
-          setSavedResults(parsed);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          loaded = parsed;
         }
       }
+
+      if (loaded.length === 0) {
+        try {
+          const dexieRes = await dexieDb.test_results.toArray();
+          if (dexieRes.length > 0) {
+            loaded = dexieRes;
+            localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(dexieRes));
+          }
+        } catch {}
+      }
+
+      setSavedResults(loaded);
 
       // 2. Load custom imported modules
       const customModStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_MODULES_KEY);
@@ -95,11 +111,11 @@ export default function TestsPage() {
   }, []);
 
   useEffect(() => {
-    loadLocalData();
+    void loadLocalData();
 
     const unsubscribe = subscribeToSyncChanges((type) => {
       if (type === "test_results" || type === "all") {
-        loadLocalData();
+        void loadLocalData();
       }
     });
 
@@ -146,16 +162,20 @@ export default function TestsPage() {
       });
   }, [modules, selectedSubject, selectedTopic, searchQuery]);
 
-
-
   // Save Result & Broadcast
   const saveResult = async (finalResult: TestResultRecord) => {
     setSaving(true);
-    const updated = [finalResult, ...savedResults].slice(0, 100);
+    const activeUser = UserSessionManager.getActiveUser();
+    const resultWithUser: TestResultRecord = {
+      ...finalResult,
+      userId: activeUser?.id || "local-user",
+    };
+    const updated = [resultWithUser, ...savedResults].slice(0, 100);
     setSavedResults(updated);
 
     try {
       localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(updated));
+      await dexieDb.test_results.put(resultWithUser as any);
       broadcastSyncChange("test_results");
       void pushStateToCloud();
     } catch {}
@@ -835,42 +855,8 @@ export default function TestsPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#07040e] text-white">
-        {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d071a]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push("/dashboard")}
-                className="text-xs font-bold text-purple-300 transition hover:text-white"
-              >
-                ← Command Centre
-              </button>
-
-            <span className="text-white/20">/</span>
-            <span className="text-xs font-black uppercase tracking-wider text-white/70">
-              Mock Test Arena · Subject Modules
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setImportModalOpen(true)}
-              className="flex items-center gap-1.5 rounded-xl border border-purple-500/30 bg-purple-500/10 px-3.5 py-1.5 text-xs font-bold text-purple-300 hover:bg-purple-500/20 transition"
-            >
-              <span>📥</span>
-              <span>Import Module JSON</span>
-            </button>
-
-            <button
-              onClick={() => void triggerManualSync()}
-              title="Sync state"
-              className="rounded-xl border border-white/10 bg-white/5 p-2 text-xs text-white/70 hover:bg-white/10 hover:text-white"
-            >
-              🔄
-            </button>
-          </div>
-        </div>
-      </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Mock Test Series" moduleBadge="PRELIMS SECTIONAL" />
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
         {/* HERO SECTION */}

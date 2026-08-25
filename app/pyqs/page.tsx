@@ -28,6 +28,9 @@ import MnemonicIndexVault from "@/components/MnemonicIndexVault";
 import ReverseQuestionStudio from "@/components/ReverseQuestionStudio";
 import SpatialMapTrainer from "@/components/SpatialMapTrainer";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
+import { dexieDb } from "@/lib/db/dexie";
 
 const LOCAL_STORAGE_PROGRESS_KEY = "redroom_pyq_progress";
 const LOCAL_STORAGE_ATTEMPTS_KEY = "redroom_pyq_user_attempts";
@@ -357,6 +360,7 @@ export default function PYQCommandCenter() {
   const handleSelectOption = (question: PYQQuestion, optionId: string) => {
     const strId = String(question.id);
     const isCorrect = optionId === question.correctAnswer;
+    const activeUser = UserSessionManager.getActiveUser();
 
     const newAttempt: QuestionUserAttempt = {
       selectedOption: optionId,
@@ -377,6 +381,14 @@ export default function PYQCommandCenter() {
         setCompletedIds(nextDone);
         try {
           localStorage.setItem(LOCAL_STORAGE_PROGRESS_KEY, JSON.stringify(Array.from(nextDone)));
+          void dexieDb.pyq_progress.put({
+            id: strId,
+            userId: activeUser?.id || "local-user",
+            pyqId: Number(question.id) || 1,
+            completed: true,
+            isCorrect: true,
+            updatedAt: new Date().toISOString(),
+          } as any);
         } catch {}
         broadcastSyncChange("pyq");
         void pushStateToCloud();
@@ -391,8 +403,12 @@ export default function PYQCommandCenter() {
 
     void fetch("/api/pyq", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...(activeUser?.id ? { "x-cadet-id": activeUser.id } : {}),
+      },
       body: JSON.stringify({
+        userId: activeUser?.id,
         pyqId: strId,
         selectedOption: optionId,
         isCorrect,
@@ -832,66 +848,8 @@ export default function PYQCommandCenter() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-        {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push("/dashboard")}
-                data-cursor="BACK"
-                className="font-mono text-xs text-[#F4C95D] transition hover:underline"
-              >
-                ← Command Centre
-              </button>
-              <span className="text-white/20">|</span>
-              <div className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A] font-mono text-xs font-black text-black">
-                  ↑
-                </span>
-                <h1 className="font-mono font-black tracking-tight text-xs sm:text-sm uppercase text-white">
-                  UPSC PRELIMS ARCHIVE
-                </h1>
-                <span className="rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[10px] font-bold text-[#F4C95D]">
-                  {questions.length} CLUES MAPPED
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 font-mono text-xs">
-              <button
-                onClick={() => router.push("/mains-pyqs")}
-                className="flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-bold text-white/80 transition hover:border-[#D8A63A]/40 hover:text-white"
-              >
-                <span>✍️</span>
-                <span className="hidden sm:inline">Mains Lab</span>
-              </button>
-
-              <button
-                onClick={handleStartDailyChallenge}
-                className="flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 font-bold text-amber-200 transition hover:bg-amber-500/20"
-              >
-                <span>🔥</span>
-                <span className="hidden sm:inline">Daily Sprint</span>
-              </button>
-
-              <button
-                onClick={handleStartExamSim}
-                className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A] bg-gradient-to-r from-[#D8A63A] to-[#B38322] px-3.5 py-1.5 font-black text-black shadow-lg transition hover:scale-105 active:scale-95"
-              >
-                <span>🎯</span>
-                <span>Timed Exam</span>
-              </button>
-
-              <button
-                onClick={() => void triggerManualSync()}
-                title="Cloud sync"
-                className="rounded-xl border border-white/10 bg-white/5 p-1.5 text-white/70 hover:bg-white/10 hover:text-white"
-              >
-                🔄
-              </button>
-            </div>
-          </div>
-        </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Prelims PYQs Archive" moduleBadge="2013-2025 VAULT" />
 
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
           {/* HERO SUMMARY */}

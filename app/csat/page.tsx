@@ -9,6 +9,7 @@ import { getCompleteCSATQuestionBank, CSATQuestionItem } from "@/lib/csat/csat-b
 import SyllogismVennVisualizer from "@/components/SyllogismVennVisualizer";
 import CSATSpeedMathTrainer from "@/components/CSATSpeedMathTrainer";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
 
 type CSATQuestion = CSATQuestionItem;
 
@@ -238,85 +239,66 @@ export default function CSATMatrixArena() {
   return (
     <AuthGuard>
       <main className="relative flex min-h-screen w-full flex-col bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-        {/* TOP COMMAND HEADER */}
-        <header className="sticky top-0 z-30 flex w-full flex-wrap items-center justify-between border-b border-white/10 bg-[#090909]/95 px-6 py-4 backdrop-blur-xl sm:px-10">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => {
-                sound.playHover();
-                router.push("/dashboard");
-              }}
-              className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 font-mono text-xs text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
-            >
-              ←
-            </button>
-            <div>
-              <h1 className="font-mono text-xs sm:text-sm font-black tracking-widest text-white uppercase flex items-center gap-2">
-                <span>📐</span>
-                <span>CSAT SPEED & LOGIC MATRIX LAB</span>
-              </h1>
-              <p className="text-[10px] font-mono text-[#8C8C8C]">
-                UPSC PAPER-II // 66.67 QUALIFYING THRESHOLD // ACCURACY ACCELERATOR
-              </p>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="CSAT Speed & Logic" moduleBadge="PAPER-II MATRIX" />
+
+        <div className="border-b border-white/10 bg-[#090909]/60 px-6 py-2.5 sm:px-10">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="text-[#8C8C8C]">QUALIFYING TARGET:</span>
+              <strong
+                className={`font-black ${
+                  stats.netScore >= 66.67 ? "text-emerald-400" : "text-[#F4C95D]"
+                }`}
+              >
+                {stats.netScore} / 200
+              </strong>
+              <span className="text-[10px] text-[#8C8C8C]">
+                ({stats.isQualifying ? "QUALIFYING ✓" : "BELOW 66.7 ⚠️"})
+              </span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+              <button
+                onClick={() => {
+                  setShowSyllogismVisualizer((p) => !p);
+                  sound.playHover();
+                }}
+                className={`flex items-center gap-1.5 rounded-xl border px-3 py-1 font-bold transition ${
+                  showSyllogismVisualizer
+                    ? "border-purple-500 bg-purple-600 text-white shadow-lg"
+                    : "border-purple-500/40 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+                }`}
+              >
+                <span>⭕</span>
+                <span>{showSyllogismVisualizer ? "Hide Venn" : "Venn Visualizer"}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setShowSpeedMath((p) => !p);
+                  sound.playHover();
+                }}
+                className={`flex items-center gap-1.5 rounded-xl border px-3 py-1 font-bold transition ${
+                  showSpeedMath
+                    ? "border-[#D8A63A] bg-[#D8A63A] text-black shadow-lg"
+                    : "border-[#D8A63A]/40 bg-[#D8A63A]/10 text-[#F4C95D] hover:bg-[#D8A63A]/20"
+                }`}
+              >
+                <span>⚡</span>
+                <span>{showSpeedMath ? "Hide Speed Math" : "Speed Math Drill"}</span>
+              </button>
+
+              <button
+                onClick={() => setFormulaDrawerOpen(true)}
+                className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1 font-bold text-white hover:bg-white/10 transition"
+              >
+                <span>📖</span>
+                <span>Formula Deck</span>
+              </button>
             </div>
           </div>
-
-
-        {/* TELEMETRY METRICS BADGE */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-black/60 px-3.5 py-1.5 font-mono text-xs">
-            <span className="text-[#8C8C8C]">SCORE:</span>
-            <strong
-              className={`font-black ${
-                stats.netScore >= 66.67 ? "text-emerald-400" : "text-[#F4C95D]"
-              }`}
-            >
-              {stats.netScore} / 200
-            </strong>
-            <span className="text-[10px] text-[#8C8C8C]">
-              ({stats.isQualifying ? "QUALIFYING ✓" : "BELOW 66.7 ⚠️"})
-            </span>
-          </div>
-
-          <button
-            onClick={() => {
-              setShowSyllogismVisualizer((p) => !p);
-              sound.playHover();
-            }}
-            className={`flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold transition ${
-              showSyllogismVisualizer
-                ? "border-purple-500 bg-purple-600 text-white shadow-lg"
-                : "border-purple-500/40 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
-            }`}
-          >
-            <span>⭕</span>
-            <span>{showSyllogismVisualizer ? "Hide Venn Visualizer" : "Syllogism Venn Visualizer"}</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setShowSpeedMath((p) => !p);
-              sound.playHover();
-            }}
-            className={`flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 font-mono text-xs font-bold transition ${
-              showSpeedMath
-                ? "border-[#D8A63A] bg-[#D8A63A] text-black shadow-lg"
-                : "border-[#D8A63A]/40 bg-[#D8A63A]/10 text-[#F4C95D] hover:bg-[#D8A63A]/20"
-            }`}
-          >
-            <span>⚡</span>
-            <span>{showSpeedMath ? "Hide Speed Math" : "Speed Math Drill"}</span>
-          </button>
-
-          <button
-            onClick={() => setFormulaDrawerOpen(true)}
-            className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 font-mono text-xs font-bold text-white hover:bg-white/10 transition"
-          >
-            <span>📖</span>
-            <span>Formula Deck</span>
-          </button>
         </div>
-      </header>
 
       {/* WORKSPACE CONTAINER */}
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-4 sm:p-8">

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { DayPlan, NoteItem, TestResultRecord } from "../core/types";
 import { safeArray } from "../core/utils";
+import { UserSessionManager } from "../core/user-context";
 
 export const STORAGE_KEYS = {
   STUDY_PLAN: "redroom_study_plan",
@@ -49,7 +50,7 @@ export function broadcastSyncChange(type: SyncEntityType): void {
     sourceTabId: currentTabId,
   };
 
-  // 1. BroadcastChannel (modern fast cross-tab communication)
+  // 1. BroadcastChannel (fast cross-tab communication)
   const channel = getBroadcastChannel();
   if (channel) {
     try {
@@ -57,7 +58,7 @@ export function broadcastSyncChange(type: SyncEntityType): void {
     } catch {}
   }
 
-  // 2. Custom In-Window Event (for components within the same tab)
+  // 2. Custom In-Window Event
   try {
     window.dispatchEvent(new CustomEvent("redroom_local_sync", { detail: payload }));
   } catch {}
@@ -69,7 +70,6 @@ export function broadcastSyncChange(type: SyncEntityType): void {
 export function subscribeToSyncChanges(callback: (type: SyncEntityType) => void): () => void {
   if (typeof window === "undefined") return () => {};
 
-  // 1. Broadcast Channel listener
   const channel = getBroadcastChannel();
   const channelHandler = (event: MessageEvent<SyncEventPayload>) => {
     if (event.data?.sourceTabId !== currentTabId) {
@@ -81,7 +81,6 @@ export function subscribeToSyncChanges(callback: (type: SyncEntityType) => void)
     channel.addEventListener("message", channelHandler);
   }
 
-  // 2. In-Window Local Event listener
   const localEventHandler = (e: Event) => {
     const customEvent = e as CustomEvent<SyncEventPayload>;
     if (customEvent.detail?.type) {
@@ -90,7 +89,6 @@ export function subscribeToSyncChanges(callback: (type: SyncEntityType) => void)
   };
   window.addEventListener("redroom_local_sync", localEventHandler);
 
-  // 3. Storage Event (fallback across tabs)
   const storageHandler = (e: StorageEvent) => {
     if (
       e.key === STORAGE_KEYS.STUDY_PLAN ||
@@ -111,8 +109,6 @@ export function subscribeToSyncChanges(callback: (type: SyncEntityType) => void)
     window.removeEventListener("storage", storageHandler);
   };
 }
-
-import { UserSessionManager } from "../core/user-context";
 
 /**
  * Pushes all current local state to the cloud (Supabase backend).
@@ -165,7 +161,7 @@ export async function pushStateToCloud(): Promise<boolean> {
     }
     return false;
   } catch (err) {
-    console.warn("[SyncEngine] Push to cloud failed:", err);
+    console.warn("[SyncEngine] Background push failed:", err);
     return false;
   }
 }
@@ -187,7 +183,6 @@ export async function pullStateFromCloud(): Promise<boolean> {
       headers,
     });
     const json = await res.json();
-
 
     if (json.success && json.data) {
       const { plans, notes, testResults, syllabusProgress, revisionItems, pyqProgress } = json.data;
@@ -234,13 +229,14 @@ export async function pullStateFromCloud(): Promise<boolean> {
     }
     return false;
   } catch (err) {
-    console.warn("[SyncEngine] Pull from cloud failed:", err);
+    console.warn("[SyncEngine] Background pull failed:", err);
     return false;
   }
 }
 
 /**
- * React hook to enable seamless real-time syncing and status across tabs and devices.
+ * Real-time background sync hook.
+ * Syncs on mount, every 20s interval, and whenever the cadet refocuses the window or reconnects online.
  */
 export function useCloudSync() {
   const [isSyncing, setIsSyncing] = useState(false);
@@ -249,26 +245,42 @@ export function useCloudSync() {
   const performFullSync = useCallback(async () => {
     setIsSyncing(true);
     try {
-      // 1. First pull latest remote state
       await pullStateFromCloud();
-      // 2. Then ensure local changes are persisted
       await pushStateToCloud();
-      setLastSyncTime(new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }));
+      setLastSyncTime(new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit" }));
     } finally {
       setIsSyncing(false);
     }
   }, []);
 
   useEffect(() => {
-    // Initial sync on mount
+    // Initial sync
     void performFullSync();
 
-    // Periodic sync every 60 seconds
+    // 20s High-frequency background sync
     const intervalId = setInterval(() => {
       void pushStateToCloud();
-    }, 60000);
+    }, 20000);
 
-    return () => clearInterval(intervalId);
+    // Sync on tab focus / visibility return
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        void performFullSync();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    // Sync when coming back online
+    const handleOnline = () => {
+      void performFullSync();
+    };
+    window.addEventListener("online", handleOnline);
+
+    return () => {
+      clearInterval(intervalId);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("online", handleOnline);
+    };
   }, [performFullSync]);
 
   return {

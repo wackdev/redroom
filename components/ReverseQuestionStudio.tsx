@@ -23,11 +23,11 @@ const POLICY_BANK: PolicyItem[] = [
     id: "pol-1",
     schemeOrPolicy: "PM Surya Ghar: Muft Bijli Yojana",
     nodalMinistry: "Ministry of New and Renewable Energy (MNRE)",
-    keyFactsAndNumericalThresholds: "₹75,000 crore outlay aimed at installing rooftop solar plants on 1 crore (10 million) households, providing up to 300 units of free electricity per month.",
+    keyFactsAndNumericalThresholds: "₹75,021 crore budget outlay aiming for rooftop solar installations on 1 crore households, providing up to 300 units of free electricity per month.",
     classicUPSCExaminerTraps: [
       "Swapping Ministry to 'Ministry of Power' or 'Ministry of Housing and Urban Affairs'.",
       "Inverting 300 units/month to '100% free electricity without monthly cap'.",
-      "Stating that the scheme is fully funded by private DISCOMs rather than central financial assistance."
+      "Stating that the scheme is funded by private DISCOMs rather than Central Financial Assistance (CFA)."
     ],
     sampleCraftedStatements: {
       statement1: "It is a central sector scheme administered by the Ministry of Power to provide rooftop solar installations.",
@@ -39,27 +39,45 @@ const POLICY_BANK: PolicyItem[] = [
   },
   {
     id: "pol-2",
-    schemeOrPolicy: "Strategic Interventions for Green Hydrogen Transition (SIGHT) Programme",
-    nodalMinistry: "Ministry of New and Renewable Energy (MNRE) under National Green Hydrogen Mission",
-    keyFactsAndNumericalThresholds: "₹17,490 crore budget outlay under two distinct financial incentive sub-mechanisms: (1) Electrolyzer Manufacturing, (2) Green Hydrogen Production.",
+    schemeOrPolicy: "National Quantum Mission (NQM)",
+    nodalMinistry: "Department of Science and Technology (DST), Ministry of Science & Technology",
+    keyFactsAndNumericalThresholds: "₹6,003 crore outlay (2023-2031) targeting intermediate scale quantum computers with 50-1000 physical qubits in 8 years across 4 Thematic Hubs (T-Hubs).",
     classicUPSCExaminerTraps: [
-      "Claiming the incentive is implemented by NITI Aayog instead of MNRE / SECI.",
-      "Stating that grey hydrogen and blue hydrogen are also subsidized under SIGHT.",
-      "Asserting that India mandates 100% green hydrogen use in all private vehicles by 2026."
+      "Attributing nodal control to MeitY or ISRO instead of DST.",
+      "Claiming target of 100,000 qubits by 2025 (numerical exaggeration).",
+      "Stating that satellite-based quantum secure communication is excluded from the mission scope."
     ],
     sampleCraftedStatements: {
-      statement1: "The SIGHT programme provides financial incentives for both domestic manufacturing of electrolysers and green hydrogen production.",
-      statement2: "Solar Energy Corporation of India (SECI) is the implementing agency for the scheme.",
-      statement3: "It mandates complete replacement of fossil fuels in the aviation sector by 2025.",
-      answerKey: "Statements 1 and 2 are CORRECT. Statement 3 is INCORRECT (No absolute 2025 mandate; aviation targets SAF blending from 2027).",
-      trapMechanismsUsed: ["Exaggerated Deadline Trap", "Extreme Mandate Trap"]
+      statement1: "NQM is implemented by the Ministry of Electronics and Information Technology (MeitY).",
+      statement2: "The mission targets developing quantum computers with 50 to 1000 physical qubits by 2031.",
+      statement3: "It aims to establish four Thematic Hubs (T-Hubs) in leading academic and R&D institutes.",
+      answerKey: "Statement 1 is INCORRECT (DST, not MeitY). Statements 2 and 3 are CORRECT.",
+      trapMechanismsUsed: ["Nodal Ministry Swap Trap"]
     }
   },
   {
     id: "pol-3",
+    schemeOrPolicy: "Mission Mausam",
+    nodalMinistry: "Ministry of Earth Sciences (MoES)",
+    keyFactsAndNumericalThresholds: "₹2,000 crore outlay over 2 years aimed at creating weather-ready India with AI/ML driven forecasting, next-gen Doppler radars, and cloud simulation chambers.",
+    classicUPSCExaminerTraps: [
+      "Swapping Ministry to 'Ministry of Environment, Forest and Climate Change' (MoEFCC).",
+      "Stating that the mission aims to engineer tropical cyclones to prevent coastal landfall.",
+      "Claiming it is implemented exclusively by the Indian Air Force."
+    ],
+    sampleCraftedStatements: {
+      statement1: "Mission Mausam is launched by the Ministry of Environment, Forest and Climate Change.",
+      statement2: "It integrates artificial intelligence and next-generation radar systems to improve high-resolution weather forecasts.",
+      statement3: "India Meteorological Department (IMD) and NCMRWF are key implementing agencies.",
+      answerKey: "Statement 1 is INCORRECT (MoES, not MoEFCC). Statements 2 and 3 are CORRECT.",
+      trapMechanismsUsed: ["Nodal Ministry Swap Trap"]
+    }
+  },
+  {
+    id: "pol-4",
     schemeOrPolicy: "PM-MITRA (Mega Integrated Textile Region and Apparel) Parks",
     nodalMinistry: "Ministry of Textiles",
-    keyFactsAndNumericalThresholds: "Setting up 7 PM MITRA Parks across 7 States (Tamil Nadu, Telangana, Gujarat, Karnataka, MP, UP, Maharashtra) inspired by the 5F vision (Farm to Fibre to Factory to Fashion to Foreign).",
+    keyFactsAndNumericalThresholds: "Setting up 7 PM MITRA Parks across 7 States (Tamil Nadu, Telangana, Gujarat, Karnataka, MP, UP, Maharashtra) inspired by 5F vision (Farm to Fibre to Factory to Fashion to Foreign).",
     classicUPSCExaminerTraps: [
       "Ministry swap to 'Ministry of Commerce and Industry' or 'MSME'.",
       "Stating that parks are established in all 28 states of India.",
@@ -72,6 +90,24 @@ const POLICY_BANK: PolicyItem[] = [
       answerKey: "Statements 1 and 3 are CORRECT. Statement 2 is INCORRECT (Exactly 7 parks, not 28 states).",
       trapMechanismsUsed: ["Numerical Inflation Trap", "Universal State Coverage Fallacy"]
     }
+  },
+  {
+    id: "pol-5",
+    schemeOrPolicy: "Green Credit Programme (GCP)",
+    nodalMinistry: "Ministry of Environment, Forest and Climate Change (MoEFCC)",
+    keyFactsAndNumericalThresholds: "Market-based mechanism under LiFE initiative incentivizing voluntary environmental actions (tree plantation, water management, sustainable agriculture). Administered by Indian Council of Forestry Research and Education (ICFRE).",
+    classicUPSCExaminerTraps: [
+      "Confusing Green Credits with mandatory Carbon Credits under Carbon Credit Trading Scheme (CCTS).",
+      "Claiming that Green Credits are tradable on international carbon compliance markets.",
+      "Stating that only private corporations are eligible while individual citizens are barred."
+    ],
+    sampleCraftedStatements: {
+      statement1: "Green Credit Programme is a market-based voluntary environmental initiative governed by MoEFCC.",
+      statement2: "The programme is administered by the Bureau of Energy Efficiency (BEE).",
+      statement3: "Green Credits are completely fungible with standard carbon offset units under Paris Agreement Article 6.",
+      answerKey: "Statement 1 is CORRECT. Statements 2 is INCORRECT (ICFRE administers GCP, while BEE administers Carbon market). Statement 3 is INCORRECT (GCP is non-carbon environmental actions).",
+      trapMechanismsUsed: ["Implementing Body Swap Trap", "Concept Conflation Trap"]
+    }
   }
 ];
 
@@ -81,6 +117,7 @@ export default function ReverseQuestionStudio() {
   const [cadetStatement2, setCadetStatement2] = useState("");
   const [cadetStatement3, setCadetStatement3] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [showModelQuestions, setShowModelQuestions] = useState(false);
 
   const handleEvaluateTrapQuality = () => {
     sound.playHover();
@@ -99,91 +136,96 @@ export default function ReverseQuestionStudio() {
     if (/only|all|always|never|mandatory|universal|sole/i.test(all)) {
       trapsFound.push("⚠️ Extreme Qualifier Trap");
     }
-    if (/first time|oldest|earliest|precedes/i.test(all)) {
-      trapsFound.push("⏳ Chronological Illusion Trap");
+    if (/voluntary|mandatory|centrally sponsored|central sector/i.test(all)) {
+      trapsFound.push("📑 Scheme Architecture Classification Trap");
     }
 
     if (trapsFound.length >= 2) {
+      sound.playVictory();
       setFeedback(
-        `🏆 MASTER EXAMINER SCORE: 9.2/10! Outstanding trap mechanics detected: ${trapsFound.join(
-          ", "
-        )}. Your question authentically tests micro-distinctions exactly like a UPSC paper setter.`
+        `🏆 EXCELLENT EXAMINER MINDSET! You successfully crafted ${trapsFound.length} high-probability UPSC trap mechanisms:\n• ` +
+          trapsFound.join("\n• ") +
+          "\n\nCadets who create trap statements develop subconscious immunity when taking Prelims."
       );
     } else {
+      sound.playLock();
       setFeedback(
-        `💡 DECENT ATTEMPT (Score: 6.5/10). To make it a true UPSC-standard question, incorporate at least one Nodal Ministry swap and an Extreme Qualifier trap (e.g. using 'all' or 'mandatory').`
+        `🎯 GOOD START! Detected ${trapsFound.length} trap patterns. Try adding a Nodal Ministry Swap or an Extreme Absolute Word (e.g. 'all/never') to elevate the question to UPSC difficulty standard.`
       );
     }
   };
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#080511] p-5 shadow-2xl backdrop-blur-2xl">
-      {/* HEADER */}
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-red-500/20 text-sm">
-              🎯
-            </span>
-            <h2 className="font-mono text-base font-black tracking-wide text-white sm:text-lg">
-              "Examiner Mindset" Reverse Question Generator
-            </h2>
-          </div>
-          <p className="text-xs text-white/50">
-            Master elimination by crafting your own 3-statement trap questions from actual government schemes
-          </p>
+    <div className="rounded-3xl border border-white/10 bg-[#090909] p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
+      {/* Header */}
+      <div className="border-b border-white/10 pb-4">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2 w-2 rounded-full bg-[#D8A63A] animate-ping" />
+          <span className="font-mono text-[10px] font-black uppercase tracking-widest text-[#D8A63A]">
+            REVERSE COGNITION STUDIO // THINK LIKE THE UPSC EXAMINER
+          </span>
         </div>
-
-        <span className="rounded-full bg-red-500/20 px-3 py-1 font-mono text-xs font-bold text-red-300">
-          500+ Policy Scheme Bank
-        </span>
+        <h2 className="mt-1 font-mono text-xl sm:text-2xl font-black text-white uppercase">
+          Policy Trap Creator & Statement Synthesis
+        </h2>
+        <p className="mt-1 text-xs text-[#8C8C8C]">
+          The most effective way to eliminate options in Prelims is learning how the UPSC paper setter plants deceptive traps in government schemes.
+        </p>
       </div>
 
-      {/* POLICY SELECTOR */}
-      <div className="mb-6 flex flex-wrap gap-2">
-        {POLICY_BANK.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => {
-              sound.playClick();
-              setSelectedPolicy(p);
-              setFeedback(null);
-            }}
-            className={`rounded-2xl border px-3.5 py-2 text-left transition ${
-              selectedPolicy.id === p.id
-                ? "border-red-500 bg-red-500/20 text-white shadow-lg shadow-red-950/40"
-                : "border-white/10 bg-white/[0.02] text-white/60 hover:bg-white/[0.05] hover:text-white"
-            }`}
-          >
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-red-400">
-              {p.nodalMinistry}
+      {/* Policy Selector Pills */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+        {POLICY_BANK.map((pol) => {
+          const isSelected = selectedPolicy.id === pol.id;
+          return (
+            <button
+              key={pol.id}
+              onClick={() => {
+                sound.playSelect();
+                setSelectedPolicy(pol);
+                setFeedback(null);
+                setShowModelQuestions(false);
+              }}
+              className="px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-2"
+              style={{
+                background: isSelected ? "rgba(216,166,58,0.25)" : "rgba(255,255,255,0.03)",
+                border: isSelected ? "1px solid rgba(216,166,58,0.5)" : "1px solid rgba(255,255,255,0.06)",
+                color: isSelected ? "#F4C95D" : "#9ca3af"
+              }}>
+              <span>{pol.schemeOrPolicy}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Selected Policy Factcard */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-6 space-y-4">
+          <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">Target Scheme:</span>
+              <h3 className="text-base font-bold text-white mt-0.5">{selectedPolicy.schemeOrPolicy}</h3>
+            </div>
+
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Nodal Ministry:</span>
+              <p className="text-xs text-gray-200 mt-0.5 font-medium">{selectedPolicy.nodalMinistry}</p>
+            </div>
+
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Key Facts & Outlay:</span>
+              <p className="text-xs text-gray-300 mt-0.5 leading-relaxed">{selectedPolicy.keyFactsAndNumericalThresholds}</p>
+            </div>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-red-500/5 border border-red-500/20 space-y-2">
+            <span className="text-xs font-bold text-red-400 uppercase tracking-wider block">
+              🪤 Classic UPSC Examiner Traps:
             </span>
-            <span className="text-xs font-bold">{p.schemeOrPolicy}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* REVERSE WORKSHOP */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* LEFT: POLICY INTEL & EXAMINER CHEAT SHEET */}
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5">
-          <div>
-            <span className="text-xs font-bold text-red-400">🏛️ Policy Intel:</span>
-            <h3 className="text-base font-black text-white">{selectedPolicy.schemeOrPolicy}</h3>
-            <p className="mt-1 text-xs text-white/70">Nodal Ministry: {selectedPolicy.nodalMinistry}</p>
-          </div>
-
-          <div className="rounded-xl border border-white/5 bg-black/40 p-3.5 text-xs text-white/80 space-y-1">
-            <span className="font-bold text-amber-300">📋 Key Numerical Facts & Outlay:</span>
-            <p>{selectedPolicy.keyFactsAndNumericalThresholds}</p>
-          </div>
-
-          <div className="rounded-xl border border-red-500/20 bg-red-950/20 p-3.5 text-xs space-y-1.5">
-            <span className="font-bold text-red-300">⚠️ Authentic Examiner Traps to Deploy:</span>
-            <ul className="space-y-1 text-white/80">
+            <ul className="space-y-1.5">
               {selectedPolicy.classicUPSCExaminerTraps.map((trap, i) => (
-                <li key={i} className="flex items-start gap-1.5">
-                  <span className="text-red-400">•</span>
+                <li key={i} className="text-xs text-gray-300 flex items-start gap-2">
+                  <span className="text-red-400 font-bold">•</span>
                   <span>{trap}</span>
                 </li>
               ))}
@@ -191,46 +233,73 @@ export default function ReverseQuestionStudio() {
           </div>
         </div>
 
-        {/* RIGHT: QUESTION BUILDER & AI TRAP EVALUATOR */}
-        <div className="space-y-3 rounded-2xl border border-red-500/30 bg-red-950/10 p-5">
-          <span className="text-xs font-mono font-bold text-red-300 block">
-            ✍️ Craft 3 Statements to Trap Other Aspirants:
-          </span>
+        {/* Right: Craft Your Own Statements */}
+        <div className="lg:col-span-6 space-y-4">
+          <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center justify-between">
+              <span>✍️ Craft 3 Deceptive Statements</span>
+              <span className="text-[10px] text-amber-400 font-mono">Reverse Drills</span>
+            </h4>
 
-          <input
-            type="text"
-            placeholder="Statement 1 (e.g. It is administered by Ministry of Power...)"
-            value={cadetStatement1}
-            onChange={(e) => setCadetStatement1(e.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-black/50 p-2.5 text-xs text-white placeholder-white/40 focus:border-red-500 focus:outline-none"
-          />
+            <input
+              type="text"
+              value={cadetStatement1}
+              onChange={(e) => setCadetStatement1(e.target.value)}
+              placeholder="Statement 1 (e.g. swap nodal ministry or implementing body)..."
+              className="w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-gray-500 bg-black/40 border border-white/10 focus:outline-none"
+            />
 
-          <input
-            type="text"
-            placeholder="Statement 2 (e.g. It provides 300 units of free electricity to 1 crore homes...)"
-            value={cadetStatement2}
-            onChange={(e) => setCadetStatement2(e.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-black/50 p-2.5 text-xs text-white placeholder-white/40 focus:border-red-500 focus:outline-none"
-          />
+            <input
+              type="text"
+              value={cadetStatement2}
+              onChange={(e) => setCadetStatement2(e.target.value)}
+              placeholder="Statement 2 (e.g. true factual statement with key thresholds)..."
+              className="w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-gray-500 bg-black/40 border border-white/10 focus:outline-none"
+            />
 
-          <input
-            type="text"
-            placeholder="Statement 3 (e.g. All private DISCOMs are universally mandated...)"
-            value={cadetStatement3}
-            onChange={(e) => setCadetStatement3(e.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-black/50 p-2.5 text-xs text-white placeholder-white/40 focus:border-red-500 focus:outline-none"
-          />
+            <input
+              type="text"
+              value={cadetStatement3}
+              onChange={(e) => setCadetStatement3(e.target.value)}
+              placeholder="Statement 3 (e.g. plant an extreme qualifier: all, never, solely)..."
+              className="w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-gray-500 bg-black/40 border border-white/10 focus:outline-none"
+            />
 
-          <button
-            onClick={handleEvaluateTrapQuality}
-            className="w-full rounded-xl bg-red-600 py-2.5 font-mono text-xs font-bold text-white hover:bg-red-500 transition shadow-lg shadow-red-950/50"
-          >
-            ⚡ Evaluate Question Trap Quality
-          </button>
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                onClick={handleEvaluateTrapQuality}
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold text-black bg-[#D8A63A] hover:bg-[#F4C95D] transition-all shadow-lg">
+                ⚡ Evaluate Trap Quality
+              </button>
+
+              <button
+                onClick={() => setShowModelQuestions(!showModelQuestions)}
+                className="px-4 py-2.5 rounded-xl text-xs font-semibold text-gray-300 bg-white/5 hover:bg-white/10 transition-all">
+                {showModelQuestions ? "Hide Model" : "💡 Model Trap"}
+              </button>
+            </div>
+          </div>
 
           {feedback && (
-            <div className="rounded-xl border border-red-500/30 bg-black/60 p-3.5 text-xs text-white/90 leading-relaxed animate-in fade-in">
+            <div className="p-4 rounded-2xl bg-black/40 border border-amber-500/30 text-xs text-gray-200 whitespace-pre-line leading-relaxed">
               {feedback}
+            </div>
+          )}
+
+          {showModelQuestions && (
+            <div className="p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-3">
+              <span className="text-xs font-bold text-amber-400 uppercase tracking-wider block">
+                🏛️ Standard UPSC Examiner Template:
+              </span>
+              <div className="space-y-1.5 text-xs text-gray-300">
+                <p>1. {selectedPolicy.sampleCraftedStatements.statement1}</p>
+                <p>2. {selectedPolicy.sampleCraftedStatements.statement2}</p>
+                <p>3. {selectedPolicy.sampleCraftedStatements.statement3}</p>
+              </div>
+              <div className="p-3 rounded-xl bg-black/40 text-xs text-gray-300 border border-white/5">
+                <span className="text-emerald-400 font-bold block mb-1">Answer Analysis:</span>
+                {selectedPolicy.sampleCraftedStatements.answerKey}
+              </div>
             </div>
           )}
         </div>

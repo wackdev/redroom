@@ -6,6 +6,7 @@ import { safeArray } from "@/lib/core/utils";
 import { sound } from "@/lib/audio/sound-engine";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { triggerRateLimitToast } from "@/components/TacticalRateLimitToast";
 
 interface ChatMessage {
@@ -176,32 +177,8 @@ export default function AssistantPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans flex flex-col selection:bg-[#D8A63A] selection:text-black">
-        {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 w-full">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push("/dashboard")}
-                data-cursor="BACK"
-                className="font-mono text-xs text-[#F4C95D] transition hover:underline"
-              >
-                ← Command Centre
-              </button>
-              <span className="text-white/20">|</span>
-              <div className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A] font-mono text-xs font-black text-black">
-                  ↑
-                </span>
-                <span className="font-mono font-black tracking-widest text-sm text-white uppercase">
-                  AI STRATEGIST // WHY
-                </span>
-              </div>
-            </div>
-            <span className="rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3 py-1 font-mono text-[10px] font-bold text-[#F4C95D] animate-pulse">
-              ● STRATEGIST ONLINE
-            </span>
-          </div>
-        </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="AI Strategist (WHY)" moduleBadge="NEURAL MENTOR" />
 
 
       {/* BODY CONTENT */}

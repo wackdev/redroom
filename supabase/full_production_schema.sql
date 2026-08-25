@@ -701,5 +701,319 @@ CREATE POLICY "Users can insert own profile" ON public.profiles FOR INSERT WITH 
 DROP FUNCTION IF EXISTS create_user_isolation_policies(TEXT);
 
 -- ============================================================================
--- SCHEMA SETUP COMPLETE
+-- 17. OPTIONAL SUBJECT MODULE (500 Mains Marks)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS public.optional_subjects (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  code TEXT UNIQUE NOT NULL,
+  paper_1_syllabus JSONB DEFAULT '[]'::JSONB,
+  paper_2_syllabus JSONB DEFAULT '[]'::JSONB,
+  total_marks INT DEFAULT 500,
+  is_popular BOOLEAN DEFAULT false,
+  strategy_notes TEXT,
+  recommended_books JSONB DEFAULT '[]'::JSONB,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.optional_pyqs (
+  id BIGSERIAL PRIMARY KEY,
+  subject_code TEXT NOT NULL,
+  year INT NOT NULL,
+  paper INT NOT NULL CHECK (paper IN (1, 2)),
+  question_number INT,
+  section TEXT DEFAULT 'A',
+  marks INT DEFAULT 20,
+  word_limit INT DEFAULT 300,
+  question TEXT NOT NULL,
+  model_answer TEXT,
+  key_points TEXT[] DEFAULT '{}',
+  concept_tags TEXT[] DEFAULT '{}',
+  important BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.optional_progress (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  subject_code TEXT NOT NULL,
+  topic_id TEXT NOT NULL,
+  paper INT NOT NULL CHECK (paper IN (1, 2)),
+  completed BOOLEAN DEFAULT true,
+  confidence_rating INT DEFAULT 3 CHECK (confidence_rating BETWEEN 1 AND 5),
+  notes TEXT,
+  completed_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT user_optional_topic_unique UNIQUE (user_id, subject_code, topic_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.optional_answers (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  question_id BIGINT REFERENCES public.optional_pyqs(id) ON DELETE CASCADE,
+  subject_code TEXT NOT NULL,
+  paper INT NOT NULL CHECK (paper IN (1, 2)),
+  answer_text TEXT NOT NULL,
+  word_count INT DEFAULT 0,
+  time_spent_seconds INT DEFAULT 0,
+  self_rating INT DEFAULT 3 CHECK (self_rating BETWEEN 1 AND 5),
+  ai_score NUMERIC(4,1),
+  ai_feedback JSONB DEFAULT '{}'::JSONB,
+  submitted_at TIMESTAMPTZ DEFAULT now(),
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- ----------------------------------------------------------------------------
+-- 18. ANSWER WRITING SPEED & QUALITY LAB
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.answer_writing_sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  question_id TEXT,
+  question_text TEXT,
+  paper TEXT DEFAULT 'GS-1',
+  marks INT DEFAULT 15,
+  target_words INT DEFAULT 150,
+  answer_text TEXT NOT NULL,
+  word_count INT NOT NULL DEFAULT 0,
+  time_spent_seconds INT NOT NULL DEFAULT 0,
+  wpm NUMERIC(6,1) DEFAULT 0,
+  dimensions_found TEXT[] DEFAULT '{}',
+  dimension_count INT DEFAULT 0,
+  has_introduction BOOLEAN DEFAULT false,
+  has_conclusion BOOLEAN DEFAULT false,
+  keyword_density NUMERIC(4,2) DEFAULT 0,
+  ai_score NUMERIC(4,1),
+  ai_feedback TEXT,
+  session_date DATE DEFAULT CURRENT_DATE,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- ----------------------------------------------------------------------------
+-- 19. NEWSPAPER DAILY DIGEST & CLIP VAULT
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.newspaper_clips (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  article_id TEXT NOT NULL,
+  article_title TEXT NOT NULL,
+  article_source TEXT DEFAULT 'The Hindu',
+  article_date DATE NOT NULL,
+  snippet TEXT NOT NULL,
+  full_text TEXT,
+  gs_paper TEXT,
+  prelims_relevant BOOLEAN DEFAULT false,
+  mains_relevant BOOLEAN DEFAULT false,
+  tags TEXT[] DEFAULT '{}',
+  upsc_angle TEXT,
+  clipped_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT user_article_clip_unique UNIQUE (user_id, article_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.daily_vocabulary (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  word TEXT NOT NULL,
+  meaning TEXT NOT NULL,
+  upsc_context TEXT,
+  example_sentence TEXT,
+  category TEXT DEFAULT 'Constitutional',
+  source_article_id TEXT,
+  word_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.newspaper_reading_log (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  read_date DATE NOT NULL,
+  articles_read INT DEFAULT 0,
+  clips_saved INT DEFAULT 0,
+  minutes_spent INT DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT user_read_date_unique UNIQUE (user_id, read_date)
+);
+
+-- ----------------------------------------------------------------------------
+-- 20. GROUP STUDY ROOMS & PEER ACCOUNTABILITY
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.study_rooms (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  room_code TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  target_year INT DEFAULT 2026,
+  max_members INT DEFAULT 10,
+  is_public BOOLEAN DEFAULT true,
+  is_active BOOLEAN DEFAULT true,
+  daily_hour_target NUMERIC(4,1) DEFAULT 6.0,
+  collective_streak_days INT DEFAULT 0,
+  created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.study_room_members (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  room_id UUID REFERENCES public.study_rooms(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  display_name TEXT NOT NULL,
+  role TEXT DEFAULT 'MEMBER', -- ADMIN, MEMBER
+  current_subject TEXT,
+  is_online BOOLEAN DEFAULT false,
+  last_active_at TIMESTAMPTZ DEFAULT now(),
+  joined_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT room_member_unique UNIQUE (room_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.study_room_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  room_id UUID REFERENCES public.study_rooms(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  display_name TEXT NOT NULL,
+  message TEXT NOT NULL,
+  message_type TEXT DEFAULT 'text', -- text, question, resource, announcement
+  reply_to UUID REFERENCES public.study_room_messages(id) ON DELETE SET NULL,
+  is_pinned BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.study_room_daily_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  room_id UUID REFERENCES public.study_rooms(id) ON DELETE CASCADE NOT NULL,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  log_date DATE NOT NULL,
+  hours_studied NUMERIC(4,1) DEFAULT 0,
+  subjects_covered TEXT[] DEFAULT '{}',
+  goal_met BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT room_user_log_date_unique UNIQUE (room_id, user_id, log_date)
+);
+
+-- ----------------------------------------------------------------------------
+-- 21. NATIONAL RANK LEADERBOARD CACHE
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.national_leaderboard_cache (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  display_name TEXT NOT NULL,
+  rank_position INT NOT NULL,
+  composite_score NUMERIC(6,2) NOT NULL DEFAULT 0,
+  test_accuracy NUMERIC(5,2) DEFAULT 0,
+  pyqs_solved INT DEFAULT 0,
+  study_hours NUMERIC(6,1) DEFAULT 0,
+  mains_answers_count INT DEFAULT 0,
+  streak_days INT DEFAULT 0,
+  state TEXT,
+  target_year INT DEFAULT 2026,
+  badge_icons TEXT[] DEFAULT '{}',
+  rank_tier TEXT DEFAULT 'LBSNAA Probationer',
+  weekly_movement INT DEFAULT 0,
+  last_computed_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT user_leaderboard_unique UNIQUE (user_id)
+);
+
+-- ----------------------------------------------------------------------------
+-- 22. VOICE NOTES & DICTATION VAULT
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.voice_notes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+  title TEXT NOT NULL,
+  transcript TEXT NOT NULL,
+  formatted_content TEXT,
+  duration_seconds INT DEFAULT 0,
+  subject TEXT,
+  topic TEXT,
+  tags TEXT[] DEFAULT '{}',
+  is_synced_to_notes BOOLEAN DEFAULT false,
+  synced_note_id UUID REFERENCES public.notes(id) ON DELETE SET NULL,
+  recorded_at TIMESTAMPTZ DEFAULT now(),
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- ----------------------------------------------------------------------------
+-- 23. EXPANDED PYQ BATCH IMPORT LOG
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.pyq_batch_imports (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  imported_by UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  file_name TEXT,
+  total_questions INT DEFAULT 0,
+  subjects_covered TEXT[] DEFAULT '{}',
+  years_covered INT[] DEFAULT '{}',
+  status TEXT DEFAULT 'completed',
+  notes TEXT,
+  imported_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- ----------------------------------------------------------------------------
+-- 24. INDEXES FOR NEW TABLES
+-- ----------------------------------------------------------------------------
+CREATE INDEX IF NOT EXISTS idx_optional_pyqs_subject_year ON public.optional_pyqs(subject_code, year, paper);
+CREATE INDEX IF NOT EXISTS idx_optional_progress_user ON public.optional_progress(user_id, subject_code);
+CREATE INDEX IF NOT EXISTS idx_optional_answers_user ON public.optional_answers(user_id, subject_code);
+CREATE INDEX IF NOT EXISTS idx_answer_sessions_user_date ON public.answer_writing_sessions(user_id, session_date DESC);
+CREATE INDEX IF NOT EXISTS idx_newspaper_clips_user_date ON public.newspaper_clips(user_id, article_date DESC);
+CREATE INDEX IF NOT EXISTS idx_newspaper_log_user ON public.newspaper_reading_log(user_id, read_date DESC);
+CREATE INDEX IF NOT EXISTS idx_study_rooms_code ON public.study_rooms(room_code);
+CREATE INDEX IF NOT EXISTS idx_room_members_user ON public.study_room_members(user_id);
+CREATE INDEX IF NOT EXISTS idx_room_messages_room ON public.study_room_messages(room_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_leaderboard_rank ON public.national_leaderboard_cache(rank_position ASC);
+CREATE INDEX IF NOT EXISTS idx_leaderboard_score ON public.national_leaderboard_cache(composite_score DESC);
+CREATE INDEX IF NOT EXISTS idx_voice_notes_user ON public.voice_notes(user_id, recorded_at DESC);
+
+-- ----------------------------------------------------------------------------
+-- 25. RLS FOR NEW TABLES
+-- ----------------------------------------------------------------------------
+ALTER TABLE public.optional_subjects ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.optional_pyqs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.optional_progress ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.optional_answers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.answer_writing_sessions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.newspaper_clips ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.daily_vocabulary ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.newspaper_reading_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.study_rooms ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.study_room_members ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.study_room_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.study_room_daily_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.national_leaderboard_cache ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.voice_notes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.pyq_batch_imports ENABLE ROW LEVEL SECURITY;
+
+-- Public read policies
+CREATE POLICY "Public can view optional_subjects" ON public.optional_subjects FOR SELECT USING (true);
+CREATE POLICY "Public can view optional_pyqs" ON public.optional_pyqs FOR SELECT USING (true);
+CREATE POLICY "Public can view daily_vocabulary" ON public.daily_vocabulary FOR SELECT USING (true);
+CREATE POLICY "Public can view study_rooms" ON public.study_rooms FOR SELECT USING (is_public = true OR is_active = true);
+CREATE POLICY "Public can view national_leaderboard" ON public.national_leaderboard_cache FOR SELECT USING (true);
+
+-- User-scoped policies for new tables
+CREATE OR REPLACE FUNCTION create_user_isolation_policies_v2(tbl TEXT) RETURNS VOID AS $$
+BEGIN
+  EXECUTE format('DROP POLICY IF EXISTS "%s_select" ON public.%I', tbl, tbl);
+  EXECUTE format('DROP POLICY IF EXISTS "%s_insert" ON public.%I', tbl, tbl);
+  EXECUTE format('DROP POLICY IF EXISTS "%s_update" ON public.%I', tbl, tbl);
+  EXECUTE format('DROP POLICY IF EXISTS "%s_delete" ON public.%I', tbl, tbl);
+  EXECUTE format('CREATE POLICY "%s_select" ON public.%I FOR SELECT USING (auth.uid() = user_id OR auth.uid()::text = user_id::text)', tbl, tbl);
+  EXECUTE format('CREATE POLICY "%s_insert" ON public.%I FOR INSERT WITH CHECK (auth.uid() = user_id OR auth.uid()::text = user_id::text)', tbl, tbl);
+  EXECUTE format('CREATE POLICY "%s_update" ON public.%I FOR UPDATE USING (auth.uid() = user_id OR auth.uid()::text = user_id::text)', tbl, tbl);
+  EXECUTE format('CREATE POLICY "%s_delete" ON public.%I FOR DELETE USING (auth.uid() = user_id OR auth.uid()::text = user_id::text)', tbl, tbl);
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT create_user_isolation_policies_v2('optional_progress');
+SELECT create_user_isolation_policies_v2('optional_answers');
+SELECT create_user_isolation_policies_v2('answer_writing_sessions');
+SELECT create_user_isolation_policies_v2('newspaper_clips');
+SELECT create_user_isolation_policies_v2('newspaper_reading_log');
+SELECT create_user_isolation_policies_v2('study_room_members');
+SELECT create_user_isolation_policies_v2('study_room_messages');
+SELECT create_user_isolation_policies_v2('study_room_daily_logs');
+SELECT create_user_isolation_policies_v2('voice_notes');
+
+DROP FUNCTION IF EXISTS create_user_isolation_policies_v2(TEXT);
+
+-- ============================================================================
+-- SCHEMA SETUP COMPLETE (v2 — Platform Expansion)
 -- ============================================================================

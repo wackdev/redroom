@@ -15,6 +15,7 @@ import {
 } from "@/lib/sync/sync-engine";
 import { sound } from "@/lib/audio/sound-engine";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
 
 const STORAGE_KEY = "redroom_syllabus_progress";
 
@@ -126,58 +127,8 @@ export default function SyllabusPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-        {/* COMMAND HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-            <div className="flex items-center gap-3">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs font-bold text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
-              >
-                ← COMMAND CENTRE
-              </Link>
-              <span className="text-white/20 hidden sm:inline">|</span>
-              <div className="hidden sm:flex items-center gap-2">
-                <span className="text-base">📚</span>
-                <span className="font-mono text-xs font-black tracking-widest text-white uppercase">
-                  SYLLABUS MASTER MATRIX
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 font-mono text-xs">
-              <Link
-                href="/3d-zone"
-                className="hidden md:flex items-center gap-2 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow-[0_0_15px_rgba(216,166,58,0.2)]"
-              >
-                <span>🌌</span>
-                <span>3D SIMULATION ZONE →</span>
-              </Link>
-
-              <button
-                onClick={() => void triggerManualSync()}
-                title="Click to sync data with cloud"
-                className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-semibold transition ${
-                  isSyncing
-                    ? "border-[#D8A63A]/50 bg-[#D8A63A]/10 text-[#F4C95D] animate-pulse"
-                    : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                <span>{isSyncing ? "🔄" : "☁️"}</span>
-                <span className="hidden sm:inline">
-                  {isSyncing ? "SYNCING..." : lastSyncTime ? `SYNCED (${lastSyncTime})` : "SYNC CLOUD"}
-                </span>
-              </button>
-
-              <button
-                onClick={resetProgress}
-                className="rounded-xl border border-rose-500/30 px-3.5 py-1.5 text-rose-400 hover:bg-rose-500/10 transition"
-              >
-                Reset Progress
-              </button>
-            </div>
-          </div>
-        </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Syllabus Master Matrix" moduleBadge="UPSC OFFICIAL TAXONOMY" />
 
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
           {/* 3D ZONE INVITATION BANNER */}

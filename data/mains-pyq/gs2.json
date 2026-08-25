@@ -33,13 +33,31 @@
       ],
       "diagramOrFlowchart": "Checks & Balances: Article 163(1) Aid & Advice -> Article 200 Timelines -> Judicial Review (Bommai / Punjab)",
       "mapDiagram": "Centre-State Constitutional Architecture:\n[President of India / Union Cabinet (Art 74)]\n       │ (Appoints / Recalls Art 155)\n       ▼\n[Governor of the State] ──(Article 163 Aid & Advice)──► [Council of Ministers (State)]\n       │ (Article 200 Assent / Article 356 Report)\n       ▼\n[Supreme Court of India (Judicial Review - S.R. Bommai & Punjab 2023)]",
-      "caseLawsOrArticlesOrCommittees": ["S.R. Bommai v. Union of India (1994)", "State of Punjab v. Governor (2023)", "Sarkaria Commission (1988)", "Punchhi Commission (2010)"],
+      "caseLawsOrArticlesOrCommittees": [
+        "S.R. Bommai v. Union of India (1994)",
+        "State of Punjab v. Governor (2023)",
+        "Sarkaria Commission (1988)",
+        "Punchhi Commission (2010)"
+      ],
       "fullModelAnswer": "The office of the Governor, envisaged by the framers as a linchpin of constitutional unity, has increasingly become an arena of Centre-State friction due to the contentious exercise of discretionary powers under Articles 200 and 356.\n\n1. Friction under Article 200 (Assent to State Bills):\n• Constitutional Flashpoints: Governors withholding assent indefinitely ('pocket veto') or excessively reserving bills for the President on state subjects, obstructing democratically elected state legislatures.\n• Judicial Guardrails:\n- State of Punjab v. Principal Secretary to Governor (2023): The Supreme Court held that the phrase 'as soon as possible' in Article 200 conveys constitutional urgency. Governors cannot act as unelected obstacles to legislation. If assent is withheld, the bill must be returned with a message; once re-passed by the Assembly, assent is mandatory.\n- Shamsher Singh Case: Affirmed that the Governor is a formal constitutional head bound by the aid and advice of the Council of Ministers, except where discretion is explicitly mandated by the Constitution.\n\n2. Friction under Article 356 (President's Rule):\n• Historical Misuse: Subjective reports by Governors recommending dissolution of state assemblies to favor ruling parties at the Centre.\n• Judicial Guardrails:\n- S.R. Bommai v. Union of India (1994): Declared federalism as a part of the Basic Structure. The SC established that gubernatorial reports are open to judicial review for mala fides, and the floor of the Assembly is the sole objective test for determining executive majority.\n- Rameshwar Prasad (2006): Ruled that assemblies cannot be dissolved merely on assumptions of horse-trading without exploring coalition alternatives.\n\nConclusion:\nAs recommended by the Sarkaria and Punchhi Commissions, the Governor must act as an impartial constitutional umpire, adhering to constitutional morality to preserve the federal equilibrium.",
       "conclusion": "The Governor must function as a constitutional sentinel guided by constitutional morality rather than a political agent, upholding the asymmetric and cooperative federal equilibrium.",
-      "keywords": ["Article 200", "Article 356", "S.R. Bommai", "Constitutional Morality", "Cooperative Federalism", "Floor Test", "Sarkaria Commission"]
+      "keywords": [
+        "Article 200",
+        "Article 356",
+        "S.R. Bommai",
+        "Constitutional Morality",
+        "Cooperative Federalism",
+        "Floor Test",
+        "Sarkaria Commission"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Governor", "Federalism", "Centre-State Relations", "Judicial Review"]
+    "syllabusTags": [
+      "Governor",
+      "Federalism",
+      "Centre-State Relations",
+      "Judicial Review"
+    ]
   },
   {
     "id": "UPSC-MAINS-2025-GS2-02",
@@ -74,13 +92,31 @@
       ],
       "diagramOrFlowchart": "Foreign Policy Evolution: Non-Alignment (Cold War) -> Multi-Alignment (Post-1991) -> Strategic Leadership / Voice of Global South (21st Century)",
       "mapDiagram": "India's Strategic Geo-Economic Architecture:\n[India Stack & Global South Voice]\n       ├── Westward: IMEC Corridor (India -> UAE -> Saudi -> Jordan -> Europe)\n       ├── Eastward: Indo-Pacific Quad & ASEAN Act East\n       └── Multilateral: G20 African Union + Expanded BRICS",
-      "caseLawsOrArticlesOrCommittees": ["New Delhi Leaders' Declaration (2023)", "African Union Inclusion", "India-Middle East-Europe Economic Corridor (IMEC)"],
+      "caseLawsOrArticlesOrCommittees": [
+        "New Delhi Leaders' Declaration (2023)",
+        "African Union Inclusion",
+        "India-Middle East-Europe Economic Corridor (IMEC)"
+      ],
       "fullModelAnswer": "India’s foreign policy is undergoing a decisive shift from defensive non-alignment to confident 'strategic leadership', marked by championing the developmental priorities of the Global South across premier multilateral institutions.\n\n1. Manifestation in the G20 New Delhi Presidency:\n• African Union's Permanent Induction: India successfully led the diplomatic consensus to admit the 55-member African Union into the G20, correcting a historical imbalance in global economic governance.\n• Reformed Multilateralism: The New Delhi Declaration broke geopolitical deadlocks by refocusing global attention on debt distress in developing nations, Multilateral Development Bank (MDB) capital reforms, and predictable climate finance ($5.9 trillion for developing nations' NDCs).\n• Global Public Goods: Propagated India’s Digital Public Infrastructure (India Stack) and launched the Global Biofuels Alliance.\n\n2. Strategic Recalibration in BRICS:\n• Counterbalancing Bloc Politics: In the expanded BRICS (BRICS+), India has championed non-Western multipolarity while firmly resisting attempts to transform the forum into a revisionist, anti-Western coalition.\n• Financial De-Risking: Promoting local currency trade settlements and cross-border payment interoperability (UPI linkages) to protect developing nations from dollar volatility.\n\n3. Institutionalizing the 'Voice of Global South':\nThrough dedicated Voice of Global South Summits, India consolidated the priorities of 125+ developing countries, effectively acting as an indispensable bridge power between the G7 and the developing world.\n\nConclusion:\nIndia’s strategic leadership demonstrates that global power in the 21st century is earned not through coercion, but through the ability to forge consensus, democratize institutions, and deliver shared human progress.",
       "conclusion": "India's voice of the Global South is not reactive rhetoric, but a constructive blueprint for reformed multilateralism, ensuring the 21st century is defined by inclusive development rather than bloc politics.",
-      "keywords": ["Global South", "Strategic Autonomy", "G20 African Union", "IMEC", "Reformed Multilateralism", "Vishwa Mitra", "Digital Public Infrastructure"]
+      "keywords": [
+        "Global South",
+        "Strategic Autonomy",
+        "G20 African Union",
+        "IMEC",
+        "Reformed Multilateralism",
+        "Vishwa Mitra",
+        "Digital Public Infrastructure"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Foreign Policy", "Global South", "G20", "BRICS", "Multilateralism"]
+    "syllabusTags": [
+      "Foreign Policy",
+      "Global South",
+      "G20",
+      "BRICS",
+      "Multilateralism"
+    ]
   },
   {
     "id": "UPSC-MAINS-2024-GS2-01",
@@ -115,13 +151,30 @@
         }
       ],
       "diagramOrFlowchart": "Constitutional Balance: Article 44 (Uniformity & Gender Equality) <──> Article 25(2)(a) (State Regulation of Secular Matters) <──> Article 25(1) (Freedom of Conscience & Faith)",
-      "caseLawsOrArticlesOrCommittees": ["Shah Bano Begum (1985)", "Sarla Mudgal (1995)", "Shayara Bano (2017)", "21st Law Commission Consultation Paper (2018)"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Shah Bano Begum (1985)",
+        "Sarla Mudgal (1995)",
+        "Shayara Bano (2017)",
+        "21st Law Commission Consultation Paper (2018)"
+      ],
       "fullModelAnswer": "Article 44 of the Constitution envisions a Uniform Civil Code (UCC) to govern personal matters—marriage, divorce, inheritance, and adoption—for all citizens irrespective of religion.\n\n1. Constitutional and Socio-Gender Imperatives:\n• Upholding Gender Justice (Articles 14, 15, 21): Various personal laws contain systemic gender biases—such as unequal coparcenary rights, restrictions on guardianship, and arbitrary divorce practices. A UCC ensures substantive equality for women across communities.\n• National Integration & Secularism: A common civil framework strengthens national unity by removing sectarian legal fragmentation in civil rights.\n• Judicial Endorsement: In Shah Bano (1985), Sarla Mudgal (1995), and Shayara Bano (2017), the Supreme Court repeatedly observed that personal laws must conform to constitutional morality and human dignity.\n\n2. Balancing UCC with Freedom of Religion (Article 25):\n• Distinguishing Religious Faith from Secular Activities: Article 25(1) protects freedom of conscience and religious worship. However, Article 25(2)(a) explicitly empowers the State to regulate secular economic, financial, and civil activities associated with religious practices.\n• Incremental Reform Approach: As recommended by the 21st Law Commission (2018), equality does not mandate absolute uniformity. The immediate focus should be reforming discriminatory provisions within individual personal laws (e.g., standardizing marriage age and equal inheritance).\n• Customary Tribal Exemptions: Preserving indigenous customs protected under Articles 371A (Nagaland) and 371G (Mizoram) to maintain socio-cultural harmony.\n\nConclusion:\nA progressive Uniform Civil Code must be rights-based and consensus-driven, guaranteeing gender justice and non-discrimination without erasing legitimate cultural diversity.",
       "conclusion": "A progressive UCC must be consensus-driven and rights-oriented rather than majoritarian, prioritizing gender justice and constitutional equality while respecting cultural diversity.",
-      "keywords": ["Uniform Civil Code", "Article 44", "Article 25", "Gender Justice", "Essential Religious Practices", "Personal Law Reform"]
+      "keywords": [
+        "Uniform Civil Code",
+        "Article 44",
+        "Article 25",
+        "Gender Justice",
+        "Essential Religious Practices",
+        "Personal Law Reform"
+      ]
     },
     "important": true,
-    "syllabusTags": ["UCC", "Fundamental Rights", "DPSP", "Gender Equality"]
+    "syllabusTags": [
+      "UCC",
+      "Fundamental Rights",
+      "DPSP",
+      "Gender Equality"
+    ]
   },
   {
     "id": "UPSC-MAINS-2024-GS2-02",
@@ -156,13 +209,29 @@
         }
       ],
       "diagramOrFlowchart": "Electoral Integrity Architecture: Voter Information (Art 19(1)(a)) -> Transparent Political Finance -> Free & Fair Elections (Basic Structure)",
-      "caseLawsOrArticlesOrCommittees": ["ADR v. Union of India (2024)", "Indrajit Gupta Committee on State Funding (1998)", "255th Law Commission Report on Electoral Reforms"],
+      "caseLawsOrArticlesOrCommittees": [
+        "ADR v. Union of India (2024)",
+        "Indrajit Gupta Committee on State Funding (1998)",
+        "255th Law Commission Report on Electoral Reforms"
+      ],
       "fullModelAnswer": "In ADR v. Union of India (2024), the Supreme Court declared the Electoral Bond Scheme unconstitutional, holding that opacity in political contributions violates the voter’s fundamental right to information under Article 19(1)(a).\n\n1. Why Transparency is Imperative for Democracy:\n• Informed Franchise: The Court affirmed that an informed electorate is the bedrock of democracy. Voters cannot make meaningful political choices without knowing the financial backers of contesting parties.\n• Preventing Quid Pro Quo and Policy Capture: Unlimited, untraceable corporate funding allows commercial interests to extract post-election policy concessions, subsidies, or contracts, enabling state capture.\n• Restoring the Level Playing Field: Anonymous donations heavily skewed total funding toward ruling parties, undermining the core democratic guarantee of fair electoral competition.\n\n2. Way Forward for Clean Electoral Financing:\n• Partial State Funding of Elections: As suggested by the Indrajit Gupta Committee (1998) and Law Commission (255th Report), providing state support in-kind (airtime, paper, fuel) to recognized parties to curb private money power.\n• Digital Transparency & Real-Time Disclosure: Mandating that all political donations above a set threshold (e.g., ₹2,000) be transacted digitally and published on an open-access portal managed by the Election Commission.\n• Regulated National Electoral Funds: Channelling corporate contributions through an independently audited National Electoral Fund distributed transparently based on vote share.\n\nConclusion:\nPolitical transparency is not an administrative choice but a constitutional requirement. Clean, disclosed financing is vital to ensure that elected governments remain accountable to citizens rather than corporate benefactors.",
       "conclusion": "Money in politics cannot operate in the shadows of anonymity; institutional transparency is the bedrock of voter sovereignty and constitutional trust.",
-      "keywords": ["Electoral Bonds", "ADR 2024", "Article 19(1)(a)", "State Funding", "Indrajit Gupta Committee", "Quid Pro Quo"]
+      "keywords": [
+        "Electoral Bonds",
+        "ADR 2024",
+        "Article 19(1)(a)",
+        "State Funding",
+        "Indrajit Gupta Committee",
+        "Quid Pro Quo"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Electoral Reforms", "Transparency", "Supreme Court", "Governance"]
+    "syllabusTags": [
+      "Electoral Reforms",
+      "Transparency",
+      "Supreme Court",
+      "Governance"
+    ]
   },
   {
     "id": "UPSC-MAINS-2023-GS2-01",
@@ -196,13 +265,30 @@
         }
       ],
       "diagramOrFlowchart": "Tripartite Balance: Legislature (Law Making) <──Checks & Balances──> Executive (Implementation) <──Judicial Review (Art 13/32)──> Judiciary (Adjudication)",
-      "caseLawsOrArticlesOrCommittees": ["Kesavananda Bharati (1973)", "Minerva Mills (1980)", "K.S. Puttaswamy (2017)", "Vishaka v. State of Rajasthan (1997)"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Kesavananda Bharati (1973)",
+        "Minerva Mills (1980)",
+        "K.S. Puttaswamy (2017)",
+        "Vishaka v. State of Rajasthan (1997)"
+      ],
       "fullModelAnswer": "The doctrine of Separation of Powers assigns distinct functions to the Legislature, Executive, and Judiciary. Judicial review is the constitutional mechanism to enforce this balance, but when courts venture into policy-making and law creation, it borders on undemocratic judicial overreach.\n\n1. Rationale of Judicial Review (Legitimate Constitutional Duty):\n• Defending Constitutional Supremacy: Articles 13, 32, and 226 mandate the judiciary to strike down laws that violate fundamental rights or the Basic Structure (Kesavananda Bharati, 1973).\n• Expanding Human Rights Frontiers: Public Interest Litigation (PIL) transformed the Supreme Court into the 'sentinel qui vive', expanding Article 21 to include clean water, privacy (Puttaswamy), and dignified livelihood.\n• Enforcing Executive Accountability: Through 'continuing mandamus', the judiciary ensures statutory compliance in environmental degradation and corruption inquiries.\n\n2. Judicial Activism vs. Judicial Overreach:\n• Activism (Constructive Remediation): Issuing guidelines to fill legislative voids until Parliament acts—such as the Vishaka Guidelines (1997) for workplace safety and the Prakash Singh directives (2006) for police reforms.\n• Overreach (Institutional Encroachment): Crossing into executive administration and economic policy—such as ordering a nationwide ban on liquor sales near national highways, attempting to manage sports bodies, or setting emission norms. This lacks institutional capacity, public consultation, and democratic accountability.\n\nConclusion:\nThe judiciary must practice 'judicial self-restraint'. Preserving democratic legitimacy requires that unelected judges respect the institutional sphere of elected representatives while fearlessly upholding the Constitution.",
       "conclusion": "The judiciary must practice 'judicial self-restraint'; judges must remember that unelected courts cannot substitute executive wisdom or legislative prerogative in a representative democracy.",
-      "keywords": ["Judicial Review", "Judicial Overreach", "Separation of Powers", "Basic Structure", "Puttaswamy", "Judicial Restraint"]
+      "keywords": [
+        "Judicial Review",
+        "Judicial Overreach",
+        "Separation of Powers",
+        "Basic Structure",
+        "Puttaswamy",
+        "Judicial Restraint"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Judiciary", "Separation of Powers", "Judicial Review", "Constitutional Law"]
+    "syllabusTags": [
+      "Judiciary",
+      "Separation of Powers",
+      "Judicial Review",
+      "Constitutional Law"
+    ]
   },
   {
     "id": "UPSC-MAINS-2022-GS2-01",
@@ -236,13 +322,29 @@
         }
       ],
       "diagramOrFlowchart": "Puttaswamy 3-Fold Test: Legality (Statutory Backing) -> Legitimate State Aim -> Proportionality & Necessity",
-      "caseLawsOrArticlesOrCommittees": ["Justice K.S. Puttaswamy (2017)", "Aadhaar Ruling (2018)", "Justice B.N. Srikrishna Committee Report (2018)"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Justice K.S. Puttaswamy (2017)",
+        "Aadhaar Ruling (2018)",
+        "Justice B.N. Srikrishna Committee Report (2018)"
+      ],
       "fullModelAnswer": "The Supreme Court’s unanimous 9-judge ruling in Justice K.S. Puttaswamy v. Union of India (2017) marked a watershed moment, elevating the Right to Privacy to an inalienable fundamental right under Article 21 and Part III.\n\n1. Judicial Expansion and the Proportionality Standard:\n• Overturning Archaic Precedents: The Court expressly overruled M.P. Sharma (1954) and Kharak Singh (1962), holding that privacy encompasses informational privacy, bodily integrity, and decisional autonomy.\n• Three-Fold Test of Proportionality: Any state interference with privacy must satisfy three cumulative conditions:\n  1. Legality: Backed by an express legislative statute.\n  2. Legitimate State Aim: Pursuing a rational objective such as national security or targeted welfare.\n  3. Proportionality: Ensuring that the measure is necessary and represents the least intrusive means.\n\n2. Implications for Digital Governance:\n• Aadhaar Verdict (2018): Uheld the mandatory use of Aadhaar for targeted welfare transfers while striking down Section 57, barring private commercial entities from accessing citizen biometrics.\n• Data Protection Architecture (DPDP Act, 2023): The ruling necessitated a statutory data protection regime incorporating principles of purpose limitation, data minimization, user consent, and establishing the Data Protection Board of India.\n• Checking Digital Surveillance: In the Pegasus investigation, the Supreme Court reaffirmed that national security cannot be used as a blanket shield to avoid judicial scrutiny over mass surveillance.\n\nConclusion:\nPuttaswamy established that in the 21st-century digital republic, citizen welfare and data-driven governance must operate within constitutional boundaries of consent, dignity, and individual liberty.",
       "conclusion": "The constitutionalization of privacy establishes that national security and digital welfare can coexist with individual liberty only through the crucible of proportional, law-governed state action.",
-      "keywords": ["Puttaswamy", "Proportionality Test", "Informational Privacy", "DPDP Act 2023", "Data Protection Board", "Article 21"]
+      "keywords": [
+        "Puttaswamy",
+        "Proportionality Test",
+        "Informational Privacy",
+        "DPDP Act 2023",
+        "Data Protection Board",
+        "Article 21"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Right to Privacy", "Puttaswamy", "Fundamental Rights", "Digital Governance"]
+    "syllabusTags": [
+      "Right to Privacy",
+      "Puttaswamy",
+      "Fundamental Rights",
+      "Digital Governance"
+    ]
   },
   {
     "id": "UPSC-MAINS-2021-GS2-01",
@@ -277,13 +379,29 @@
         }
       ],
       "diagramOrFlowchart": "GST Council Voting Dynamics: Union (1/3rd Vote) + All States (2/3rd Vote) ──► 3/4th Majority Required (Union Veto Inherent)",
-      "caseLawsOrArticlesOrCommittees": ["101st Constitutional Amendment (Art 279A)", "Union of India v. Mohit Minerals (2022)", "15th Finance Commission Report"],
+      "caseLawsOrArticlesOrCommittees": [
+        "101st Constitutional Amendment (Art 279A)",
+        "Union of India v. Mohit Minerals (2022)",
+        "15th Finance Commission Report"
+      ],
       "fullModelAnswer": "The GST Council, established under Article 279A through the 101st Constitutional Amendment, represents India’s boldest experiment in fiscal federalism, creating a shared forum for indirect taxation.\n\n1. Successes in Harmonization:\n• Unification of Indirect Taxation: Dismantled fragmented state levies, checkposts, and cascading taxes, creating a seamless national market.\n• Collaborative Consensus: In its initial years, the Council operated through broad consensus rather than majority voting, fostering cooperative inter-governmental trust.\n• Responsiveness: Swiftly rationalized tax slabs for critical medical supplies during the pandemic and introduced the Composition Scheme for MSMEs.\n\n2. Emerging Faultlines and Challenges:\n• Voting Architecture and Asymmetry: Under Article 279A(9), the Union holds a one-third voting share while all States combined hold two-thirds. With a three-fourths threshold needed to pass decisions, the Union possesses an effective veto, whereas all States united cannot pass a resolution without Union backing.\n• Cessation of GST Compensation (June 2022): The termination of guaranteed 14% revenue compensation severely impacted manufacturing-heavy states (e.g., Tamil Nadu, Maharashtra), creating fiscal deficits.\n• The Mohit Minerals Verdict (2022): The Supreme Court held that the GST Council's recommendations possess persuasive, rather than binding, value upon State legislatures, emphasizing that Indian federalism includes 'uncooperative' democratic contestation.\n\nConclusion:\nTo preserve fiscal federalism, the GST Council must activate dispute resolution mechanisms under Article 279A(11) and rationalize slabs to ensure equitable revenue buoyancy for both the Union and States.",
       "conclusion": "The GST Council must transition from bargaining federalism to empathetic fiscal partnership, reviving dispute resolution mechanisms under Article 279A(11).",
-      "keywords": ["GST Council", "Article 279A", "Pooled Sovereignty", "Mohit Minerals", "Cooperative Federalism", "Fiscal Deficit"]
+      "keywords": [
+        "GST Council",
+        "Article 279A",
+        "Pooled Sovereignty",
+        "Mohit Minerals",
+        "Cooperative Federalism",
+        "Fiscal Deficit"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Fiscal Federalism", "GST Council", "Centre-State Relations", "Constitution"]
+    "syllabusTags": [
+      "Fiscal Federalism",
+      "GST Council",
+      "Centre-State Relations",
+      "Constitution"
+    ]
   },
   {
     "id": "UPSC-MAINS-2020-GS2-01",
@@ -318,12 +436,50 @@
         }
       ],
       "diagramOrFlowchart": "Reform Blueprint: Speaker Disqualification Power -> Transfer to Independent Tribunal (Retired HC/SC Judge + CEC) -> Time-Bound 3-Month Verdicts",
-      "caseLawsOrArticlesOrCommittees": ["Kihoto Hollohan (1992)", "Keisham Meghachandra Singh (2020)", "2nd ARC 4th Report", "Dinesh Goswami Committee"],
+      "caseLawsOrArticlesOrCommittees": [
+        "Kihoto Hollohan (1992)",
+        "Keisham Meghachandra Singh (2020)",
+        "2nd ARC 4th Report",
+        "Dinesh Goswami Committee"
+      ],
       "fullModelAnswer": "The Anti-Defection Law (Tenth Schedule) was enacted to ensure political stability and democratic integrity. However, vesting exclusive adjudicatory authority in the Speaker has led to systemic partisan controversies.\n\n1. Institutional Vulnerabilities in the Speaker's Role:\n• Party Loyalty vs Constitutional Impartiality: In India, Speakers retain active party membership. Consequently, their decisions on disqualification petitions are often perceived as politically motivated.\n• Strategic Delays: Speakers have used the absence of a statutory timeline to indefinitely stall petitions against defecting MLAs supporting the ruling party, enabling illegitimate legislative majorities.\n• Subverting Legislative Intent: Defecting legislators resign to avoid disqualification, altering House numbers and securing ministerial berths, exploiting procedural loopholes.\n\n2. Judicial Interventions:\n• Kihoto Hollohan v. Zachillhu (1992): The Constitution Bench held that while the Speaker's role as a tribunal is valid, decisions are subject to judicial review on grounds of mala fides, perversity, or violation of natural justice.\n• Keisham Meghachandra Singh (2020): The Supreme Court mandated that Speakers must decide disqualification petitions within a reasonable period, ordinarily three months.\n\n3. Way Forward (Institutional Reform):\n• Independent Tribunal: As recommended by the 2nd ARC and reiterated in Keisham Meghachandra, adjudicatory powers under the Tenth Schedule should be transferred to an independent permanent tribunal headed by a retired judge or the Election Commission of India.\n• British Convention: Adopting the British practice where the Speaker resigns from political party membership upon election to ensure institutional neutrality.\n\nConclusion:\nTo restore public faith in parliamentary democracy, the adjudication of defections must be insulated from partisan calculations through independent institutional arbitration.",
       "conclusion": "To insulate the dignity of the legislative office from political cynicism, adjudicatory powers under the Tenth Schedule should be transferred to an independent electoral tribunal.",
-      "keywords": ["Tenth Schedule", "Anti-Defection Law", "Kihoto Hollohan", "Keisham Meghachandra", "Speaker Impartiality", "Independent Tribunal"]
+      "keywords": [
+        "Tenth Schedule",
+        "Anti-Defection Law",
+        "Kihoto Hollohan",
+        "Keisham Meghachandra",
+        "Speaker Impartiality",
+        "Independent Tribunal"
+      ]
     },
     "important": true,
-    "syllabusTags": ["Anti-Defection", "Speaker", "Parliament", "Electoral Governance"]
+    "syllabusTags": [
+      "Anti-Defection",
+      "Speaker",
+      "Parliament",
+      "Electoral Governance"
+    ]
+  },
+  {
+    "id": "MAINS-GS2-2024-01",
+    "year": 2024,
+    "subject": "Polity & Governance",
+    "paper": "GS-2",
+    "marks": 15,
+    "wordLimit": 250,
+    "question": "The office of the Governor in Indian federalism was conceived as a constitutional linchpin, but has increasingly emerged as a flashpoint of Centre-State friction. Critically analyze with reference to recent judicial pronouncements.",
+    "modelAnswerOutline": [
+      "Introduction: Article 153 dual role: Constitutional head of State + Agent of the Union President.",
+      "Key Friction Areas: Withholding assent to State legislative bills indefinitely (Article 200), convening Assembly sessions contrary to Cabinet advice (Article 174), role in government formation during hung assemblies.",
+      "Judicial Landmarks: Shamsher Singh (1974), S.R. Bommai (1994), Rameshwar Prasad (2006), State of Punjab v. Governor (2023 - Governor cannot sit on bills indefinitely).",
+      "Way Forward: Sarkaria and Punchhi Commission recommendations (Consultation with CM on appointment, 6-month timeline for bill disposal, impeachment mechanism)."
+    ],
+    "dimensions": [
+      "Constitutional Law",
+      "Fiscal/Political Federalism",
+      "Judicial Review",
+      "Administrative Ethics"
+    ]
   }
 ]

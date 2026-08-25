@@ -19,6 +19,10 @@ import RevisionHeatmap from "@/components/RevisionHeatmap";
 import CadetRankBadge from "@/components/CadetRankBadge";
 import AuthGuard from "@/components/auth/AuthGuard";
 
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
+import { dexieDb } from "@/lib/db/dexie";
+
 const RESULT_STORAGE_KEY = "redroom_test_results";
 const PLANS_STORAGE_KEY = "redroom_study_plan";
 const LEGACY_PLANS_STORAGE_KEY = "redroom_study_plans";
@@ -40,6 +44,7 @@ export default function DashboardPage() {
   const supabase = useMemo(() => createClient(), []);
   const { isSyncing, lastSyncTime, triggerManualSync } = useCloudSync();
 
+  const [activeCadet, setActiveCadet] = useState(() => UserSessionManager.getActiveUser());
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<TestResultRecord[]>([]);
@@ -52,6 +57,12 @@ export default function DashboardPage() {
   const loadDashboardData = useCallback(async () => {
     setLoading(true);
     try {
+      const currentCadet = UserSessionManager.getActiveUser();
+      setActiveCadet(currentCadet);
+      if (currentCadet?.email) {
+        setEmail(currentCadet.email);
+      }
+
       // 1. Auth check (only if Supabase credentials exist)
       if (isSupabaseConfigured()) {
         try {
@@ -60,7 +71,7 @@ export default function DashboardPage() {
           } = await supabase.auth.getUser();
 
           if (user) {
-            setEmail(user.email || "");
+            setEmail(user.email || currentCadet?.email || "");
           }
         } catch {}
       }
@@ -85,15 +96,26 @@ export default function DashboardPage() {
         }
       } catch {}
 
-      // 4. Load Test Results & Study Plans from localStorage
+      // 4. Load Test Results from Dexie + localStorage
       try {
+        let loadedResults: TestResultRecord[] = [];
         const saved = localStorage.getItem(RESULT_STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed)) {
-            setResults(parsed);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            loadedResults = parsed;
           }
         }
+
+        if (loadedResults.length === 0) {
+          const dexieResults = await dexieDb.test_results.toArray();
+          if (dexieResults.length > 0) {
+            loadedResults = dexieResults;
+            localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(dexieResults));
+          }
+        }
+
+        setResults(loadedResults);
 
         const savedPlans =
           localStorage.getItem(PLANS_STORAGE_KEY) ||
@@ -125,7 +147,7 @@ export default function DashboardPage() {
     };
     window.addEventListener("redroom_new_broadcast", handleLocalBroadcast);
 
-    // Fast poll broadcasts every 4s for instant real-time Telegram updates
+    // Fast poll broadcasts every 5s
     const pollInterval = setInterval(() => {
       fetch("/api/admin/broadcast")
         .then((res) => res.json())
@@ -135,7 +157,7 @@ export default function DashboardPage() {
           }
         })
         .catch(() => {});
-    }, 4000);
+    }, 5000);
 
     return () => {
       unsubscribe();
@@ -177,7 +199,10 @@ export default function DashboardPage() {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch {}
+    UserSessionManager.logout();
     router.push("/login");
   };
 
@@ -207,82 +232,8 @@ export default function DashboardPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#040406] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-        {/* TOP COMMAND HUD */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl shadow-2xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#D8A63A] to-[#B38322] font-mono font-black text-black shadow-[0_0_20px_rgba(216,166,58,0.45)]">
-                ↑
-              </div>
-              <div>
-                <span className="font-mono font-black tracking-widest text-base sm:text-lg text-white uppercase">
-                  WHYNOTUPSC <span className="text-[#F4C95D]">COMMAND</span>
-                </span>
-                <span className="ml-2 hidden rounded-full border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2 py-0.5 font-mono text-[9px] font-bold text-[#F4C95D] sm:inline-block">
-                  ASPIRANT OPERATING SYSTEM
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs">
-              <button
-                onClick={() => void triggerManualSync()}
-                title="Click to sync data with cloud"
-                className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 font-semibold transition ${
-                  isSyncing
-                    ? "border-[#D8A63A]/50 bg-[#D8A63A]/10 text-[#F4C95D] animate-pulse"
-                    : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                <span>{isSyncing ? "🔄" : "☁️"}</span>
-                <span className="hidden sm:inline">
-                  {isSyncing ? "SYNCING..." : lastSyncTime ? `SYNCED (${lastSyncTime})` : "SYNC CLOUD"}
-                </span>
-              </button>
-
-              <CadetRankBadge
-                totalHours={calculatedHours}
-                mainsAnswerCount={4}
-                pyqSolvedCount={safeArray(results).length * 15}
-              />
-
-              <button
-                onClick={handleSendQuickBroadcast}
-                title="Send Live Test Telegram Alert"
-                className="hidden md:flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 font-bold text-amber-300 hover:bg-amber-500/20 transition shadow-[0_0_15px_rgba(245,158,11,0.2)]"
-              >
-                <span>📡</span>
-                <span>Test Alert</span>
-              </button>
-
-              <button
-                onClick={handleToggleSound}
-                className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-2.5 sm:px-3 py-1.5 text-[#8C8C8C] hover:border-[#D8A63A]/50 hover:text-white transition"
-              >
-                <span>{isMuted ? "🔇" : "🔊"}</span>
-                <span className="hidden sm:inline">{isMuted ? "MUTED" : "SOUND"}</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  sound.playLock();
-                  window.dispatchEvent(new CustomEvent("redroom_open_command_palette"));
-                }}
-                className="hidden sm:flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow-[0_0_15px_rgba(216,166,58,0.2)]"
-              >
-                <span>⚡</span>
-                <span>Ctrl+K</span>
-              </button>
-
-              <button
-                onClick={logout}
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-white/70 hover:bg-white/10 hover:text-white transition"
-              >
-                Exit
-              </button>
-            </div>
-          </div>
-        </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Command Centre" moduleBadge="CADET DASHBOARD" />
 
         {/* UNIFIED COMMAND DASHBOARD BODY */}
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">

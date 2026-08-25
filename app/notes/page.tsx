@@ -19,6 +19,8 @@ import {
 } from "@/lib/sync/sync-engine";
 import NotesMindMapCanvas from "@/components/NotesMindMapCanvas";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
 import { useNotesStore } from "@/store/useNotesStore";
 
 const NOTES_STORAGE_KEY = "redroom_notes_data";
@@ -252,68 +254,8 @@ export default function NotesPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#080510] text-white">
-        {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push("/dashboard")}
-                className="text-sm text-purple-300 transition hover:text-white"
-              >
-                ← Command Centre
-              </button>
-
-            <span className="text-white/20">|</span>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">✍️</span>
-              <span className="font-bold tracking-tight">UPSC Notes & Daily Journal</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => void triggerManualSync()}
-              title="Click to sync data with cloud"
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
-                isSyncing
-                  ? "border-pink-500/40 bg-pink-500/10 text-pink-300 animate-pulse"
-                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <span>{isSyncing ? "🔄" : "☁️"}</span>
-              <span className="hidden sm:inline">
-                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
-              </span>
-            </button>
-            <button
-              onClick={() => router.push("/study-plan")}
-              className="hidden rounded-xl border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/10 hover:text-white sm:block"
-            >
-              📅 Study Plan
-            </button>
-            <button
-              onClick={() => {
-                if (activeTab === "daily_notes") {
-                  setShowDailyNoteModal(true);
-                } else {
-                  setShowAiModal(true);
-                }
-              }}
-              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-xs font-bold transition hover:opacity-90"
-            >
-              {activeTab === "daily_notes" ? (
-                <>
-                  <span>+</span> Log Timestamped Note
-                </>
-              ) : (
-                <>
-                  <span>✨</span> AI Synthesize Topic Note
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </header>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Notes Vault & Journal" moduleBadge="KNOWLEDGE REPOSITORY" />
 
       <div className="mx-auto max-w-7xl px-5 py-8">
         {/* HERO */}

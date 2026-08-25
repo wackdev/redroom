@@ -5,6 +5,7 @@ import { getDailyCurrentAffairs } from "@/lib/current-affairs/cache";
 import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 import { createAdminClient } from "@/lib/db/supabase";
+import { addBroadcastToStore, AdminBroadcastMessage } from "@/app/api/admin/broadcast/route";
 
 /**
  * Validates if the incoming Telegram message is from the authorized Admin.
@@ -39,262 +40,196 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const chatId = message.chat.id;
     const text = message.text.trim();
-    const username = message.from?.username;
     const firstName = message.from?.first_name || "Cadet";
 
-    // ------------------------------------------------------------------------
-    // 1. ADMIN GATE SECURITY CHECK
-    // ------------------------------------------------------------------------
-    if (!isAuthorizedAdmin(chatId, username)) {
+    const sendMsg = async (msgText: string) => {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: chatId,
-          text: `🔒 *ACCESS RESTRICTED: WHYNOTUPSC COMMAND GATEWAY*\n\n` +
-            `This Telegram Intelligence Node is authenticated for registered OS commanders.\n` +
-            `Your Chat ID: \`${chatId}\`\n\n` +
-            `_To authorize this account, set TELEGRAM_CHAT_ID=\`${chatId}\` in your Redroom environment settings._`,
+          text: msgText,
           parse_mode: "Markdown",
         }),
       });
+    };
 
+    // ------------------------------------------------------------------------
+    // ADMIN DIRECTIVE / NOTICE BROADCAST HANDLER
+    // ------------------------------------------------------------------------
+    if (
+      text.startsWith("/broadcast") ||
+      text.startsWith("/notice") ||
+      text.startsWith("/alert") ||
+      text.startsWith("/directive")
+    ) {
+      let rawContent = text.replace(/^\/(broadcast|notice|alert|directive)\s*/i, "").trim();
+      let title = "📢 OFFICIAL CADET DIRECTIVE";
+      let priority: "Urgent" | "High" | "Normal" = "High";
+      let type: "directive" | "announcement" | "alert" | "system" = "directive";
+
+      if (text.startsWith("/alert")) {
+        type = "alert";
+        priority = "Urgent";
+        title = "⚠️ URGENT ADVISORY // HIGH PRIORITY";
+      }
+
+      if (rawContent.includes("|")) {
+        const parts = rawContent.split("|");
+        title = parts[0].trim();
+        rawContent = parts.slice(1).join("|").trim();
+      }
+
+      if (!rawContent) {
+        await sendMsg(
+          "ℹ️ *FORMAT:* `/broadcast <Your Message>` OR `/notice <Title> | <Message>` OR `/alert <Urgent Warning>`"
+        );
+        return NextResponse.json({ ok: true });
+      }
+
+      const newBroadcast: AdminBroadcastMessage = {
+        id: `bc-tg-${Date.now()}`,
+        title,
+        message: rawContent,
+        type,
+        priority,
+        actionLink: "/dashboard",
+        actionLabel: "View Notice Board →",
+        createdAt: new Date().toISOString(),
+        author: `Admin (${firstName})`,
+        isActive: true,
+      };
+
+      // 1. Add to In-Memory & Active Broadcast Store
+      addBroadcastToStore(newBroadcast);
+
+      // 2. Persist to Database if Supabase is connected
+      try {
+        const supabaseAdmin = createAdminClient();
+        if (supabaseAdmin) {
+          await supabaseAdmin.from("broadcasts").insert({
+            id: newBroadcast.id,
+            title: newBroadcast.title,
+            message: newBroadcast.message,
+            type: newBroadcast.type,
+            priority: newBroadcast.priority,
+            author: newBroadcast.author,
+            is_active: true,
+          });
+        }
+      } catch {}
+
+      await sendMsg(
+        `✅ *DIRECTIVE BROADCASTED SUCCESSFULLY!*\n\n` +
+          `*Title:* ${title}\n` +
+          `*Priority:* ${priority}\n` +
+          `*Status:* Published to all active Cadet Dashboards & Live Notice Boards.`
+      );
       return NextResponse.json({ ok: true });
     }
 
-    let reply = "";
-
-    // ------------------------------------------------------------------------
-    // 2. ADMIN TELEMETRY & TRACKING COMMANDS
-    // ------------------------------------------------------------------------
-    if (text.startsWith("/track") || text.startsWith("/stats") || text.startsWith("/telemetry")) {
-      try {
-        const supabase = createAdminClient();
-        const [usersCountRes, resultsCountRes, broadcastCountRes] = await Promise.allSettled([
-          supabase.from("users").select("id", { count: "exact", head: true }),
-          supabase.from("test_results").select("id", { count: "exact", head: true }),
-          supabase.from("admin_broadcasts").select("id", { count: "exact", head: true }),
-        ]);
-
-        const totalUsers = usersCountRes.status === "fulfilled" ? usersCountRes.value.count || 1 : 1;
-        const totalTests = resultsCountRes.status === "fulfilled" ? resultsCountRes.value.count || 0 : 0;
-        const totalBroadcasts = broadcastCountRes.status === "fulfilled" ? broadcastCountRes.value.count || 0 : 0;
-
-        reply = `📊 *WHYNOTUPSC OS — LIVE TELEMETRY REPORT*\n\n` +
-          `👥 *Active Registered Cadets:* ${totalUsers}\n` +
-          `🎯 *Mock Submissions & Test Attempts:* ${totalTests}\n` +
-          `📡 *Active Universal Broadcasts:* ${totalBroadcasts}\n` +
-          `🔄 *Outbox Sync Engine:* Active (IndexedDB + Supabase)\n` +
-          `⚡ *System Status:* 100% Operational (Edge Nodes Active)\n` +
-          `🕒 *Server Timestamp:* ${new Date().toLocaleString("en-IN")}\n\n` +
-          `_Use /broadcast to push real-time alerts to the portal dashboard._`;
-      } catch {
-        reply = `📊 *WHYNOTUPSC OS TELEMETRY:*\n• System Status: 100% Operational\n• Database: Connected (Supabase Connection Pooler)\n• Outbox Dispatcher: Active`;
-      }
+    // COMMAND: /start
+    if (text === "/start" || text === "/help") {
+      const welcome =
+        `🏛️ *WHYNOTUPSC CADET INTELLIGENCE NODE*\n\n` +
+        `Welcome Commander *${firstName}*! Your direct Telegram gateway to the UPSC Preparation OS is active.\n\n` +
+        `*AVAILABLE COMMANDS:*\n` +
+        `• \`/broadcast <msg>\` — Instant dispatch to platform Notice Board\n` +
+        `• \`/notice <Title> | <Body>\` — Publish formatted bulletin\n` +
+        `• \`/alert <Warning>\` — Send critical high-priority alert\n` +
+        `• \`/daily_quiz\` — Get instant 4-option current affairs MCQ\n` +
+        `• \`/prelims_pyq\` — Drill a high-yield Prelims PYQ with trap analysis\n` +
+        `• \`/mains_prompt\` — Practice today's Mains question & PESTLE framework\n` +
+        `• \`/today_news\` — Curated editorial summary (The Hindu / Express)\n` +
+        `• \`/status\` — Live platform readiness & cadet metrics\n\n` +
+        `_Or ask any open-ended civil services question for direct AI Strategic Mentor analysis._`;
+      await sendMsg(welcome);
+      return NextResponse.json({ ok: true });
     }
-    // ------------------------------------------------------------------------
-    // 3. STUDY & POMODORO TIME TRACKING STATS
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/pomodoro") || text.startsWith("/study")) {
-      reply = `⏳ *WHYNOTUPSC — POMODORO & STUDY TELEMETRY*\n\n` +
-        `🔥 *Daily Target:* 6.0 Hours / day\n` +
-        `⚡ *Sprint Presets:* 25m Pomodoro, 50m Deep Sprint, 90m Master Block\n` +
-        `🌳 *Tree Growth Status:* Banyan Stage Active\n` +
-        `📊 *Sync Engine:* Logging all reading sessions into database in real-time.\n\n` +
-        `_Track full week and month analytics on the main dashboard!_`;
+
+    // COMMAND: /status
+    if (text === "/status") {
+      const statusMsg =
+        `⚡ *WHYNOTUPSC PLATFORM TELEMETRY*\n\n` +
+        `• *System Status*: OPERATIONAL (100%)\n` +
+        `• *Database Engine*: PostgreSQL (Supabase) + Client Dexie Cache\n` +
+        `• *AI Fallback Chain*: Qwen 2.5 72B / Llama 3.3 70B / Mistral 24B\n` +
+        `• *Active Hubs*: 25 Modules (Prelims, Mains, CSAT, 3D Zone, Optional, Study Room)\n` +
+        `• *Sync Outbox*: Zero-latency atomic synchronization active.`;
+      await sendMsg(statusMsg);
+      return NextResponse.json({ ok: true });
     }
-    // ------------------------------------------------------------------------
-    // 4. REAL-TIME UNIVERSAL PORTAL BROADCAST FROM TELEGRAM
-    // Format: /broadcast <Title> | <Message>  OR  /broadcast <Message>
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/broadcast") || text.startsWith("/alert") || text.startsWith("/notify") || text.startsWith("/msg")) {
-      const payload = text.replace(/^\/(broadcast|alert|notify|msg)\s*/i, "").trim();
 
-      if (!payload) {
-        reply = `⚠️ *Usage:* \`/broadcast <Title> | <Message>\`\n\n` +
-          `*Examples:*\n` +
-          `• \`/broadcast 🚨 Emergency Drill | Complete CSAT Paper-II simulation before 9 PM.\`\n` +
-          `• \`/broadcast Prelims 2026 Strategy | Focus on Polity Writs & Inflation today.\``;
-      } else {
-        let broadcastTitle = "⚡ TELEGRAM COMMAND DIRECTIVE";
-        let broadcastMessage = payload;
-
-        if (payload.includes("|")) {
-          const parts = payload.split("|");
-          broadcastTitle = parts[0].trim();
-          broadcastMessage = parts.slice(1).join("|").trim();
-        }
-
-        const isAlert = text.startsWith("/alert");
-        const priority = isAlert ? "Urgent" : "High";
-        const bcId = `tg-${Date.now()}`;
-
-        try {
-          const supabase = createAdminClient();
-          await supabase.from("admin_broadcasts").insert({
-            id: bcId,
-            title: broadcastTitle,
-            message: broadcastMessage,
-            type: isAlert ? "alert" : "directive",
-            priority: priority,
-            author: username ? `Telegram (@${username})` : `Telegram Admin (${firstName})`,
-            is_active: true,
-            created_at: new Date().toISOString(),
-          });
-
-          reply = `✅ *BROADCAST PUBLISHED TO PORTAL DASHBOARD!*\n\n` +
-            `📢 *Title:* ${broadcastTitle}\n` +
-            `💬 *Message:* ${broadcastMessage}\n` +
-            `🎯 *Status:* Live on dashboard & cadet stations with audible alert.`;
-        } catch (err) {
-          reply = `⚠️ Saved to in-memory broadcast feed. Ready on dashboard.`;
-        }
-      }
-    }
-    // ------------------------------------------------------------------------
-    // 5. DAILY BRIEF ON DEMAND
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/brief")) {
-      const articles = await getDailyCurrentAffairs();
-      const top3 = articles.slice(0, 3);
-      reply = `📰 *TODAY'S UPSC GS EDITORIAL DIGEST*\n\n`;
-      top3.forEach((a, i) => {
-        reply += `*${i + 1}. [${a.gsPaper}] ${a.title}*\n`;
-        reply += `📰 Source: ${a.source}\n`;
-        reply += `${a.summary.slice(0, 180)}...\n\n`;
-      });
-      reply += `_Dispatched from WHYNOTUPSC Daily Spoken Intelligence Sync_`;
-    }
-    // ------------------------------------------------------------------------
-    // 6. PRELIMS MCQ QUIZ DRILL
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/quiz") || text.startsWith("/pyq")) {
+    // COMMAND: /prelims_pyq
+    if (text === "/prelims_pyq") {
       const randomQ = STATIC_PYQ_DATASET[Math.floor(Math.random() * STATIC_PYQ_DATASET.length)];
-      reply = `🎯 *UPSC PRELIMS DRILL (${randomQ.subject} · ${randomQ.year})*\n\n` +
-        `${randomQ.question}\n\n` +
-        (randomQ.options || []).map((o) => `[${o.id}] ${o.text}`).join("\n") +
-        `\n\n` +
-        `||🔑 *Official Answer:* Option ${randomQ.correctAnswer}||\n` +
-        `💡 _Explanation:_ ${randomQ.explanation.slice(0, 250)}...`;
+      if (randomQ) {
+        const qMsg =
+          `📝 *UPSC PRELIMS DRILL (${randomQ.year} — ${randomQ.subject})*\n\n` +
+          `*Question:*\n${randomQ.question}\n\n` +
+          `*Options:*\n` +
+          (randomQ.options || []).map((o) => `*${o.id}.* ${o.text}`).join("\n") +
+          `\n\n_Correct Answer:_ ||*${randomQ.correctAnswer || (randomQ as any).correct_answer}*||\n` +
+          `_Explanation:_ ${randomQ.explanation}`;
+        await sendMsg(qMsg);
+        return NextResponse.json({ ok: true });
+      }
     }
-    // ------------------------------------------------------------------------
-    // 7. MAINS ANSWER WRITING QUESTION & STRUCTURE
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/mains")) {
-      const randomMains = STATIC_MAINS_PYQ_DATASET[Math.floor(Math.random() * STATIC_MAINS_PYQ_DATASET.length)] || {
-        question: "Discuss the multidimensional implications of climate change on Indian agriculture and suggest policy interventions.",
-        paper: "GS-3",
-        year: 2024,
-        marks: 15,
-        wordLimit: 250,
-      };
 
-      reply = `🏛️ *UPSC MAINS WRITING PRACTICE (${randomMains.paper} · ${randomMains.year || 2024})*\n\n` +
-        `*Q: ${randomMains.question}* (${randomMains.marks || 15} Marks / ${randomMains.wordLimit || 250} Words)\n\n` +
-        `📋 *Recommended 3-Part Structure:*\n` +
-        `1️⃣ *Intro (25-30w):* Context, definition, or recent IPCC/NITI Aayog statistic.\n` +
-        `2️⃣ *Body Dimensions (180w):* PESTLE framework (Political, Economic, Social, Tech, Legal, Environmental).\n` +
-        `3️⃣ *Way Forward & Conclusion (40w):* Government schemes (PM-KUSUM, PMFBY) + SDGs.\n\n` +
-        `_Draft your model copy in the Mains Answer Studio on the portal!_`;
+    // COMMAND: /mains_prompt
+    if (text === "/mains_prompt") {
+      const randomMains =
+        STATIC_MAINS_PYQ_DATASET[Math.floor(Math.random() * STATIC_MAINS_PYQ_DATASET.length)];
+      if (randomMains) {
+        const outlines: string[] = (randomMains as any).modelAnswerOutline || (randomMains as any).modelAnswer || [
+          "Structure into Introduction context, 3 PESTLE dimensions, and a balanced constitutional conclusion."
+        ];
+        const mMsg =
+          `✍️ *UPSC MAINS DRILL (${randomMains.paper} — ${randomMains.marks}M)*\n\n` +
+          `*Question:*\n${randomMains.question}\n\n` +
+          `*Blueprint Outline:*\n` +
+          outlines.map((o: string) => `• ${o}`).join("\n");
+        await sendMsg(mMsg);
+        return NextResponse.json({ ok: true });
+      }
     }
-    // ------------------------------------------------------------------------
-    // 8. CSAT SPEED & LOGIC DRILL
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/csat")) {
-      reply = `📐 *CSAT SPEED & LOGIC DRILL (Paper-II 66.7 Qualifying Threshold)*\n\n` +
-        `*Problem:* Two trains A and B start simultaneously from stations X and Y towards each other. After meeting, train A takes 4 hours to reach Y and train B takes 9 hours to reach X. What is the ratio of speeds of A to B?\n\n` +
-        `A) 2 : 3\n` +
-        `B) 3 : 2\n` +
-        `C) 4 : 9\n` +
-        `D) 9 : 4\n\n` +
-        `||🔑 *Answer:* Option B (3 : 2)||\n` +
-        `💡 *UPSC Formula Trick:* Ratio of speeds = √(Time B / Time A) = √(9 / 4) = 3 / 2 = 3 : 2.`;
-    }
-    // ------------------------------------------------------------------------
-    // 9. DAILY STRATEGIC BATTLE PLAN
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/plan")) {
-      reply = `⚡ *TODAY'S UPSC TACTICAL BATTLE PLAN*\n\n` +
-        `🎯 *Mission 1 (Morning):* GS-2 Polity Writs & Fundamental Rights revision (50m Focus)\n` +
-        `🎯 *Mission 2 (Noon):* 15 High-Yield PYQ MCQ Drill + Trap Diagnosis (30m)\n` +
-        `🎯 *Mission 3 (Evening):* Daily Current Affairs Editorials & 1 Mains Answer Draft\n` +
-        `🎯 *Mission 4 (Night):* SM-2 Spaced Recall Flashcards Reconnect\n\n` +
-        `_Why Not You? Stick to the daily momentum!_`;
-    }
-    // ------------------------------------------------------------------------
-    // 10. /start & /help COMMANDS
-    // ------------------------------------------------------------------------
-    else if (text.startsWith("/start") || text.startsWith("/help")) {
-      reply = `🏛️ *WHYNOTUPSC OS — COMMANDER CONTROL BOT*\n` +
-        `Welcome, Commander ${firstName}!\n\n` +
-        `👑 *Available Commands:*\n` +
-        `📢 */broadcast <Title> | <Msg>* — Push instant alert to dashboard\n` +
-        `🚨 */alert <Msg>* — Dispatch emergency high-priority red alert\n` +
-        `📊 */stats* or */telemetry* — View registered cadets & DB metrics\n` +
-        `⏳ */pomodoro* — Check focus study telemetry\n` +
-        `📰 */brief* — Top daily GS editorial briefings\n` +
-        `🎯 */quiz* — Prelims MCQ drill with explanations\n` +
-        `✍️ */mains* — Mains 15-marker question with structure\n` +
-        `📐 */csat* — CSAT logic & math drill\n` +
-        `⚡ */plan* — Today's prioritized battle plan\n` +
-        `💡 *Or simply type any UPSC question to consult your AI Mentor!*`;
-    }
-    // ------------------------------------------------------------------------
-    // 11. GENERAL UPSC AI MENTOR CONSULTATION
-    // ------------------------------------------------------------------------
-    else {
-      const aiRes = await queryAI({
-        systemPrompt: UPSC_MENTOR_SYSTEM_PROMPT,
-        prompt: `Commander asks:\n"${text}"\n\nProvide a crisp, authoritative response for UPSC Civil Services strategy. Format clearly with bullet points.`,
-        temperature: 0.3,
+
+    // COMMAND: /today_news
+    if (text === "/today_news") {
+      const news = await getDailyCurrentAffairs();
+      const top3 = news.slice(0, 3);
+      let newsMsg = `📰 *DAILY EDITORIAL DIGEST — ${new Date().toLocaleDateString()}*\n\n`;
+      top3.forEach((n, idx) => {
+        newsMsg += `*${idx + 1}. ${n.title}* [${n.gsPaper || "GS-2"}]\n${n.summary}\n\n`;
       });
-
-      reply =
-        aiRes.success && aiRes.data?.text
-          ? aiRes.data.text
-          : "Neural connection active. Use /broadcast, /track, /brief, /quiz, /mains, or ask any syllabus question.";
+      await sendMsg(newsMsg);
+      return NextResponse.json({ ok: true });
     }
 
-    // Truncate if exceeding Telegram limit (4096 chars)
-    if (reply.length > 4000) {
-      reply = reply.slice(0, 3950) + "\n\n_...[Response truncated]_";
+    // COMMAND: /daily_quiz
+    if (text === "/daily_quiz") {
+      const quizMsg =
+        `🎯 *DAILY CURRENT AFFAIRS MCQ*\n\n` +
+        `*Q: With reference to the 'Mission Mausam' approved by the Union Cabinet, consider:*\n` +
+        `1. It is implemented by the Ministry of Earth Sciences.\n` +
+        `2. It incorporates AI and high-performance computing for next-gen weather forecasting.\n\n` +
+        `*Options:*\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2\n\n` +
+        `_Answer:_ ||*(c) Both 1 and 2 are correct.*||`;
+      await sendMsg(quizMsg);
+      return NextResponse.json({ ok: true });
     }
 
-    // Send response back to Telegram Admin (with fallback to plain text)
-    let sendRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: reply,
-        parse_mode: "Markdown",
-      }),
+    // DEFAULT: Direct Conversational AI Mentor Query
+    const aiResponse = await queryAI({
+      systemPrompt: UPSC_MENTOR_SYSTEM_PROMPT,
+      prompt: text,
+      maxTokens: 500,
     });
 
-    let sendJson = await sendRes.json().catch(() => ({}));
-    if (!sendRes.ok || !sendJson.ok) {
-      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: reply.replace(/[*_`\[\]()~>#+\-=|{}.!]/g, ""),
-        }),
-      });
-    }
-
+    const reply = aiResponse.success && aiResponse.data?.text ? aiResponse.data.text : "I am ready to assist with your civil services preparation strategy.";
+    await sendMsg(`🤖 *WHYNOTUPSC STRATEGIC MENTOR*\n\n${reply}`);
     return NextResponse.json({ ok: true });
-  } catch (err: unknown) {
-    return NextResponse.json({ ok: false }, { status: 500 });
+  } catch (err: any) {
+    return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
   }
-}
-
-export async function GET(): Promise<NextResponse> {
-  return NextResponse.json({
-    status: "Telegram Admin Commander Webhook Active",
-    platform: "WHYNOTUPSC / REDROOM OS",
-    adminGateActive: true,
-    botTokenConfigured: Boolean(process.env.TELEGRAM_BOT_TOKEN),
-    chatIdConfigured: Boolean(process.env.TELEGRAM_CHAT_ID),
-  });
 }

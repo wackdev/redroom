@@ -15,6 +15,8 @@ import {
 } from "@/lib/sync/sync-engine";
 import FlashcardQuickDrill from "@/components/FlashcardQuickDrill";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
 
 const REVISION_STORAGE_KEY = "redroom_revision_items";
 
@@ -245,58 +247,37 @@ export default function RevisionPage() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#080510] text-white">
-        {/* HEADER */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0714]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-            <div className="flex items-center gap-3">
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Spaced Revision System" moduleBadge="SM-2 RETENTION ENGINE" />
+
+        <div className="border-b border-white/10 bg-[#0b0714]/60 px-5 py-2.5">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-xs font-mono text-white/60">
+              <span>ACTIVE RECALL PIPELINE:</span>
+              <span className="font-bold text-pink-300">{dueItems.length} Due Today</span>
+            </div>
+
+            <div className="flex items-center gap-2">
               <button
-                onClick={() => router.push("/dashboard")}
-                className="text-sm text-purple-300 transition hover:text-white"
+                onClick={() => setShowFlashcards((p) => !p)}
+                className={`rounded-xl border px-3 py-1 text-xs font-bold transition ${
+                  showFlashcards
+                    ? "border-emerald-500 bg-emerald-500 text-black shadow-lg"
+                    : "border-emerald-500/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+                }`}
               >
-                ← Command Centre
+                ⚡ {showFlashcards ? "Hide Flashcards" : "Flashcard Vault"}
               </button>
 
-            <span className="text-white/20">|</span>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🔄</span>
-              <span className="font-bold tracking-tight">Spaced Repetition & Revision</span>
+              <button
+                onClick={() => setShowAddModal(true)}
+                className="rounded-xl bg-purple-600 px-3.5 py-1 text-xs font-bold transition hover:bg-purple-500"
+              >
+                + Add Topic
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => void triggerManualSync()}
-              title="Click to sync data with cloud"
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
-                isSyncing
-                  ? "border-pink-500/40 bg-pink-500/10 text-pink-300 animate-pulse"
-                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <span>{isSyncing ? "🔄" : "☁️"}</span>
-              <span className="hidden sm:inline">
-                {isSyncing ? "Syncing..." : lastSyncTime ? `Synced (${lastSyncTime})` : "Cloud Synced"}
-              </span>
-            </button>
-            <button
-              onClick={() => setShowFlashcards((p) => !p)}
-              className={`rounded-xl border px-3.5 py-1.5 text-xs font-bold transition ${
-                showFlashcards
-                  ? "border-emerald-500 bg-emerald-500 text-black shadow-lg"
-                  : "border-emerald-500/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
-              }`}
-            >
-              ⚡ {showFlashcards ? "Hide Flashcard Vault" : "3D Flashcard Vault"}
-            </button>
-
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="rounded-xl bg-purple-600 px-4 py-2 text-xs font-bold transition hover:bg-purple-500"
-            >
-              + Add Topic
-            </button>
-          </div>
         </div>
-      </header>
 
       <div className="mx-auto max-w-7xl px-5 py-8">
         {/* 3D FLASHCARD VAULT */}

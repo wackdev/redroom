@@ -8,16 +8,33 @@
     "paper": "GS-1",
     "question": "With reference to the Anti-Defection Law in India, consider the following statements:\n1. The law specifies that a nominated legislator cannot join any political party after six months of taking his seat.\n2. The presiding officer of a House is mandated by the Constitution to decide on defection disqualification petitions within a maximum period of six months.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Statement 1 is correct: Under paragraph 2(3) of the Tenth Schedule, a nominated member of a House incurs disqualification if they join any political party after the expiry of six months from the date of taking their seat.\nStatement 2 is incorrect: The Tenth Schedule does not prescribe any time limit within which the Presiding Officer (Speaker/Chairman) must decide a disqualification petition, though the Supreme Court (Keisham Meghachandra Singh case, 2020) ruled that disqualification petitions should ideally be decided within a reasonable time, usually three months.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Anti-Defection Law", "Tenth Schedule", "Speaker Powers", "Nominated Members"]
+    "conceptTags": [
+      "Anti-Defection Law",
+      "Tenth Schedule",
+      "Speaker Powers",
+      "Nominated Members"
+    ]
   },
   {
     "id": "UPSC-PRE-2026-POL-02",
@@ -28,16 +45,34 @@
     "paper": "GS-1",
     "question": "Consider the following statements regarding the pardoning power under the Indian Constitution:\n1. The Governor of a State cannot pardon a sentence of death under any circumstances.\n2. The President's pardoning power under Article 72 is subject to limited judicial review on grounds of arbitrariness or mala fides.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Both statements are correct.\n1. Under Article 161, the Governor cannot pardon a death sentence (only the President possesses the exclusive power to completely pardon a death sentence under Article 72, though the Governor can suspend, remit, or commute it).\n2. In Kehar Singh (1989) and Epuru Sudhakar (2006), the Supreme Court ruled that the exercise of clemency power by the President/Governor is subject to limited judicial review on grounds like non-application of mind, extraneous considerations, or mala fides.",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Pardoning Power", "Article 72", "Article 161", "President", "Governor"]
+    "conceptTags": [
+      "Pardoning Power",
+      "Article 72",
+      "Article 161",
+      "President",
+      "Governor"
+    ]
   },
   {
     "id": "UPSC-PRE-2026-POL-03",
@@ -48,16 +83,33 @@
     "paper": "GS-1",
     "question": "Which of the following Writs can be issued by the High Court or Supreme Court against a private individual or body?",
     "options": [
-      { "id": "A", "text": "Quo-Warranto only" },
-      { "id": "B", "text": "Mandamus only" },
-      { "id": "C", "text": "Habeas Corpus" },
-      { "id": "D", "text": "Certiorari" }
+      {
+        "id": "A",
+        "text": "Quo-Warranto only"
+      },
+      {
+        "id": "B",
+        "text": "Mandamus only"
+      },
+      {
+        "id": "C",
+        "text": "Habeas Corpus"
+      },
+      {
+        "id": "D",
+        "text": "Certiorari"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Habeas Corpus is the only writ that can be issued against both public authorities and private individuals/entities (in cases of unlawful detention or confinement). Mandamus, Prohibition, and Certiorari lie exclusively against public authorities, tribunals, or inferior courts.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Writs", "Habeas Corpus", "Article 32", "Article 226"]
+    "conceptTags": [
+      "Writs",
+      "Habeas Corpus",
+      "Article 32",
+      "Article 226"
+    ]
   },
   {
     "id": "UPSC-PRE-2025-POL-01",
@@ -68,16 +120,33 @@
     "paper": "GS-1",
     "question": "Which one of the following Articles of the Constitution of India protects one's right to marry the person of one's choice and personal privacy?",
     "options": [
-      { "id": "A", "text": "Article 19" },
-      { "id": "B", "text": "Article 21" },
-      { "id": "C", "text": "Article 25" },
-      { "id": "D", "text": "Article 29" }
+      {
+        "id": "A",
+        "text": "Article 19"
+      },
+      {
+        "id": "B",
+        "text": "Article 21"
+      },
+      {
+        "id": "C",
+        "text": "Article 25"
+      },
+      {
+        "id": "D",
+        "text": "Article 29"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "In the landmark K.S. Puttaswamy case (2017) and Shafin Jahan case (Hadiya case, 2018), the Supreme Court affirmed that the Right to Privacy and the Right to Marry a person of one's choice are intrinsic facets of the Right to Life and Personal Liberty guaranteed under Article 21.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Article 21", "Right to Privacy", "Right to Marry", "Fundamental Rights"]
+    "conceptTags": [
+      "Article 21",
+      "Right to Privacy",
+      "Right to Marry",
+      "Fundamental Rights"
+    ]
   },
   {
     "id": "UPSC-PRE-2025-POL-02",
@@ -88,16 +157,33 @@
     "paper": "GS-1",
     "question": "Consider the following statements regarding a Money Bill:\n1. A Money Bill can only be introduced in the Lok Sabha on the prior recommendation of the President.\n2. If any question arises whether a Bill is a Money Bill or not, the decision of the Speaker of the Lok Sabha thereon is final.\n3. The Rajya Sabha has no power to amend or reject a Money Bill.\nHow many of the statements given above are correct?",
     "options": [
-      { "id": "A", "text": "Only one" },
-      { "id": "B", "text": "Only two" },
-      { "id": "C", "text": "All three" },
-      { "id": "D", "text": "None" }
+      {
+        "id": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "C",
+        "text": "All three"
+      },
+      {
+        "id": "D",
+        "text": "None"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "All three statements are correct under Article 109 and Article 110:\n1. Under Article 117(1), a Money Bill can only be introduced in the Lok Sabha upon the prior recommendation of the President.\n2. Article 110(3) states that the Speaker's endorsement certifying a bill as a Money Bill is final.\n3. Under Article 109, the Rajya Sabha cannot amend or reject a Money Bill; it can only make recommendations within 14 days.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Money Bill", "Article 110", "Lok Sabha", "Speaker Certification"]
+    "conceptTags": [
+      "Money Bill",
+      "Article 110",
+      "Lok Sabha",
+      "Speaker Certification"
+    ]
   },
   {
     "id": "UPSC-PRE-2025-POL-03",
@@ -108,16 +194,33 @@
     "paper": "GS-1",
     "question": "With reference to the Finance Commission of India, consider the following statements:\n1. It is constituted by the President of India every fifth year or earlier under Article 280.\n2. Its recommendations regarding the devolution of taxes are binding on the Union Government.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Statement 1 is correct: The Finance Commission is a quasi-judicial body constituted by the President under Article 280 every 5 years or at such earlier time as deemed necessary.\nStatement 2 is incorrect: The recommendations made by the Finance Commission are only of an advisory nature and are not legally binding on the Government.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Finance Commission", "Article 280", "Tax Devolution", "Constitutional Bodies"]
+    "conceptTags": [
+      "Finance Commission",
+      "Article 280",
+      "Tax Devolution",
+      "Constitutional Bodies"
+    ]
   },
   {
     "id": "UPSC-PRE-2024-POL-01",
@@ -128,16 +231,33 @@
     "paper": "GS-1",
     "question": "Which of the following is correct regarding the Preamble to the Constitution of India?",
     "options": [
-      { "id": "A", "text": "It is a part of the Constitution and can be amended under Article 368 without altering the basic structure." },
-      { "id": "B", "text": "It is not a part of the Constitution and cannot be amended." },
-      { "id": "C", "text": "It is a part of the Constitution but cannot be amended under any condition." },
-      { "id": "D", "text": "It is a source of power to the legislature and a prohibition upon powers of the legislature." }
+      {
+        "id": "A",
+        "text": "It is a part of the Constitution and can be amended under Article 368 without altering the basic structure."
+      },
+      {
+        "id": "B",
+        "text": "It is not a part of the Constitution and cannot be amended."
+      },
+      {
+        "id": "C",
+        "text": "It is a part of the Constitution but cannot be amended under any condition."
+      },
+      {
+        "id": "D",
+        "text": "It is a source of power to the legislature and a prohibition upon powers of the legislature."
+      }
     ],
     "correctAnswer": "A",
     "explanation": "In the Kesavananda Bharati case (1973), the Supreme Court held that the Preamble is an integral part of the Constitution and can be amended under Article 368, subject to the condition that the basic features/basic structure are not altered or destroyed. It was amended once by the 42nd Amendment Act (1976).",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Preamble", "Article 368", "Kesavananda Bharati", "Basic Structure"]
+    "conceptTags": [
+      "Preamble",
+      "Article 368",
+      "Kesavananda Bharati",
+      "Basic Structure"
+    ]
   },
   {
     "id": "UPSC-PRE-2024-POL-02",
@@ -148,16 +268,33 @@
     "paper": "GS-1",
     "question": "Consider the following statements regarding the Special Leave Petition (SLP) under Article 136 of the Constitution:\n1. It is a discretionary power of the Supreme Court to grant special leave to appeal from any judgment, decree, or sentence in any cause or matter.\n2. It does not apply to any judgment or determination made by any court or tribunal constituted by or under any law relating to the Armed Forces.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Both statements are correct. Article 136(1) provides discretionary power to the Supreme Court to grant special leave against decisions of any court/tribunal in India. Article 136(2) explicitly excludes judgments/sentences passed by military tribunals or courts-martial.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["SLP", "Article 136", "Supreme Court", "Judicial Discretion"]
+    "conceptTags": [
+      "SLP",
+      "Article 136",
+      "Supreme Court",
+      "Judicial Discretion"
+    ]
   },
   {
     "id": "UPSC-PRE-2024-POL-03",
@@ -168,16 +305,33 @@
     "paper": "GS-1",
     "question": "With reference to the Delimitation Commission in India, consider the following statements:\n1. The orders of the Delimitation Commission have the force of law and cannot be called in question before any court.\n2. The orders are laid before the Lok Sabha and the respective State Legislative Assemblies, but no modifications are permissible.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Both statements are correct under the Delimitation Act. Under Article 329(a) and relevant statutory provisions, Delimitation Commission orders become final upon publication in the Gazette of India, cannot be challenged in any court, and cannot be modified by either Parliament or State Legislatures.",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Delimitation Commission", "Article 329", "Elections", "Constituencies"]
+    "conceptTags": [
+      "Delimitation Commission",
+      "Article 329",
+      "Elections",
+      "Constituencies"
+    ]
   },
   {
     "id": "UPSC-PRE-2023-POL-01",
@@ -188,16 +342,33 @@
     "paper": "GS-1",
     "question": "In essence, what does 'Due Process of Law' mean?",
     "options": [
-      { "id": "A", "text": "The principle of natural justice" },
-      { "id": "B", "text": "The procedure established by law" },
-      { "id": "C", "text": "Fair application of law" },
-      { "id": "D", "text": "Equality before law" }
+      {
+        "id": "A",
+        "text": "The principle of natural justice"
+      },
+      {
+        "id": "B",
+        "text": "The procedure established by law"
+      },
+      {
+        "id": "C",
+        "text": "Fair application of law"
+      },
+      {
+        "id": "D",
+        "text": "Equality before law"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "'Due Process of Law' (derived from the US Constitution and incorporated into Indian jurisprudence via the Maneka Gandhi case, 1978) implies not only that the procedure established by law must be strictly followed, but that the law itself must be just, fair, reasonable, and non-arbitrary (fair application of law and substantive fairness).",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Due Process of Law", "Article 21", "Maneka Gandhi Case", "Natural Justice"]
+    "conceptTags": [
+      "Due Process of Law",
+      "Article 21",
+      "Maneka Gandhi Case",
+      "Natural Justice"
+    ]
   },
   {
     "id": "UPSC-PRE-2023-POL-02",
@@ -208,16 +379,33 @@
     "paper": "GS-1",
     "question": "Consider the following statements:\nStatement-I: In India, prisons are managed by State Governments with their own rules and regulations for the day-to-day administration of prisoners.\nStatement-II: In India, prisons are governed by the Prisons Act, 1894 which expressly kept the subject of prisons in the control of Provincial Governments.\nWhich one of the following is correct in respect of the above statements?",
     "options": [
-      { "id": "A", "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I" },
-      { "id": "B", "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I" },
-      { "id": "C", "text": "Statement-I is correct but Statement-II is incorrect" },
-      { "id": "D", "text": "Statement-I is incorrect but Statement-II is correct" }
+      {
+        "id": "A",
+        "text": "Both Statement-I and Statement-II are correct and Statement-II is the correct explanation for Statement-I"
+      },
+      {
+        "id": "B",
+        "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+      },
+      {
+        "id": "C",
+        "text": "Statement-I is correct but Statement-II is incorrect"
+      },
+      {
+        "id": "D",
+        "text": "Statement-I is incorrect but Statement-II is correct"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "'Prisons' and 'persons detained therein' is Entry 4 of the State List (List II) in the Seventh Schedule. The administration of prisons is regulated primarily by the Prisons Act, 1894 and individual State Prison Manuals, leaving day-to-day management entirely with State Governments.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Prisons Act", "Seventh Schedule", "State List", "Federalism"]
+    "conceptTags": [
+      "Prisons Act",
+      "Seventh Schedule",
+      "State List",
+      "Federalism"
+    ]
   },
   {
     "id": "UPSC-PRE-2023-POL-03",
@@ -228,16 +416,33 @@
     "paper": "GS-1",
     "question": "Consider the following organizations/bodies in India:\n1. The National Commission for Backward Classes\n2. The National Human Rights Commission\n3. The National Law Commission\n4. The National Consumer Disputes Redressal Commission\nHow many of the above are constitutional bodies?",
     "options": [
-      { "id": "A", "text": "Only one" },
-      { "id": "B", "text": "Only two" },
-      { "id": "C", "text": "Only three" },
-      { "id": "D", "text": "All four" }
+      {
+        "id": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "C",
+        "text": "Only three"
+      },
+      {
+        "id": "D",
+        "text": "All four"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Only the National Commission for Backward Classes (NCBC) is a constitutional body (conferred constitutional status under Article 338B via the 102nd Constitutional Amendment Act, 2018).\n- NHRC is a statutory body under the Protection of Human Rights Act, 1993.\n- Law Commission is an executive, non-statutory body.\n- NCDRC is a statutory quasi-judicial commission under the Consumer Protection Act.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["NCBC", "Article 338B", "Constitutional Bodies", "Statutory Bodies"]
+    "conceptTags": [
+      "NCBC",
+      "Article 338B",
+      "Constitutional Bodies",
+      "Statutory Bodies"
+    ]
   },
   {
     "id": "UPSC-PRE-2023-POL-04",
@@ -248,16 +453,33 @@
     "paper": "GS-1",
     "question": "With reference to the election of the President of India, consider the following statements:\n1. The total value of votes of all MLAs of a State is divided by the total number of elected MPs of Lok Sabha.\n2. The value of the vote of an MLA varies from State to State.\n3. The value of vote of an MLA of Puducherry is higher than that of Arunachal Pradesh.\nHow many of the statements given above are correct?",
     "options": [
-      { "id": "A", "text": "Only one" },
-      { "id": "B", "text": "Only two" },
-      { "id": "C", "text": "All three" },
-      { "id": "D", "text": "None" }
+      {
+        "id": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "C",
+        "text": "All three"
+      },
+      {
+        "id": "D",
+        "text": "None"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Statements 2 and 3 are correct:\n- Statement 1 is incorrect: The value of an MLA vote is calculated based on the 1971 population of that state divided by total elected MLAs * 1000. Value of MP votes is total value of all state MLAs divided by total elected MPs of both Houses.\n- Statement 2 is correct: MLA vote value varies from state to state based on population-to-seat ratios.\n- Statement 3 is correct: Puducherry MLA vote value is 16, whereas Arunachal Pradesh MLA vote value is 8.",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Presidential Election", "Article 54", "Article 55", "Value of Votes"]
+    "conceptTags": [
+      "Presidential Election",
+      "Article 54",
+      "Article 55",
+      "Value of Votes"
+    ]
   },
   {
     "id": "UPSC-PRE-2022-POL-01",
@@ -268,16 +490,33 @@
     "paper": "GS-1",
     "question": "With reference to the Deputy Speaker of Lok Sabha, consider the following statements:\n1. As per the Rules of Procedure and Conduct of Business in Lok Sabha, the election of Deputy Speaker shall be held on such date as the Speaker may fix.\n2. There is a mandatory provision that the election of a candidate as Deputy Speaker of Lok Sabha shall be from either the principal opposition party or the Ruling Party.\n3. The Deputy Speaker has the same power as the Speaker when presiding over the sitting of the House and no appeal lies against his rulings.\n4. The well-established parliamentary practice regarding the appointment of Deputy Speaker is that the motion is moved by the Speaker and duly seconded by the Prime Minister.\nWhich of the statements given above are correct?",
     "options": [
-      { "id": "A", "text": "1 and 3 only" },
-      { "id": "B", "text": "1, 2 and 3" },
-      { "id": "C", "text": "3 and 4 only" },
-      { "id": "D", "text": "2 and 4 only" }
+      {
+        "id": "A",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "B",
+        "text": "1, 2 and 3"
+      },
+      {
+        "id": "C",
+        "text": "3 and 4 only"
+      },
+      {
+        "id": "D",
+        "text": "2 and 4 only"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Statements 1 and 3 are correct:\n- Rule 8 of Lok Sabha Rules specifies that the election of the Deputy Speaker is held on such date as the Speaker fixes.\n- When presiding, the Deputy Speaker exercises all powers of the Speaker with final rulings.\n- Statement 2 is incorrect: It is an established convention (since 1996), not a mandatory constitutional provision.\n- Statement 4 is incorrect: Any member can move and second the motion for election.",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Deputy Speaker", "Lok Sabha Rules", "Article 93", "Parliament"]
+    "conceptTags": [
+      "Deputy Speaker",
+      "Lok Sabha Rules",
+      "Article 93",
+      "Parliament"
+    ]
   },
   {
     "id": "UPSC-PRE-2022-POL-02",
@@ -288,16 +527,33 @@
     "paper": "GS-1",
     "question": "With reference to the Contempt of Court in India, consider the following statements:\n1. Pursuant to the Contempt of Courts Act, 1971, the Constitution of India vests power in the Supreme Court and High Courts to punish for contempt of themselves.\n2. The Constitution of India defines Civil Contempt and Criminal Contempt.\n3. In India, the Parliament is vested with the power to make laws regarding Contempt of Court.\n4. In India, the Courts can initiate contempt proceedings suo motu.\nWhich of the statements given above are correct?",
     "options": [
-      { "id": "A", "text": "1 and 2 only" },
-      { "id": "B", "text": "1, 3 and 4" },
-      { "id": "C", "text": "3 and 4 only" },
-      { "id": "D", "text": "2, 3 and 4" }
+      {
+        "id": "A",
+        "text": "1 and 2 only"
+      },
+      {
+        "id": "B",
+        "text": "1, 3 and 4"
+      },
+      {
+        "id": "C",
+        "text": "3 and 4 only"
+      },
+      {
+        "id": "D",
+        "text": "2, 3 and 4"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Statements 3 and 4 are correct:\n- Statement 1 is incorrect: The constitutional power of the SC (Art. 129) and HCs (Art. 215) is inherent and flows directly from the Constitution as Courts of Record, not pursuant to the 1971 Act.\n- Statement 2 is incorrect: The Constitution does not define civil and criminal contempt; they are defined in the Contempt of Courts Act, 1971.\n- Statements 3 and 4 are correct: Parliament has legislative competence (Entry 77 List I, Entry 14 List III), and courts possess suo motu powers.",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Contempt of Court", "Article 129", "Article 215", "Court of Record"]
+    "conceptTags": [
+      "Contempt of Court",
+      "Article 129",
+      "Article 215",
+      "Court of Record"
+    ]
   },
   {
     "id": "UPSC-PRE-2022-POL-03",
@@ -308,16 +564,33 @@
     "paper": "GS-1",
     "question": "Consider the following statements:\n1. A biological mother/father has the right to be a litigation guardian.\n2. As per the Constitution of India, the Attorney General of India and Solicitor General of India submit their resignations when the Government which appointed them resigns.\n3. The Constitution of India defines the office of the Solicitor General of India.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 and 3 only" },
-      { "id": "C", "text": "1 and 2 only" },
-      { "id": "D", "text": "None" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "C",
+        "text": "1 and 2 only"
+      },
+      {
+        "id": "D",
+        "text": "None"
+      }
     ],
     "correctAnswer": "D",
     "explanation": "All statements are incorrect in constitutional terms:\n- The office of the Solicitor General of India is a statutory post created under the Law Officers (Conditions of Service) Rules, not mentioned or defined in the Constitution (only Attorney General is under Article 76).\n- The resignation of the AG upon government change is a convention, not a constitutional mandate.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Attorney General", "Solicitor General", "Article 76", "Constitutional Posts"]
+    "conceptTags": [
+      "Attorney General",
+      "Solicitor General",
+      "Article 76",
+      "Constitutional Posts"
+    ]
   },
   {
     "id": "UPSC-PRE-2021-POL-01",
@@ -328,16 +601,32 @@
     "paper": "GS-1",
     "question": "A 'Constitutional Government' by definition is a:",
     "options": [
-      { "id": "A", "text": "Government by legislature" },
-      { "id": "B", "text": "Popular government" },
-      { "id": "C", "text": "Multi-party government" },
-      { "id": "D", "text": "Limited government" }
+      {
+        "id": "A",
+        "text": "Government by legislature"
+      },
+      {
+        "id": "B",
+        "text": "Popular government"
+      },
+      {
+        "id": "C",
+        "text": "Multi-party government"
+      },
+      {
+        "id": "D",
+        "text": "Limited government"
+      }
     ],
     "correctAnswer": "D",
     "explanation": "Constitutionalism / Constitutional Government is fundamentally a 'Limited Government' where the powers of political authority are constrained by a supreme constitutional framework to protect fundamental human liberties and prevent despotism.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Constitutionalism", "Limited Government", "Rule of Law"]
+    "conceptTags": [
+      "Constitutionalism",
+      "Limited Government",
+      "Rule of Law"
+    ]
   },
   {
     "id": "UPSC-PRE-2021-POL-02",
@@ -348,16 +637,33 @@
     "paper": "GS-1",
     "question": "What is the legal status of the Right to Property in India?",
     "options": [
-      { "id": "A", "text": "Legal right available to citizens only" },
-      { "id": "B", "text": "Legal right available to any person" },
-      { "id": "C", "text": "Fundamental Right available to citizens only" },
-      { "id": "D", "text": "Neither Fundamental Right nor legal right" }
+      {
+        "id": "A",
+        "text": "Legal right available to citizens only"
+      },
+      {
+        "id": "B",
+        "text": "Legal right available to any person"
+      },
+      {
+        "id": "C",
+        "text": "Fundamental Right available to citizens only"
+      },
+      {
+        "id": "D",
+        "text": "Neither Fundamental Right nor legal right"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "The 44th Constitutional Amendment Act (1978) omitted the Right to Property as a Fundamental Right (Art. 19(1)(f) and Art. 31) and inserted Article 300A in Part XII: 'No person shall be deprived of his property save by authority of law'. Thus, it is a legal/constitutional right available to any person (citizens and non-citizens alike).",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Right to Property", "Article 300A", "44th Amendment", "Constitutional Rights"]
+    "conceptTags": [
+      "Right to Property",
+      "Article 300A",
+      "44th Amendment",
+      "Constitutional Rights"
+    ]
   },
   {
     "id": "UPSC-PRE-2021-POL-03",
@@ -368,16 +674,33 @@
     "paper": "GS-1",
     "question": "What was the exact constitutional status of India on 26th January, 1950?",
     "options": [
-      { "id": "A", "text": "A Democratic Republic" },
-      { "id": "B", "text": "A Sovereign Democratic Republic" },
-      { "id": "C", "text": "A Sovereign Secular Democratic Republic" },
-      { "id": "D", "text": "A Sovereign Socialist Secular Democratic Republic" }
+      {
+        "id": "A",
+        "text": "A Democratic Republic"
+      },
+      {
+        "id": "B",
+        "text": "A Sovereign Democratic Republic"
+      },
+      {
+        "id": "C",
+        "text": "A Sovereign Secular Democratic Republic"
+      },
+      {
+        "id": "D",
+        "text": "A Sovereign Socialist Secular Democratic Republic"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "On 26th January 1950, the Preamble declared India to be a 'Sovereign Democratic Republic'. The words 'Socialist', 'Secular', and 'and Integrity' were inserted later by the 42nd Constitutional Amendment Act of 1976.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Preamble", "42nd Amendment", "Constituent Assembly", "Sovereign Republic"]
+    "conceptTags": [
+      "Preamble",
+      "42nd Amendment",
+      "Constituent Assembly",
+      "Sovereign Republic"
+    ]
   },
   {
     "id": "UPSC-PRE-2021-POL-04",
@@ -388,16 +711,33 @@
     "paper": "GS-1",
     "question": "With reference to the Indian Judiciary, consider the following statements:\n1. Any retired judge of the Supreme Court of India can be called back to sit and act as a Supreme Court judge by the Chief Justice of India with prior permission of the President of India.\n2. A High Court in India has the power to review its own judgement as the Supreme Court does.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Both statements are correct:\n1. Under Article 128, the Chief Justice of India may, with the previous consent of the President, request any retired Supreme Court judge to act as an ad-hoc judge.\n2. As a Court of Record under Article 215, High Courts have inherent powers to review their own judgments (reaffirmed in MM Thomas case, 1992).",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Article 128", "Article 215", "Ad Hoc Judges", "Judicial Review"]
+    "conceptTags": [
+      "Article 128",
+      "Article 215",
+      "Ad Hoc Judges",
+      "Judicial Review"
+    ]
   },
   {
     "id": "UPSC-PRE-2020-POL-01",
@@ -408,16 +748,33 @@
     "paper": "GS-1",
     "question": "The Preamble to the Constitution of India is:",
     "options": [
-      { "id": "A", "text": "A part of the Constitution; but has no legal effect" },
-      { "id": "B", "text": "Not a part of the Constitution; and has no legal effect either" },
-      { "id": "C", "text": "A part of the Constitution and has the same legal effect as any other part" },
-      { "id": "D", "text": "A part of the Constitution; but has no legal effect independently of other parts" }
+      {
+        "id": "A",
+        "text": "A part of the Constitution; but has no legal effect"
+      },
+      {
+        "id": "B",
+        "text": "Not a part of the Constitution; and has no legal effect either"
+      },
+      {
+        "id": "C",
+        "text": "A part of the Constitution and has the same legal effect as any other part"
+      },
+      {
+        "id": "D",
+        "text": "A part of the Constitution; but has no legal effect independently of other parts"
+      }
     ],
     "correctAnswer": "D",
     "explanation": "The Supreme Court in Kesavananda Bharati and LIC of India cases established that the Preamble is an integral part of the Constitution. However, it is non-justiciable and cannot be enforced directly in a court of law independently of other constitutional provisions.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Preamble", "Legal Effect", "Non-justiciable", "Basic Structure"]
+    "conceptTags": [
+      "Preamble",
+      "Legal Effect",
+      "Non-justiciable",
+      "Basic Structure"
+    ]
   },
   {
     "id": "UPSC-PRE-2020-POL-02",
@@ -428,16 +785,33 @@
     "paper": "GS-1",
     "question": "Rajya Sabha has equal powers with Lok Sabha in:",
     "options": [
-      { "id": "A", "text": "The matter of creating new All India Services" },
-      { "id": "B", "text": "Amending the Constitution" },
-      { "id": "C", "text": "The removal of the government" },
-      { "id": "D", "text": "Making cut motions" }
+      {
+        "id": "A",
+        "text": "The matter of creating new All India Services"
+      },
+      {
+        "id": "B",
+        "text": "Amending the Constitution"
+      },
+      {
+        "id": "C",
+        "text": "The removal of the government"
+      },
+      {
+        "id": "D",
+        "text": "Making cut motions"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Under Article 368, a Constitutional Amendment Bill must be passed by each House (Lok Sabha and Rajya Sabha) separately by a special majority. There is no provision for a joint sitting. Rajya Sabha holds equal powers with Lok Sabha regarding constitutional amendments.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Rajya Sabha", "Article 368", "Constitutional Amendment", "Parliamentary Powers"]
+    "conceptTags": [
+      "Rajya Sabha",
+      "Article 368",
+      "Constitutional Amendment",
+      "Parliamentary Powers"
+    ]
   },
   {
     "id": "UPSC-PRE-2020-POL-03",
@@ -448,16 +822,33 @@
     "paper": "GS-1",
     "question": "Which part of the Constitution of India declares the ideal of a 'Welfare State'?",
     "options": [
-      { "id": "A", "text": "Directive Principles of State Policy" },
-      { "id": "B", "text": "Fundamental Rights" },
-      { "id": "C", "text": "Preamble" },
-      { "id": "D", "text": "Seventh Schedule" }
+      {
+        "id": "A",
+        "text": "Directive Principles of State Policy"
+      },
+      {
+        "id": "B",
+        "text": "Fundamental Rights"
+      },
+      {
+        "id": "C",
+        "text": "Preamble"
+      },
+      {
+        "id": "D",
+        "text": "Seventh Schedule"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Part IV (Articles 36 to 51) containing the Directive Principles of State Policy (DPSP) embodies the concept of a 'Welfare State', directing state governance towards socio-economic justice and minimizing inequalities.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["DPSP", "Welfare State", "Part IV", "Socio-Economic Justice"]
+    "conceptTags": [
+      "DPSP",
+      "Welfare State",
+      "Part IV",
+      "Socio-Economic Justice"
+    ]
   },
   {
     "id": "UPSC-PRE-2020-POL-04",
@@ -468,16 +859,33 @@
     "paper": "GS-1",
     "question": "With reference to the funds under Members of Parliament Local Area Development Scheme (MPLADS), which of the following statements are correct?\n1. MPLADS funds must be used to create durable assets like physical infrastructure for health, education, etc.\n2. A specified portion of each MP's fund must benefit SC/ST populations.\n3. MPLADS funds are sanctioned on yearly basis and the unused funds cannot be carried forward to the next year.\n4. The district authority must inspect at least 10% of all works under implementation every year.\nSelect the correct answer using the code given below:",
     "options": [
-      { "id": "A", "text": "1 and 2 only" },
-      { "id": "B", "text": "3 and 4 only" },
-      { "id": "C", "text": "1, 2 and 3 only" },
-      { "id": "D", "text": "1, 2 and 4 only" }
+      {
+        "id": "A",
+        "text": "1 and 2 only"
+      },
+      {
+        "id": "B",
+        "text": "3 and 4 only"
+      },
+      {
+        "id": "C",
+        "text": "1, 2 and 3 only"
+      },
+      {
+        "id": "D",
+        "text": "1, 2 and 4 only"
+      }
     ],
     "correctAnswer": "D",
     "explanation": "Statements 1, 2, and 4 are correct:\n- Funds must be utilized for durable assets in infrastructure, sanitation, education.\n- At least 15% for SC and 7.5% for ST areas must be allocated.\n- Statement 3 is incorrect because MPLADS funds are non-lapsable, meaning unspent balances roll over to the subsequent years.\n- District authority is mandated to inspect at least 10% of works every year.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["MPLADS", "Parliament", "Public Expenditure", "Rural Infrastructure"]
+    "conceptTags": [
+      "MPLADS",
+      "Parliament",
+      "Public Expenditure",
+      "Rural Infrastructure"
+    ]
   },
   {
     "id": "UPSC-PRE-2019-POL-01",
@@ -488,16 +896,33 @@
     "paper": "GS-1",
     "question": "Which Article of the Constitution of India safeguards one's right to marry the person of one's choice?",
     "options": [
-      { "id": "A", "text": "Article 19" },
-      { "id": "B", "text": "Article 21" },
-      { "id": "C", "text": "Article 25" },
-      { "id": "D", "text": "Article 29" }
+      {
+        "id": "A",
+        "text": "Article 19"
+      },
+      {
+        "id": "B",
+        "text": "Article 21"
+      },
+      {
+        "id": "C",
+        "text": "Article 25"
+      },
+      {
+        "id": "D",
+        "text": "Article 29"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "In Shafin Jahan v. Asokan K.M. (2018), the Supreme Court affirmed that the right to marry a person of one's choice is integral to Article 21 (Right to Life and Personal Liberty).",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Article 21", "Right to Marry", "Personal Liberty", "Hadiya Case"]
+    "conceptTags": [
+      "Article 21",
+      "Right to Marry",
+      "Personal Liberty",
+      "Hadiya Case"
+    ]
   },
   {
     "id": "UPSC-PRE-2019-POL-02",
@@ -508,16 +933,32 @@
     "paper": "GS-1",
     "question": "Consider the following statements:\n1. The motion to impeach a Judge of the Supreme Court of India cannot be rejected by the Speaker of the Lok Sabha as per the Judges (Inquiry) Act, 1968.\n2. The Constitution of India defines and gives details of what constitutes 'incapacity and proved misbehaviour' of the Judges of the Supreme Court of India.\n3. The details of the process of impeachment and investigation are stated in the Judges (Inquiry) Act, 1968.\n4. If the motion for the impeachment of a judge is taken up for voting, the law requires the motion to be backed by each House of the Parliament and supported by a majority of total membership and not less than two-thirds of members present and voting.\nWhich of the statements given above are correct?",
     "options": [
-      { "id": "A", "text": "1 and 2" },
-      { "id": "B", "text": "3 only" },
-      { "id": "C", "text": "3 and 4 only" },
-      { "id": "D", "text": "1, 3 and 4" }
+      {
+        "id": "A",
+        "text": "1 and 2"
+      },
+      {
+        "id": "B",
+        "text": "3 only"
+      },
+      {
+        "id": "C",
+        "text": "3 and 4 only"
+      },
+      {
+        "id": "D",
+        "text": "1, 3 and 4"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Statements 3 and 4 are correct:\n- Statement 1 is incorrect: The Speaker/Chairman has discretion to accept or reject the impeachment motion.\n- Statement 2 is incorrect: The Constitution does not define 'proved misbehaviour' or 'incapacity'.\n- Statements 3 and 4 correctly describe the statutory investigation procedure under the 1968 Act and the special majority requirement under Article 124(4).",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Impeachment of Judges", "Judges Inquiry Act 1968", "Article 124"]
+    "conceptTags": [
+      "Impeachment of Judges",
+      "Judges Inquiry Act 1968",
+      "Article 124"
+    ]
   },
   {
     "id": "UPSC-PRE-2019-POL-03",
@@ -528,16 +969,33 @@
     "paper": "GS-1",
     "question": "The Ninth Schedule was introduced in the Constitution of India during the prime ministership of:",
     "options": [
-      { "id": "A", "text": "Jawaharlal Nehru" },
-      { "id": "B", "text": "Lal Bahadur Shastri" },
-      { "id": "C", "text": "Indira Gandhi" },
-      { "id": "D", "text": "Morarji Desai" }
+      {
+        "id": "A",
+        "text": "Jawaharlal Nehru"
+      },
+      {
+        "id": "B",
+        "text": "Lal Bahadur Shastri"
+      },
+      {
+        "id": "C",
+        "text": "Indira Gandhi"
+      },
+      {
+        "id": "D",
+        "text": "Morarji Desai"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "The Ninth Schedule and Article 31B were inserted into the Constitution by the First Constitutional Amendment Act, 1951, under Prime Minister Jawaharlal Nehru to protect land reform laws from judicial scrutiny.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Ninth Schedule", "Article 31B", "Jawaharlal Nehru", "1st Amendment"]
+    "conceptTags": [
+      "Ninth Schedule",
+      "Article 31B",
+      "Jawaharlal Nehru",
+      "1st Amendment"
+    ]
   },
   {
     "id": "UPSC-PRE-2019-POL-04",
@@ -548,16 +1006,33 @@
     "paper": "GS-1",
     "question": "Under which Schedule of the Constitution of India can the transfer of tribal land to private parties for mining be declared null and void?",
     "options": [
-      { "id": "A", "text": "Third Schedule" },
-      { "id": "B", "text": "Fifth Schedule" },
-      { "id": "C", "text": "Ninth Schedule" },
-      { "id": "D", "text": "Twelfth Schedule" }
+      {
+        "id": "A",
+        "text": "Third Schedule"
+      },
+      {
+        "id": "B",
+        "text": "Fifth Schedule"
+      },
+      {
+        "id": "C",
+        "text": "Ninth Schedule"
+      },
+      {
+        "id": "D",
+        "text": "Twelfth Schedule"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "In the landmark Samatha v. State of Andhra Pradesh (1997) judgment, the Supreme Court held that under the Fifth Schedule, tribal land in Scheduled Areas cannot be leased or transferred to private non-tribal entities for mining activities, declaring such leases null and void.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Fifth Schedule", "Tribal Land", "Samatha Case", "Scheduled Areas"]
+    "conceptTags": [
+      "Fifth Schedule",
+      "Tribal Land",
+      "Samatha Case",
+      "Scheduled Areas"
+    ]
   },
   {
     "id": "UPSC-PRE-2018-POL-01",
@@ -568,16 +1043,33 @@
     "paper": "GS-1",
     "question": "Right to Privacy is protected as an intrinsic part of Right to Life and Personal Liberty under which Article of the Constitution of India?",
     "options": [
-      { "id": "A", "text": "Article 14" },
-      { "id": "B", "text": "Article 19" },
-      { "id": "C", "text": "Article 21" },
-      { "id": "D", "text": "Article 29" }
+      {
+        "id": "A",
+        "text": "Article 14"
+      },
+      {
+        "id": "B",
+        "text": "Article 19"
+      },
+      {
+        "id": "C",
+        "text": "Article 21"
+      },
+      {
+        "id": "D",
+        "text": "Article 29"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "In Justice K.S. Puttaswamy (Retd.) v. Union of India (2017), a nine-judge Constitution Bench held unanimously that the Right to Privacy is a Fundamental Right guaranteed under Article 21 and Part III.",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["Right to Privacy", "Article 21", "Puttaswamy Case", "Fundamental Rights"]
+    "conceptTags": [
+      "Right to Privacy",
+      "Article 21",
+      "Puttaswamy Case",
+      "Fundamental Rights"
+    ]
   },
   {
     "id": "UPSC-PRE-2018-POL-02",
@@ -588,16 +1080,33 @@
     "paper": "GS-1",
     "question": "Consider the following statements regarding the local bodies under the 73rd Constitutional Amendment Act:\n1. The minimum age prescribed for any person to be a member of a Panchayat is 25 years.\n2. A Panchayat reconstituted after premature dissolution continues only for the remainder of the full period.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Statement 1 is incorrect: Under Article 243F, the minimum age required to contest Panchayat elections is 21 years (not 25 years).\nStatement 2 is correct: Under Article 243E(4), a Panchayat elected upon the dissolution of a Panchayat before the expiration of its duration continues only for the remainder of the 5-year period.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Panchayati Raj", "73rd Amendment", "Article 243F", "Local Governance"]
+    "conceptTags": [
+      "Panchayati Raj",
+      "73rd Amendment",
+      "Article 243F",
+      "Local Governance"
+    ]
   },
   {
     "id": "UPSC-PRE-2018-POL-03",
@@ -608,16 +1117,33 @@
     "paper": "GS-1",
     "question": "With reference to the National Legal Services Authority (NALSA), consider the following statements:\n1. Its objective is to provide free and competent legal services to the weaker sections of the society on the basis of equal opportunity.\n2. It issues guidelines for the State Legal Services Authorities to implement legal programmes and schemes throughout the country.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Both statements are correct under the Legal Services Authorities Act, 1987 (enacted to fulfill the constitutional mandate of Article 39A for free legal aid and equal justice).",
     "difficulty": "Easy",
     "important": true,
-    "conceptTags": ["NALSA", "Article 39A", "Free Legal Aid", "Legal Services Authorities"]
+    "conceptTags": [
+      "NALSA",
+      "Article 39A",
+      "Free Legal Aid",
+      "Legal Services Authorities"
+    ]
   },
   {
     "id": "UPSC-PRE-2018-POL-04",
@@ -628,16 +1154,32 @@
     "paper": "GS-1",
     "question": "Consider the following statements:\n1. In the first Lok Sabha, the single largest party in the opposition was the Swatantra Party.\n2. In the Lok Sabha, a 'Leader of the Opposition' was recognised for the very first time in 1969.\n3. In the Lok Sabha, if a party does not have a minimum of 75 members, its leader cannot be recognized as the Leader of the Opposition.\nWhich of the statements given above is/are correct?",
     "options": [
-      { "id": "A", "text": "1 and 3 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "2 and 3 only" },
-      { "id": "D", "text": "1, 2 and 3" }
+      {
+        "id": "A",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "D",
+        "text": "1, 2 and 3"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Statement 2 is correct: The Leader of the Opposition was recognized for the first time in 1969 (Ram Subhag Singh) and given statutory recognition through the Salary and Allowances of Leaders of Opposition in Parliament Act, 1977.\n- Statement 1 is incorrect: In the first Lok Sabha (1952), the Communist Party of India (CPI) was the largest opposition party.\n- Statement 3 is incorrect: The requirement is 10% of total strength (i.e., 55 members in Lok Sabha), not 75.",
     "difficulty": "Hard",
     "important": true,
-    "conceptTags": ["Leader of Opposition", "Lok Sabha", "Parliamentary Conventions"]
+    "conceptTags": [
+      "Leader of Opposition",
+      "Lok Sabha",
+      "Parliamentary Conventions"
+    ]
   },
   {
     "id": "UPSC-PRE-2018-POL-05",
@@ -648,15 +1190,137 @@
     "paper": "GS-1",
     "question": "Which of the following are regarded as the main features of the 'Rule of Law'?\n1. Limitation of powers\n2. Equality before law\n3. People's responsibility to the Government\n4. Liberty and civil rights\nSelect the correct answer using the code given below:",
     "options": [
-      { "id": "A", "text": "1 and 3 only" },
-      { "id": "B", "text": "2 and 4 only" },
-      { "id": "C", "text": "1, 2 and 4 only" },
-      { "id": "D", "text": "1, 2, 3 and 4" }
+      {
+        "id": "A",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "B",
+        "text": "2 and 4 only"
+      },
+      {
+        "id": "C",
+        "text": "1, 2 and 4 only"
+      },
+      {
+        "id": "D",
+        "text": "1, 2, 3 and 4"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "According to A.V. Dicey's formulation, the Rule of Law embodies: (1) Absence of arbitrary power / Limitation of powers, (2) Equality before law, and (3) Primacy of rights and individual liberties. Statement 3 ('People's responsibility to the government') is an authoritarian concept rather than a feature of Rule of Law.",
     "difficulty": "Medium",
     "important": true,
-    "conceptTags": ["Rule of Law", "AV Dicey", "Equality Before Law", "Civil Liberties"]
+    "conceptTags": [
+      "Rule of Law",
+      "AV Dicey",
+      "Equality Before Law",
+      "Civil Liberties"
+    ]
+  },
+  {
+    "id": "PYQ-POL-2024-01",
+    "year": 2024,
+    "subject": "Polity",
+    "topic": "Constitutional Bodies",
+    "subtopic": "Delimitation Commission",
+    "paper": "GS-1",
+    "question": "Consider the following statements regarding the Delimitation Commission in India:\n1. Orders of the Delimitation Commission cannot be challenged in any court of law.\n2. When the orders of the Delimitation Commission are laid before the Lok Sabha or State Legislative Assembly, no modification is permissible.\n\nWhich of the statements given above is/are correct?",
+    "important": true,
+    "option_a": "1 only",
+    "option_b": "2 only",
+    "option_c": "Both 1 and 2",
+    "option_d": "Neither 1 nor 2",
+    "correct_answer": "C",
+    "explanation": "Article 329(a) and the Delimitation Commission Act specify that orders of the Commission have the force of law and cannot be called in question in any court. Furthermore, when laid before Parliament or State Legislatures, no modifications or amendments can be made.",
+    "difficulty": "Hard",
+    "options": [
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ]
+  },
+  {
+    "id": "PYQ-POL-2024-02",
+    "year": 2024,
+    "subject": "Polity",
+    "topic": "Parliament",
+    "subtopic": "Speaker Pro-tem & Quorum",
+    "paper": "GS-1",
+    "question": "With reference to the Union Parliament, consider the following statements:\n1. The Constitution of India provides that the Speaker Pro-tem shall be the senior-most member of the Lok Sabha.\n2. The quorum to constitute a meeting of either House of Parliament is one-tenth of the total number of members of the House.\n\nWhich of the statements given above is/are correct?",
+    "important": true,
+    "option_a": "1 only",
+    "option_b": "2 only",
+    "option_c": "Both 1 and 2",
+    "option_d": "Neither 1 nor 2",
+    "correct_answer": "B",
+    "explanation": "Statement 1 is incorrect: The Constitution (Article 95(1)) does NOT mandate the senior-most member; it is a convention/custom followed by the President. Statement 2 is correct: Article 100(3) explicitly defines the quorum as 1/10th of the total members.",
+    "difficulty": "Medium",
+    "options": [
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ]
+  },
+  {
+    "id": "PYQ-POL-2024-03",
+    "year": 2024,
+    "subject": "Polity",
+    "topic": "Judiciary",
+    "subtopic": "Special Leave Petition (Article 136)",
+    "paper": "GS-1",
+    "question": "Under Article 136 of the Constitution of India, the Supreme Court can grant Special Leave to Appeal from any judgment, decree, determination, sentence or order in any cause or matter passed or made by any court or tribunal in the territory of India, EXCEPT those constituted by or under any law relating to:",
+    "important": true,
+    "option_a": "Armed Forces",
+    "option_b": "Administrative Tribunals (CAT)",
+    "option_c": "National Green Tribunal (NGT)",
+    "option_d": "Consumer Disputes Redressal Commissions",
+    "correct_answer": "A",
+    "explanation": "Article 136(2) explicitly provides that Special Leave Petition does not apply to any judgment, determination, sentence or order passed or made by any court or tribunal constituted by or under any law relating to the Armed Forces (Court Martial).",
+    "difficulty": "Medium",
+    "options": [
+      {
+        "id": "A",
+        "text": "Armed Forces"
+      },
+      {
+        "id": "B",
+        "text": "Administrative Tribunals (CAT)"
+      },
+      {
+        "id": "C",
+        "text": "National Green Tribunal (NGT)"
+      },
+      {
+        "id": "D",
+        "text": "Consumer Disputes Redressal Commissions"
+      }
+    ]
   }
 ]

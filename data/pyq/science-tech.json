@@ -807,5 +807,75 @@
       "Innovation",
       "Government Initiatives"
     ]
+  },
+  {
+    "id": "PYQ-SCI-2024-01",
+    "year": 2024,
+    "subject": "Science & Technology",
+    "topic": "Space Exploration",
+    "subtopic": "Aditya-L1 Solar Mission",
+    "paper": "GS-1",
+    "question": "Regarding ISRO's Aditya-L1 mission, consider the following statements:\n1. It is placed in a halo orbit around the Sun-Earth Lagrange Point 1 (L1).\n2. At L1, the gravitational pull of the Sun and Earth equal the centripetal force required for a spacecraft to move with them.\n3. The VELC (Visible Emission Line Coronagraph) instrument studies the solar corona and coronal mass ejections.\n\nHow many of the statements given above are correct?",
+    "important": true,
+    "option_a": "Only one",
+    "option_b": "Only two",
+    "option_c": "All three",
+    "option_d": "None",
+    "correct_answer": "C",
+    "explanation": "All three statements are correct: (1) Aditya-L1 is placed at L1 (~1.5 million km from Earth). (2) Lagrange points are equilibrium points where gravitational forces balance orbital motion. (3) VELC is the primary payload developed by IIA Bengaluru to image the solar corona.",
+    "difficulty": "Hard",
+    "options": [
+      {
+        "id": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "C",
+        "text": "All three"
+      },
+      {
+        "id": "D",
+        "text": "None"
+      }
+    ]
+  },
+  {
+    "id": "PYQ-SCI-2024-02",
+    "year": 2024,
+    "subject": "Science & Technology",
+    "topic": "Biotechnology & Genetics",
+    "subtopic": "CAR-T Cell Therapy (NexCAR19)",
+    "paper": "GS-1",
+    "question": "NexCAR19, recently approved in India, is a breakthrough in:\n1. CAR-T cell therapy for B-cell lymphomas and leukemia\n2. CRISPR-based crop gene editing\n3. mRNA vaccine formulation against tuberculosis\n4. Monoclonal antibody treatment for autoimmune arthritis",
+    "important": true,
+    "option_a": "1 only",
+    "option_b": "2 and 3 only",
+    "option_c": "1 and 4 only",
+    "option_d": "3 only",
+    "correct_answer": "A",
+    "explanation": "NexCAR19 is India's first indigenously developed Chimeric Antigen Receptor (CAR) T-cell therapy developed by ImmunoACT (IIT Bombay & TMH) targeting CD19 proteins on malignant B-cells for leukemia/lymphoma.",
+    "difficulty": "Medium",
+    "options": [
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "C",
+        "text": "1 and 4 only"
+      },
+      {
+        "id": "D",
+        "text": "3 only"
+      }
+    ]
   }
 ]

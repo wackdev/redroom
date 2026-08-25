@@ -8,10 +8,22 @@
     "passage": "Global supply chains are transitioning from cost-optimised architectures to resilience-optimised topologies. While 'just-in-time' logistics minimized inventory overheads, unexpected geopolitical frictions and climate volatility exposed single-source vulnerabilities. Nations are now diversifying manufacturing nodes, embracing nearshoring, and creating strategic redundancies. However, building redundant capacity inevitably increases baseline manufacturing costs and inflationary pressures in consumer economies.",
     "question": "Which one of the following statements best reflects the most logical and critical inference that can be drawn from the passage?",
     "options": [
-      { "id": "A", "text": "Resilience in supply chains can only be achieved by completely abandoning international trade." },
-      { "id": "B", "text": "Enhancing geopolitical resilience in production networks entails trade-offs against short-term consumer price stability." },
-      { "id": "C", "text": "Developing economies will suffer disproportionately from nearshoring initiatives." },
-      { "id": "D", "text": "Just-in-time logistics will be legally prohibited by international regulatory bodies." }
+      {
+        "id": "A",
+        "text": "Resilience in supply chains can only be achieved by completely abandoning international trade."
+      },
+      {
+        "id": "B",
+        "text": "Enhancing geopolitical resilience in production networks entails trade-offs against short-term consumer price stability."
+      },
+      {
+        "id": "C",
+        "text": "Developing economies will suffer disproportionately from nearshoring initiatives."
+      },
+      {
+        "id": "D",
+        "text": "Just-in-time logistics will be legally prohibited by international regulatory bodies."
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Option B is correct: The passage directly balances resilience against increased baseline costs and inflationary consumer pressures, presenting a fundamental trade-off. Options A, C, and D contain ungrounded extreme claims not supported by the premise.",
@@ -27,10 +39,22 @@
     "passage": "Technological leapfrogging in clean energy is necessary but insufficient to avert ecological tipping points. Carbon capture, battery storage, and smart grids mitigate emissions at the point of consumption, but do not address aggregate resource extraction, biodiversity fragmentation, or soil degradation driven by unabated consumer demand. A genuine ecological transition demands restructuring consumption patterns alongside technological deployment.",
     "question": "Based on the above passage, the following assumptions have been made:\n1. Technology alone cannot guarantee environmental sustainability.\n2. Sustainable living requires moderation of aggregate material consumption.\n\nWhich of the assumptions given above is/are valid?",
     "options": [
-      { "id": "A", "text": "1 only" },
-      { "id": "B", "text": "2 only" },
-      { "id": "C", "text": "Both 1 and 2" },
-      { "id": "D", "text": "Neither 1 nor 2" }
+      {
+        "id": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "D",
+        "text": "Neither 1 nor 2"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Both assumptions are valid: 1 is valid because clean technology is described as 'necessary but insufficient'. 2 is valid because the author explicitly notes that genuine transition requires restructuring consumption patterns beyond mere technological fixes.",
@@ -46,10 +70,22 @@
     "passage": "Urban wetlands act as crucial hydrologic shock absorbers, mitigating localized flash floods and buffering thermal microclimates. Despite their ecological provisioning services, real estate encroachment and urban runoff channelization have degraded over 60% of peri-urban wetlands in major Indian metropolitan regions. The economic valuation of land consistently prioritizes built infrastructure over ecosystem services.",
     "question": "Which of the following is the most crucial message conveyed by the author?",
     "options": [
-      { "id": "A", "text": "Urban planning frameworks must incorporate ecological valuation of natural flood buffers into spatial zoning decisions." },
-      { "id": "B", "text": "All construction activity in metropolitan peripheries should be permanently banned." },
-      { "id": "C", "text": "Wetlands are only effective during exceptional flood events." },
-      { "id": "D", "text": "Economic development and wetland preservation are fundamentally incompatible." }
+      {
+        "id": "A",
+        "text": "Urban planning frameworks must incorporate ecological valuation of natural flood buffers into spatial zoning decisions."
+      },
+      {
+        "id": "B",
+        "text": "All construction activity in metropolitan peripheries should be permanently banned."
+      },
+      {
+        "id": "C",
+        "text": "Wetlands are only effective during exceptional flood events."
+      },
+      {
+        "id": "D",
+        "text": "Economic development and wetland preservation are fundamentally incompatible."
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Option A captures the central thesis: the author critiques the economic bias toward built infrastructure at the expense of wetland ecosystem valuation.",
@@ -65,10 +101,22 @@
     "passage": "Soil organic carbon (SOC) is the primary determinant of agricultural moisture retention and nutrient exchange capacity. Intensive tillage and chemical-heavy monocultures accelerate SOC oxidation, transforming fertile agrarian tracts into drought-vulnerable dust bowls. Restorative practices such as cover cropping, biochar amendment, and zero-tillage rebuild the soil biome while sequestering atmospheric carbon.",
     "question": "Which of the following is the most logical corollary to the above passage?",
     "options": [
-      { "id": "A", "text": "Transitioning to regenerative soil management enhances both climate change resilience and agricultural productivity." },
-      { "id": "B", "text": "Chemical fertilizers should be completely replaced by biochar within one fiscal year." },
-      { "id": "C", "text": "Soil degradation is primarily caused by natural climatic variations rather than farming techniques." },
-      { "id": "D", "text": "Cover cropping is impractical in tropical monsoon climates." }
+      {
+        "id": "A",
+        "text": "Transitioning to regenerative soil management enhances both climate change resilience and agricultural productivity."
+      },
+      {
+        "id": "B",
+        "text": "Chemical fertilizers should be completely replaced by biochar within one fiscal year."
+      },
+      {
+        "id": "C",
+        "text": "Soil degradation is primarily caused by natural climatic variations rather than farming techniques."
+      },
+      {
+        "id": "D",
+        "text": "Cover cropping is impractical in tropical monsoon climates."
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Option A integrates the two benefits cited: rebuilding soil biome (agricultural productivity/moisture) and sequestering carbon (climate resilience).",
@@ -84,10 +132,22 @@
     "passage": "Artificial intelligence algorithms deployed in judicial sentencing and recidivism scoring reflect the historic data biases on which they are trained. While human judges are subject to cognitive fatigue and subjective mood fluctuations, automated risk scoring models codify socio-economic disparities under the guise of mathematical neutrality. True algorithmic fairness requires transparent auditability of feature weighting and active bias-correction metrics.",
     "question": "Which one of the following statements best reflects the rational inference from the passage?",
     "options": [
-      { "id": "A", "text": "Algorithmic decision-making in legal systems is inherently free from human cognitive biases." },
-      { "id": "B", "text": "Automated legal systems require rigorous transparency and auditing to prevent the institutionalization of historical prejudice." },
-      { "id": "C", "text": "Human judges should be replaced entirely by open-source neural networks." },
-      { "id": "D", "text": "Recidivism scoring algorithms cannot be mathematically audited." }
+      {
+        "id": "A",
+        "text": "Algorithmic decision-making in legal systems is inherently free from human cognitive biases."
+      },
+      {
+        "id": "B",
+        "text": "Automated legal systems require rigorous transparency and auditing to prevent the institutionalization of historical prejudice."
+      },
+      {
+        "id": "C",
+        "text": "Human judges should be replaced entirely by open-source neural networks."
+      },
+      {
+        "id": "D",
+        "text": "Recidivism scoring algorithms cannot be mathematically audited."
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Option B mirrors the author's concluding sentence demanding transparent auditability and bias correction.",
@@ -102,10 +162,22 @@
     "difficulty": "Hard",
     "question": "What is the remainder when (7^101 + 9^101) is divided by 16?",
     "options": [
-      { "id": "A", "text": "0" },
-      { "id": "B", "text": "1" },
-      { "id": "C", "text": "2" },
-      { "id": "D", "text": "15" }
+      {
+        "id": "A",
+        "text": "0"
+      },
+      {
+        "id": "B",
+        "text": "1"
+      },
+      {
+        "id": "C",
+        "text": "2"
+      },
+      {
+        "id": "D",
+        "text": "15"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "When n is an odd integer, (a^n + b^n) is always divisible by (a + b). Here, n = 101 (odd), a = 7, b = 9. Thus, (7^101 + 9^101) is divisible by (7 + 9) = 16. Therefore, the remainder is 0.",
@@ -120,10 +192,22 @@
     "difficulty": "Moderate",
     "question": "What is the unit digit of the expression (3^65 × 6^59 × 7^71)?",
     "options": [
-      { "id": "A", "text": "1" },
-      { "id": "B", "text": "2" },
-      { "id": "C", "text": "4" },
-      { "id": "D", "text": "6" }
+      {
+        "id": "A",
+        "text": "1"
+      },
+      {
+        "id": "B",
+        "text": "2"
+      },
+      {
+        "id": "C",
+        "text": "4"
+      },
+      {
+        "id": "D",
+        "text": "6"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "1. Cyclicity of 3 is 4: 65 mod 4 = 1 → 3^1 has unit digit 3.\n2. Unit digit of 6^n is always 6.\n3. Cyclicity of 7 is 4: 71 mod 4 = 3 → 7^3 = 343 has unit digit 3.\nProduct of unit digits = 3 × 6 × 3 = 54 → Unit digit = 4.",
@@ -138,10 +222,22 @@
     "difficulty": "Hard",
     "question": "What is the remainder when (2^100) is divided by 7?",
     "options": [
-      { "id": "A", "text": "1" },
-      { "id": "B", "text": "2" },
-      { "id": "C", "text": "4" },
-      { "id": "D", "text": "6" }
+      {
+        "id": "A",
+        "text": "1"
+      },
+      {
+        "id": "B",
+        "text": "2"
+      },
+      {
+        "id": "C",
+        "text": "4"
+      },
+      {
+        "id": "D",
+        "text": "6"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "2^3 = 8 ≡ 1 (mod 7). Express 2^100 as (2^3)^33 × 2^1 = (8)^33 × 2 ≡ (1)^33 × 2 ≡ 2 (mod 7). Remainder = 2.",
@@ -156,10 +252,22 @@
     "difficulty": "Hard",
     "question": "How many 5-digit numbers can be formed using the digits 1, 2, 3, 4, 5 without repetition such that the number is divisible by 4?",
     "options": [
-      { "id": "A", "text": "18" },
-      { "id": "B", "text": "24" },
-      { "id": "C", "text": "36" },
-      { "id": "D", "text": "48" }
+      {
+        "id": "A",
+        "text": "18"
+      },
+      {
+        "id": "B",
+        "text": "24"
+      },
+      {
+        "id": "C",
+        "text": "36"
+      },
+      {
+        "id": "D",
+        "text": "48"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "A number is divisible by 4 if its last two digits form a number divisible by 4. From {1, 2, 3, 4, 5}, the possible two-digit endings divisible by 4 are: 12, 24, 32, 52 (4 possibilities). For each 2-digit ending, the remaining 3 positions can be filled by the remaining 3 digits in 3! = 6 ways. Total valid numbers = 4 × 6 = 24.",
@@ -174,10 +282,22 @@
     "difficulty": "Moderate",
     "question": "A can complete a piece of work in 12 days, and B can complete it in 18 days. They work together for 4 days, after which B leaves. How many more days will A take to finish the remaining work alone?",
     "options": [
-      { "id": "A", "text": "4 days" },
-      { "id": "B", "text": "5 1/3 days" },
-      { "id": "C", "text": "6 days" },
-      { "id": "D", "text": "7 1/2 days" }
+      {
+        "id": "A",
+        "text": "4 days"
+      },
+      {
+        "id": "B",
+        "text": "5 1/3 days"
+      },
+      {
+        "id": "C",
+        "text": "6 days"
+      },
+      {
+        "id": "D",
+        "text": "7 1/2 days"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "LCM(12, 18) = 36 units total work. Rate of A = 36/12 = 3 units/day. Rate of B = 36/18 = 2 units/day. In 4 days together: (3 + 2) × 4 = 20 units done. Remaining work = 36 - 20 = 16 units. Days A takes alone = 16 / 3 = 5 1/3 days.",
@@ -192,10 +312,22 @@
     "difficulty": "Hard",
     "question": "A train passes a standing pole in 15 seconds and completely crosses a bridge of length 300 meters in 35 seconds. What is the speed of the train in km/h?",
     "options": [
-      { "id": "A", "text": "45 km/h" },
-      { "id": "B", "text": "54 km/h" },
-      { "id": "C", "text": "60 km/h" },
-      { "id": "D", "text": "72 km/h" }
+      {
+        "id": "A",
+        "text": "45 km/h"
+      },
+      {
+        "id": "B",
+        "text": "54 km/h"
+      },
+      {
+        "id": "C",
+        "text": "60 km/h"
+      },
+      {
+        "id": "D",
+        "text": "72 km/h"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Let train length be L and speed be S. L = 15 × S. Crossing bridge: (L + 300) = 35 × S. Subtracting: 300 = 20S → S = 15 m/s. Convert m/s to km/h: 15 × (18/5) = 54 km/h.",
@@ -210,10 +342,22 @@
     "difficulty": "Moderate",
     "question": "If the price of sugar increases by 25%, by what percentage must a household reduce its consumption so that the total expenditure on sugar remains unchanged?",
     "options": [
-      { "id": "A", "text": "15%" },
-      { "id": "B", "text": "20%" },
-      { "id": "C", "text": "25%" },
-      { "id": "D", "text": "33.33%" }
+      {
+        "id": "A",
+        "text": "15%"
+      },
+      {
+        "id": "B",
+        "text": "20%"
+      },
+      {
+        "id": "C",
+        "text": "25%"
+      },
+      {
+        "id": "D",
+        "text": "33.33%"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Reduction % = [R / (100 + R)] × 100 = [25 / 125] × 100 = (1/5) × 100 = 20%.",
@@ -228,10 +372,22 @@
     "difficulty": "Moderate",
     "question": "Two fair dice are thrown simultaneously. What is the probability that the sum of the numbers appearing on the dice is a prime number?",
     "options": [
-      { "id": "A", "text": "5/12" },
-      { "id": "B", "text": "7/18" },
-      { "id": "C", "text": "15/36" },
-      { "id": "D", "text": "17/36" }
+      {
+        "id": "A",
+        "text": "5/12"
+      },
+      {
+        "id": "B",
+        "text": "7/18"
+      },
+      {
+        "id": "C",
+        "text": "15/36"
+      },
+      {
+        "id": "D",
+        "text": "17/36"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Prime sums possible from 2 to 12 are {2, 3, 5, 7, 11}.\n- Sum 2: (1,1) → 1\n- Sum 3: (1,2), (2,1) → 2\n- Sum 5: (1,4), (2,3), (3,2), (4,1) → 4\n- Sum 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) → 6\n- Sum 11: (5,6), (6,5) → 2\nTotal favorable outcomes = 1 + 2 + 4 + 6 + 2 = 15. Total outcomes = 36. Probability = 15/36 = 5/12.",
@@ -246,10 +402,22 @@
     "difficulty": "Moderate",
     "question": "The average weight of 24 students in a section is 40 kg. When the weight of the teacher is included, the average weight increases by 400 grams. What is the weight of the teacher?",
     "options": [
-      { "id": "A", "text": "48 kg" },
-      { "id": "B", "text": "50 kg" },
-      { "id": "C", "text": "52 kg" },
-      { "id": "D", "text": "54 kg" }
+      {
+        "id": "A",
+        "text": "48 kg"
+      },
+      {
+        "id": "B",
+        "text": "50 kg"
+      },
+      {
+        "id": "C",
+        "text": "52 kg"
+      },
+      {
+        "id": "D",
+        "text": "54 kg"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Total persons after teacher joins = 25. Increase contributed by teacher = 25 × 0.4 kg = 10 kg. Weight of teacher = Base average + Total increase = 40 kg + 10 kg = 50 kg.",
@@ -264,10 +432,22 @@
     "difficulty": "Moderate",
     "question": "In a mixture of 60 litres, the ratio of milk and water is 2 : 1. How much water must be added to make the ratio 1 : 2?",
     "options": [
-      { "id": "A", "text": "40 litres" },
-      { "id": "B", "text": "50 litres" },
-      { "id": "C", "text": "60 litres" },
-      { "id": "D", "text": "80 litres" }
+      {
+        "id": "A",
+        "text": "40 litres"
+      },
+      {
+        "id": "B",
+        "text": "50 litres"
+      },
+      {
+        "id": "C",
+        "text": "60 litres"
+      },
+      {
+        "id": "D",
+        "text": "80 litres"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Initial volume = 60L. Milk = (2/3) × 60 = 40L, Water = 20L. Milk quantity remains constant at 40L. In the new 1 : 2 ratio, 1 part = 40L → 2 parts (Water) = 80L. Water to add = 80L - 20L = 60 litres.",
@@ -282,10 +462,22 @@
     "difficulty": "Moderate",
     "question": "Statements:\n1. Some philosophers are scientists.\n2. All scientists are mathematicians.\n\nConclusions:\nI. Some mathematicians are philosophers.\nII. All mathematicians are scientists.\n\nWhich of the conclusion(s) logically follow(s)?",
     "options": [
-      { "id": "A", "text": "Only conclusion I follows" },
-      { "id": "B", "text": "Only conclusion II follows" },
-      { "id": "C", "text": "Both I and II follow" },
-      { "id": "D", "text": "Neither I nor II follows" }
+      {
+        "id": "A",
+        "text": "Only conclusion I follows"
+      },
+      {
+        "id": "B",
+        "text": "Only conclusion II follows"
+      },
+      {
+        "id": "C",
+        "text": "Both I and II follow"
+      },
+      {
+        "id": "D",
+        "text": "Neither I nor II follows"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "From 'Some P are S' and 'All S are M', the intersection of P and S lies entirely inside M. Thus, 'Some M are P' (Conclusion I) is definitely true. Conclusion II is false because 'All S are M' does not imply 'All M are S'.",
@@ -300,10 +492,22 @@
     "difficulty": "Moderate",
     "question": "A person walks 10 meters North, turns right and walks 6 meters, then turns right again and walks 18 meters, and finally turns left and walks 6 meters. How far and in which direction is the person now with respect to the starting point?",
     "options": [
-      { "id": "A", "text": "10 meters South-East" },
-      { "id": "B", "text": "14.4 meters South-East" },
-      { "id": "C", "text": "14.4 meters South-West" },
-      { "id": "D", "text": "16 meters South" }
+      {
+        "id": "A",
+        "text": "10 meters South-East"
+      },
+      {
+        "id": "B",
+        "text": "14.4 meters South-East"
+      },
+      {
+        "id": "C",
+        "text": "14.4 meters South-West"
+      },
+      {
+        "id": "D",
+        "text": "16 meters South"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Vertical displacement: +10 (North) - 18 (South) = -8 (8m South). Horizontal displacement: +6 (East) + 6 (East) = +12 (12m East). Net distance = sqrt(8^2 + 12^2) = sqrt(64 + 144) = sqrt(208) ≈ 14.42 meters in South-East direction.",
@@ -318,10 +522,22 @@
     "difficulty": "Hard",
     "question": "Pointing to a photograph, a woman says: 'He is the only son of the wife of the only brother of my father.' How is the person in the photograph related to the woman?",
     "options": [
-      { "id": "A", "text": "Brother" },
-      { "id": "B", "text": "Cousin (Paternal)" },
-      { "id": "C", "text": "Nephew" },
-      { "id": "D", "text": "Uncle" }
+      {
+        "id": "A",
+        "text": "Brother"
+      },
+      {
+        "id": "B",
+        "text": "Cousin (Paternal)"
+      },
+      {
+        "id": "C",
+        "text": "Nephew"
+      },
+      {
+        "id": "D",
+        "text": "Uncle"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Breakdown:\n1. 'My father's only brother' = Woman's Paternal Uncle.\n2. 'Wife of uncle' = Woman's Paternal Aunt.\n3. 'Only son of aunt' = Son of Uncle = Paternal Cousin.",
@@ -336,10 +552,22 @@
     "difficulty": "Moderate",
     "question": "In a certain code language, if 'BHARAT' is coded as 'CIBSBU', how will 'DELHI' be coded in that same language?",
     "options": [
-      { "id": "A", "text": "EFMIJ" },
-      { "id": "B", "text": "EEMHJ" },
-      { "id": "C", "text": "EFMIK" },
-      { "id": "D", "text": "CDKGJ" }
+      {
+        "id": "A",
+        "text": "EFMIJ"
+      },
+      {
+        "id": "B",
+        "text": "EEMHJ"
+      },
+      {
+        "id": "C",
+        "text": "EFMIK"
+      },
+      {
+        "id": "D",
+        "text": "CDKGJ"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Pattern: Each letter is shifted forward by +1 alphabetical position:\nB(+1)→C, H(+1)→I, A(+1)→B, R(+1)→S, A(+1)→B, T(+1)→U.\nApplying to DELHI: D(+1)=E, E(+1)=F, L(+1)=M, H(+1)=I, I(+1)=J → 'EFMIJ'.",
@@ -354,10 +582,22 @@
     "difficulty": "Hard",
     "question": "Six friends P, Q, R, S, T, and U are sitting in a circle facing the center. P is sitting opposite to S. Q is to the immediate right of P. T is sitting between S and Q. Who is sitting to the immediate left of P?",
     "options": [
-      { "id": "A", "text": "R" },
-      { "id": "B", "text": "U" },
-      { "id": "C", "text": "Either R or U" },
-      { "id": "D", "text": "T" }
+      {
+        "id": "A",
+        "text": "R"
+      },
+      {
+        "id": "B",
+        "text": "U"
+      },
+      {
+        "id": "C",
+        "text": "Either R or U"
+      },
+      {
+        "id": "D",
+        "text": "T"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "P is at position 1, S at position 4. Facing center, immediate right of P is pos 2 (Q). T is between S (pos 4) and Q (pos 2) → T is at pos 3. The remaining two positions (5 and 6) belong to R and U. Immediate left of P is pos 6, which can be occupied by either R or U as no further constraint is given.",
@@ -372,10 +612,22 @@
     "difficulty": "Moderate",
     "question": "How many zeroes are at the end of the product (100!)?",
     "options": [
-      { "id": "A", "text": "20" },
-      { "id": "B", "text": "24" },
-      { "id": "C", "text": "25" },
-      { "id": "D", "text": "28" }
+      {
+        "id": "A",
+        "text": "20"
+      },
+      {
+        "id": "B",
+        "text": "24"
+      },
+      {
+        "id": "C",
+        "text": "25"
+      },
+      {
+        "id": "D",
+        "text": "28"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Number of trailing zeroes = Highest power of 5 in 100! = floor(100/5) + floor(100/25) = 20 + 4 = 24 zeroes.",
@@ -390,10 +642,22 @@
     "difficulty": "Moderate",
     "question": "A sum of money doubles itself in 5 years at simple interest. In how many years will it become 4 times itself at the same rate?",
     "options": [
-      { "id": "A", "text": "10 years" },
-      { "id": "B", "text": "12 years" },
-      { "id": "C", "text": "15 years" },
-      { "id": "D", "text": "20 years" }
+      {
+        "id": "A",
+        "text": "10 years"
+      },
+      {
+        "id": "B",
+        "text": "12 years"
+      },
+      {
+        "id": "C",
+        "text": "15 years"
+      },
+      {
+        "id": "D",
+        "text": "20 years"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "In 5 years, Interest = P (doubling means P + P). Rate R = (P × 100) / (P × 5) = 20% per year. To become 4 times (Amount = 4P), Interest needed = 3P. Time = (3P × 100) / (P × 20) = 15 years.",
@@ -408,10 +672,22 @@
     "difficulty": "Moderate",
     "question": "A motorboat can travel at 15 km/h in still water. If the river flows at 3 km/h, how long will it take to travel 72 km downstream and return back upstream to the starting point?",
     "options": [
-      { "id": "A", "text": "8 hours" },
-      { "id": "B", "text": "9 hours" },
-      { "id": "C", "text": "10 hours" },
-      { "id": "D", "text": "12 hours" }
+      {
+        "id": "A",
+        "text": "8 hours"
+      },
+      {
+        "id": "B",
+        "text": "9 hours"
+      },
+      {
+        "id": "C",
+        "text": "10 hours"
+      },
+      {
+        "id": "D",
+        "text": "12 hours"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Downstream speed = 15 + 3 = 18 km/h. Downstream time = 72 / 18 = 4 hours. Upstream speed = 15 - 3 = 12 km/h. Upstream time = 72 / 12 = 6 hours. Total round trip time = 4 + 6 = 10 hours.",
@@ -426,10 +702,22 @@
     "difficulty": "Hard",
     "question": "Question: Among five students A, B, C, D, and E, who scored the highest marks in CSAT?\nStatement 1: A scored more than B and C, but less than D.\nStatement 2: E scored less than D but more than A.\n\nWhich statement(s) is/are sufficient to answer the question?",
     "options": [
-      { "id": "A", "text": "Statement 1 alone is sufficient" },
-      { "id": "B", "text": "Statement 2 alone is sufficient" },
-      { "id": "C", "text": "Both statements 1 and 2 together are necessary" },
-      { "id": "D", "text": "Neither statement 1 nor 2 is sufficient" }
+      {
+        "id": "A",
+        "text": "Statement 1 alone is sufficient"
+      },
+      {
+        "id": "B",
+        "text": "Statement 2 alone is sufficient"
+      },
+      {
+        "id": "C",
+        "text": "Both statements 1 and 2 together are necessary"
+      },
+      {
+        "id": "D",
+        "text": "Neither statement 1 nor 2 is sufficient"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "From Statement 1: D > A > (B, C). E's position is unknown. From Statement 2: D > E > A. Combining both: D is strictly greater than E, A, B, and C. Hence, D is unequivocally the highest scorer.",
@@ -444,10 +732,22 @@
     "difficulty": "Moderate",
     "question": "Find the missing number in the sequence: 2, 6, 12, 20, 30, 42, ?",
     "options": [
-      { "id": "A", "text": "52" },
-      { "id": "B", "text": "54" },
-      { "id": "C", "text": "56" },
-      { "id": "D", "text": "60" }
+      {
+        "id": "A",
+        "text": "52"
+      },
+      {
+        "id": "B",
+        "text": "54"
+      },
+      {
+        "id": "C",
+        "text": "56"
+      },
+      {
+        "id": "D",
+        "text": "60"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Difference sequence: +4, +6, +8, +10, +12. The next difference must be +14. Next term = 42 + 14 = 56. (Alternatively, n^2 + n: 1^2+1=2, 2^2+2=6, 3^2+3=12... 7^2+7 = 56).",
@@ -462,10 +762,22 @@
     "difficulty": "Moderate",
     "question": "Pipe A can fill a tank in 6 hours, and Pipe B can fill it in 8 hours. Pipe C can empty the full tank in 12 hours. If all three pipes are opened together, how long will it take to fill the tank?",
     "options": [
-      { "id": "A", "text": "4 hours" },
-      { "id": "B", "text": "4.8 hours" },
-      { "id": "C", "text": "5 hours" },
-      { "id": "D", "text": "5.5 hours" }
+      {
+        "id": "A",
+        "text": "4 hours"
+      },
+      {
+        "id": "B",
+        "text": "4.8 hours"
+      },
+      {
+        "id": "C",
+        "text": "5 hours"
+      },
+      {
+        "id": "D",
+        "text": "5.5 hours"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Total capacity = LCM(6, 8, 12) = 24 units. Rate of A = +4 units/hr. Rate of B = +3 units/hr. Rate of C = -2 units/hr. Combined net filling rate = 4 + 3 - 2 = 5 units/hr. Time required = 24 / 5 = 4.8 hours (4 hours 48 minutes).",
@@ -480,10 +792,22 @@
     "difficulty": "Moderate",
     "question": "If the radius of a circle is increased by 50%, what is the percentage increase in its area?",
     "options": [
-      { "id": "A", "text": "50%" },
-      { "id": "B", "text": "100%" },
-      { "id": "C", "text": "125%" },
-      { "id": "D", "text": "150%" }
+      {
+        "id": "A",
+        "text": "50%"
+      },
+      {
+        "id": "B",
+        "text": "100%"
+      },
+      {
+        "id": "C",
+        "text": "125%"
+      },
+      {
+        "id": "D",
+        "text": "150%"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Area of circle = πr^2. New radius = 1.5r. New area = π(1.5r)^2 = 2.25πr^2. Increase = 2.25 - 1.0 = 1.25 = 125% increase.",
@@ -498,10 +822,22 @@
     "difficulty": "Moderate",
     "question": "In a class of 45 students, Aditya's rank is 16th from the top. What is his rank from the bottom?",
     "options": [
-      { "id": "A", "text": "29th" },
-      { "id": "B", "text": "30th" },
-      { "id": "C", "text": "31st" },
-      { "id": "D", "text": "32nd" }
+      {
+        "id": "A",
+        "text": "29th"
+      },
+      {
+        "id": "B",
+        "text": "30th"
+      },
+      {
+        "id": "C",
+        "text": "31st"
+      },
+      {
+        "id": "D",
+        "text": "32nd"
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Rank from bottom = Total students - Rank from top + 1 = 45 - 16 + 1 = 30th rank.",
@@ -517,10 +853,22 @@
     "passage": "Digital public infrastructure (DPI) such as unified payments and digital identity has lowered friction in welfare delivery. However, over-reliance on biometric authentication without robust offline contingency mechanisms risks excluding the most vulnerable marginalized citizens during telecom outages or biometric wear. Digital inclusion requires inclusive analog fallbacks.",
     "question": "Which of the following best reflects the core idea of the passage?",
     "options": [
-      { "id": "A", "text": "Digital identity systems should be immediately dismantled." },
-      { "id": "B", "text": "Technological welfare systems must integrate failsafe offline fallbacks to avoid disenfranchising vulnerable groups." },
-      { "id": "C", "text": "Biometric authentication is 100% reliable in rural areas." },
-      { "id": "D", "text": "Telecom infrastructure expansion will eliminate all welfare leakage." }
+      {
+        "id": "A",
+        "text": "Digital identity systems should be immediately dismantled."
+      },
+      {
+        "id": "B",
+        "text": "Technological welfare systems must integrate failsafe offline fallbacks to avoid disenfranchising vulnerable groups."
+      },
+      {
+        "id": "C",
+        "text": "Biometric authentication is 100% reliable in rural areas."
+      },
+      {
+        "id": "D",
+        "text": "Telecom infrastructure expansion will eliminate all welfare leakage."
+      }
     ],
     "correctAnswer": "B",
     "explanation": "Option B accurately mirrors the author's argument: DPI needs offline contingency fallbacks for marginalized protection.",
@@ -535,10 +883,22 @@
     "difficulty": "Hard",
     "question": "What is the smallest number which when divided by 8, 12, and 15 leaves remainder 3 in each case, but is completely divisible by 7?",
     "options": [
-      { "id": "A", "text": "123" },
-      { "id": "B", "text": "243" },
-      { "id": "C", "text": "363" },
-      { "id": "D", "text": "483" }
+      {
+        "id": "A",
+        "text": "123"
+      },
+      {
+        "id": "B",
+        "text": "243"
+      },
+      {
+        "id": "C",
+        "text": "363"
+      },
+      {
+        "id": "D",
+        "text": "483"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "LCM(8, 12, 15) = 120. General form: 120k + 3. We need (120k + 3) to be divisible by 7. 120 = 7 × 17 + 1 → 120k + 3 ≡ 1k + 3 (mod 7). For k + 3 to be divisible by 7, smallest k = 4. Number = 120(3) + 3? For k=3: 360+3 = 363. 363 / 7 = 51.85 (not 7). Check k=1: 123/7=17.5. Check k=2: 243/7=34.7. Check k=4: 483/7 = 69 (exact!).",
@@ -553,10 +913,22 @@
     "difficulty": "Hard",
     "question": "In how many ways can a committee of 5 members be formed from 6 men and 4 women such that the committee contains at least 3 women?",
     "options": [
-      { "id": "A", "text": "66" },
-      { "id": "B", "text": "72" },
-      { "id": "C", "text": "84" },
-      { "id": "D", "text": "96" }
+      {
+        "id": "A",
+        "text": "66"
+      },
+      {
+        "id": "B",
+        "text": "72"
+      },
+      {
+        "id": "C",
+        "text": "84"
+      },
+      {
+        "id": "D",
+        "text": "96"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Cases for at least 3 women:\nCase 1: 3 Women and 2 Men = 4C3 × 6C2 = 4 × 15 = 60 ways.\nCase 2: 4 Women and 1 Man = 4C4 × 6C1 = 1 × 6 = 6 ways.\nTotal committee combinations = 60 + 6 = 66 ways.",
@@ -571,10 +943,22 @@
     "difficulty": "Moderate",
     "question": "Statements:\n1. All rivers are water bodies.\n2. No water body is a desert.\n\nConclusions:\nI. No river is a desert.\nII. Some water bodies are rivers.\n\nWhich of the following is correct?",
     "options": [
-      { "id": "A", "text": "Only conclusion I follows" },
-      { "id": "B", "text": "Only conclusion II follows" },
-      { "id": "C", "text": "Both I and II follow" },
-      { "id": "D", "text": "Neither I nor II follows" }
+      {
+        "id": "A",
+        "text": "Only conclusion I follows"
+      },
+      {
+        "id": "B",
+        "text": "Only conclusion II follows"
+      },
+      {
+        "id": "C",
+        "text": "Both I and II follow"
+      },
+      {
+        "id": "D",
+        "text": "Neither I nor II follows"
+      }
     ],
     "correctAnswer": "C",
     "explanation": "Since all rivers are subsets of water bodies, and water bodies have empty intersection with deserts, no river can be a desert (I follows). Since all rivers are water bodies, some water bodies are rivers (II follows). Both I and II follow.",
@@ -589,14 +973,116 @@
     "difficulty": "Moderate",
     "question": "If 'CIVIL' is coded as '9-18-4-18-15' (where letters are coded by reverse alphabetical position: A=26, Z=1), how is 'IAS' coded?",
     "options": [
-      { "id": "A", "text": "18-26-8" },
-      { "id": "B", "text": "9-1-19" },
-      { "id": "C", "text": "18-1-8" },
-      { "id": "D", "text": "8-26-18" }
+      {
+        "id": "A",
+        "text": "18-26-8"
+      },
+      {
+        "id": "B",
+        "text": "9-1-19"
+      },
+      {
+        "id": "C",
+        "text": "18-1-8"
+      },
+      {
+        "id": "D",
+        "text": "8-26-18"
+      }
     ],
     "correctAnswer": "A",
     "explanation": "Reverse alphabetical position formula = 27 - forward position:\nI (forward 9) → 27 - 9 = 18.\nA (forward 1) → 27 - 1 = 26.\nS (forward 19) → 27 - 19 = 8.\nCode = 18-26-8.",
     "trapInsight": "Reverse alphabet sum: Forward + Reverse = 27.",
     "formulaTrick": "Reverse Position = 27 - Alphabet_Index."
+  },
+  {
+    "id": "CSAT-NUM-006",
+    "year": 2024,
+    "category": "Quant",
+    "subtopic": "Number System & Remainder Theorem",
+    "difficulty": "Hard",
+    "question": "What is the remainder when (97^97 + 97) is divided by 98?",
+    "options": [
+      {
+        "id": "A",
+        "text": "0"
+      },
+      {
+        "id": "B",
+        "text": "1"
+      },
+      {
+        "id": "C",
+        "text": "96"
+      },
+      {
+        "id": "D",
+        "text": "97"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Using modular arithmetic: 97 ≡ -1 (mod 98). Therefore, 97^97 ≡ (-1)^97 = -1 (mod 98). Now, (97^97 + 97) ≡ -1 + (-1) = -2 (mod 98). The positive remainder is 98 - 2 = 96.",
+    "trapInsight": "Do not calculate large powers! Convert base 97 to negative remainder (-1) with respect to divisor 98.",
+    "formulaTrick": "Modular arithmetic: a^n mod (a+1) = -1 if n is odd, and +1 if n is even."
+  },
+  {
+    "id": "CSAT-NUM-007",
+    "year": 2024,
+    "category": "Quant",
+    "subtopic": "Permutations & Combinations",
+    "difficulty": "Hard",
+    "question": "How many 4-digit numbers can be formed using the digits 1, 2, 3, 4, 5 such that the number is divisible by 4, without repetition of digits?",
+    "options": [
+      {
+        "id": "A",
+        "text": "24"
+      },
+      {
+        "id": "B",
+        "text": "18"
+      },
+      {
+        "id": "C",
+        "text": "36"
+      },
+      {
+        "id": "D",
+        "text": "12"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "A number is divisible by 4 if its last two digits form a multiple of 4. From {1,2,3,4,5}, valid two-digit endings are: 12, 24, 32, 52 (4 possibilities). For each ending, 2 digits are used. The first two digits can be chosen from remaining 3 digits in 3 × 2 = 6 ways. Total numbers = 4 × 6 = 24.",
+    "trapInsight": "Check all possible pairs ending in 4: 12, 24, 32, 52. Do not include 44 because repetition is not allowed.",
+    "formulaTrick": "Divisibility by 4 relies exclusively on the last two digits: N mod 4 == (10a + b) mod 4."
+  },
+  {
+    "id": "CSAT-NUM-008",
+    "year": 2024,
+    "category": "Quant",
+    "subtopic": "Work & Efficiency (Pipes & Cisterns)",
+    "difficulty": "Moderate",
+    "question": "Two pipes A and B can fill a tank in 12 hours and 15 hours respectively. If an emptying pipe C empties the full tank in 20 hours, and all three are opened together, how long will it take to fill the tank?",
+    "options": [
+      {
+        "id": "A",
+        "text": "8 hours"
+      },
+      {
+        "id": "B",
+        "text": "10 hours"
+      },
+      {
+        "id": "C",
+        "text": "12 hours"
+      },
+      {
+        "id": "D",
+        "text": "15 hours"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "LCM of (12, 15, 20) = 60 units total capacity. Efficiency of A = 60/12 = +5 u/hr. Efficiency of B = 60/15 = +4 u/hr. Efficiency of C = 60/20 = -3 u/hr. Net filling efficiency = 5 + 4 - 3 = +6 u/hr. Time required = 60 / 6 = 10 hours.",
+    "trapInsight": "Remember pipe C is an emptying pipe with negative work rate (-3 units/hr).",
+    "formulaTrick": "Unit Capacity Method: Total Capacity = LCM(t1, t2, t3). Net Rate = sum(inlets) - sum(outlets)."
   }
 ]

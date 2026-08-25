@@ -25,6 +25,8 @@ import MainsQCABGenerator from "@/components/MainsQCABGenerator";
 import TopperMirrorAnalyzer from "@/components/TopperMirrorAnalyzer";
 import { exportMainsAnswerBooklet } from "@/lib/mains-pyq/export";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { UserSessionManager } from "@/lib/core/user-context";
 
 const LOCAL_STORAGE_MAINS_KEY = "redroom_mains_pyqs_custom";
 
@@ -498,129 +500,94 @@ export default function MainsPYQCommandCenter() {
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#07040e] text-white">
-        {/* TOP BAR */}
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-[#090414]/90 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => router.push("/dashboard")}
-                className="text-xs font-semibold text-purple-300 transition hover:text-white"
-              >
-                ← Command Centre
-              </button>
+        {/* UNIVERSAL LUXURY HUD HEADER */}
+        <AppUniversalHeader moduleName="Mains Answer Lab" moduleBadge="GS 1-4 & ESSAY" />
 
-            <span className="text-white/20">|</span>
+        <div className="border-b border-white/10 bg-[#090414]/60 px-4 py-2.5 sm:px-6">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2.5">
             <div className="flex items-center gap-2">
-              <span className="text-base">✍️</span>
-              <h1 className="font-extrabold tracking-tight text-sm sm:text-base">Mains Answer Writing Hub</h1>
-              <span className="rounded-full bg-pink-500/20 px-2 py-0.5 text-[11px] font-black text-pink-300">
-                {questions.length} Mains PYQs
+              <span className="font-mono text-xs text-white/50">MAINS SUITE:</span>
+              <span className="rounded-full bg-pink-500/20 px-2 py-0.5 text-[10px] font-black text-pink-300">
+                {questions.length} Questions
               </span>
             </div>
-          </div>
 
-          {/* RIGHT ACTION BUTTONS */}
-          <div className="flex items-center gap-2.5">
-            {/* GS-4 ETHICS DILEMMA SIMULATOR */}
-            <button
-              onClick={() => {
-                setEthicsSimulatorOpen((prev) => !prev);
-                sound.playLock();
-              }}
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
-                ethicsSimulatorOpen
-                  ? "border-pink-500 bg-pink-500 text-white shadow-lg"
-                  : "border-pink-500/40 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20"
-              }`}
-            >
-              <span>⚖️</span>
-              <span className="hidden sm:inline">
-                {ethicsSimulatorOpen ? "Hide Ethics" : "Ethics Simulator"}
-              </span>
-            </button>
+            <div className="flex flex-wrap items-center gap-2">
+              {/* GS-4 ETHICS DILEMMA SIMULATOR */}
+              <button
+                onClick={() => {
+                  setEthicsSimulatorOpen((prev) => !prev);
+                  sound.playLock();
+                }}
+                className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-bold transition ${
+                  ethicsSimulatorOpen
+                    ? "border-pink-500 bg-pink-500 text-white shadow-lg"
+                    : "border-pink-500/40 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20"
+                }`}
+              >
+                <span>⚖️</span>
+                <span>{ethicsSimulatorOpen ? "Hide Ethics" : "Ethics Simulator"}</span>
+              </button>
 
-            {/* ESSAY STUDIO */}
-            <button
-              onClick={() => {
-                setEssayStudioOpen((prev) => !prev);
-                sound.playLock();
-              }}
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
-                essayStudioOpen
-                  ? "border-amber-500 bg-amber-500 text-black shadow-lg"
-                  : "border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20"
-              }`}
-            >
-              <span>✍️</span>
-              <span className="hidden sm:inline">
-                {essayStudioOpen ? "Hide Essay Studio" : "Essay Studio"}
-              </span>
-            </button>
+              {/* ESSAY STUDIO */}
+              <button
+                onClick={() => {
+                  setEssayStudioOpen((prev) => !prev);
+                  sound.playLock();
+                }}
+                className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-bold transition ${
+                  essayStudioOpen
+                    ? "border-amber-500 bg-amber-500 text-black shadow-lg"
+                    : "border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20"
+                }`}
+              >
+                <span>✍️</span>
+                <span>{essayStudioOpen ? "Hide Essay" : "Essay Studio"}</span>
+              </button>
 
-            {/* QCAB BOOKLET GENERATOR */}
-            <button
-              onClick={() => {
-                setQcabGeneratorOpen((prev) => !prev);
-                sound.playLock();
-              }}
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
-                qcabGeneratorOpen
-                  ? "border-blue-500 bg-blue-500 text-white shadow-lg"
-                  : "border-blue-500/40 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20"
-              }`}
-            >
-              <span>📄</span>
-              <span className="hidden sm:inline">
-                {qcabGeneratorOpen ? "Hide QCAB" : "Print QCAB Booklet"}
-              </span>
-            </button>
+              {/* QCAB BOOKLET GENERATOR */}
+              <button
+                onClick={() => {
+                  setQcabGeneratorOpen((prev) => !prev);
+                  sound.playLock();
+                }}
+                className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-bold transition ${
+                  qcabGeneratorOpen
+                    ? "border-blue-500 bg-blue-500 text-white shadow-lg"
+                    : "border-blue-500/40 bg-blue-500/10 text-blue-300 hover:bg-blue-500/20"
+                }`}
+              >
+                <span>📄</span>
+                <span>{qcabGeneratorOpen ? "Hide QCAB" : "Print QCAB"}</span>
+              </button>
 
-            {/* TOPPER MIRROR ANALYZER */}
-            <button
-              onClick={() => {
-                setTopperMirrorOpen((prev) => !prev);
-                sound.playLock();
-              }}
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${
-                topperMirrorOpen
-                  ? "border-pink-400 bg-pink-400 text-black shadow-lg"
-                  : "border-pink-400/40 bg-pink-400/10 text-pink-200 hover:bg-pink-400/20"
-              }`}
-            >
-              <span>🪞</span>
-              <span className="hidden sm:inline">
-                {topperMirrorOpen ? "Hide Topper Mirror" : "Topper Mirror"}
-              </span>
-            </button>
+              {/* TOPPER MIRROR ANALYZER */}
+              <button
+                onClick={() => {
+                  setTopperMirrorOpen((prev) => !prev);
+                  sound.playLock();
+                }}
+                className={`flex items-center gap-1.5 rounded-xl border px-2.5 py-1 text-xs font-bold transition ${
+                  topperMirrorOpen
+                    ? "border-pink-400 bg-pink-400 text-black shadow-lg"
+                    : "border-pink-400/40 bg-pink-400/10 text-pink-200 hover:bg-pink-400/20"
+                }`}
+              >
+                <span>🪞</span>
+                <span>{topperMirrorOpen ? "Hide Topper" : "Topper Mirror"}</span>
+              </button>
 
-            {/* SWITCH TO PRELIMS PYQ */}
-            <button
-              onClick={() => router.push("/pyqs")}
-              className="flex items-center gap-1 rounded-xl border border-purple-500/30 bg-purple-500/10 px-3 py-1.5 text-xs font-bold text-purple-200 transition hover:bg-purple-500/20"
-            >
-              <span>📝</span>
-              <span className="hidden sm:inline">Prelims MCQs (205)</span>
-            </button>
-
-            {/* UPLOAD CUSTOM JSON */}
-            <button
-              onClick={() => setUploadModalOpen(true)}
-              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg shadow-purple-600/30 transition hover:opacity-90"
-            >
-              <span>📁</span>
-              <span>Import JSON</span>
-            </button>
-
-            <button
-              onClick={() => void triggerManualSync()}
-              title="Cloud sync"
-              className="rounded-xl border border-white/10 bg-white/5 p-1.5 text-xs text-white/70 hover:bg-white/10 hover:text-white"
-            >
-              {isSyncing ? "🔄" : "☁️"}
-            </button>
+              {/* UPLOAD CUSTOM JSON */}
+              <button
+                onClick={() => setUploadModalOpen(true)}
+                className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-xs font-bold text-white shadow-lg transition hover:opacity-90"
+              >
+                <span>📁</span>
+                <span>Import JSON</span>
+              </button>
+            </div>
           </div>
         </div>
-      </header>
 
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
         {/* HERO STRIP */}

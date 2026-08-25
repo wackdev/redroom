@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { sound } from "@/lib/audio/sound-engine";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AppUniversalHeader from "@/components/AppUniversalHeader";
 
 // 3D & Spatial Simulators
 import GeographyGlobe3D from "@/components/GeographyGlobe3D";
@@ -189,45 +190,8 @@ function ThreeDZoneContent() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black flex flex-col">
-      {/* 3D ZONE COMMAND HEADER */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0d0d0d]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs font-bold text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
-            >
-              ← COMMAND CENTRE
-            </Link>
-            <span className="text-white/20 hidden sm:inline">/</span>
-            <div className="flex items-center gap-2">
-              <span className="text-base">🌌</span>
-              <h1 className="font-mono text-xs sm:text-sm font-black tracking-widest text-white uppercase">
-                3D SIMULATION ZONE <span className="text-[#F4C95D]">// REALITY LABS</span>
-              </h1>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 sm:gap-3 font-mono text-xs">
-            <button
-              onClick={handleToggleMute}
-              className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-[#8C8C8C] hover:border-[#D8A63A] hover:text-white transition"
-            >
-              <span>{isMuted ? "🔇" : "🔊"}</span>
-              <span className="hidden sm:inline">{isMuted ? "MUTED" : "SOUND ON"}</span>
-            </button>
-
-            <button
-              onClick={handleToggleFullscreen}
-              className="flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-3 py-1.5 text-xs font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition"
-              title="Toggle Fullscreen Immersion"
-            >
-              <span>{isFullscreen ? "🗗" : "⛶"}</span>
-              <span className="hidden sm:inline">{isFullscreen ? "EXIT FULLSCREEN" : "IMMERSION"}</span>
-            </button>
-          </div>
-        </div>
-      </header>
+      {/* UNIVERSAL LUXURY HUD HEADER */}
+      <AppUniversalHeader moduleName="3D Simulation Zone" moduleBadge="REALITY LABS" />
 
       {/* SUB-HEADER / CATEGORY TABS */}
       <div className="border-b border-white/10 bg-[#080511]/80 backdrop-blur-md">
