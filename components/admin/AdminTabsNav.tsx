@@ -4,6 +4,7 @@ import { sound } from "@/lib/audio/sound-engine";
 
 export type AdminTab =
   | "COMMAND_CENTER"
+  | "KNOWLEDGE_VAULT"
   | "USERS"
   | "CONTENT"
   | "ANALYTICS"
@@ -17,11 +18,12 @@ interface AdminTabsNavProps {
 
 const TABS: { id: AdminTab; label: string; icon: string; code: string }[] = [
   { id: "COMMAND_CENTER", label: "COMMAND CENTER", icon: "⚡", code: "HUB-01" },
-  { id: "USERS", label: "USER GOVERNANCE", icon: "👥", code: "USR-02" },
-  { id: "CONTENT", label: "CONTENT CMS", icon: "📚", code: "CMS-03" },
-  { id: "ANALYTICS", label: "PLATFORM ANALYTICS", icon: "📈", code: "ANL-04" },
-  { id: "CHILL_ZONE", label: "CHILL ZONE CONTROL", icon: "🎮", code: "ARC-05" },
-  { id: "SYSTEM_SETTINGS", label: "SYSTEM & FLAGS", icon: "⚙️", code: "SYS-06" },
+  { id: "KNOWLEDGE_VAULT", label: "KNOWLEDGE VAULT", icon: "🏛️", code: "VAULT-02" },
+  { id: "USERS", label: "USER GOVERNANCE", icon: "👥", code: "USR-03" },
+  { id: "CONTENT", label: "CONTENT CMS", icon: "📚", code: "CMS-04" },
+  { id: "ANALYTICS", label: "PLATFORM ANALYTICS", icon: "📈", code: "ANL-05" },
+  { id: "CHILL_ZONE", label: "CHILL ZONE CONTROL", icon: "🎮", code: "ARC-06" },
+  { id: "SYSTEM_SETTINGS", label: "SYSTEM & FLAGS", icon: "⚙️", code: "SYS-07" },
 ];
 
 export default function AdminTabsNav({ activeTab, onTabChange }: AdminTabsNavProps) {

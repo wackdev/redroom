@@ -100,15 +100,15 @@ export default function AppUniversalHeader({
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#070707]/90 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-3.5 py-2.5 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 sm:px-6">
         {/* Left: Brand + Quick Switcher Trigger */}
-        <div className="flex items-center gap-2 sm:gap-3" ref={dropdownRef}>
+        <div className="flex items-center gap-1.5 sm:gap-3" ref={dropdownRef}>
           <Link
             href="/"
             onClick={() => sound.playSelect()}
-            className="group flex items-center gap-2.5 rounded-xl p-1 transition"
+            className="group flex items-center gap-2 rounded-xl p-1 transition"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[#D8A63A] to-[#B38322] font-mono font-black text-black shadow-[0_0_15px_rgba(216,166,58,0.4)] group-hover:scale-105 transition">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[#D8A63A] to-[#B38322] font-mono font-black text-black shadow-[0_0_15px_rgba(216,166,58,0.4)] group-hover:scale-105 transition shrink-0">
               ↑
             </div>
             <span className="font-mono text-sm sm:text-base font-black tracking-widest text-white uppercase hidden md:inline">
@@ -125,10 +125,10 @@ export default function AppUniversalHeader({
                 sound.playHover();
                 setDropdownOpen(!dropdownOpen);
               }}
-              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 font-mono text-xs font-bold text-white hover:border-[#D8A63A]/50 hover:bg-[#D8A63A]/10 transition shadow cursor-pointer"
+              className="flex min-h-[38px] items-center gap-1.5 sm:gap-2 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 font-mono text-xs font-bold text-white hover:border-[#D8A63A]/50 hover:bg-[#D8A63A]/10 transition shadow cursor-pointer"
             >
               <span className="text-sm">{currentRoute?.icon || "⚡"}</span>
-              <span className="uppercase text-white tracking-wider max-w-[130px] sm:max-w-none truncate">
+              <span className="uppercase text-white tracking-wider max-w-[100px] sm:max-w-[180px] truncate">
                 {activeTitle}
               </span>
               <span className="text-[10px] text-[#F4C95D]">▼</span>
@@ -136,14 +136,14 @@ export default function AppUniversalHeader({
 
             {/* Quick Switcher Modal / Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-80 sm:w-96 rounded-2xl border border-white/15 bg-[#0c0c0c] p-3 text-white shadow-[0_15px_50px_rgba(0,0,0,0.95)] z-50 animate-fadeIn">
+              <div className="fixed sm:absolute top-14 sm:top-full left-3 sm:left-0 right-3 sm:right-auto sm:w-96 rounded-2xl border border-white/15 bg-[#0c0c0c] p-3 text-white shadow-[0_15px_50px_rgba(0,0,0,0.95)] z-50 animate-in fade-in duration-150">
                 <div className="mb-2.5 flex items-center justify-between border-b border-white/10 pb-2">
                   <span className="font-mono text-[10px] font-black tracking-widest text-[#F4C95D] uppercase">
                     16-SYSTEM COMMAND DIRECTORY
                   </span>
                   <button
                     onClick={() => setDropdownOpen(false)}
-                    className="font-mono text-xs text-[#8C8C8C] hover:text-white"
+                    className="font-mono text-xs text-[#8C8C8C] hover:text-white p-1"
                   >
                     ✕
                   </button>
@@ -154,11 +154,11 @@ export default function AppUniversalHeader({
                   placeholder="Jump to module..."
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
-                  className="mb-2.5 w-full rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 font-mono text-xs text-white placeholder:text-white/40 focus:border-[#D8A63A] focus:outline-none"
+                  className="mb-2.5 w-full min-h-[38px] rounded-xl border border-white/10 bg-black/60 px-3 py-1.5 font-mono text-xs text-white placeholder:text-white/40 focus:border-[#D8A63A] focus:outline-none"
                   autoFocus
                 />
 
-                <div className="max-h-80 overflow-y-auto space-y-1 pr-1 font-mono text-xs scrollbar-thin">
+                <div className="max-h-72 sm:max-h-80 overflow-y-auto space-y-1 pr-1 font-mono text-xs">
                   {filteredRoutes.map((r) => {
                     const isActive = pathname === r.path;
                     return (
@@ -169,22 +169,22 @@ export default function AppUniversalHeader({
                           sound.playWarp();
                           setDropdownOpen(false);
                         }}
-                        className={`flex items-center justify-between rounded-xl px-3 py-2 transition ${
+                        className={`flex min-h-[40px] items-center justify-between rounded-xl px-3 py-2 transition ${
                           isActive
                             ? "bg-[#D8A63A]/20 text-[#F4C95D] border border-[#D8A63A]/40 font-bold"
                             : "hover:bg-white/5 text-[#8C8C8C] hover:text-white"
                         }`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-base">{r.icon}</span>
-                          <div>
-                            <p className="font-bold text-white text-xs">{r.label}</p>
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className="text-base shrink-0">{r.icon}</span>
+                          <div className="min-w-0">
+                            <p className="font-bold text-white text-xs truncate">{r.label}</p>
                             <p className="text-[10px] text-white/50 truncate max-w-[200px]">
                               {r.description}
                             </p>
                           </div>
                         </div>
-                        {isActive && <span className="text-[10px] text-[#F4C95D]">● ACTIVE</span>}
+                        {isActive && <span className="text-[10px] text-[#F4C95D] shrink-0 ml-1">● ACTIVE</span>}
                       </Link>
                     );
                   })}
@@ -204,7 +204,7 @@ export default function AppUniversalHeader({
           <button
             onClick={() => void triggerManualSync()}
             title="Cloud Sync State"
-            className={`flex items-center gap-1 rounded-xl border px-2.5 py-1.5 font-semibold transition cursor-pointer ${
+            className={`flex min-h-[38px] items-center gap-1 rounded-xl border px-2 sm:px-2.5 py-1.5 font-semibold transition cursor-pointer ${
               isSyncing
                 ? "border-[#D8A63A]/50 bg-[#D8A63A]/15 text-[#F4C95D] animate-pulse"
                 : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
@@ -220,7 +220,7 @@ export default function AppUniversalHeader({
           <button
             onClick={handleOpenFocusModal}
             title="Launch Deep Work Focus Sanctuary"
-            className="flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/70 hover:border-[#D8A63A]/40 hover:text-white transition cursor-pointer"
+            className="flex min-h-[38px] items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-2 sm:px-2.5 py-1.5 text-white/70 hover:border-[#D8A63A]/40 hover:text-white transition cursor-pointer"
           >
             <span>🧘</span>
             <span className="hidden md:inline text-[11px]">FOCUS</span>
@@ -230,7 +230,7 @@ export default function AppUniversalHeader({
           <button
             onClick={handleToggleSound}
             title={isMuted ? "Sound Muted" : "Sound Enabled"}
-            className="flex items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/70 hover:text-white transition cursor-pointer"
+            className="flex min-h-[38px] items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-2 sm:px-2.5 py-1.5 text-white/70 hover:text-white transition cursor-pointer"
           >
             <span>{isMuted ? "🔇" : "🔊"}</span>
           </button>
@@ -239,7 +239,7 @@ export default function AppUniversalHeader({
           <button
             onClick={handleOpenCommandPalette}
             title="Global Command Palette (Ctrl+K)"
-            className="hidden sm:flex items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow cursor-pointer"
+            className="hidden sm:flex min-h-[38px] items-center gap-1.5 rounded-xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-2.5 py-1.5 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow cursor-pointer"
           >
             <span>⚡</span>
             <span className="text-[11px]">Ctrl+K</span>
@@ -247,11 +247,11 @@ export default function AppUniversalHeader({
 
           {/* Cadet Profile Pill & Exit */}
           {activeUser ? (
-            <div className="flex items-center gap-1.5 border-l border-white/10 pl-2">
+            <div className="flex items-center gap-1.5 border-l border-white/10 pl-1.5 sm:pl-2">
               <Link
                 href="/performance"
                 title="Cadet Profile & Performance Radar"
-                className="flex items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 hover:border-[#D8A63A] transition"
+                className="flex min-h-[38px] items-center gap-1.5 rounded-xl border border-white/10 bg-white/5 px-2 sm:px-2.5 py-1.5 hover:border-[#D8A63A] transition"
               >
                 <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#D8A63A] font-black text-black text-[10px]">
                   {activeUser.fullName?.charAt(0) || "C"}
@@ -267,7 +267,7 @@ export default function AppUniversalHeader({
               <button
                 onClick={handleLogout}
                 title="Sign Out of Cadet Session"
-                className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 text-white/60 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-300 transition cursor-pointer text-[11px]"
+                className="min-h-[38px] rounded-xl border border-white/10 bg-white/5 px-2 sm:px-2.5 py-1.5 text-white/60 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-300 transition cursor-pointer text-[11px]"
               >
                 Exit
               </button>
@@ -275,7 +275,7 @@ export default function AppUniversalHeader({
           ) : (
             <Link
               href="/login"
-              className="rounded-xl border border-[#D8A63A] bg-[#D8A63A] px-3 py-1.5 font-bold text-black hover:bg-[#F4C95D] transition text-[11px]"
+              className="min-h-[38px] flex items-center rounded-xl border border-[#D8A63A] bg-[#D8A63A] px-3 py-1.5 font-bold text-black hover:bg-[#F4C95D] transition text-[11px]"
             >
               Sign In
             </Link>

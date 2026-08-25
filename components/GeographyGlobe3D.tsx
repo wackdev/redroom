@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { sound } from "@/lib/audio/sound-engine";
 
 export interface GeoFeature {
@@ -403,6 +404,7 @@ const GLOBAL_GEO_DATASET: GeoFeature[] = [
 ];
 
 export default function GeographyGlobe3D() {
+  const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null);
@@ -808,9 +810,11 @@ export default function GeographyGlobe3D() {
             <button
               onClick={() => {
                 sound.playVictory();
-                window.location.href = `/pyqs?search=${encodeURIComponent(
-                  selectedFeature?.name.split(" ")[0] || "Geography"
-                )}`;
+                router.push(
+                  `/pyqs?search=${encodeURIComponent(
+                    selectedFeature?.name.split(" ")[0] || "Geography"
+                  )}`
+                );
               }}
               className="w-full rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 py-2.5 text-xs font-bold text-white shadow-lg transition hover:opacity-90 active:scale-95"
             >

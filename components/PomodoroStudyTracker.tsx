@@ -5,6 +5,7 @@ import { sound } from "@/lib/audio/sound-engine";
 import { UPSC_SUBJECTS, UPSCSubject } from "@/lib/core/constants";
 import { safeArray } from "@/lib/core/utils";
 import { broadcastSyncChange, subscribeToSyncChanges, pushStateToCloud } from "@/lib/sync/sync-engine";
+import { trackActivityEvent } from "@/lib/brain/activity-events";
 
 export interface FocusSessionRecord {
   id: string;
@@ -182,6 +183,12 @@ export default function PomodoroStudyTracker() {
           localStorage.setItem(`redroom_focus_mins_${todayStr}`, String(currentMins + durationMins));
         } catch {}
         return updated;
+      });
+
+      void trackActivityEvent("STUDY_SESSION_COMPLETED", {
+        subject: newSession.subject,
+        topic: newSession.topic,
+        durationMinutes: durationMins,
       });
 
       broadcastSyncChange("study_plan");

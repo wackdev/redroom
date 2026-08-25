@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { DayPlan, NoteItem, TestResultRecord } from "../core/types";
-import { safeArray } from "../core/utils";
 import { UserSessionManager } from "../core/user-context";
 
 export const STORAGE_KEYS = {
@@ -254,8 +252,10 @@ export function useCloudSync() {
   }, []);
 
   useEffect(() => {
-    // Initial sync
-    void performFullSync();
+    // Initial sync deferred to next tick to avoid cascading render lint warning
+    const initialSyncTimer = setTimeout(() => {
+      void performFullSync();
+    }, 50);
 
     // 20s High-frequency background sync
     const intervalId = setInterval(() => {
@@ -277,6 +277,7 @@ export function useCloudSync() {
     window.addEventListener("online", handleOnline);
 
     return () => {
+      clearTimeout(initialSyncTimer);
       clearInterval(intervalId);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("online", handleOnline);

@@ -92,6 +92,7 @@ export const DEFAULT_AI_MODELS = [
 export const APP_ROUTES = [
   // 1. Core Routine & Intelligence
   { path: "/dashboard", label: "Command Centre", icon: "⚡", description: "Central tactical HUD, priority missions & readiness radar." },
+  { path: "/knowledge", label: "Universal Knowledge Vault", icon: "🏛️", description: "One Topic • All Sources • 38+ Subjects • Connected Knowledge Graph & Source Notes." },
   { path: "/syllabus", label: "Syllabus Matrix", icon: "📚", description: "GS-1 to GS-4 micro-topic tracker with yield analysis & PYQ cross-links." },
   { path: "/current-affairs", label: "Current Affairs & Editorials", icon: "📰", description: "The Hindu & Indian Express editorial digests, audio briefs & live news quizzes." },
   { path: "/study-plan", label: "Study Plan & Sanctuary", icon: "📅", description: "Dynamic daily schedule, Pomodoro sprints & active study tracker." },
@@ -104,8 +105,11 @@ export const APP_ROUTES = [
   { path: "/performance", label: "Performance & Mistake Diagnostics", icon: "📊", description: "6-Axis GS Radar, Mistake Anatomy Lab, Cut-off Comparator & Trend Forecaster." },
   { path: "/3d-zone", label: "3D Simulation Zone", icon: "🌌", description: "10 Interactive 3D Visual Labs: Geography Globe, History Tunnel & Constitutional Atlas." },
 
-  // 3. Mains & Optional
-  { path: "/mains-pyqs", label: "Mains Answer Studio & Speed Lab", icon: "🏛️", description: "Topper Model Copies, PESTLE Frameworks, WPM Telemetry & QCAB Generator." },
+  // 3. Mains Sector
+  { path: "/mains-pyqs", label: "Mains PYQ & Model Copies", icon: "🏛️", description: "Topper Model Copies, PESTLE Frameworks & multi-dimensional answer blueprints." },
+  { path: "/mains-writing", label: "Mains Speed Lab & QCAB", icon: "⏱️", description: "Timed 10 & 15-marker answer lab with real-time WPM, diagram studio & QCAB sheets." },
+  { path: "/essay", label: "Essay Studio & Lab", icon: "🖋️", description: "250-mark UPSC Essay frameworks, thesis hooks & AI multi-dimensional grading." },
+  { path: "/ethics", label: "Ethics & Dilemma Simulator", icon: "⚖️", description: "GS-4 Case Studies, stakeholder mapping, ethical dilemmas & Nolan principles." },
   { path: "/optional", label: "500-Mark Optional Hub", icon: "🏛️", description: "25 Optional subjects catalogue, Paper 1 & 2 breakdown & Topper blueprints." },
 
   // 4. Recall & Community
@@ -118,5 +122,10 @@ export const APP_ROUTES = [
   { path: "/interview", label: "Personality Test Simulator", icon: "🎙️", description: "DAF Profiler & 5-Member Board Room Viva audio simulator." },
   { path: "/chill-zone", label: "Cognitive Arcade", icon: "🎮", description: "6 Cognitive reaction games, spatial puzzles & Cadet Leaderboard." },
   { path: "/assistant", label: "AI Strategic Mentor", icon: "🤖", description: "Direct conversational AI mentor for strategy, answers & doubt clearance." },
+
+  // 6. System & Management
+  { path: "/profile", label: "Cadet Dossier & DAF", icon: "👤", description: "Cadet DAF details, optional subject, target year & rank telemetry." },
+  { path: "/settings", label: "System Preferences", icon: "⚙️", description: "Audio synthesis toggles, AI model selection & offline sync." },
+  { path: "/notifications", label: "Notification Center", icon: "🔔", description: "Spaced repetition alerts, streak reminders & Telegram dispatches." },
   { path: "/admin", label: "Admin & Telemetry Hub", icon: "👑", description: "Live cadet telemetry, Telegram broadcast dispatch & DB health monitor." },
 ];

@@ -1,39 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/db/supabase";
 import { ApiResponse } from "@/lib/core/types";
+import {
+  AdminBroadcastMessage,
+  globalBroadcastStore,
+  addBroadcastToStore,
+  removeBroadcastFromStore,
+} from "@/lib/admin/broadcast-store";
 
-export interface AdminBroadcastMessage {
-  id: string;
-  title: string;
-  message: string;
-  type: "directive" | "announcement" | "alert" | "system";
-  priority: "Urgent" | "High" | "Normal";
-  actionLink?: string;
-  actionLabel?: string;
-  createdAt: string;
-  author: string;
-  isActive: boolean;
-}
-
-// In-memory persistent fallback store
-export let globalBroadcastStore: AdminBroadcastMessage[] = [
-  {
-    id: "broadcast-seed-1",
-    title: "⚡ Prelims 2026 High-Yield Mission Active",
-    message: "234+ Authentic UPSC CSE Prelims PYQs (2018-2026) are now fully indexed with live Indian Express & PIB daily news feeds. Keep your study streak active!",
-    type: "directive",
-    priority: "High",
-    actionLink: "/pyqs",
-    actionLabel: "Practice PYQs →",
-    createdAt: new Date().toISOString(),
-    author: "Chief Mentor",
-    isActive: true,
-  },
-];
-
-export function addBroadcastToStore(item: AdminBroadcastMessage) {
-  globalBroadcastStore = [item, ...globalBroadcastStore.filter((b) => b.id !== item.id)];
-}
+export type { AdminBroadcastMessage };
 
 /**
  * Checks for recent messages sent to the Telegram bot via getUpdates fallback
@@ -77,7 +52,14 @@ async function fetchRecentTelegramUpdates(): Promise<AdminBroadcastMessage[]> {
           text = text.replace(/^\/broadcast\s*/i, "");
         } else if (text.startsWith("/notify") || text.startsWith("/msg")) {
           text = text.replace(/^\/(notify|msg)\s*/i, "");
-        } else if (text.startsWith("/start") || text.startsWith("/help") || text.startsWith("/stats") || text.startsWith("/telemetry") || text.startsWith("/brief") || text.startsWith("/quiz")) {
+        } else if (
+          text.startsWith("/start") ||
+          text.startsWith("/help") ||
+          text.startsWith("/stats") ||
+          text.startsWith("/telemetry") ||
+          text.startsWith("/brief") ||
+          text.startsWith("/quiz")
+        ) {
           // Internal bot commands don't need to be broadcast banners
           continue;
         }
@@ -118,7 +100,9 @@ async function fetchRecentTelegramUpdates(): Promise<AdminBroadcastMessage[]> {
  * GET /api/admin/broadcast
  * Returns all active broadcast announcements.
  */
-export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse<AdminBroadcastMessage[]>>> {
+export async function GET(
+  request: NextRequest
+): Promise<NextResponse<ApiResponse<AdminBroadcastMessage[]>>> {
   try {
     const { searchParams } = new URL(request.url);
     const all = searchParams.get("all") === "true";
@@ -179,7 +163,9 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
  * POST /api/admin/broadcast
  * Creates a new universal admin broadcast command/announcement.
  */
-export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse<AdminBroadcastMessage>>> {
+export async function POST(
+  request: NextRequest
+): Promise<NextResponse<ApiResponse<AdminBroadcastMessage>>> {
   try {
     const body = await request.json();
     const {
@@ -248,7 +234,9 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
  * DELETE /api/admin/broadcast
  * Deactivates or removes a broadcast.
  */
-export async function DELETE(request: NextRequest): Promise<NextResponse<ApiResponse<{ deleted: boolean }>>> {
+export async function DELETE(
+  request: NextRequest
+): Promise<NextResponse<ApiResponse<{ deleted: boolean }>>> {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
@@ -260,7 +248,7 @@ export async function DELETE(request: NextRequest): Promise<NextResponse<ApiResp
       );
     }
 
-    globalBroadcastStore = globalBroadcastStore.filter((b) => b.id !== id);
+    removeBroadcastFromStore(id);
 
     try {
       const supabase = createAdminClient();

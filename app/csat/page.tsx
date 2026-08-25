@@ -175,7 +175,7 @@ export default function CSATMatrixArena() {
         console.warn("Failed to persist CSAT attempt to outbox:", err);
       }
     },
-    [mode, stats, loadPastAttempts]
+    [mode, loadPastAttempts]
   );
 
   // Timer for Mock Arena

@@ -22,7 +22,7 @@ export default function WhyNotReact({ onBack, onFinish }: WhyNotReactProps) {
 
   const timerRef = useRef<any>(null);
   const startTimeRef = useRef<number>(0);
-  const sessionStartRef = useRef<number>(Date.now());
+  const sessionStartRef = useRef<number>(0);
 
   const cleanupTimer = () => {
     if (timerRef.current) {

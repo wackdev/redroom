@@ -126,6 +126,33 @@ class SoundEngine {
   }
 
   /**
+   * Crisp unlock / revelation audio chime
+   */
+  public playUnlock() {
+    if (this.isMuted) return;
+    try {
+      this.initContext();
+      if (!this.ctx) return;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(659.25, this.ctx.currentTime); // E5
+      osc.frequency.exponentialRampToValueAtTime(987.77, this.ctx.currentTime + 0.12); // B5
+
+      gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.2);
+    } catch {}
+  }
+
+  /**
    * Deep hyperdrive warp transition whoosh
    */
   public playWarp() {

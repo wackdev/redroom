@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { queryAI } from "@/lib/ai/client";
 import { buildCurrentAffairsAnalysisPrompt, UPSC_MENTOR_SYSTEM_PROMPT } from "@/lib/ai/prompts";
-import { ApiResponse } from "@/lib/core/types";
+import { apiSuccess, apiError } from "@/lib/core/api-response";
 
 export interface AnalysisResponseData {
   summary: string;
@@ -12,24 +12,13 @@ export interface AnalysisResponseData {
   tags: string[];
 }
 
-export async function POST(
-  request: NextRequest
-): Promise<NextResponse<ApiResponse<AnalysisResponseData>>> {
+export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const { title, content } = body;
 
     if (!title || typeof title !== "string") {
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: "INVALID_REQUEST",
-            message: "Missing required 'title' field",
-          },
-        },
-        { status: 400 }
-      );
+      return apiError("INVALID_REQUEST", "Missing required 'title' field", null, 400);
     }
 
     const prompt = buildCurrentAffairsAnalysisPrompt(title, content || title);
@@ -41,7 +30,12 @@ export async function POST(
     });
 
     if (!aiResponse.success) {
-      return NextResponse.json(aiResponse, { status: 500 });
+      return apiError(
+        aiResponse.error.code,
+        aiResponse.error.message,
+        aiResponse.error.details,
+        500
+      );
     }
 
     const parsed = aiResponse.data.data || {
@@ -56,25 +50,13 @@ export async function POST(
       tags: ["UPSC Current Affairs", "GS Analysis"],
     };
 
-    return NextResponse.json({
-      success: true,
-      data: parsed,
-      meta: {
-        modelUsed: aiResponse.data.modelUsed,
-        latencyMs: aiResponse.data.latencyMs,
-      },
+    return apiSuccess(parsed, {
+      modelUsed: aiResponse.data.modelUsed,
+      latencyMs: aiResponse.data.latencyMs,
     });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Analysis failed";
-    return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: "ANALYSIS_ERROR",
-          message,
-        },
-      },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "Current affairs analysis failed";
+    return apiError("ANALYSIS_ERROR", message, error, 500);
   }
 }

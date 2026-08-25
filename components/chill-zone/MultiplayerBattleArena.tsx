@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { sound } from "@/lib/audio/sound-engine";
 import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
 import { UserSessionManager } from "@/lib/core/user-context";
@@ -139,38 +139,7 @@ export default function MultiplayerBattleArena({ onExit }: { onExit: () => void 
     }, 2200);
   };
 
-  // 1v1 Timer Loop
-  useEffect(() => {
-    if (gameMode === "1v1_battle") {
-      if (roundTimer > 0 && !myAnswer) {
-        timerRef.current = setTimeout(() => {
-          setRoundTimer((prev) => prev - 1);
-        }, 1000);
-      } else if (roundTimer === 0 || myAnswer) {
-        handleRoundEnd();
-      }
-    }
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [roundTimer, myAnswer, gameMode]);
-
-  const handleSelectAnswer = (key: string) => {
-    if (myAnswer) return;
-    setMyAnswer(key);
-    sound.playSelect();
-
-    setTimeout(() => {
-      if (opponent) {
-        const correctKey = roundQuestions[currentRound]?.correctAnswer || "A";
-        const oppIsCorrect = Math.random() > 0.35;
-        const oppChosen = oppIsCorrect ? correctKey : ["A", "B", "C", "D"].filter((k) => k !== correctKey)[0];
-        setOpponent((prev) => (prev ? { ...prev, currentAnswer: oppChosen } : null));
-      }
-    }, 800);
-  };
-
-  const handleRoundEnd = () => {
+  const handleRoundEnd = useCallback(() => {
     const q = roundQuestions[currentRound];
     if (!q) return;
 
@@ -199,6 +168,37 @@ export default function MultiplayerBattleArena({ onExit }: { onExit: () => void 
         setGameMode("game_over");
       }
     }, 2400);
+  }, [roundQuestions, currentRound, myAnswer, myStreak, myHp, opponent]);
+
+  // 1v1 Timer Loop
+  useEffect(() => {
+    if (gameMode === "1v1_battle") {
+      if (roundTimer > 0 && !myAnswer) {
+        timerRef.current = setTimeout(() => {
+          setRoundTimer((prev) => prev - 1);
+        }, 1000);
+      } else if (roundTimer === 0 || myAnswer) {
+        handleRoundEnd();
+      }
+    }
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [roundTimer, myAnswer, gameMode, handleRoundEnd]);
+
+  const handleSelectAnswer = (key: string) => {
+    if (myAnswer) return;
+    setMyAnswer(key);
+    sound.playSelect();
+
+    setTimeout(() => {
+      if (opponent) {
+        const correctKey = roundQuestions[currentRound]?.correctAnswer || "A";
+        const oppIsCorrect = Math.random() > 0.35;
+        const oppChosen = oppIsCorrect ? correctKey : ["A", "B", "C", "D"].filter((k) => k !== correctKey)[0];
+        setOpponent((prev) => (prev ? { ...prev, currentAnswer: oppChosen } : null));
+      }
+    }, 800);
   };
 
   const triggerEmote = (emote: string) => {

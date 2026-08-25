@@ -12,6 +12,7 @@ import ContentCommandView from "@/components/admin/ContentCommandView";
 import AnalyticsCommandView from "@/components/admin/AnalyticsCommandView";
 import ChillZoneAdminView from "@/components/admin/ChillZoneAdminView";
 import SystemSettingsView from "@/components/admin/SystemSettingsView";
+import KnowledgeVaultAdmin from "@/components/admin/KnowledgeVaultAdmin";
 import AdminCommandPalette from "@/components/admin/AdminCommandPalette";
 import { sound } from "@/lib/audio/sound-engine";
 
@@ -227,6 +228,8 @@ export default function AdminPage() {
             onRefresh={fetchLiveTelemetry}
           />
         )}
+
+        {activeTab === "KNOWLEDGE_VAULT" && <KnowledgeVaultAdmin />}
 
         {activeTab === "USERS" && <UserManagementView />}
 

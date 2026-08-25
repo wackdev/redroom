@@ -1,0 +1,3252 @@
+[
+  {
+    "id": "quote-1",
+    "theme": "Society",
+    "quote": "Injustice anywhere is a threat to justice everywhere.",
+    "author": "Martin Luther King Jr.",
+    "coreConcept": "Universal justice",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-4"],
+    "placement": "Introduction: Hook the essay on global solidarity or human rights; or Conclusion: Final rallying call against systemic discrimination.",
+    "anchoringTips": "Link to universal human rights treaties, Article 14/15/21, and global refugee crises."
+  },
+  {
+    "id": "quote-2",
+    "theme": "Society",
+    "quote": "As long as poverty, injustice, and gross inequality exist in our world, none of us can truly rest.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Poverty & social justice",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-3"],
+    "placement": "Body paragraph: Mini-thesis on why economic growth without equity threatens social order.",
+    "anchoringTips": "Pair with Oxfam Inequality Report data and NITI Aayog Multidimensional Poverty Index."
+  },
+  {
+    "id": "quote-3",
+    "theme": "Society",
+    "quote": "The true measure of any society can be found in how it treats its most vulnerable members.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Compassionate society",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-4"],
+    "placement": "Introduction or Conclusion: Evaluating state welfare policy or vulnerable group protection.",
+    "anchoringTips": "Connect with Gandhian Talisman, Article 46, rights of Divyangjan, and senior citizen safety nets."
+  },
+  {
+    "id": "quote-4",
+    "theme": "Society",
+    "quote": "True freedom is impossible without economic security and independence.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Socioeconomic freedom",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body paragraph: Addressing positive vs. negative liberties and social safety nets.",
+    "anchoringTips": "Link with Amartya Sen's 'Development as Freedom' and Universal Basic Income (UBI) debates."
+  },
+  {
+    "id": "quote-5",
+    "theme": "Society",
+    "quote": "Poverty is the worst form of violence.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Poverty as violence",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-4"],
+    "placement": "Introduction: Reframing poverty from mere lack of money to structural deprivation.",
+    "anchoringTips": "Cite Johan Galtung's concept of structural violence and NFHS-5 malnutrition indicators."
+  },
+  {
+    "id": "quote-6",
+    "theme": "Society",
+    "quote": "We may have different religions, different languages, different colored skin, but we all belong to one human race.",
+    "author": "Kofi Annan",
+    "coreConcept": "Unity of humanity",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Conclusion: Promoting pluralism, secularism, and cosmopolitan brotherhood.",
+    "anchoringTips": "Tie to Preamble's Fraternity, Article 51A(e) on promoting harmony, and Vasudhaiva Kutumbakam."
+  },
+  {
+    "id": "quote-7",
+    "theme": "Society",
+    "quote": "I measure the progress of a community by the degree of progress which women have achieved.",
+    "author": "B.R. Ambedkar",
+    "coreConcept": "Women’s empowerment as progress",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-4"],
+    "placement": "Introduction: Opening any essay on gender justice, female labor participation, or social reform.",
+    "anchoringTips": "Anchor with Female Labour Force Participation Rate (FLFPR), Nari Shakti Vandan Adhiniyam (106th CAA)."
+  },
+  {
+    "id": "quote-8",
+    "theme": "Society",
+    "quote": "There is no chance of the welfare of the world unless the condition of women is improved. It is not possible for a bird to fly on one wing.",
+    "author": "Swami Vivekananda",
+    "coreConcept": "Necessity of women’s upliftment",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Body paragraph: Highlighting economic and societal stagnation when half the population is suppressed.",
+    "anchoringTips": "Link to SDG 5 (Gender Equality) and World Economic Forum Global Gender Gap Report."
+  },
+  {
+    "id": "quote-9",
+    "theme": "Society",
+    "quote": "We cannot all succeed when half of us are held back.",
+    "author": "Malala Yousafzai",
+    "coreConcept": "Gender equality",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Introduction or Body: Discussing girl child education and breaking patriarchal glass ceilings.",
+    "anchoringTips": "Support with Beti Bachao Beti Padhao outcomes and STEM gender parity statistics."
+  },
+  {
+    "id": "quote-10",
+    "theme": "Society",
+    "quote": "A woman is the full circle. Within her is the power to create, nurture, and transform.",
+    "author": "Diane Mariechild",
+    "coreConcept": "Women’s creative power",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Conclusion: Celebrating women's transformative leadership in grassroots Panchayats and self-help groups.",
+    "anchoringTips": "Pair with Kudumbashree success stories and SHG-bank linkage data from NABARD."
+  },
+  {
+    "id": "quote-11",
+    "theme": "Society",
+    "quote": "A woman with a voice is, by definition, a strong woman.",
+    "author": "Melinda Gates",
+    "coreConcept": "Women’s voice & strength",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Body paragraph: Analyzing women's agency, political representation, and decision-making.",
+    "anchoringTips": "Connect to Panchayati Raj 33% (and 50% in states) reservation and Sarpanch Pati eradication."
+  },
+  {
+    "id": "quote-12",
+    "theme": "Society",
+    "quote": "I am not free while any woman is unfree, even when her shackles are very different from my own.",
+    "author": "Audre Lorde",
+    "coreConcept": "Shared freedom & solidarity",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Intersectional feminism, addressing tribal, Dalit, and disabled women's double burdens.",
+    "anchoringTips": "Cite Kimberly Crenshaw's intersectionality framework and SC/ST women development indices."
+  },
+  {
+    "id": "quote-13",
+    "theme": "Society",
+    "quote": "There is no tool for development more effective than the empowerment of women.",
+    "author": "Kofi Annan",
+    "coreConcept": "Women’s empowerment for development",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-3"],
+    "placement": "Introduction / Body: Linking gender equity directly with GDP growth, child nutrition, and health.",
+    "anchoringTips": "Quote IMF/World Bank reports showing GDP boost from closing gender employment gaps."
+  },
+  {
+    "id": "quote-14",
+    "theme": "Society",
+    "quote": "When women do better, economies do better.",
+    "author": "Christine Lagarde",
+    "coreConcept": "Women’s advancement & prosperity",
+    "applicablePapers": ["Essay", "GS-1", "GS-3"],
+    "placement": "Body paragraph: Economic case for investing in care economies, crèches, and safety at work.",
+    "anchoringTips": "Cite Maternity Benefit Amendment Act and PM Mudra Yojana female entrepreneurship shares."
+  },
+  {
+    "id": "quote-15",
+    "theme": "Society",
+    "quote": "The measure of any society is how it treats its women and girls.",
+    "author": "Michelle Obama",
+    "coreConcept": "Women’s status as societal indicator",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Conclusion: Synthesizing societal development beyond per capita GDP to safety and respect.",
+    "anchoringTips": "Compare India's HDI with Gender Inequality Index (GII) rankings."
+  },
+  {
+    "id": "quote-16",
+    "theme": "Society",
+    "quote": "You educate a man, you educate an individual. You educate a woman, you educate a generation.",
+    "author": "Brigham Young",
+    "coreConcept": "Impact of women’s education",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Introduction / Body: Explaining inter-generational positive externalities of female literacy.",
+    "anchoringTips": "Link with reduction in Total Fertility Rate (TFR) and Infant Mortality Rate (IMR) in Kerala."
+  },
+  {
+    "id": "quote-17",
+    "theme": "Society",
+    "quote": "Education is the most powerful weapon which you can use to change the world.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Power of education",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-4"],
+    "placement": "Introduction: Opening an essay on human capital, demographic dividend, or transformative pedagogy.",
+    "anchoringTips": "Reference NEP 2020, Right to Education (Article 21A), and ASER survey findings."
+  },
+  {
+    "id": "quote-18",
+    "theme": "Society",
+    "quote": "Education is what remains after one has forgotten what one has learned in school.",
+    "author": "Albert Einstein",
+    "coreConcept": "Essence of true education",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body paragraph: Critiquing rote-memorization vs. critical thinking and value-based education.",
+    "anchoringTips": "Contrast rote learning with Bloom's taxonomy and NEP 2020 experiential learning mandates."
+  },
+  {
+    "id": "quote-19",
+    "theme": "Society",
+    "quote": "The purpose of education is to replace an empty mind with an open one.",
+    "author": "Malcolm Forbes",
+    "coreConcept": "Open-mindedness through education",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Fostering scientific temper (Art 51A(h)) and resisting religious bigotry or dogma.",
+    "anchoringTips": "Anchor with constitutional duties and liberal arts education integration."
+  },
+  {
+    "id": "quote-20",
+    "theme": "Society",
+    "quote": "An investment in knowledge pays the best interest.",
+    "author": "Benjamin Franklin",
+    "coreConcept": "Value of knowledge",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body paragraph: Urging public R&D spending, higher education funding, and skill development.",
+    "anchoringTips": "Cite India's R&D expenditure (% of GDP) vs. OECD averages and Skill India initiatives."
+  },
+  {
+    "id": "quote-21",
+    "theme": "Society",
+    "quote": "Learning gives creativity, creativity leads to thinking, thinking provides knowledge, knowledge makes you great.",
+    "author": "A.P.J. Abdul Kalam",
+    "coreConcept": "Learning, creativity & growth",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Conclusion: Inspiring youth demographic dividend to become innovation engines for Viksit Bharat.",
+    "anchoringTips": "Tie to Atal Tinkering Labs, National Innovation Foundation, and STEM pipelines."
+  },
+  {
+    "id": "quote-22",
+    "theme": "Polity",
+    "quote": "A leader is one who knows the way, goes the way, and shows the way.",
+    "author": "John C. Maxwell",
+    "coreConcept": "Leadership by example",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body paragraph: Exemplary civil service conduct and Nolan Committee's Leadership principle.",
+    "anchoringTips": "Quote 2nd ARC Report on Ethics in Governance and IAS/IPS code of conduct."
+  },
+  {
+    "id": "quote-23",
+    "theme": "Polity",
+    "quote": "Good governance is the art of putting wise thoughts into prudent actions.",
+    "author": "A.P.J. Abdul Kalam",
+    "coreConcept": "Wise action in governance",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Setting the definition of citizen-centric, pragmatic administrative delivery.",
+    "anchoringTips": "Connect to Good Governance Index (GGI) and Mission Karmayogi civil service capacity building."
+  },
+  {
+    "id": "quote-24",
+    "theme": "Polity",
+    "quote": "Righteousness is the foundation stone of peace and good governance.",
+    "author": "Confucius",
+    "coreConcept": "Ethics in governance",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: Linking probity, dharma, and rule of law with administrative stability.",
+    "anchoringTips": "Pair with Kautilya's Arthashastra on Rajdharma and civil servant integrity."
+  },
+  {
+    "id": "quote-25",
+    "theme": "Polity",
+    "quote": "Nearly all men can stand adversity, but if you want to test a man’s character, give him power.",
+    "author": "Abraham Lincoln",
+    "coreConcept": "Power and character",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Addressing misuse of discretionary administrative powers and corruption.",
+    "anchoringTips": "Anchor with Prevention of Corruption Act, Lokpal & Lokayuktas, and institutional watchdogs."
+  },
+  {
+    "id": "quote-26",
+    "theme": "Polity",
+    "quote": "The price good men pay for indifference to public affairs is to be ruled by evil men.",
+    "author": "Plato",
+    "coreConcept": "Cost of civic apathy",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Encouraging voting, civic activism, social audits, and RTI participation.",
+    "anchoringTips": "Cite ADR reports on criminalization of politics and Election Commission's SVEEP drive."
+  },
+  {
+    "id": "quote-27",
+    "theme": "Polity",
+    "quote": "Democracy is not merely a form of government; it is primarily a mode of associated living, of conjoint communicated experience.",
+    "author": "B.R. Ambedkar",
+    "coreConcept": "Democracy as a way of life",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction: Transitioning from procedural democracy to substantive social democracy.",
+    "anchoringTips": "Pair with Ambedkar's final Constituent Assembly address on 'liberty, equality, and fraternity'."
+  },
+  {
+    "id": "quote-28",
+    "theme": "Polity",
+    "quote": "I understand democracy as something that gives the weak the same chance as the strong.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Equality in democracy",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Evaluating legal aid (Article 39A), affirmative action, and decentralized Panchayati Raj.",
+    "anchoringTips": "Link to NALSA, free legal services, and 73rd/74th Constitutional Amendment Acts."
+  },
+  {
+    "id": "quote-29",
+    "theme": "Polity",
+    "quote": "Liberty, when it begins to take root, is a plant of rapid growth.",
+    "author": "George Washington",
+    "coreConcept": "Expanding liberty",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Tracing the dynamic expansion of fundamental rights via judicial interpretation.",
+    "anchoringTips": "Cite Maneka Gandhi (1978) and K.S. Puttaswamy (2017) privacy judgments under Article 21."
+  },
+  {
+    "id": "quote-30",
+    "theme": "Polity",
+    "quote": "The ballot is stronger than the bullet.",
+    "author": "Abraham Lincoln",
+    "coreConcept": "Power of democratic means",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Resolving internal security challenges (Left-Wing Extremism, insurgency) through democratic inclusion.",
+    "anchoringTips": "Connect with tribal developmental councils, surrender & rehabilitation policies, and PESA Act."
+  },
+  {
+    "id": "quote-31",
+    "theme": "Polity",
+    "quote": "The price of freedom is eternal vigilance.",
+    "author": "Thomas Jefferson",
+    "coreConcept": "Vigilance for liberty",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Conclusion: Reinforcing civil liberties, free press, and constitutional oversight bodies.",
+    "anchoringTips": "Cite CAG, Election Commission, Judiciary, and investigative media roles."
+  },
+  {
+    "id": "quote-32",
+    "theme": "Polity",
+    "quote": "I disapprove of what you say, but I will defend to the death your right to say it.",
+    "author": "Voltaire (attrib.)",
+    "coreConcept": "Freedom of speech",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Dissent as the safety valve of democracy; Article 19(1)(a) vs. reasonable restrictions 19(2).",
+    "anchoringTips": "Reference Shreya Singhal (Section 66A IT Act struck down) and Kedarnath Singh sedition jurisprudence."
+  },
+  {
+    "id": "quote-33",
+    "theme": "Economy",
+    "quote": "Industrialization is necessary for economic development, but the benefits of industrialization should reach all sections of society.",
+    "author": "B.R. Ambedkar",
+    "coreConcept": "Inclusive economic development",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction / Body: Manufacturing policy, Make in India, and labor welfare balancing.",
+    "anchoringTips": "Pair with PLI schemes, MSME formalization, and Social Security Code 2020."
+  },
+  {
+    "id": "quote-34",
+    "theme": "Economy",
+    "quote": "We need to create an economy that works for everyone, not just the privileged few.",
+    "author": "B.R. Ambedkar",
+    "coreConcept": "Economy for all",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Progressive taxation, financial inclusion (JAM Trinity), and wealth inequality.",
+    "anchoringTips": "Cite Gini coefficient, Oxfam reports, and PM Jan Dhan Yojana account penetration."
+  },
+  {
+    "id": "quote-35",
+    "theme": "Economy",
+    "quote": "Development is not about factories, dams and roads. Development is about people. The goal is material, cultural and spiritual fulfilment for the people.",
+    "author": "Rajiv Gandhi",
+    "coreConcept": "People-centric development",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction: Questioning pure GDP fetishism vs human development and gross national happiness.",
+    "anchoringTips": "Contrast GDP metrics with UNDP Human Development Index (HDI) and Bhutan's GNH."
+  },
+  {
+    "id": "quote-36",
+    "theme": "Economy",
+    "quote": "Economic growth without investment in human development is unsustainable – and unethical.",
+    "author": "Amartya Sen",
+    "coreConcept": "Human-centric growth",
+    "applicablePapers": ["Essay", "GS-2", "GS-3", "GS-4"],
+    "placement": "Body: The necessity of allocating 6% GDP to education and 2.5% to healthcare.",
+    "anchoringTips": "Cite National Health Policy 2017 targets, NEP 2020 goals, and Amartya Sen-Jean Drèze thesis."
+  },
+  {
+    "id": "quote-37",
+    "theme": "Environment",
+    "quote": "Saving our planet, lifting people out of poverty, advancing economic growth… these are one and the same fight.",
+    "author": "Ban Ki-moon",
+    "coreConcept": "Holistic sustainable development",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Resolving the false dichotomy between economic development and ecological preservation.",
+    "anchoringTips": "Cite UN Sustainable Development Goals (SDGs) and India's Panchamrit climate commitments."
+  },
+  {
+    "id": "quote-38",
+    "theme": "Environment",
+    "quote": "We do not inherit the Earth from our ancestors; we borrow it from our children.",
+    "author": "Native American Proverb",
+    "coreConcept": "Stewardship for future generations",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Conclusion: Elevating inter-generational equity and climate justice as sacred duties.",
+    "anchoringTips": "Tie to Supreme Court's Public Trust Doctrine (M.C. Mehta case) and Article 48A/51A(g)."
+  },
+  {
+    "id": "quote-39",
+    "theme": "Environment",
+    "quote": "To waste, to destroy our natural resources, to skin and exhaust the land… will result in undermining in the days of our children the very prosperity which we ought by right to hand down to them amplified and developed.",
+    "author": "Theodore Roosevelt",
+    "coreConcept": "Conservation for posterity",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Critiquing resource depletion, soil degradation, and water table exploitation.",
+    "anchoringTips": "Cite UNCCD Desertification targets, Soil Health Card scheme, and Jal Jeevan Mission."
+  },
+  {
+    "id": "quote-40",
+    "theme": "Environment",
+    "quote": "We are the first generation to feel the sting of climate change, and we are the last generation that can do something about it.",
+    "author": "Jay Inslee",
+    "coreConcept": "Urgency of climate action",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Establishing the acute ticking clock of IPCC 1.5°C carbon budget thresholds.",
+    "anchoringTips": "Cite IPCC AR6 Synthesis Report, COP summits, and International Solar Alliance (ISA)."
+  },
+  {
+    "id": "quote-41",
+    "theme": "Environment",
+    "quote": "The Earth has enough for everyone’s needs, but not for everyone’s greed.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Sufficiency vs. greed (sustainability)",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body or Conclusion: Promoting Mission LiFE (Lifestyle for Environment) and circular economy.",
+    "anchoringTips": "Link to Mission LiFE, circular plastic waste management rules, and sustainable consumption."
+  },
+  {
+    "id": "quote-42",
+    "theme": "Science & Tech",
+    "quote": "Innovation distinguishes between a leader and a follower.",
+    "author": "Steve Jobs",
+    "coreConcept": "Innovation & leadership",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Framing India's leap from technology consumer to global deep-tech creator.",
+    "anchoringTips": "Reference Global Innovation Index (GII) ranking jump, Atal Innovation Mission, and Startup India."
+  },
+  {
+    "id": "quote-43",
+    "theme": "Science & Tech",
+    "quote": "Technology is a useful servant but a dangerous master.",
+    "author": "Christian Lous Lange",
+    "coreConcept": "Risks of technology",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Balancing AI benefits (governance efficiency) with surveillance capitalism and dark patterns.",
+    "anchoringTips": "Anchor with Digital Personal Data Protection (DPDP) Act 2023 and EU AI Act benchmarks."
+  },
+  {
+    "id": "quote-44",
+    "theme": "Science & Tech",
+    "quote": "The real problem is not whether machines think, but whether men do.",
+    "author": "B.F. Skinner",
+    "coreConcept": "Reflective thinking vs. machines",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Discussing ethical algorithms, cognitive offloading, and human agency in the age of generative AI.",
+    "anchoringTips": "Cite UNESCO Recommendations on the Ethics of Artificial Intelligence."
+  },
+  {
+    "id": "quote-45",
+    "theme": "Science & Tech",
+    "quote": "Our technology has exceeded our humanity.",
+    "author": "Albert Einstein",
+    "coreConcept": "Humanity vs. technology",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction: Warning against technological hubris, automated warfare, and algorithmic isolation.",
+    "anchoringTips": "Connect to Autonomous Weapons Systems treaties and social media mental health impacts."
+  },
+  {
+    "id": "quote-46",
+    "theme": "Science & Tech",
+    "quote": "It is science alone that can solve the problems of hunger and poverty, of insanitation and illiteracy, of superstition and deadening custom.",
+    "author": "Jawaharlal Nehru",
+    "coreConcept": "Scientific temper for progress",
+    "applicablePapers": ["Essay", "GS-1", "GS-3", "GS-4"],
+    "placement": "Body: Advocating Article 51A(h) scientific temper, Green Revolution 2.0, and space tech in agriculture.",
+    "anchoringTips": "Cite ISRO remote sensing for agriculture, tele-medicine, and DBT bio-fortified crops."
+  },
+  {
+    "id": "quote-47",
+    "theme": "Ethics & Integrity",
+    "quote": "The time is always right to do what is right.",
+    "author": "Martin Luther King Jr.",
+    "coreConcept": "Moral urgency",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body / Case Study: Prompt decision-making during ethical dilemmas; fighting bureaucratic procrastination.",
+    "anchoringTips": "Use in GS-4 case studies where immediate whistleblower action or humanitarian intervention is needed."
+  },
+  {
+    "id": "quote-48",
+    "theme": "Ethics & Integrity",
+    "quote": "The greatness of a nation and its moral progress can be judged by the way its animals are treated.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Compassion & moral progress",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Conclusion: Discussing bioethics, animal rights, biodiversity, and Article 51A(g).",
+    "anchoringTips": "Cite Prevention of Cruelty to Animals Act, Project Tiger/Elephant, and Wildlife Protection Act."
+  },
+  {
+    "id": "quote-49",
+    "theme": "Ethics & Integrity",
+    "quote": "If you tell the truth, you don’t have to remember anything.",
+    "author": "Mark Twain",
+    "coreConcept": "Honesty and simplicity",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Transparency, open governance, and probity in civil service records.",
+    "anchoringTips": "Pair with Right to Information (RTI) Act and Open Government Data (OGD) platforms."
+  },
+  {
+    "id": "quote-50",
+    "theme": "Ethics & Integrity",
+    "quote": "Conscience is a man’s compass.",
+    "author": "Vincent van Gogh",
+    "coreConcept": "Conscience as guide",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Voice of conscience as the highest moral arbiter when written rules are ambiguous.",
+    "anchoringTips": "Reference civil servant moral dilemmas in crisis management and disaster relief."
+  },
+  {
+    "id": "quote-51",
+    "theme": "Ethics & Integrity",
+    "quote": "It is curious that physical courage should be so common in the world and moral courage so rare.",
+    "author": "Mark Twain",
+    "coreConcept": "Rarity of moral courage",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Standing up to illegitimate political pressure, cronyism, and whistleblowing.",
+    "anchoringTips": "Cite Satyendra Dubey, Whistle Blowers Protection Act 2014, and administrative courage."
+  },
+  {
+    "id": "quote-52",
+    "theme": "Ethics & Integrity",
+    "quote": "When the power of love overcomes the love of power, the world will know peace.",
+    "author": "Attrib. to Jimi Hendrix/William Gladstone",
+    "coreConcept": "Love over power (peace)",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Conclusion: Resolving geopolitical conflicts, communal tensions, and war through empathy.",
+    "anchoringTips": "Link to Ahimsa, Gandhian peace diplomacy, and global nuclear disarmament."
+  },
+  {
+    "id": "quote-53",
+    "theme": "Ethics & Integrity",
+    "quote": "Peace and justice are two sides of the same coin.",
+    "author": "Dwight D. Eisenhower",
+    "coreConcept": "Peace–justice interdependence",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: True peace cannot exist in the absence of justice (positive peace vs. negative peace).",
+    "anchoringTips": "Cite Johan Galtung's peace theory and truth & reconciliation commissions."
+  },
+  {
+    "id": "quote-54",
+    "theme": "Ethics & Integrity",
+    "quote": "An eye for an eye only ends up making the whole world blind.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Non-violence & forgiveness",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Critiquing retributive justice in favor of restorative justice and prison reforms.",
+    "anchoringTips": "Reference Justice Mulla Committee on Prison Reforms and Model Prisons Act 2023."
+  },
+  {
+    "id": "quote-55",
+    "theme": "Ethics & Integrity",
+    "quote": "Be the change that you wish to see in the world.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Personal responsibility",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Final call for self-transformation, ethical leadership, and grassroots civic duty.",
+    "anchoringTips": "Anchor with Swachh Bharat Abhiyan's Jan Andolan behavioral change."
+  },
+  {
+    "id": "quote-56",
+    "theme": "Society",
+    "quote": "The test of our progress is not whether we add more to the abundance of those who have much; it is whether we provide enough for those who have too little.",
+    "author": "Franklin D. Roosevelt",
+    "coreConcept": "Inclusive growth",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Introduction / Body: Framing welfare economics, progressive redistribution, and Antyodaya.",
+    "anchoringTips": "Link with PM Garib Kalyan Anna Yojana and targeted Direct Benefit Transfers (DBT)."
+  },
+  {
+    "id": "quote-57",
+    "theme": "Society",
+    "quote": "No society can surely be flourishing and happy, of which the far greater part of the members are poor and miserable.",
+    "author": "Adam Smith",
+    "coreConcept": "Inequality & welfare",
+    "applicablePapers": ["Essay", "GS-1", "GS-3"],
+    "placement": "Body: Showing that even the father of modern capitalism mandated social welfare foundations.",
+    "anchoringTips": "Cite Adam Smith's 'Theory of Moral Sentiments' alongside 'Wealth of Nations'."
+  },
+  {
+    "id": "quote-58",
+    "theme": "Society",
+    "quote": "The measure of civilisation is how it treats the weak.",
+    "author": "Fyodor Dostoevsky",
+    "coreConcept": "Social empathy",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Introduction: Gauging societal elevation through the lens of elderly, transgender, and minority rights.",
+    "anchoringTips": "Cite Transgender Persons (Protection of Rights) Act and Maintenance and Welfare of Parents Act."
+  },
+  {
+    "id": "quote-59",
+    "theme": "Society",
+    "quote": "Prejudice, not being founded on reason, cannot be removed by argument.",
+    "author": "Samuel Johnson",
+    "coreConcept": "Social attitudes",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Emphasizing the role of emotional intelligence, cultural immersion, and social engineering.",
+    "anchoringTips": "Discuss social reform movements (Raja Ram Mohan Roy, Jyotirao Phule, Periyar)."
+  },
+  {
+    "id": "quote-60",
+    "theme": "Society",
+    "quote": "Compassion is the basis of morality.",
+    "author": "Arthur Schopenhauer",
+    "coreConcept": "Compassion ethics",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body / Intro: Establishing foundational civil service value of empathy towards weaker sections.",
+    "anchoringTips": "Reference 2nd ARC foundational civil service values: Compassion, Empathy, and Objectivity."
+  },
+  {
+    "id": "quote-61",
+    "theme": "Society",
+    "quote": "Human rights are not a privilege conferred by government; they are every human being’s entitlement.",
+    "author": "Mother Teresa",
+    "coreConcept": "Universal human rights",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Natural rights doctrine and inherent inalienable dignity under Article 21.",
+    "anchoringTips": "Reference Universal Declaration of Human Rights (UDHR) 1948 and NHRC interventions."
+  },
+  {
+    "id": "quote-62",
+    "theme": "Society",
+    "quote": "Diversity is the art of thinking independently together.",
+    "author": "Malcolm Forbes",
+    "coreConcept": "Unity in diversity",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Conclusion: Celebrating Indian composite culture (Ganga-Jamuni tehzeeb) and federal pluralism.",
+    "anchoringTips": "Cite Ek Bharat Shreshtha Bharat initiative and linguistic reorganisation history."
+  },
+  {
+    "id": "quote-63",
+    "theme": "Society",
+    "quote": "Social progress can be measured by the social position of the female sex.",
+    "author": "Karl Marx",
+    "coreConcept": "Gender index",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Body: Analyzing material and patriarchal constraints on women's property and financial autonomy.",
+    "anchoringTips": "Anchor with Hindu Succession (Amendment) Act 2005 on coparcenary property rights."
+  },
+  {
+    "id": "quote-64",
+    "theme": "Society",
+    "quote": "Justice delayed is justice denied.",
+    "author": "William E. Gladstone",
+    "coreConcept": "Timely justice",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Body: Judicial pendency crisis (5 crore+ pending cases) and undertrial misery.",
+    "anchoringTips": "Cite National Judicial Data Grid (NJDG), Fast Track Special Courts, and e-Courts Phase III."
+  },
+  {
+    "id": "quote-65",
+    "theme": "Society",
+    "quote": "A nation should not be judged by how it treats its highest citizens, but its lowest ones.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Vulnerable sections",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-4"],
+    "placement": "Conclusion: Re-evaluating developmental milestones through bottom-up socio-economic metrics.",
+    "anchoringTips": "Pair with Aspirational Districts Programme (ADP) and PM-JANMAN for PVTGs."
+  },
+  {
+    "id": "quote-66",
+    "theme": "Polity",
+    "quote": "The spirit of the law is greater than the letter of the law.",
+    "author": "Roman maxim",
+    "coreConcept": "Constitutional morality",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Constitutional morality vs. narrow legalism in executive and judicial decisions.",
+    "anchoringTips": "Cite Navtej Singh Johar (Section 377) and Sabarimala verdicts on constitutional morality."
+  },
+  {
+    "id": "quote-67",
+    "theme": "Polity",
+    "quote": "Power tends to corrupt, and absolute power corrupts absolutely.",
+    "author": "Lord Acton",
+    "coreConcept": "Checks & balances",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Why constitutional democracies require horizontal separation of powers and independent tribunals.",
+    "anchoringTips": "Link to Basic Structure Doctrine, Judicial Review (Art 32/226), and CAG/EC autonomy."
+  },
+  {
+    "id": "quote-68",
+    "theme": "Polity",
+    "quote": "Government of the people, by the people, for the people, shall not perish from the Earth.",
+    "author": "Abraham Lincoln",
+    "coreConcept": "Essence of democracy",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Conclusion: Gettysburg address anchor celebrating participatory grassroots governance.",
+    "anchoringTips": "Connect with Gram Sabhas, Social Audits under MGNREGA, and citizen charters."
+  },
+  {
+    "id": "quote-69",
+    "theme": "Polity",
+    "quote": "The separation of powers… prevents tyranny.",
+    "author": "Montesquieu",
+    "coreConcept": "Institutional design",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Article 50 (Separation of Judiciary from Executive) and checks against executive aggrandizement.",
+    "anchoringTips": "Cite NJAC verdict (Fourth Judges Case) and Kesavananda Bharati case."
+  },
+  {
+    "id": "quote-70",
+    "theme": "Polity",
+    "quote": "The best argument against democracy is a five-minute conversation with the average voter.",
+    "author": "Winston Churchill",
+    "coreConcept": "Responsible citizenship",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Counter-nuance discussing voter misinformation, freebie politics, and urgent need for civic literacy.",
+    "anchoringTips": "Address deepfakes in elections, dark patterns, and Election Commission voter awareness drives."
+  },
+  {
+    "id": "quote-71",
+    "theme": "Polity",
+    "quote": "Eternal vigilance is the price of liberty.",
+    "author": "Thomas Jefferson",
+    "coreConcept": "Citizen vigilance",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Conclusion: Democratic longevity relies on active, vigilant civil society and press.",
+    "anchoringTips": "Pair with Supreme Court striking down Electoral Bonds Scheme on citizens' Right to Information."
+  },
+  {
+    "id": "quote-72",
+    "theme": "Polity",
+    "quote": "Public office is a public trust.",
+    "author": "2nd ARC Report (paraphrased)",
+    "coreConcept": "Probity in governance",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Fiduciary duty of civil servants and the anti-corruption mandate.",
+    "anchoringTips": "Cite 2nd ARC 4th Report on Ethics in Governance and Nolan Committee's Selflessness."
+  },
+  {
+    "id": "quote-73",
+    "theme": "Polity",
+    "quote": "Elections belong to the people.",
+    "author": "Abraham Lincoln",
+    "coreConcept": "Electoral sovereignty",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Free and fair elections as part of the basic structure of the Indian Constitution.",
+    "anchoringTips": "Cite Indira Gandhi v. Raj Narain (1975) and Article 324 Election Commission mandates."
+  },
+  {
+    "id": "quote-74",
+    "theme": "Polity",
+    "quote": "Rights are nothing without remedies.",
+    "author": "Legal maxim",
+    "coreConcept": "Effective enforcement",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Article 32 as the 'Heart and Soul of the Constitution' (Dr. Ambedkar).",
+    "anchoringTips": "Discuss writ jurisdictions (Habeas Corpus, Mandamus, Quo Warranto, Certiorari, Prohibition)."
+  },
+  {
+    "id": "quote-75",
+    "theme": "Polity",
+    "quote": "The Constitution is a living organism; it adapts to the needs of the time.",
+    "author": "Chief Justice H. Stone (USA)",
+    "coreConcept": "Living Constitution",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction: The dynamic adaptability of the Indian Constitution through amendments and judicial review.",
+    "anchoringTips": "Cite transformative constitutionalism, Article 368 flexibilities, and 100+ constitutional amendments."
+  },
+  {
+    "id": "quote-76",
+    "theme": "Economy",
+    "quote": "In the long run we are all dead.",
+    "author": "J. M. Keynes",
+    "coreConcept": "Timely policy action",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Justifying counter-cyclical fiscal stimulus during recessions and pandemics.",
+    "anchoringTips": "Connect with India's fiscal policy response during COVID-19 (Aatmanirbhar Bharat package)."
+  },
+  {
+    "id": "quote-77",
+    "theme": "Economy",
+    "quote": "Small is beautiful.",
+    "author": "E. F. Schumacher",
+    "coreConcept": "Sustainable economics",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Promoting MSMEs, decentralized cottage industries, and appropriate technology.",
+    "anchoringTips": "Cite Khadi & Village Industries Commission (KVIC) and PM VIKAS scheme for traditional artisans."
+  },
+  {
+    "id": "quote-78",
+    "theme": "Economy",
+    "quote": "Economic growth without social progress lets the great majority remain in poverty.",
+    "author": "John F. Kennedy",
+    "coreConcept": "Growth vs. development",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Critiquing jobless growth and rising capital share vs. labor compensation.",
+    "anchoringTips": "Cite Periodic Labour Force Survey (PLFS) data on real wages and informality."
+  },
+  {
+    "id": "quote-79",
+    "theme": "Economy",
+    "quote": "Give a man a fish and you feed him for a day; teach him to fish and you feed him for a lifetime.",
+    "author": "Chinese proverb",
+    "coreConcept": "Capacity building",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Shifting from freebie welfarism to skill development, entrepreneurship, and asset creation.",
+    "anchoringTips": "Link with Pradhan Mantri Kaushal Vikas Yojana (PMKVY) and Startup India seed funds."
+  },
+  {
+    "id": "quote-80",
+    "theme": "Economy",
+    "quote": "Poverty is multidimensional-it extends beyond money incomes to education, health care, political power.",
+    "author": "Amartya Sen",
+    "coreConcept": "Capability approach",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Introduction: Defining the multidimensional nature of deprivation.",
+    "anchoringTips": "Cite Oxford Poverty & Human Development Initiative (OPHI) and NITI Aayog National MPI."
+  },
+  {
+    "id": "quote-81",
+    "theme": "Economy",
+    "quote": "Markets work well-when they work well.",
+    "author": "Joseph E. Stiglitz",
+    "coreConcept": "Market failures",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Need for state regulation to curb monopolies, insider trading, and environmental externalities.",
+    "anchoringTips": "Cite Competition Commission of India (CCI), SEBI, and RBI regulatory oversight."
+  },
+  {
+    "id": "quote-82",
+    "theme": "Economy",
+    "quote": "Ease of doing business also means ease of living for the common man.",
+    "author": "Narendra Modi",
+    "coreConcept": "Governance & economy",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Deregulation, decriminializing minor corporate offenses, and single-window clearances.",
+    "anchoringTips": "Cite Jan Vishwas (Amendment of Provisions) Act and National Single Window System (NSWS)."
+  },
+  {
+    "id": "quote-83",
+    "theme": "Economy",
+    "quote": "Agriculture is the backbone of the Indian economy.",
+    "author": "M. S. Swaminathan",
+    "coreConcept": "Farm sector primacy",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction / Body: Highlighting food security, rural employment, and agri-value chain upgrades.",
+    "anchoringTips": "Cite Swaminathan Commission recommendations (C2+50% pricing formula) and PM-KISAN."
+  },
+  {
+    "id": "quote-84",
+    "theme": "Economy",
+    "quote": "No power on earth can stop an idea whose time has come.",
+    "author": "Victor Hugo (quoted by Dr. Manmohan Singh, 1991)",
+    "coreConcept": "Reform momentum",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Conclusion: Celebrating structural economic transformations, digital public infrastructure, and reforms.",
+    "anchoringTips": "Cite 1991 LPG reforms and India's current Digital Public Infrastructure (UPI, Aadhaar, ONDC)."
+  },
+  {
+    "id": "quote-85",
+    "theme": "Economy",
+    "quote": "Finance is the lifeblood of modern commerce.",
+    "author": "Walter Bagehot",
+    "coreConcept": "Financial systems",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Banking health, IBC resolution framework, and credit flow to priority sectors.",
+    "anchoringTips": "Cite Insolvency and Bankruptcy Code (IBC) outcomes and Gross NPA reduction in public banks."
+  },
+  {
+    "id": "quote-86",
+    "theme": "Environment",
+    "quote": "Nature provides a free lunch, but only if we control our appetites.",
+    "author": "William Ruckelshaus",
+    "coreConcept": "Resource limits",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Ecological carrying capacity and planetary boundaries.",
+    "anchoringTips": "Reference Stockholm Resilience Centre's 9 Planetary Boundaries framework."
+  },
+  {
+    "id": "quote-87",
+    "theme": "Environment",
+    "quote": "The environment is where we all meet.",
+    "author": "Lady Bird Johnson",
+    "coreConcept": "Shared commons",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: The atmosphere, oceans, and biodiversity as global common goods.",
+    "anchoringTips": "Cite Elinor Ostrom's 'Governing the Commons' and UNEP Global Commons assessments."
+  },
+  {
+    "id": "quote-88",
+    "theme": "Environment",
+    "quote": "What we are doing to the forests is but a mirror reflection of what we are doing to ourselves.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Forest conservation",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Deforestation, zoonotic spillover risks, and tribal rights under FRA 2006.",
+    "anchoringTips": "Cite India State of Forest Report (ISFR) and Forest Rights Act 2006."
+  },
+  {
+    "id": "quote-89",
+    "theme": "Environment",
+    "quote": "The greatest threat to our planet is the belief that someone else will save it.",
+    "author": "Robert Swan",
+    "coreConcept": "Personal responsibility",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Conclusion: Individual carbon footprint accountability and grassroots climate stewardship.",
+    "anchoringTips": "Anchor with Mission LiFE (Lifestyle for Environment) and civic zero-waste habits."
+  },
+  {
+    "id": "quote-90",
+    "theme": "Environment",
+    "quote": "There are no jobs on a dead planet.",
+    "author": "Common activist slogan",
+    "coreConcept": "Green economy",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Justifying green transition, renewable energy investments, and green hydrogen jobs.",
+    "anchoringTips": "Cite National Green Hydrogen Mission and India's target of 500 GW non-fossil capacity by 2030."
+  },
+  {
+    "id": "quote-91",
+    "theme": "Environment",
+    "quote": "Biodiversity is the living fabric of our planet.",
+    "author": "UNEP",
+    "coreConcept": "Biodiversity value",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Ecosystem services, wetland restoration, and wildlife corridors.",
+    "anchoringTips": "Cite Kunming-Montreal Global Biodiversity Framework (30x30 target) and Ramsar sites expansion."
+  },
+  {
+    "id": "quote-92",
+    "theme": "Environment",
+    "quote": "The earth does not belong to us; we belong to the earth.",
+    "author": "Chief Seattle",
+    "coreConcept": "Deep ecology",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction / Conclusion: Arne Naess's Deep Ecology vs Anthropocentrism.",
+    "anchoringTips": "Cite Rights of Rivers judgements (Uttarakhand HC) and biocentric constitutionalism."
+  },
+  {
+    "id": "quote-93",
+    "theme": "Environment",
+    "quote": "Climate change is the single biggest health threat facing humanity.",
+    "author": "WHO (2021)",
+    "coreConcept": "Climate–health nexus",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Heat stress, vector-borne disease expansion, and air pollution deaths.",
+    "anchoringTips": "Cite National Clean Air Programme (NCAP) and Lancet Countdown on Health and Climate Change."
+  },
+  {
+    "id": "quote-94",
+    "theme": "Environment",
+    "quote": "Sustainable development is the masterful balance of meeting our own needs without jeopardising future generations’ ability to do the same.",
+    "author": "UN Brundtland (1987)",
+    "coreConcept": "Inter-generational equity",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Standard canonical definition of sustainability (Our Common Future).",
+    "anchoringTips": "Cite Brundtland Report 1987 and Rio Earth Summit Agenda 21."
+  },
+  {
+    "id": "quote-95",
+    "theme": "Environment",
+    "quote": "Not all development is growth, not all growth is sustainable.",
+    "author": "Anil Agarwal",
+    "coreConcept": "Limits to growth",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Critiquing resource-extractive GDP growth vs. ecological sustainability.",
+    "anchoringTips": "Cite Centre for Science and Environment (CSE) State of India's Environment reports."
+  },
+  {
+    "id": "quote-96",
+    "theme": "Science & Tech",
+    "quote": "Somewhere, something incredible is waiting to be known.",
+    "author": "Carl Sagan",
+    "coreConcept": "Scientific curiosity",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Space exploration, basic science research, and deep-space missions.",
+    "anchoringTips": "Cite Chandrayaan-3, Aditya-L1, Gaganyaan, and National Quantum Mission."
+  },
+  {
+    "id": "quote-97",
+    "theme": "Science & Tech",
+    "quote": "Research is what I’m doing when I don’t know what I’m doing.",
+    "author": "Wernher von Braun",
+    "coreConcept": "Value of research",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Encouraging fundamental science research tolerance for failure.",
+    "anchoringTips": "Cite Anusandhan National Research Foundation (ANRF) Act 2023."
+  },
+  {
+    "id": "quote-98",
+    "theme": "Science & Tech",
+    "quote": "The good thing about science is that it’s true whether you believe in it or not.",
+    "author": "Neil deGrasse Tyson",
+    "coreConcept": "Scientific temper",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Combatting pseudoscience, vaccine hesitancy, and climate denialism.",
+    "anchoringTips": "Anchor with Article 51A(h) duty to develop scientific temper, humanism, and spirit of inquiry."
+  },
+  {
+    "id": "quote-99",
+    "theme": "Science & Tech",
+    "quote": "Technology like art is a soaring exercise of the human imagination.",
+    "author": "Daniel Bell",
+    "coreConcept": "Creativity-tech nexus",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: The creative potential of technology in solving water stress, green mobility, and education access.",
+    "anchoringTips": "Cite India Stack innovations and Atal Tinkering Labs student patents."
+  },
+  {
+    "id": "quote-100",
+    "theme": "Science & Tech",
+    "quote": "Data is the new oil.",
+    "author": "Clive Humbley",
+    "coreConcept": "Data economy",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction / Body: Data sovereignty, AI training datasets, and digital monopolies.",
+    "anchoringTips": "Cite Justice B.N. Srikrishna Committee report on Data Protection."
+  },
+  {
+    "id": "quote-101",
+    "theme": "Science & Tech",
+    "quote": "Artificial Intelligence is the new electricity.",
+    "author": "Andrew Ng",
+    "coreConcept": "Transformative tech",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Pervasive general-purpose technology transforming governance, healthcare, and defence.",
+    "anchoringTips": "Cite National AI Strategy (#AIforAll by NITI Aayog) and IndiaAI Mission."
+  },
+  {
+    "id": "quote-102",
+    "theme": "Science & Tech",
+    "quote": "Any sufficiently advanced technology is indistinguishable from magic.",
+    "author": "Arthur C. Clarke",
+    "coreConcept": "Tech revolution",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Quantum computing, fusion energy, and synthetic biology transformations.",
+    "anchoringTips": "Reference National Quantum Mission and National Bio-economy policy."
+  },
+  {
+    "id": "quote-103",
+    "theme": "Science & Tech",
+    "quote": "Science knows no country, because knowledge belongs to humanity.",
+    "author": "Louis Pasteur",
+    "coreConcept": "Global science",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Open-source science, TRIPS waiver for vaccines, and global pandemic cooperation.",
+    "anchoringTips": "Cite Vaccine Maitri initiative and India-South Africa TRIPS waiver proposal at WTO."
+  },
+  {
+    "id": "quote-104",
+    "theme": "Science & Tech",
+    "quote": "The important thing in science is not so much to obtain new facts as to discover new ways of thinking about them.",
+    "author": "William Bragg",
+    "coreConcept": "Scientific mindset",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Paradigm shifts (Thomas Kuhn) in public policy and scientific problem-solving.",
+    "anchoringTips": "Cite multidisciplinary STEM research integration in National Education Policy 2020."
+  },
+  {
+    "id": "quote-105",
+    "theme": "Science & Tech",
+    "quote": "Innovation is seeing what everybody has seen and thinking what nobody has thought.",
+    "author": "Albert Szent-Györgyi",
+    "coreConcept": "Innovation spirit",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Conclusion: Grassroots frugal innovation (Jugaad to Structured Innovation).",
+    "anchoringTips": "Cite National Innovation Foundation (NIF) and grassroots innovator patents."
+  },
+  {
+    "id": "quote-106",
+    "theme": "Education & Culture",
+    "quote": "It is the mark of an educated mind to entertain a thought without accepting it.",
+    "author": "Aristotle",
+    "coreConcept": "Critical thinking",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: Intellectual tolerance, debate, and resisting algorithmic echo chambers.",
+    "anchoringTips": "Connect to Amartya Sen's 'The Argumentative Indian' and Socratic elenchus."
+  },
+  {
+    "id": "quote-107",
+    "theme": "Education & Culture",
+    "quote": "Education is not preparation for life; education is life itself.",
+    "author": "John Dewey",
+    "coreConcept": "Lifelong learning",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Experiential learning, vocational training, and continuous reskilling.",
+    "anchoringTips": "Cite NEP 2020 National Credit Framework and PM Kaushal Vikas Yojana."
+  },
+  {
+    "id": "quote-108",
+    "theme": "Education & Culture",
+    "quote": "Culture is the widening of the mind and of the spirit.",
+    "author": "Jawaharlal Nehru",
+    "coreConcept": "Cultural enrichment",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Cultural diplomacy, safeguarding intangible heritage, and syncretic traditions.",
+    "anchoringTips": "Cite UNESCO Representative List of Intangible Cultural Heritage of Humanity."
+  },
+  {
+    "id": "quote-109",
+    "theme": "Education & Culture",
+    "quote": "Literature is the passport to enter a larger life; passion, thought, imagination.",
+    "author": "Salman Rushdie",
+    "coreConcept": "Power of literature",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Literature as the conscience of society, reflecting marginalization and inspiring freedom struggles.",
+    "anchoringTips": "Reference Sahitya Akademi and translation missions across 22 Scheduled languages."
+  },
+  {
+    "id": "quote-110",
+    "theme": "Education & Culture",
+    "quote": "A nation’s culture resides in the hearts and in the soul of its people.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Cultural identity",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Conclusion: Preserving living cultural traditions and community folklore against homogenization.",
+    "anchoringTips": "Tie to National Mission on Cultural Mapping and Article 29/51A(f)."
+  },
+  {
+    "id": "quote-111",
+    "theme": "Education & Culture",
+    "quote": "Strength does not come from physical capacity. It comes from an indomitable will.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Inner strength",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Body: Satyagraha, soul-force vs. brute force in social movements.",
+    "anchoringTips": "Reference Dandi March, Champaran Satyagraha, and non-violent civic resistance."
+  },
+  {
+    "id": "quote-112",
+    "theme": "Education & Culture",
+    "quote": "Reading is to the mind what exercise is to the body.",
+    "author": "Joseph Addison",
+    "coreConcept": "Intellectual fitness",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: National book promotion, library infrastructure, and digital literacy.",
+    "anchoringTips": "Cite National Digital Library of India (NDLI) and National Book Trust campaigns."
+  },
+  {
+    "id": "quote-113",
+    "theme": "Education & Culture",
+    "quote": "The true university of these days is a collection of books.",
+    "author": "Thomas Carlyle",
+    "coreConcept": "Self-learning",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Open educational resources (SWAYAM, MOOCs) democratizing elite knowledge.",
+    "anchoringTips": "Cite SWAYAM portal, NPTEL, and PM eVIDYA digital access initiatives."
+  },
+  {
+    "id": "quote-114",
+    "theme": "Education & Culture",
+    "quote": "Knowledge without character is dangerous, and character without knowledge is ineffective.",
+    "author": "Swami Vivekananda",
+    "coreConcept": "Balanced education",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Body: Man-making, character-building education vs. mere technical expertise.",
+    "anchoringTips": "Tie to Gandhian Seven Social Sins: 'Knowledge without Character' and 'Commerce without Morality'."
+  },
+  {
+    "id": "quote-115",
+    "theme": "Education & Culture",
+    "quote": "The highest education is that which does not merely give us information but makes our life in harmony with all existence.",
+    "author": "Rabindranath Tagore",
+    "coreConcept": "Holistic education",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Conclusion: Tagore’s Visva-Bharati ideal of eco-centric, cosmopolitan, holistic learning.",
+    "anchoringTips": "Cite Santiniketan UNESCO World Heritage inscription and value-based education."
+  },
+  {
+    "id": "quote-116",
+    "theme": "Ethics & Integrity",
+    "quote": "Waste no more time arguing about what a good man should be; be one.",
+    "author": "Marcus Aurelius",
+    "coreConcept": "Ethical action",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Moving from theoretical moral posturing to tangible ethical civil action.",
+    "anchoringTips": "Stoic philosophy and Nolan Principle of Integrity in public administration."
+  },
+  {
+    "id": "quote-117",
+    "theme": "Ethics & Integrity",
+    "quote": "Character is doing the right thing when nobody’s looking.",
+    "author": "J.C. Watts",
+    "coreConcept": "Integrity",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Definitional anchor for Integrity in civil services (GS-4 Section A).",
+    "anchoringTips": "Contrast internal moral compass with mere external compliance or fear of vigilance."
+  },
+  {
+    "id": "quote-118",
+    "theme": "Ethics & Integrity",
+    "quote": "The true test of a man’s character is what he does when no one is watching.",
+    "author": "John Wooden",
+    "coreConcept": "Unseen virtue",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Discretionary power execution in remote tribal/district postings.",
+    "anchoringTips": "Cite Central Vigilance Commission (CVC) preventative vigilance guidelines."
+  },
+  {
+    "id": "quote-119",
+    "theme": "Ethics & Integrity",
+    "quote": "Ethics is knowing the difference between what you have a right to do and what is right to do.",
+    "author": "Potter Stewart",
+    "coreConcept": "Rights vs. right",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Distinguishing legal legality from ethical morality.",
+    "anchoringTips": "Use in corporate governance, tax avoidance vs evasion, and environmental compliance."
+  },
+  {
+    "id": "quote-120",
+    "theme": "Ethics & Integrity",
+    "quote": "Happiness is when what you think, what you say, and what you do are in harmony.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Ethical congruence",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Internal moral consistency (Manasa, Vacha, Karmana).",
+    "anchoringTips": "Tie to emotional intelligence, cognitive dissonance reduction, and ethical peace of mind."
+  },
+  {
+    "id": "quote-121",
+    "theme": "Ethics & Integrity",
+    "quote": "Values are caught, not taught.",
+    "author": "Unknown maxim",
+    "coreConcept": "Leading by example",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Moral role of family, educational institutions, and administrative leaders in instilling ethics.",
+    "anchoringTips": "Cite GS-4 syllabus topic: Role of family, society, and educational institutions in inculcating values."
+  },
+  {
+    "id": "quote-122",
+    "theme": "Ethics & Integrity",
+    "quote": "Courage is not the absence of fear, but the triumph over it.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Moral courage",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Civil servants standing tall against corruption syndicates and political pressure.",
+    "anchoringTips": "Pair with examples of upright civil servants (T.N. Seshan, Armstrong Pame, D.K. Ravi)."
+  },
+  {
+    "id": "quote-123",
+    "theme": "Ethics & Integrity",
+    "quote": "Silence becomes cowardice when occasion demands speaking out.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Speaking truth",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body / Case Study: Duty of public officials to flag unconstitutional or illegal directives.",
+    "anchoringTips": "Cite Central Civil Services (Conduct) Rules and statutory whistleblowing obligations."
+  },
+  {
+    "id": "quote-124",
+    "theme": "Ethics & Integrity",
+    "quote": "The line separating good and evil passes not through states, but right through every human heart.",
+    "author": "Aleksandr Solzhenitsyn",
+    "coreConcept": "Moral introspection",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction: Understanding the human condition and continuous ethical self-audit.",
+    "anchoringTips": "Reference Solzhenitsyn's 'The Gulag Archipelago' and Aristotelian virtue cultivation."
+  },
+  {
+    "id": "quote-125",
+    "theme": "Ethics & Integrity",
+    "quote": "Duty makes us do things well, but love makes us do them beautifully.",
+    "author": "Zig Ziglar",
+    "coreConcept": "Duty vs. love",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Elevating robotic rule-following into empathetic public service.",
+    "anchoringTips": "Connect with Swami Vivekananda's Karma Yoga and selfless citizen service (Seva Bhav)."
+  },
+  {
+    "id": "quote-126",
+    "theme": "International Relations",
+    "quote": "Injustice anywhere is a threat to justice everywhere.",
+    "author": "Martin Luther King Jr.",
+    "coreConcept": "Global justice",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Conclusion: Global south solidarity, climate justice, and international order.",
+    "anchoringTips": "Cite UN Charter Chapter I, Common But Differentiated Responsibilities (CBDR), and ICJ verdicts."
+  },
+  {
+    "id": "quote-127",
+    "theme": "International Relations",
+    "quote": "The only alternative to coexistence is co-destruction.",
+    "author": "Jawaharlal Nehru",
+    "coreConcept": "Peaceful coexistence",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Nuclear deterrence, Panchsheel principles, and multilateral conflict mediation.",
+    "anchoringTips": "Anchor with Panchsheel Treaty (1954), Non-Aligned Movement, and India's 'No First Use' nuclear doctrine."
+  },
+  {
+    "id": "quote-128",
+    "theme": "International Relations",
+    "quote": "Soft power is the ability to get what you want through attraction rather than coercion.",
+    "author": "Joseph Nye",
+    "coreConcept": "Soft power",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: India's cultural diplomacy—Yoga, Ayurveda, Bollywood, diaspora, and Buddhist circuits.",
+    "anchoringTips": "Cite International Day of Yoga (UN Resolution), ICCR initiatives, and Pravasi Bharatiya Divas."
+  },
+  {
+    "id": "quote-129",
+    "theme": "International Relations",
+    "quote": "Peace cannot be kept by force; it can only be achieved by understanding.",
+    "author": "Albert Einstein",
+    "coreConcept": "Diplomacy",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Multilateral diplomacy, track-two dialogues, and UN peacekeeping.",
+    "anchoringTips": "Cite India's contributions to UN Peacekeeping Missions (largest cumulative troop contributor)."
+  },
+  {
+    "id": "quote-130",
+    "theme": "International Relations",
+    "quote": "Borders are scratches on the earth; the land belongs to no one.",
+    "author": "A.P.J. Abdul Kalam (attrib.)",
+    "coreConcept": "Human fraternity",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Conclusion: Transnational challenges like climate change, pandemic viruses, and space exploration.",
+    "anchoringTips": "Cite One Sun One World One Grid (OSOWOG) and Coalition for Disaster Resilient Infrastructure (CDRI)."
+  },
+  {
+    "id": "quote-131",
+    "theme": "International Relations",
+    "quote": "War does not determine who is right-only who is left.",
+    "author": "Bertrand Russell",
+    "coreConcept": "Futility of war",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Body: Humanitarian disasters of contemporary armed conflicts.",
+    "anchoringTips": "Cite PM Modi's statement to world leaders: 'Today's era is not an era of war'."
+  },
+  {
+    "id": "quote-132",
+    "theme": "International Relations",
+    "quote": "The supreme art of war is to subdue the enemy without fighting.",
+    "author": "Sun Tzu",
+    "coreConcept": "Strategic wisdom",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Deterrence capability, economic statecraft, cyber defense, and strategic autonomy.",
+    "anchoringTips": "Connect with Kautilya's Mandala Theory, Chanakyan Upayas (Sama, Dana, Bheda, Danda)."
+  },
+  {
+    "id": "quote-133",
+    "theme": "International Relations",
+    "quote": "Non-alignment does not mean isolation; it means peace.",
+    "author": "V.K. Krishna Menon",
+    "coreConcept": "Non-alignment",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Evolution of NAM 1.0 into strategic autonomy and issue-based multi-alignment (The India Way).",
+    "anchoringTips": "Cite Dr. S. Jaishankar's 'The India Way' and QUAD/BRICS/SCO simultaneous engagements."
+  },
+  {
+    "id": "quote-134",
+    "theme": "International Relations",
+    "quote": "Trust, but verify.",
+    "author": "Russian proverb (Reagan)",
+    "coreConcept": "Verification principle",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Arms control agreements, border disengagement protocols (LAC/LOC), and nuclear treaties.",
+    "anchoringTips": "Reference IAEA safeguards, CTBT/NPT debates, and CBMs (Confidence Building Measures)."
+  },
+  {
+    "id": "quote-135",
+    "theme": "International Relations",
+    "quote": "Terrorism has no religion, no nationality, and no humanity.",
+    "author": "Narendra Modi",
+    "coreConcept": "Terrorism definition",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Introduction / Body: Universal consensus on Comprehensive Convention on International Terrorism (CCIT).",
+    "anchoringTips": "Cite India's CCIT proposal at UNGA and FATF grey/black listing mechanisms."
+  },
+  {
+    "id": "quote-136",
+    "theme": "Health & Well-being",
+    "quote": "Health is the greatest gift, contentment the greatest wealth.",
+    "author": "Buddha",
+    "coreConcept": "Health primacy",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Holistic definition of health encompassing physical vitality and mental tranquility.",
+    "anchoringTips": "Tie to WHO definition of health and Ayushman Bharat PM-JAY wellness centres."
+  },
+  {
+    "id": "quote-137",
+    "theme": "Health & Well-being",
+    "quote": "It is health that is real wealth and not pieces of gold and silver.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Health over wealth",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: High out-of-pocket health expenditure (OOPE) pushing millions into poverty.",
+    "anchoringTips": "Cite National Health Accounts data on Out-of-Pocket Expenditure (OOPE) trends."
+  },
+  {
+    "id": "quote-138",
+    "theme": "Health & Well-being",
+    "quote": "Good health and good sense are two of life’s greatest blessings.",
+    "author": "Publilius Syrus",
+    "coreConcept": "Health & prudence",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Health literacy, nutritional awareness, and preventive lifestyle hygiene.",
+    "anchoringTips": "Cite POSHAN Abhiyaan 2.0 and Eat Right India movement by FSSAI."
+  },
+  {
+    "id": "quote-139",
+    "theme": "Health & Well-being",
+    "quote": "To keep the body in good health is a duty… otherwise we shall not be able to keep our mind strong and clear.",
+    "author": "Buddha",
+    "coreConcept": "Body–mind link",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Civil servant stress management, emotional resilience, and public servant wellness.",
+    "anchoringTips": "Reference yoga sessions in LBSNAA and Tele-MANAS mental health helpline."
+  },
+  {
+    "id": "quote-140",
+    "theme": "Health & Well-being",
+    "quote": "Prevention is better than cure.",
+    "author": "Desiderius Erasmus",
+    "coreConcept": "Preventive care",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Body: Shifting health expenditure from tertiary curative beds to primary preventive care.",
+    "anchoringTips": "Cite Ayushman Arogya Mandir (Health & Wellness Centres) and Mission Indradhanush vaccination."
+  },
+  {
+    "id": "quote-141",
+    "theme": "Health & Well-being",
+    "quote": "The greatest medicine of all is to teach people how not to need it.",
+    "author": "Hippocrates",
+    "coreConcept": "Public health",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Conclusion: Sanitation (Swachh Bharat), potable water (Jal Jeevan Mission), and disease prevention.",
+    "anchoringTips": "Cite WHO estimates on disease burden reduction through safe tap water and ODF+ status."
+  },
+  {
+    "id": "quote-142",
+    "theme": "Leadership & Administration",
+    "quote": "The function of leadership is to produce more leaders, not more followers.",
+    "author": "Ralph Nader",
+    "coreConcept": "Empowering leadership",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: Delegative administration, decentralization, and fostering sub-district champions.",
+    "anchoringTips": "Cite Mission Karmayogi's framework for building leadership competencies across all civil service tiers."
+  },
+  {
+    "id": "quote-143",
+    "theme": "Leadership & Administration",
+    "quote": "If your actions inspire others to dream more, learn more, do more and become more, you are a leader.",
+    "author": "John Quincy Adams",
+    "coreConcept": "Inspirational leadership",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Transformative district collectors mobilizing communities for lake rejuvenation or school revitalization.",
+    "anchoringTips": "Cite PM's Awards for Excellence in Public Administration case studies."
+  },
+  {
+    "id": "quote-144",
+    "theme": "Leadership & Administration",
+    "quote": "Management is about doing things right; leadership is about doing the right things.",
+    "author": "Peter Drucker",
+    "coreConcept": "Efficiency vs. ethics",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Differentiating mechanical bureaucratic compliance from purpose-driven public value creation.",
+    "anchoringTips": "Reference Mark Moore's 'Creating Public Value' strategic triangle framework."
+  },
+  {
+    "id": "quote-145",
+    "theme": "Leadership & Administration",
+    "quote": "Plans are nothing; planning is everything.",
+    "author": "Dwight D. Eisenhower",
+    "coreConcept": "Adaptive planning",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Dynamic disaster management, agile governance, and adaptive economic policy.",
+    "anchoringTips": "Cite National Disaster Management Authority (NDMA) guidelines and NITI Aayog dynamic planning."
+  },
+  {
+    "id": "quote-146",
+    "theme": "Leadership & Administration",
+    "quote": "Bureaucracy defends the status quo long past the time when the quo has lost its status.",
+    "author": "Laurence J. Peter",
+    "coreConcept": "Bureaucratic inertia",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Diagnosing administrative red tape, risk aversion, and institutional sclerosis.",
+    "anchoringTips": "Cite 2nd ARC recommendations on administrative restructuring and lateral entry debates."
+  },
+  {
+    "id": "quote-147",
+    "theme": "Leadership & Administration",
+    "quote": "The best reform comes from within.",
+    "author": "Chanakya / Kautilya (paraphrased)",
+    "coreConcept": "Self-reform",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Institutional self-correction, internal ombudsman, and ethical training.",
+    "anchoringTips": "Pair with Kautilya's Arthashastra testing of civil servants and Central Vigilance Commission manuals."
+  },
+  {
+    "id": "quote-148",
+    "theme": "Leadership & Administration",
+    "quote": "A leader is best when people barely know he exists.",
+    "author": "Lao Tzu",
+    "coreConcept": "Servant leadership",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Lao Tzu's Daoist ideal of quiet, empowering servant leadership.",
+    "anchoringTips": "Contrast egocentric authority with Robert Greenleaf's Servant Leadership model."
+  },
+  {
+    "id": "quote-149",
+    "theme": "History & Philosophy",
+    "quote": "Those who cannot remember the past are condemned to repeat it.",
+    "author": "George Santayana",
+    "coreConcept": "Historical lessons",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Introduction: Historical perspective on geopolitical errors, economic bubbles, or societal collapse.",
+    "anchoringTips": "Compare past pandemics/famines (1943 Bengal Famine) with modern institutional disaster management."
+  },
+  {
+    "id": "quote-150",
+    "theme": "History & Philosophy",
+    "quote": "History is a vast early-warning system.",
+    "author": "Norman Cousins",
+    "coreConcept": "Learning from past",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Using historical precedents to forecast climate migration, resource wars, and political polarisation.",
+    "anchoringTips": "Cite historical evidence of Indus Valley climate adaptation and medieval irrigation wisdom."
+  },
+  {
+    "id": "quote-151",
+    "theme": "History & Philosophy",
+    "quote": "The more you know about the past, the better prepared you are for the future.",
+    "author": "Theodore Roosevelt",
+    "coreConcept": "Historical awareness",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Conclusion: Synthesizing civilizational wisdom with modern scientific governance.",
+    "anchoringTips": "Connect Indian Knowledge Systems (IKS) with contemporary sustainability practices."
+  },
+  {
+    "id": "quote-152",
+    "theme": "History & Philosophy",
+    "quote": "The unexamined life is not worth living.",
+    "author": "Socrates",
+    "coreConcept": "Self-reflection",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Conclusion: Socratic self-examination, moral introspection, and conscious living.",
+    "anchoringTips": "Use in GS-4 essays on personal integrity, emotional self-awareness, and public duty."
+  },
+  {
+    "id": "quote-153",
+    "theme": "History & Philosophy",
+    "quote": "I think, therefore I am.",
+    "author": "René Descartes",
+    "coreConcept": "Rationalism",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Epistemology, Cartesian doubt, and reasoning from first principles.",
+    "anchoringTips": "Contrast Cartesian rationalism with Eastern epistemological traditions (Pramanas in Nyaya)."
+  },
+  {
+    "id": "quote-154",
+    "theme": "History & Philosophy",
+    "quote": "Man is condemned to be free.",
+    "author": "Jean-Paul Sartre",
+    "coreConcept": "Existential freedom",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Existential responsibility—no civil servant can hide behind 'just following orders'.",
+    "anchoringTips": "Cite Nuremberg trials defense rejection and civil service individual accountability."
+  },
+  {
+    "id": "quote-155",
+    "theme": "History & Philosophy",
+    "quote": "Justice is the first virtue of social institutions.",
+    "author": "John Rawls",
+    "coreConcept": "Primacy of justice",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Foundational premise for welfare safety nets and constitutional egalitarianism.",
+    "anchoringTips": "Cite John Rawls's 'A Theory of Justice', Veil of Ignorance, and Difference Principle."
+  },
+  {
+    "id": "quote-156",
+    "theme": "History & Philosophy",
+    "quote": "Happiness depends upon ourselves.",
+    "author": "Aristotle",
+    "coreConcept": "Virtue & happiness",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Eudaimonia (human flourishing) through the active cultivation of moral virtues.",
+    "anchoringTips": "Link to Aristotle's Nicomachean Ethics and pursuit of virtuous public life."
+  },
+  {
+    "id": "quote-157",
+    "theme": "History & Philosophy",
+    "quote": "He who has a why to live can bear almost any how.",
+    "author": "Friedrich Nietzsche",
+    "coreConcept": "Purpose & resilience",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Body: Resilience during adversity, national rebuilding, and public duty devotion.",
+    "anchoringTips": "Cite Viktor Frankl's 'Man's Search for Meaning' and civilizational resilience."
+  },
+  {
+    "id": "quote-158",
+    "theme": "Society",
+    "quote": "Service to others is the rent you pay for your room here on Earth.",
+    "author": "Muhammad Ali",
+    "coreConcept": "Social responsibility",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Conclusion: Civic engagement, volunteerism, and Corporate Social Responsibility (CSR).",
+    "anchoringTips": "Cite Section 135 Companies Act on mandatory CSR spending (2%) and Seva culture."
+  },
+  {
+    "id": "quote-159",
+    "theme": "Society",
+    "quote": "The soul of India lives in its villages.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Rural development",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-3"],
+    "placement": "Introduction: Gram Swaraj, rural infrastructure, and curbing distress urban migration.",
+    "anchoringTips": "Cite Shyama Prasad Mukherji Rurban Mission and PM Gram Sadak Yojana."
+  },
+  {
+    "id": "quote-160",
+    "theme": "Society",
+    "quote": "A nation’s culture grows in the hearts and minds of its people.",
+    "author": "Jawaharlal Nehru",
+    "coreConcept": "Cultural ethos",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Cultural syncretism, shared festivals, and unity amid regional diversity.",
+    "anchoringTips": "Cite Article 51A(f) value and preserve the rich heritage of our composite culture."
+  },
+  {
+    "id": "quote-161",
+    "theme": "Society",
+    "quote": "Prejudice is a burden that confuses the past, threatens the future and renders the present inaccessible.",
+    "author": "Maya Angelou",
+    "coreConcept": "Social prejudice",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Tackling casteism, communalism, and regionalism in contemporary India.",
+    "anchoringTips": "Cite Protection of Civil Rights Act 1955 and SC/ST (Prevention of Atrocities) Act."
+  },
+  {
+    "id": "quote-162",
+    "theme": "Society",
+    "quote": "Nothing strengthens authority so much as silence.",
+    "author": "Leonardo da Vinci",
+    "coreConcept": "Need to speak out",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Importance of public consultations, pre-legislative consultative policy, and peaceful dissent.",
+    "anchoringTips": "Reference Pre-Legislative Consultation Policy 2014 and democratic responsiveness."
+  },
+  {
+    "id": "quote-163",
+    "theme": "Polity",
+    "quote": "In a democracy, the citizens are the kings, and the public servants are their servants.",
+    "author": "B.R. Ambedkar",
+    "coreConcept": "Citizen sovereignty",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Shifting from colonial ruler mindset (Mai-Baap Sarkar) to citizen-first service delivery.",
+    "anchoringTips": "Cite Sevottam Model for public service delivery and Right to Public Services legislation."
+  },
+  {
+    "id": "quote-164",
+    "theme": "Polity",
+    "quote": "The vote is the most powerful non-violent tool we have.",
+    "author": "John Lewis",
+    "coreConcept": "Electoral empowerment",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Universal adult suffrage (Article 326) as the great social equalizer.",
+    "anchoringTips": "Cite high voter turnout among women and rural poor in Indian general elections."
+  },
+  {
+    "id": "quote-165",
+    "theme": "Polity",
+    "quote": "Justice, though due to the accused, is due to the accuser also.",
+    "author": "Benjamin Cardozo",
+    "coreConcept": "Balanced justice",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Balancing rights of the accused with victim justice and witness protection.",
+    "anchoringTips": "Cite Witness Protection Scheme 2018 and Bharatiya Nagarik Suraksha Sanhita (BNSS) victim compensation."
+  },
+  {
+    "id": "quote-166",
+    "theme": "Polity",
+    "quote": "A Constitution, like a machine, is a lifeless thing unless there is a life in it.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Constitutional spirit",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body / Conclusion: Institutional integrity and ethical stewardship animating constitutional machinery.",
+    "anchoringTips": "Pair with Dr. Rajendra Prasad's closing Constituent Assembly speech on character of leaders."
+  },
+  {
+    "id": "quote-167",
+    "theme": "Polity",
+    "quote": "The health of a republic may be measured by the quality of its citizens’ participation.",
+    "author": "Alexis de Tocqueville",
+    "coreConcept": "Civic engagement",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Body: Active civil society, Town Halls, Gram Sabhas, and MyGov citizen participation.",
+    "anchoringTips": "Cite Robert Putnam's 'Bowling Alone' social capital concept and MyGov India platform data."
+  },
+  {
+    "id": "quote-168",
+    "theme": "Economy",
+    "quote": "There is no such thing as a free lunch.",
+    "author": "Milton Friedman",
+    "coreConcept": "Opportunity cost",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Fiscal prudence vs uncalibrated pre-election freebies and fiscal deficit management.",
+    "anchoringTips": "Cite FRBM Act 2003 targets and RBI report on state government finances."
+  },
+  {
+    "id": "quote-169",
+    "theme": "Economy",
+    "quote": "Economic policy must be people-centred, not statistics-centred.",
+    "author": "Amartya Sen",
+    "coreConcept": "Human welfare",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Moving from stock market and GDP metrics to nutritional security, stunting reduction, and clean water.",
+    "anchoringTips": "Cite NFHS-5 child stunting and wasting metrics and Poshan Tracker."
+  },
+  {
+    "id": "quote-170",
+    "theme": "Economy",
+    "quote": "The power of population is indefinitely greater than the power in the earth to produce subsistence for man.",
+    "author": "T. R. Malthus",
+    "coreConcept": "Resource limits",
+    "applicablePapers": ["Essay", "GS-1", "GS-3"],
+    "placement": "Body: Malthusian limits vs technological breakthroughs in agriculture (Boserupian thesis).",
+    "anchoringTips": "Contrast Malthus with Norman Borlaug's Green Revolution and GM crop innovations."
+  },
+  {
+    "id": "quote-171",
+    "theme": "Economy",
+    "quote": "Capitalism without conscience is a peril to society.",
+    "author": "Joseph E. Stiglitz",
+    "coreConcept": "Ethical capitalism",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Corporate governance, ESG compliance, fair wages, and curbing price gouging.",
+    "anchoringTips": "Cite SEBI BRSR (Business Responsibility and Sustainability Reporting) framework."
+  },
+  {
+    "id": "quote-172",
+    "theme": "Economy",
+    "quote": "Inclusive growth is a necessity, not a choice, for India.",
+    "author": "Manmohan Singh",
+    "coreConcept": "Inclusive growth",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction / Body: 11th and 12th Five-Year Plan core mantra of 'Faster, Sustainable and More Inclusive Growth'.",
+    "anchoringTips": "Link with financial inclusion, skilling of youth, and regional balanced development."
+  },
+  {
+    "id": "quote-173",
+    "theme": "Environment",
+    "quote": "The environment is everything that isn’t me.",
+    "author": "Albert Einstein",
+    "coreConcept": "Holistic view",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Interconnectedness of all terrestrial and aquatic systems with human survival.",
+    "anchoringTips": "Cite Earth System Science Organization and planetary biosphere connections."
+  },
+  {
+    "id": "quote-174",
+    "theme": "Environment",
+    "quote": "Plans to protect air and water are plans to protect man.",
+    "author": "Stewart Udall",
+    "coreConcept": "Human-centric conservation",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Connecting environmental degradation directly with respiratory illness, toxic heavy metals, and human morbidity.",
+    "anchoringTips": "Cite Air (Prevention and Control of Pollution) Act 1981 and Water Act 1974."
+  },
+  {
+    "id": "quote-175",
+    "theme": "Environment",
+    "quote": "What is the use of a house if you haven’t got a tolerable planet to put it on?",
+    "author": "Henry David Thoreau",
+    "coreConcept": "Planetary stewardship",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Conclusion: Real estate, urban expansion, and infrastructure at the cost of irreversible ecological collapse.",
+    "anchoringTips": "Cite Joshimath land subsidence, urban flooding in Chennai/Bengaluru, and CRZ notifications."
+  },
+  {
+    "id": "quote-176",
+    "theme": "Environment",
+    "quote": "Heaven is under our feet as well as over our heads.",
+    "author": "Henry David Thoreau",
+    "coreConcept": "Earth reverence",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Sacred groves, indigenous reverence for mountains/rivers, and ecological spirituality.",
+    "anchoringTips": "Cite Sacred Groves of Western Ghats and North-East India (Devrais/Orans) and FRA 2006."
+  },
+  {
+    "id": "quote-177",
+    "theme": "Environment",
+    "quote": "The environment is the silent casualty of war.",
+    "author": "Ban Ki-moon",
+    "coreConcept": "Conflict-ecology nexus",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Toxic chemical defoliants, oil spills, artillery destruction of forest ecosystems during armed conflict.",
+    "anchoringTips": "Cite Geneva Conventions Protocol I on prohibition of warfare causing widespread, long-term environmental damage."
+  },
+  {
+    "id": "quote-178",
+    "theme": "Science & Tech",
+    "quote": "The important thing is not to stop questioning.",
+    "author": "Albert Einstein",
+    "coreConcept": "Scientific curiosity",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction / Conclusion: Questioning inherited assumptions and building an evidence-based knowledge society.",
+    "anchoringTips": "Tie to Socratic inquiry, fundamental research funding, and school lab modernization."
+  },
+  {
+    "id": "quote-179",
+    "theme": "Science & Tech",
+    "quote": "If I have seen further it is by standing on the shoulders of giants.",
+    "author": "Isaac Newton",
+    "coreConcept": "Cumulative knowledge",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Cumulative scientific progress, collaborative international research (CERN, ITER, LIGO).",
+    "anchoringTips": "Cite India’s participation in LIGO-India, ITER fusion project, and Thirty Meter Telescope (TMT)."
+  },
+  {
+    "id": "quote-180",
+    "theme": "Science & Tech",
+    "quote": "Progress is born of doubt and inquiry.",
+    "author": "Robert G. Ingersoll",
+    "coreConcept": "Inquiry-led progress",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Scientific methodology—replacing dogma with hypothesis, testing, and replication.",
+    "anchoringTips": "Reference Karl Popper's critical rationalism and scientific debunking of superstitious frauds."
+  },
+  {
+    "id": "quote-181",
+    "theme": "Science & Tech",
+    "quote": "Science is the great antidote to the poison of enthusiasm and superstition.",
+    "author": "Adam Smith",
+    "coreConcept": "Rationalism",
+    "applicablePapers": ["Essay", "GS-1", "GS-3", "GS-4"],
+    "placement": "Body: Eliminating social evils (witch-hunting, occult sacrifices) through science education.",
+    "anchoringTips": "Cite Maharashtra Anti-Superstition and Black Magic Act and state rationalist campaigns."
+  },
+  {
+    "id": "quote-182",
+    "theme": "Science & Tech",
+    "quote": "Technology is best when it brings people together.",
+    "author": "Matt Mullenweg",
+    "coreConcept": "Human-centric tech",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Conclusion: Digital India, BharatNet connecting 2.5 lakh Gram Panchayats, and Common Service Centres (CSCs).",
+    "anchoringTips": "Cite BharatNet fiber optic rollout and DigiLocker public adoption numbers."
+  },
+  {
+    "id": "quote-183",
+    "theme": "Education & Culture",
+    "quote": "Dream is not that which you see while sleeping; dream is something that does not let you sleep.",
+    "author": "A.P.J. Abdul Kalam",
+    "coreConcept": "Aspirational mindset",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Conclusion: Mobilizing national aspiration, youth energy, and Viksit Bharat 2047.",
+    "anchoringTips": "Cite Dr. Kalam's 'Ignited Minds' and 'India 2020: A Vision for the New Millennium'."
+  },
+  {
+    "id": "quote-184",
+    "theme": "Education & Culture",
+    "quote": "Education is the kindling of a flame, not the filling of a vessel.",
+    "author": "Socrates",
+    "coreConcept": "Enlightening education",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Active student inquiry vs. passive banking model of education (Paulo Freire critique).",
+    "anchoringTips": "Cite Paulo Freire's 'Pedagogy of the Oppressed' and NEP 2020 inquiry-based pedagogy."
+  },
+  {
+    "id": "quote-185",
+    "theme": "Education & Culture",
+    "quote": "Art, freedom and creativity will change society faster than politics.",
+    "author": "Victor Pinchuk",
+    "coreConcept": "Cultural change",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Street theatre, progressive literature, cinema, and art in dismantling deep social taboos.",
+    "anchoringTips": "Cite Safdar Hashmi / Janam theatre, Satyajit Ray films, and Dalit literature movements."
+  },
+  {
+    "id": "quote-186",
+    "theme": "Education & Culture",
+    "quote": "Music is the shorthand of emotion.",
+    "author": "Leo Tolstoy",
+    "coreConcept": "Cultural expression",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Classical music traditions (Carnatic & Hindustani) bridging regional and communal divides.",
+    "anchoringTips": "Cite Sangeet Natak Akademi and Sufi-Bhakti musical traditions (Kabir, Mirabai, Amir Khusrau)."
+  },
+  {
+    "id": "quote-187",
+    "theme": "Education & Culture",
+    "quote": "Libraries store the energy that fuels the imagination.",
+    "author": "Sidney Sheldon",
+    "coreConcept": "Knowledge repositories",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Public library revival, National Virtual Library of India, and rural community reading rooms.",
+    "anchoringTips": "Cite National Mission on Libraries and Kerala's Grandhasala Sangham movement."
+  },
+  {
+    "id": "quote-188",
+    "theme": "Ethics & Integrity",
+    "quote": "Honesty is the first chapter in the book of wisdom.",
+    "author": "Thomas Jefferson",
+    "coreConcept": "Honesty",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction: Foundational virtue of truthfulness in governance and public accounting.",
+    "anchoringTips": "Connect to Satyam Eva Jayate (Truth Alone Triumphs) and constitutional oaths."
+  },
+  {
+    "id": "quote-189",
+    "theme": "Ethics & Integrity",
+    "quote": "One cannot do right in one sphere of life while occupied in doing wrong in another.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Whole-life integrity",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Rejecting compartmentalized morality; personal ethics directly influence public conduct.",
+    "anchoringTips": "Use in GS-4 case studies on conflict between private obligations and public responsibilities."
+  },
+  {
+    "id": "quote-190",
+    "theme": "Ethics & Integrity",
+    "quote": "It is not only for what we do that we are held responsible, but also for what we do not do.",
+    "author": "Molière",
+    "coreConcept": "Accountability",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Sins of omission, bureaucratic apathy, and bystander effect during communal or public crises.",
+    "anchoringTips": "Cite administrative dereliction of duty and Doctrine of Vicarious Liability."
+  },
+  {
+    "id": "quote-191",
+    "theme": "Ethics & Integrity",
+    "quote": "The highest form of wisdom is kindness.",
+    "author": "Talmud",
+    "coreConcept": "Kindness",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Humane administration, compassionate redressal of public grievances.",
+    "anchoringTips": "Cite CPGRAMS grievance redressal and empathetic doorstep delivery of welfare schemes."
+  },
+  {
+    "id": "quote-192",
+    "theme": "Ethics & Integrity",
+    "quote": "Accountability breeds response-ability.",
+    "author": "Stephen R. Covey",
+    "coreConcept": "Accountability & governance",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Institutional accountability mechanisms strengthening proactive administrative delivery.",
+    "anchoringTips": "Cite Social Audits, Citizens' Charters, and Performance-Based Appraisal Systems."
+  },
+  {
+    "id": "quote-193",
+    "theme": "International Relations",
+    "quote": "Nations do not mistrust each other because they are armed; they are armed because they mistrust each other.",
+    "author": "Ronald Reagan",
+    "coreConcept": "Security dilemma",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Body: Classical realist security dilemma (John Herz) in the Indo-Pacific and South Asia.",
+    "anchoringTips": "Cite Confidence Building Measures (CBMs), hotline diplomacy, and regional security dialogues."
+  },
+  {
+    "id": "quote-194",
+    "theme": "International Relations",
+    "quote": "Borders exist, but hearts can be bridges.",
+    "author": "Atal Bihari Vajpayee",
+    "coreConcept": "Neighbourhood diplomacy",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body / Conclusion: Neighbourhood First policy, Gujral Doctrine, and people-to-people cross-border connectivity.",
+    "anchoringTips": "Cite Kartarpur Sahib Corridor, Maitree Express (India-Bangladesh), and BBIN motor vehicle pact."
+  },
+  {
+    "id": "quote-195",
+    "theme": "International Relations",
+    "quote": "Diplomacy is to secure the best interests of the state through the least expenditure of power.",
+    "author": "Henry Kissinger",
+    "coreConcept": "Efficient diplomacy",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Realpolitik, diplomatic leverage, coalition-building, and economic statecraft.",
+    "anchoringTips": "Cite India's G20 New Delhi Declaration consensus diplomacy on Ukraine and Global South inclusion."
+  },
+  {
+    "id": "quote-196",
+    "theme": "International Relations",
+    "quote": "Vasudhaiva Kutumbakam - the world is one family.",
+    "author": "Maha Upanishad",
+    "coreConcept": "Global fraternity",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Conclusion: India's G20 theme ('One Earth, One Family, One Future') and global public goods.",
+    "anchoringTips": "Cite India's Vaccine Maitri, HADR (Operation Dost in Turkey, Operation Kaveri in Sudan)."
+  },
+  {
+    "id": "quote-197",
+    "theme": "International Relations",
+    "quote": "Peace is not merely the absence of war but the presence of justice.",
+    "author": "Jane Addams",
+    "coreConcept": "Positive peace",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Sustainable peace settlements addressing underlying structural injustices.",
+    "anchoringTips": "Cite Johan Galtung's positive peace framework and UN Peacebuilding Commission."
+  },
+  {
+    "id": "quote-198",
+    "theme": "Health & Well-being",
+    "quote": "Mental health needs a great deal of attention. It’s the final taboo we must face.",
+    "author": "Adam Ant",
+    "coreConcept": "Mental-health awareness",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: Mental Healthcare Act 2017, destigmatizing therapy, and suicide prevention.",
+    "anchoringTips": "Cite National Tele Mental Health Programme (Tele-MANAS) and Kiran Mental Health Helpline."
+  },
+  {
+    "id": "quote-199",
+    "theme": "Health & Well-being",
+    "quote": "Public health is purchasable; within limits a community can determine its own health.",
+    "author": "Florence Nightingale",
+    "coreConcept": "Public-health investment",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Public health sanitation infrastructure, clean drainage, and disease vector control.",
+    "anchoringTips": "Cite National Health Mission (NHM) and municipal drainage/waste treatment investments."
+  },
+  {
+    "id": "quote-200",
+    "theme": "Health & Well-being",
+    "quote": "To enjoy the glow of good health, you must exercise.",
+    "author": "Gene Tunney",
+    "coreConcept": "Physical activity",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Fit India Movement, tackling non-communicable lifestyle diseases (NCDs like diabetes, hypertension).",
+    "anchoringTips": "Cite ICMR-INDIAB study on diabetes prevalence in India and Fit India Movement."
+  },
+  {
+    "id": "quote-201",
+    "theme": "Health & Well-being",
+    "quote": "Medicine is a social science; politics is medicine on a large scale.",
+    "author": "Rudolf Virchow",
+    "coreConcept": "Health & policy",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction: Social determinants of health (housing, clean water, air quality, poverty).",
+    "anchoringTips": "Cite Sir Michael Marmot's 'Social Determinants of Health' and Ayushman Bharat PM-JAY."
+  },
+  {
+    "id": "quote-202",
+    "theme": "Health & Well-being",
+    "quote": "The food you eat can be the safest and most powerful medicine or the slowest poison.",
+    "author": "Ann Wigmore",
+    "coreConcept": "Nutrition",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Fighting ultra-processed foods, hidden sugars, and promoting millets (Shree Anna).",
+    "anchoringTips": "Cite International Year of Millets 2023, PM POSHAN in schools, and FSSAI front-of-pack labeling."
+  },
+  {
+    "id": "quote-203",
+    "theme": "Leadership & Administration",
+    "quote": "People buy into the leader before they buy into the vision.",
+    "author": "John C. Maxwell",
+    "coreConcept": "Trust in leadership",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Personal credibility, integrity, and ethical stature inspiring public participation.",
+    "anchoringTips": "Reference Mahatma Gandhi's personal asceticism generating mass anti-colonial mobilization."
+  },
+  {
+    "id": "quote-204",
+    "theme": "Leadership & Administration",
+    "quote": "A great leader takes people where they need to go, not just where they want to go.",
+    "author": "Rosalynn Carter",
+    "coreConcept": "Transformational leadership",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Taking tough, principled administrative decisions against populist short-term demands.",
+    "anchoringTips": "Cite tough structural reforms (GST rollout, IBC, Direct Taxes simplification)."
+  },
+  {
+    "id": "quote-205",
+    "theme": "Leadership & Administration",
+    "quote": "Vision without execution is hallucination.",
+    "author": "Thomas A. Edison",
+    "coreConcept": "Execution",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: Shifting focus from mere policy announcement to last-mile delivery and monitoring.",
+    "anchoringTips": "Cite PRAGATI (Pro-Active Governance And Timely Implementation) monthly review meetings."
+  },
+  {
+    "id": "quote-206",
+    "theme": "Leadership & Administration",
+    "quote": "Change before you have to.",
+    "author": "Jack Welch",
+    "coreConcept": "Proactive change",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Proactive governance, green technology adoption, and administrative digitalization before crises force it.",
+    "anchoringTips": "Cite proactive digital governance during COVID-19 (CoWIN, Aarogya Setu, DBT transfers)."
+  },
+  {
+    "id": "quote-207",
+    "theme": "Leadership & Administration",
+    "quote": "You must be the servant of all if you want to lead all.",
+    "author": "Swami Vivekananda",
+    "coreConcept": "Servant leadership",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: The true ethos of the Indian Civil Service as public servants, not overlords.",
+    "anchoringTips": "Pair with Sardar Vallabhbhai Patel's 'Steel Frame' address to first IAS probationers (1947)."
+  },
+  {
+    "id": "quote-208",
+    "theme": "History & Philosophy",
+    "quote": "The past is never dead. It’s not even past.",
+    "author": "William Faulkner",
+    "coreConcept": "Historical continuity",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Introduction: Historical roots of modern institutional bottlenecks, caste hierarchies, and borders.",
+    "anchoringTips": "Cite colonial legacies in Indian police acts (Police Act of 1861) and land tenure systems."
+  },
+  {
+    "id": "quote-209",
+    "theme": "History & Philosophy",
+    "quote": "Philosophy is a battle against the bewitchment of our intelligence by language.",
+    "author": "Ludwig Wittgenstein",
+    "coreConcept": "Critical philosophy",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Deconstructing administrative jargon, euphemisms, and spin in public discourse.",
+    "anchoringTips": "Cite plain language guidelines in government orders and judicial readability."
+  },
+  {
+    "id": "quote-210",
+    "theme": "History & Philosophy",
+    "quote": "Progress is impossible without change, and those who cannot change their minds cannot change anything.",
+    "author": "George Bernard Shaw",
+    "coreConcept": "Adaptability",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Overcoming bureaucratic status-quo bias and dogmatism in policy making.",
+    "anchoringTips": "Cite evidence-based policy shifts (e.g. monetary policy committee inflation targeting)."
+  },
+  {
+    "id": "quote-211",
+    "theme": "History & Philosophy",
+    "quote": "Knowledge without justice is cunning rather than wisdom.",
+    "author": "Plato",
+    "coreConcept": "Ethical wisdom",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Intellectual capability devoid of moral grounding degenerates into exploitation.",
+    "anchoringTips": "Use in GS-4 essays on cybercrime, white-collar corporate fraud, and ethical AI."
+  },
+  {
+    "id": "quote-212",
+    "theme": "History & Philosophy",
+    "quote": "Hope is a good breakfast but a bad supper.",
+    "author": "Francis Bacon",
+    "coreConcept": "Pragmatic optimism",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Balancing inspirational vision with realistic budgetary execution and monitoring.",
+    "anchoringTips": "Contrast speculative policy announcements with rigorous outcome budget tracking."
+  },
+  {
+    "id": "quote-213",
+    "theme": "Environment",
+    "quote": "Only when the last tree has been cut down… will man realise that money cannot be eaten.",
+    "author": "Cree Proverb",
+    "coreConcept": "Ecological warning",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction / Conclusion: Warning against infinite economic growth on a finite planet.",
+    "anchoringTips": "Cite Dasgupta Review on the Economics of Biodiversity and ecological overshoot day."
+  },
+  {
+    "id": "quote-214",
+    "theme": "Environment",
+    "quote": "Water is life, and clean water means health.",
+    "author": "Audrey Hepburn",
+    "coreConcept": "Water conservation",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Groundwater depletion, Composite Water Management Index, and tap water access.",
+    "anchoringTips": "Cite NITI Aayog Composite Water Management Index (CWMI) and Jal Jeevan Mission data."
+  },
+  {
+    "id": "quote-215",
+    "theme": "Environment",
+    "quote": "A society grows great when old men plant trees whose shade they know they shall never sit in.",
+    "author": "Greek Proverb",
+    "coreConcept": "Inter-generational duty",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Conclusion: Long-term strategic national vision over myopic electoral cycle thinking.",
+    "anchoringTips": "Cite long-term afforestation drives (Compensatory Afforestation CAMPA funds) and Nagar Van Yojana."
+  },
+  {
+    "id": "quote-216",
+    "theme": "Environment",
+    "quote": "Over-consumption and over-population underlie every environmental problem we face today.",
+    "author": "Jacques-Yves Cousteau",
+    "coreConcept": "Consumption limits",
+    "applicablePapers": ["Essay", "GS-1", "GS-3"],
+    "placement": "Body: Highlighting Global North per-capita carbon footprint vs. sustainable traditional living.",
+    "anchoringTips": "Compare US/EU per-capita emissions with India's and link to Mission LiFE."
+  },
+  {
+    "id": "quote-217",
+    "theme": "Environment",
+    "quote": "Conservation is a state of harmony between men and land.",
+    "author": "Aldo Leopold",
+    "coreConcept": "Land stewardship",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Aldo Leopold's 'Land Ethic' expanding human community boundaries to include soil, waters, plants.",
+    "anchoringTips": "Cite community forest rights under FRA 2006 and Joint Forest Management (JFM)."
+  },
+  {
+    "id": "quote-218",
+    "theme": "Society",
+    "quote": "The world will not be destroyed by those who do evil, but by those who watch them without doing anything.",
+    "author": "Albert Einstein",
+    "coreConcept": "Civic responsibility",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body / Intro: Condemning moral apathy, bystander effect, and silence in front of corruption.",
+    "anchoringTips": "Cite Whistleblowers Protection Act 2014 and citizen vigilance in public audits."
+  },
+  {
+    "id": "quote-219",
+    "theme": "Society",
+    "quote": "Where justice is denied, where poverty is enforced, … neither persons nor property will be safe.",
+    "author": "Frederick Douglass",
+    "coreConcept": "Social justice & security",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-3"],
+    "placement": "Body: Linking inequality and denial of justice with crime, social unrest, and extremism.",
+    "anchoringTips": "Cite Left-Wing Extremism root causes (land alienation, forest displacement, denial of justice)."
+  },
+  {
+    "id": "quote-220",
+    "theme": "Society",
+    "quote": "No one is born hating another person… If they can learn to hate, they can be taught to love.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Learned prejudice",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Socialization process in families and schools combatting communal bias and hate speech.",
+    "anchoringTips": "Cite Supreme Court guidelines on preventing hate speech and moral education curricula."
+  },
+  {
+    "id": "quote-221",
+    "theme": "Society",
+    "quote": "To deny people their human rights is to challenge their very humanity.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Human-rights primacy",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Inherent nature of fundamental human entitlements.",
+    "anchoringTips": "Cite Protection of Human Rights Act 1993 and National Human Rights Commission (NHRC) jurisprudence."
+  },
+  {
+    "id": "quote-222",
+    "theme": "Society",
+    "quote": "There can be no keener revelation of a society’s soul than the way in which it treats its children.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Child welfare",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Introduction / Body: Child labor eradication, POSHAN Abhiyaan, and POCSO Act enforcement.",
+    "anchoringTips": "Cite Child Labour (Prohibition and Regulation) Act, POCSO Act 2012, and NCPCR role."
+  },
+  {
+    "id": "quote-223",
+    "theme": "Society",
+    "quote": "The soul of India lives in its villages.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Rural centrality",
+    "applicablePapers": ["Essay", "GS-1", "GS-2", "GS-3"],
+    "placement": "Introduction: Highlighting rural development as the prerequisite for national transformation.",
+    "anchoringTips": "Cite Deendayal Antyodaya Yojana - NRLM and SVAMITVA scheme for rural property mapping."
+  },
+  {
+    "id": "quote-224",
+    "theme": "Society",
+    "quote": "If you want to go fast, go alone. If you want to go far, go together.",
+    "author": "African Proverb",
+    "coreConcept": "Collective action",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Conclusion: Cooperative federalism, multi-stakeholder partnerships, and Jan Bhagidari.",
+    "anchoringTips": "Cite NITI Aayog's cooperative federalism indices and self-help group federations."
+  },
+  {
+    "id": "quote-225",
+    "theme": "Society",
+    "quote": "Social justice cannot be attained by violence; violence kills what it intends to create.",
+    "author": "Pope John Paul II",
+    "coreConcept": "Non-violent reform",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Refuting violent revolution; promoting constitutional methods (Ambedkar's 'Grammar of Anarchy').",
+    "anchoringTips": "Cite Ambedkar's 1949 speech renouncing bloody methods of revolution in a constitutional democracy."
+  },
+  {
+    "id": "quote-226",
+    "theme": "Society",
+    "quote": "Inclusivity means not ‘just we’re allowed to be there’, but we are valued.",
+    "author": "Claudia Brind-Woody",
+    "coreConcept": "Inclusive society",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Body: Moving from token diversity quotas to genuine inclusion of LGBTQ+, disabled, and marginalized voices.",
+    "anchoringTips": "Cite Rights of Persons with Disabilities Act 2016 and accessible India campaign (Sugamya Bharat)."
+  },
+  {
+    "id": "quote-227",
+    "theme": "Society",
+    "quote": "Prejudice is a burden that confuses the past, threatens the future, and renders the present inaccessible.",
+    "author": "Maya Angelou",
+    "coreConcept": "Cost of prejudice",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: How historical caste prejudices and communal stereotyping hold back national economic productivity.",
+    "anchoringTips": "Cite World Bank studies on the economic cost of social discrimination."
+  },
+  {
+    "id": "quote-228",
+    "theme": "Polity",
+    "quote": "In matters of conscience, the law of the majority has no place.",
+    "author": "Mahatma Gandhi",
+    "coreConcept": "Conscience vs. majoritarianism",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Constitutional counter-majoritarianism; protecting minority fundamental rights from majoritarian steamrolls.",
+    "anchoringTips": "Cite Supreme Court's role as sentinel on the qui vive (Articles 14, 19, 21, 25-30)."
+  },
+  {
+    "id": "quote-229",
+    "theme": "Polity",
+    "quote": "Liberty is the right to do what the law permits.",
+    "author": "Montesquieu",
+    "coreConcept": "Rule-of-law liberty",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Distinguishing liberty from license; reasonable restrictions under Article 19(2).",
+    "anchoringTips": "Cite A.K. Gopalan and subsequent Due Process interpretations in Maneka Gandhi."
+  },
+  {
+    "id": "quote-230",
+    "theme": "Polity",
+    "quote": "A good constitution is infinitely better than the best despot.",
+    "author": "Thomas B. Macaulay",
+    "coreConcept": "Constitutionalism",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction: Supremacy of institutional constitutionalism over benevolent autocracy.",
+    "anchoringTips": "Cite A.V. Dicey's Rule of Law principles and Kesavananda Bharati Basic Structure Doctrine."
+  },
+  {
+    "id": "quote-231",
+    "theme": "Polity",
+    "quote": "The highest office in a democracy is the office of citizen.",
+    "author": "Ralph Nader",
+    "coreConcept": "Active citizenship",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Conclusion: Active citizen duties (Article 51A) as the primary pillars of the republic.",
+    "anchoringTips": "Cite Verma Committee on Fundamental Duties and citizen-led PIL public interest litigation."
+  },
+  {
+    "id": "quote-232",
+    "theme": "Polity",
+    "quote": "The law is reason free from passion.",
+    "author": "Aristotle",
+    "coreConcept": "Rational legislation",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Objective, evidence-based drafting of legislation vs. knee-jerk populist emotional statutes.",
+    "anchoringTips": "Cite Law Commission of India reports and Post-Legislative Scrutiny mechanisms."
+  },
+  {
+    "id": "quote-233",
+    "theme": "Polity",
+    "quote": "When injustice becomes law, resistance becomes duty.",
+    "author": "Attrib. Thomas Jefferson",
+    "coreConcept": "Civil resistance",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Civil disobedience doctrine from Thoreau to Gandhi and Martin Luther King Jr.",
+    "anchoringTips": "Cite Salt Satyagraha, anti-Apartheid resistance, and constitutional right to peaceful protest."
+  },
+  {
+    "id": "quote-234",
+    "theme": "Polity",
+    "quote": "The vote is the most powerful non-violent tool we have.",
+    "author": "John Lewis",
+    "coreConcept": "Electoral empowerment",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Electoral participation as non-violent lever for social change.",
+    "anchoringTips": "Cite Election Commission SVEEP initiatives and NOTA (None of the Above) option rationale."
+  },
+  {
+    "id": "quote-235",
+    "theme": "Polity",
+    "quote": "The power of the people is stronger than the people in power.",
+    "author": "Wael Ghonim",
+    "coreConcept": "Popular sovereignty",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Conclusion: 'We, the People of India' as the ultimate sovereign repository in the Preamble.",
+    "anchoringTips": "Cite Preamble sovereignty and mass citizen movements (Right to Food, RTI movement in Rajasthan)."
+  },
+  {
+    "id": "quote-236",
+    "theme": "Polity",
+    "quote": "Justice, though due to the accused, is due to the accuser also.",
+    "author": "Benjamin Cardozo",
+    "coreConcept": "Balanced justice",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Fair trial guarantees, speedy trials, and crime victim support systems.",
+    "anchoringTips": "Cite Malimath Committee on Reforms of Criminal Justice System recommendations."
+  },
+  {
+    "id": "quote-237",
+    "theme": "Polity",
+    "quote": "Public office is a public trust; corruption betrays that trust.",
+    "author": "Adapted from Grover Cleveland",
+    "coreConcept": "Probity in office",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: The ethical imperative of public servants managing taxpayers' resources with fiduciary care.",
+    "anchoringTips": "Cite Santhanam Committee recommendations (1964) and CVC Act 2003."
+  },
+  {
+    "id": "quote-238",
+    "theme": "Economy",
+    "quote": "The only thing more expensive than education is ignorance.",
+    "author": "Benjamin Franklin",
+    "coreConcept": "Human-capital investment",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Long-term compounding costs of illiteracy, skills mismatches, and untrained youth.",
+    "anchoringTips": "Cite World Bank Human Capital Index and NEP 2020 outlay recommendations."
+  },
+  {
+    "id": "quote-240",
+    "theme": "Economy",
+    "quote": "Small opportunities are often the beginning of great enterprises.",
+    "author": "Demosthenes",
+    "coreConcept": "Entrepreneurship",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Fostering micro-enterprises, angel investments, PM SVANidhi street vendor loans, and Start-up India.",
+    "anchoringTips": "Cite PM SVANidhi scheme repayment success and Stand-Up India lending to SC/ST/Women."
+  },
+  {
+    "id": "quote-239",
+    "theme": "Economy",
+    "quote": "Economic growth is a means to expand human freedoms.",
+    "author": "Amartya Sen",
+    "coreConcept": "Freedom-centred growth",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Redefining development from commodity output to expansion of real human capabilities.",
+    "anchoringTips": "Cite Amartya Sen's 'Development as Freedom' and UNDP Human Development Report."
+  },
+  {
+    "id": "quote-241",
+    "theme": "Economy",
+    "quote": "The ultimate resource is people-skilled, spirited, and hopeful.",
+    "author": "Julian Simon",
+    "coreConcept": "Human resource",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Capitalizing on India's 28-year median age demographic window of opportunity till 2047.",
+    "anchoringTips": "Cite Economic Survey chapter on Demographic Dividend and Skill India Mission."
+  },
+  {
+    "id": "quote-242",
+    "theme": "Economy",
+    "quote": "The unequal distribution of wealth poisons society.",
+    "author": "Henry George",
+    "coreConcept": "Inequality critique",
+    "applicablePapers": ["Essay", "GS-1", "GS-3"],
+    "placement": "Body: Wealth concentration, K-shaped post-crisis recovery, and corporate tax structuring.",
+    "anchoringTips": "Cite World Inequality Report (Chancel & Piketty) on top 1% wealth share in India."
+  },
+  {
+    "id": "quote-243",
+    "theme": "Economy",
+    "quote": "Money is a terrible master but an excellent servant.",
+    "author": "P. T. Barnum",
+    "coreConcept": "Fiscal prudence",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Directing financial capital towards productive infrastructure rather than speculative asset bubbles.",
+    "anchoringTips": "Cite National Infrastructure Pipeline (NIP) and PM Gati Shakti National Master Plan."
+  },
+  {
+    "id": "quote-244",
+    "theme": "Economy",
+    "quote": "The biggest risk is not taking any risk.",
+    "author": "Mark Zuckerberg",
+    "coreConcept": "Innovation & risk",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Encouraging public and private venture risk in quantum computing, green hydrogen, and semiconductors.",
+    "anchoringTips": "Cite India Semiconductor Mission ($10B incentive) and National Deep Tech Startup Policy."
+  },
+  {
+    "id": "quote-245",
+    "theme": "Economy",
+    "quote": "Finance is the art of passing money from hand to hand until it finally disappears.",
+    "author": "John Maynard Keynes (witty)",
+    "coreConcept": "Financial caution",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Intermediary leakage in welfare distribution prior to Direct Benefit Transfers (DBT).",
+    "anchoringTips": "Cite Rajiv Gandhi's '15 paise reaches the ground' statement vs. current DBT savings of ₹2.5+ lakh crore."
+  },
+  {
+    "id": "quote-246",
+    "theme": "Economy",
+    "quote": "Economics is too important to be left to the economists.",
+    "author": "John Kenneth Galbraith",
+    "coreConcept": "Democratic economics",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Democratic public debate on minimum support prices, subsidies, trade agreements, and energy transition.",
+    "anchoringTips": "Cite public consultations on Free Trade Agreements (FTAs) and agricultural policy dialogues."
+  },
+  {
+    "id": "quote-247",
+    "theme": "Economy",
+    "quote": "Growth for the sake of growth is the ideology of the cancer cell.",
+    "author": "Edward Abbey",
+    "coreConcept": "Unsustainable growth",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction / Body: Critiquing relentless carbon-heavy consumption that destroys natural capital.",
+    "anchoringTips": "Cite Green GDP accounting methodologies and Club of Rome's 'Limits to Growth'."
+  },
+  {
+    "id": "quote-248",
+    "theme": "Environment",
+    "quote": "We won’t have a society if we destroy the environment.",
+    "author": "Margaret Mead",
+    "coreConcept": "Environment–society link",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Ecological stability as the bedrock prerequisite for human civilizations.",
+    "anchoringTips": "Cite Jared Diamond's 'Collapse: How Societies Choose to Fail or Succeed'."
+  },
+  {
+    "id": "quote-249",
+    "theme": "Environment",
+    "quote": "One of the first conditions of happiness is that the link between man and nature shall not be broken.",
+    "author": "Leo Tolstoy",
+    "coreConcept": "Human–nature harmony",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body / Conclusion: Urban green spaces, biodiversity parks, and mental well-being in eco-friendly cities.",
+    "anchoringTips": "Cite Nagar Van Scheme and Urban Biophilic design guidelines."
+  },
+  {
+    "id": "quote-250",
+    "theme": "Environment",
+    "quote": "The climate is a common good, belonging to all and meant for all.",
+    "author": "Pope Francis",
+    "coreConcept": "Climate commons",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction / Body: Pope Francis's 'Laudato Si' encyclical on climate justice and global solidarity.",
+    "anchoringTips": "Cite UNFCCC Paris Agreement principles and Loss and Damage Fund operationalization."
+  },
+  {
+    "id": "quote-251",
+    "theme": "Environment",
+    "quote": "We have forgotten how to be good guests, how to walk lightly on the earth.",
+    "author": "Barbara Ward",
+    "coreConcept": "Ecological ethic",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Restoring traditional sustainable lifestyle practices (circularity, zero waste, repair culture).",
+    "anchoringTips": "Cite Right to Repair framework (Department of Consumer Affairs) and Mission LiFE."
+  },
+  {
+    "id": "quote-252",
+    "theme": "Environment",
+    "quote": "If you really think the economy is more important than the environment, try holding your breath while counting your money.",
+    "author": "Guy McPherson",
+    "coreConcept": "Eco-economic interdependence",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Witty yet hard-hitting opener on air pollution and economic productivity loss in North India.",
+    "anchoringTips": "Cite Lancet Planetary Health studies on air pollution morbidity losses to Indian GDP."
+  },
+  {
+    "id": "quote-253",
+    "theme": "Science & Tech",
+    "quote": "The greatest enemy of knowledge is not ignorance, it is the illusion of knowledge.",
+    "author": "Stephen Hawking",
+    "coreConcept": "Intellectual humility",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction: Epistemic humility, combatting algorithmic confirmation bias and AI hallucinations.",
+    "anchoringTips": "Cite Daniel Kahneman's 'Thinking, Fast and Slow' cognitive bias research."
+  },
+  {
+    "id": "quote-254",
+    "theme": "Science & Tech",
+    "quote": "Science is organised knowledge.",
+    "author": "Herbert Spencer",
+    "coreConcept": "Definition of science",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Big data classification, ontology engineering, and evidence-driven policy databases.",
+    "anchoringTips": "Cite National Data and Analytics Platform (NDAP) by NITI Aayog."
+  },
+  {
+    "id": "quote-255",
+    "theme": "Science & Tech",
+    "quote": "The purpose of computing is insight, not numbers.",
+    "author": "Richard Hamming",
+    "coreConcept": "Tech for insight",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Data analytics, predictive governance (e.g. flood forecasting, crop yield modeling).",
+    "anchoringTips": "Cite National Supercomputing Mission (NSM) and C-DAC Param supercomputers."
+  },
+  {
+    "id": "quote-256",
+    "theme": "Science & Tech",
+    "quote": "Machines are worshipped because they are beautiful and valued because they confer power; … loathed because they impose slavery.",
+    "author": "Bertrand Russell",
+    "coreConcept": "Tech ambivalence",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Dialectical tension between automation productivity and gig-worker algorithmic exploitation.",
+    "anchoringTips": "Cite Fairwork India ratings on gig economy working conditions and Social Security Code."
+  },
+  {
+    "id": "quote-257",
+    "theme": "Science & Tech",
+    "quote": "The science of today is the technology of tomorrow.",
+    "author": "Edward Teller",
+    "coreConcept": "R&D continuum",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Investing in basic science today to reap defence, telecom, and medical independence in 2040.",
+    "anchoringTips": "Cite Anusandhan National Research Foundation (ANRF) and CSIR lab innovations."
+  },
+  {
+    "id": "quote-258",
+    "theme": "Education & Culture",
+    "quote": "The object of education is to prepare the young to educate themselves throughout their lives.",
+    "author": "Robert M. Hutchins",
+    "coreConcept": "Lifelong learning",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Learning to learn; agile adaptability amid rapid workforce automation.",
+    "anchoringTips": "Cite World Economic Forum Future of Jobs Report reskilling mandates."
+  },
+  {
+    "id": "quote-259",
+    "theme": "Education & Culture",
+    "quote": "Culture eats strategy for breakfast.",
+    "author": "Peter Drucker",
+    "coreConcept": "Cultural primacy",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Why organizational culture, ethical climate, and citizen ethos matter more than mere written rules.",
+    "anchoringTips": "Cite 2nd ARC Report on changing bureaucratic culture from authority to service."
+  },
+  {
+    "id": "quote-260",
+    "theme": "Education & Culture",
+    "quote": "Education is the great engine of personal development.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Empowerment through learning",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Conclusion: Education as the ultimate tool for breaking inter-generational poverty traps.",
+    "anchoringTips": "Cite Right to Education Act and Navodaya Vidyalaya social mobility data."
+  },
+  {
+    "id": "quote-261",
+    "theme": "Education & Culture",
+    "quote": "The aim of art is to represent not the outward appearance of things, but their inward significance.",
+    "author": "Aristotle",
+    "coreConcept": "Art’s purpose",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Body: Ancient Indian aesthetics (Rasa Theory, Natyashastra) capturing emotional and spiritual truth.",
+    "anchoringTips": "Cite Bharata Muni's Natyashastra and classical temple architecture iconography."
+  },
+  {
+    "id": "quote-262",
+    "theme": "Education & Culture",
+    "quote": "Culture is not a luxury, it is a necessity.",
+    "author": "Gao Xingjian",
+    "coreConcept": "Cultural essentialism",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Introduction: Protecting tribal languages, folk lore, and cultural heritage from extinction.",
+    "anchoringTips": "Cite Scheme for Protection and Preservation of Endangered Languages (SPPEL)."
+  },
+  {
+    "id": "quote-263",
+    "theme": "Ethics & Integrity",
+    "quote": "In matters of style, swim with the current; in matters of principle, stand like a rock.",
+    "author": "Thomas Jefferson",
+    "coreConcept": "Principle vs. pragmatism",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Flexibility in administrative procedures but zero compromise on core ethical principles.",
+    "anchoringTips": "Connect to Nolan Committee Principle of Integrity and Objectivity."
+  },
+  {
+    "id": "quote-264",
+    "theme": "Ethics & Integrity",
+    "quote": "Responsibility is the price of greatness.",
+    "author": "Winston Churchill",
+    "coreConcept": "Duty & greatness",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction: Civil service leadership taking accountability for systemic failures without buck-passing.",
+    "anchoringTips": "Cite Railway Minister Lal Bahadur Shastri resigning after Ariyalur train accident (1956)."
+  },
+  {
+    "id": "quote-265",
+    "theme": "Ethics & Integrity",
+    "quote": "The ends you serve that are selfish will take you no further than yourself.",
+    "author": "Marcus Garvey",
+    "coreConcept": "Selfless service",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Contrasting narrow rent-seeking careerism with altruistic public institution building.",
+    "anchoringTips": "Nolan Principle of Selflessness: Holders of public office should act solely in terms of the public interest."
+  },
+  {
+    "id": "quote-266",
+    "theme": "Ethics & Integrity",
+    "quote": "In looking out for the greatest good of others, we develop our own highest good.",
+    "author": "Elizabeth Cady Stanton",
+    "coreConcept": "Altruistic ethics",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Enlightened self-interest and ethical altruism bridging individual and social good.",
+    "anchoringTips": "Connect with Gandhian Sarvodaya (upliftment of all) and Nishkama Karma."
+  },
+  {
+    "id": "quote-267",
+    "theme": "Ethics & Integrity",
+    "quote": "Accountability breeds responsibility.",
+    "author": "Stephen R. Covey",
+    "coreConcept": "Accountability culture",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Institutional mechanisms ensuring public servants remain responsive to citizens.",
+    "anchoringTips": "Cite Lokpal, CAG, and Social Audit institutional accountability frameworks."
+  },
+  {
+    "id": "quote-268",
+    "theme": "International Relations",
+    "quote": "Geography has made us neighbors; history has made us friends; economics has made us partners.",
+    "author": "John F. Kennedy",
+    "coreConcept": "Neighbourhood diplomacy",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction: Framing India's subcontinental relations with Bangladesh, Nepal, Bhutan, and Sri Lanka.",
+    "anchoringTips": "Cite BIMSTEC connectivity, BBIN motor vehicles agreement, and India-Nepal power trade."
+  },
+  {
+    "id": "quote-269",
+    "theme": "International Relations",
+    "quote": "There are no permanent friends, no permanent enemies, only permanent interests.",
+    "author": "Lord Palmerston",
+    "coreConcept": "Realpolitik",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Realist foreign policy, strategic autonomy, and diversifying bilateral partnerships.",
+    "anchoringTips": "Cite India's balanced ties with Russia, US, Middle East (I2U2, IMEC corridor)."
+  },
+  {
+    "id": "quote-270",
+    "theme": "International Relations",
+    "quote": "Diplomacy is the art of saying ‘nice doggie’ until you can find a rock.",
+    "author": "Will Rogers",
+    "coreConcept": "Strategic patience",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Tactical diplomatic maneuvering, buying time to build domestic economic and military capacity.",
+    "anchoringTips": "Cite Deng Xiaoping's 'Hide your strength, bide your time' and India's economic prioritization."
+  },
+  {
+    "id": "quote-271",
+    "theme": "International Relations",
+    "quote": "Borders are scratches on the earth; the land belongs to no one.",
+    "author": "A.P.J. Abdul Kalam (attrib.)",
+    "coreConcept": "Human fraternity",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Conclusion: Overcoming narrow jingoism for global cooperation on climate, outer space, and pandemics.",
+    "anchoringTips": "Cite UN Outer Space Treaty (1967) designating space as the province of all humankind."
+  },
+  {
+    "id": "quote-272",
+    "theme": "International Relations",
+    "quote": "Peace is not absent war; peace is the presence of justice.",
+    "author": "Jane Addams",
+    "coreConcept": "Positive peace",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Building international institutional equity (UNSC reform, WTO appellate body revival).",
+    "anchoringTips": "Cite G4 nations (India, Brazil, Germany, Japan) push for UN Security Council structural reform."
+  },
+  {
+    "id": "quote-273",
+    "theme": "Health & Well-being",
+    "quote": "The greatest wealth is health.",
+    "author": "Virgil",
+    "coreConcept": "Health as wealth",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction: Establishing health as foundational capital for demographic dividend harvesting.",
+    "anchoringTips": "Cite Economic Survey on Human Capital and Out-of-Pocket expenditure reduction."
+  },
+  {
+    "id": "quote-274",
+    "theme": "Health & Well-being",
+    "quote": "He who has health has hope; and he who has hope has everything.",
+    "author": "Arabian Proverb",
+    "coreConcept": "Health–hope nexus",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Conclusion: Universal health coverage as an instrument of hope and socio-economic mobility.",
+    "anchoringTips": "Cite Ayushman Bharat PM-JAY covering 55+ crore beneficiaries with ₹5 lakh health safety."
+  },
+  {
+    "id": "quote-275",
+    "theme": "Health & Well-being",
+    "quote": "Public health is purchasable; within limits a community can determine its own health.",
+    "author": "Florence Nightingale",
+    "coreConcept": "Invest in health",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Prioritizing civic sanitation, waste management, and piped potable water in municipal budgets.",
+    "anchoringTips": "Cite 15th Finance Commission tied grants for water and sanitation to local bodies."
+  },
+  {
+    "id": "quote-276",
+    "theme": "Health & Well-being",
+    "quote": "It’s never too early or too late to work towards being the healthiest you.",
+    "author": "Anonymous",
+    "coreConcept": "Preventive mindset",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Life-cycle approach to healthcare (First 1,000 days, adolescent health, geriatric care).",
+    "anchoringTips": "Cite Poshan Abhiyaan's focus on first 1000 days and National Programme for Health Care of the Elderly."
+  },
+  {
+    "id": "quote-277",
+    "theme": "Health & Well-being",
+    "quote": "Nutrition is not low-fat, it’s not low-carb, it’s food that is real.",
+    "author": "Jillian Michaels",
+    "coreConcept": "Healthy nutrition",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Reverting to traditional diverse diets, bio-fortification, and curbing ultra-processed foods.",
+    "anchoringTips": "Cite ICMR Dietary Guidelines for Indians (2024) and Eat Right Campus initiatives."
+  },
+  {
+    "id": "quote-278",
+    "theme": "Leadership & Administration",
+    "quote": "Example is not the main thing in influencing others; it is the only thing.",
+    "author": "Albert Schweitzer",
+    "coreConcept": "Leading by example",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Body: Exemplary leadership and probity in top bureaucratic and political appointments.",
+    "anchoringTips": "Cite Nolan Committee Principle of Leadership: Promoting principles by leadership and example."
+  },
+  {
+    "id": "quote-279",
+    "theme": "Leadership & Administration",
+    "quote": "A leader is a dealer in hope.",
+    "author": "Napoleon Bonaparte",
+    "coreConcept": "Inspiring hope",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Rallying demoralized communities after natural disasters or economic distress.",
+    "anchoringTips": "Cite exemplary DM crisis leadership during Odisha Super Cyclones and Kerala floods."
+  },
+  {
+    "id": "quote-280",
+    "theme": "Leadership & Administration",
+    "quote": "The art of communication is the language of leadership.",
+    "author": "James Humes",
+    "coreConcept": "Communication",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Transparent public communication during health emergencies, debunking panic rumors.",
+    "anchoringTips": "Cite daily PIB / Health Ministry press briefings during COVID-19 and district helpline systems."
+  },
+  {
+    "id": "quote-281",
+    "theme": "Leadership & Administration",
+    "quote": "The task of the leader is to get people from where they are to where they have not been.",
+    "author": "Henry Kissinger",
+    "coreConcept": "Transformational vision",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Guiding conservative societies through progressive social reforms (anti-untouchability, women's inheritance).",
+    "anchoringTips": "Cite Raja Ram Mohan Roy, B.R. Ambedkar, and Jyotirao Phule's transformative leadership."
+  },
+  {
+    "id": "quote-282",
+    "theme": "Leadership & Administration",
+    "quote": "Vision without action is a daydream; action without vision is a nightmare.",
+    "author": "Japanese Proverb",
+    "coreConcept": "Balanced leadership",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Conclusion: Harmonizing long-term visionary policy roadmaps with disciplined grassroots execution.",
+    "anchoringTips": "Pair NITI Aayog 'Strategy for New India' with quarterly District Development Coordination (DISHA) monitoring."
+  },
+  {
+    "id": "quote-283",
+    "theme": "History & Philosophy",
+    "quote": "The only thing we learn from history is that we learn nothing from history.",
+    "author": "G. W. F. Hegel",
+    "coreConcept": "Historical repetition",
+    "applicablePapers": ["Essay", "GS-1"],
+    "placement": "Introduction: Cynical cycle of geopolitical aggression, debt crises, and environmental overshoot.",
+    "anchoringTips": "Cite historical lessons from 1929 Great Depression, 2008 GFC, and League of Nations collapse."
+  },
+  {
+    "id": "quote-284",
+    "theme": "History & Philosophy",
+    "quote": "Knowledge speaks, but wisdom listens.",
+    "author": "Jimi Hendrix",
+    "coreConcept": "Wisdom vs. knowledge",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Empathetic listening, Jan Sunwai (public hearings), and learning from tribal/rural communities.",
+    "anchoringTips": "Cite MKSS Jan Sunwai methodology in Rajasthan that catalyzed the RTI movement."
+  },
+  {
+    "id": "quote-285",
+    "theme": "History & Philosophy",
+    "quote": "Those who do not move do not notice their chains.",
+    "author": "Rosa Luxemburg",
+    "coreConcept": "Critical consciousness",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Hegemony (Gramsci), internalized caste/gender subjugation, and the awakening of collective consciousness.",
+    "anchoringTips": "Cite Antonio Gramsci's Cultural Hegemony and Dr. Ambedkar's call: 'Educate, Agitate, Organise'."
+  },
+  {
+    "id": "quote-286",
+    "theme": "History & Philosophy",
+    "quote": "Power is not revealed by striking hard or often, but by striking true.",
+    "author": "Honoré de Balzac",
+    "coreConcept": "Effective power",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Surgical, precise state interventions (targeted subsidies, intelligence-led security) over blunt crackdowns.",
+    "anchoringTips": "Cite targeted Direct Benefit Transfers (DBT) eliminating ghost beneficiaries."
+  },
+  {
+    "id": "quote-287",
+    "theme": "History & Philosophy",
+    "quote": "Hope is a good breakfast but a bad supper.",
+    "author": "Francis Bacon",
+    "coreConcept": "Measured optimism",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Moving from initial optimistic rhetoric to institutional milestone delivery.",
+    "anchoringTips": "Cite outcome-based budgeting under Ministry of Finance."
+  },
+  {
+    "id": "quote-288",
+    "theme": "Society",
+    "quote": "Justice will not be served until those who are unaffected are as outraged as those who are.",
+    "author": "Benjamin Franklin",
+    "coreConcept": "Empathy-driven justice",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Introduction / Conclusion: Mobilizing privileged majorities to champion rights of Dalits, Adivasis, and minorities.",
+    "anchoringTips": "Cite civil rights solidarity, Nirbhaya movement, and public interest litigation (PIL)."
+  },
+  {
+    "id": "quote-289",
+    "theme": "Society",
+    "quote": "There is no greater tyranny than that which is perpetrated under the shield of the law and in the name of justice.",
+    "author": "Montesquieu",
+    "coreConcept": "Tyranny of law-in-form",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Weaponization of colonial criminal laws (sedition, preventive detentions) suppressing legitimate dissent.",
+    "anchoringTips": "Cite Law Commission 279th Report on Sedition and Section 124A IPC stay by Supreme Court."
+  },
+  {
+    "id": "quote-290",
+    "theme": "Society",
+    "quote": "Cultivation of mind should be the ultimate aim of human existence.",
+    "author": "B. R. Ambedkar",
+    "coreConcept": "Intellectual uplift",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Introduction / Conclusion: Ambedkar's rationalist humanist vision of intellectual emancipation.",
+    "anchoringTips": "Connect to Ambedkar's 'Annihilation of Caste' and Enlightenment humanism."
+  },
+  {
+    "id": "quote-291",
+    "theme": "Society",
+    "quote": "Equality may be a right, but no power on earth can ever turn it into fact.",
+    "author": "Honoré de Balzac",
+    "coreConcept": "Limits of legal equality",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Body: De jure legal equality vs de facto socio-economic inequality; need for affirmative action.",
+    "anchoringTips": "Cite Indira Sawhney (1992) creamy layer concept and substantive equality under Article 16(4)."
+  },
+  {
+    "id": "quote-292",
+    "theme": "Society",
+    "quote": "True peace is not merely the absence of tension; it is the presence of justice.",
+    "author": "Martin Luther King Jr.",
+    "coreConcept": "Positive peace",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Body: Negative peace (temporary absence of riots) vs positive peace (eradication of discrimination and poverty).",
+    "anchoringTips": "Cite Martin Luther King Jr.'s 'Letter from Birmingham Jail' and Martin Luther King Jr.'s non-violent campaigns."
+  },
+  {
+    "id": "quote-293",
+    "theme": "Polity",
+    "quote": "The only thing necessary for the triumph of evil is for good men to do nothing.",
+    "author": "Edmund Burke",
+    "coreConcept": "Civic vigilance",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Introduction / Body: Civic duty, investigative journalism, and whistleblowing in defense of the Constitution.",
+    "anchoringTips": "Cite Whistleblowers Protection Act 2014 and citizen participation in fighting corruption."
+  },
+  {
+    "id": "quote-294",
+    "theme": "Polity",
+    "quote": "It always seems impossible until it’s done.",
+    "author": "Nelson Mandela",
+    "coreConcept": "Transformational resolve",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Conclusion: Inspiring faith in achieving ambitious national targets (polio eradication, 100% electrification, Viksit Bharat).",
+    "anchoringTips": "Cite India's monumental success in Universal Polio Eradication (2014) and Saubhagya rural electrification."
+  },
+  {
+    "id": "quote-295",
+    "theme": "Polity",
+    "quote": "Facts are facts and will not disappear on account of your likes.",
+    "author": "Jawaharlal Nehru",
+    "coreConcept": "Evidence-based policy",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Statistical integrity, independent national statistical agencies, and evidence-driven policy formulation.",
+    "anchoringTips": "Cite National Statistical Commission (NSC) independence and MoSPI data credibility."
+  },
+  {
+    "id": "quote-296",
+    "theme": "Polity",
+    "quote": "For every complex problem there is an answer that is clear, simple, and wrong.",
+    "author": "H. L. Mencken",
+    "coreConcept": "Policy complexity",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Body: Warning against simplistic populist quick-fixes (e.g. indiscriminate bans, sudden price controls).",
+    "anchoringTips": "Discuss regulatory impact assessments and unintended economic consequences of price capping."
+  },
+  {
+    "id": "quote-297",
+    "theme": "Polity",
+    "quote": "Bad men need nothing more to compass their ends, than that good men should look on and do nothing.",
+    "author": "John Stuart Mill",
+    "coreConcept": "Duty to act",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Moral duty of public servants and judiciary to intervene against systemic injustices.",
+    "anchoringTips": "Cite Suo Motu judicial interventions by the Supreme Court and High Courts under Article 32/226."
+  },
+  {
+    "id": "quote-298",
+    "theme": "Economy",
+    "quote": "Inflation is taxation without legislation.",
+    "author": "Milton Friedman",
+    "coreConcept": "Inflation as hidden tax",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: How inflation regreessively erodes the real purchasing power of the poorest daily-wage earners.",
+    "anchoringTips": "Cite RBI Flexible Inflation Targeting (FIT) framework (4% +/- 2%) under RBI Act 1934."
+  },
+  {
+    "id": "quote-299",
+    "theme": "Economy",
+    "quote": "Creative destruction is the essential fact about capitalism.",
+    "author": "Joseph Schumpeter",
+    "coreConcept": "Innovation churn",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Technological obsolescence, emergence of EVs, AI automation, and workforce transition safety nets.",
+    "anchoringTips": "Cite National Electric Mobility Mission and Just Transition frameworks for coal workers."
+  },
+  {
+    "id": "quote-300",
+    "theme": "Economy",
+    "quote": "When the rate of return on capital exceeds the rate of growth of output and income, inequality automatically widens.",
+    "author": "Thomas Piketty",
+    "coreConcept": "Capital-income gap",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Thomas Piketty's r > g formula; advocating progressive inheritance and wealth taxation.",
+    "anchoringTips": "Cite Thomas Piketty's 'Capital in the Twenty-First Century' and World Inequality Lab findings."
+  },
+  {
+    "id": "quote-301",
+    "theme": "Economy",
+    "quote": "Poverty is not created by poor people; it is created by institutions.",
+    "author": "Muhammad Yunus",
+    "coreConcept": "Structural poverty",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Introduction: Institutional exclusion from credit, land titles, and markets creating persistent poverty traps.",
+    "anchoringTips": "Cite Grameen Bank microcredit model and PM SVANidhi microloans for unbanked street vendors."
+  },
+  {
+    "id": "quote-302",
+    "theme": "Economy",
+    "quote": "Labor was the first price, the original purchase-money paid for all things.",
+    "author": "Adam Smith",
+    "coreConcept": "Labor value",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Dignity of labor, living wages vs minimum wages, and social security for unorganized workers.",
+    "anchoringTips": "Cite e-Shram portal registration (30+ crore workers) and Code on Wages 2019."
+  },
+  {
+    "id": "quote-303",
+    "theme": "Environment",
+    "quote": "We cannot tire or give up; we owe it to the present and future generations.",
+    "author": "Wangari Maathai",
+    "coreConcept": "Inter-generational duty",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Conclusion: Community-led environmental movements (Green Belt Movement, Chipko Movement).",
+    "anchoringTips": "Cite Nobel laureate Wangari Maathai's Green Belt Movement and Gaura Devi's Chipko Movement."
+  },
+  {
+    "id": "quote-304",
+    "theme": "Environment",
+    "quote": "The natural world is changing and we are totally dependent on that world-so it is imperative we look after it.",
+    "author": "David Attenborough",
+    "coreConcept": "Human-nature interdependence",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Tipping points in planetary ecosystems—coral bleaching, Amazon dieback, Himalayan glacier retreat.",
+    "anchoringTips": "Cite National Mission for Sustaining the Himalayan Ecosystem (NMSHE) under NAPCC."
+  },
+  {
+    "id": "quote-305",
+    "theme": "Environment",
+    "quote": "Climate change is moving faster than we are, but we don’t give up.",
+    "author": "António Guterres",
+    "coreConcept": "Climate-action urgency",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Body: Accelerating renewable transitions, grid storage, and climate adaptation financing.",
+    "anchoringTips": "Cite UN Secretary-General climate addresses and India's updated NDC targets (45% emissions intensity reduction)."
+  },
+  {
+    "id": "quote-306",
+    "theme": "Environment",
+    "quote": "I want you to act as if the house is on fire, because it is.",
+    "author": "Greta Thunberg",
+    "coreConcept": "Climate emergency",
+    "applicablePapers": ["Essay", "GS-3"],
+    "placement": "Introduction: Framing climate change as an existential emergency requiring wartime mobilization.",
+    "anchoringTips": "Cite IPCC Sixth Assessment Report (AR6) urgency warnings and Fridays for Future youth activism."
+  },
+  {
+    "id": "quote-307",
+    "theme": "Environment",
+    "quote": "We cannot solve our problems with the same thinking we used when we created them.",
+    "author": "Albert Einstein",
+    "coreConcept": "Paradigm shift for sustainability",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Transitioning from linear 'take-make-dispose' industrial models to regenerative circular economies.",
+    "anchoringTips": "Cite Extended Producer Responsibility (EPR) guidelines and Circular Economy Action Plans."
+  },
+  {
+    "id": "quote-308",
+    "theme": "Science & Tech",
+    "quote": "Nothing in life is to be feared; it is only to be understood.",
+    "author": "Marie Curie",
+    "coreConcept": "Science vs. fear",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction: Overcoming public fear of nuclear power, genetic modification, and AI through rigorous science.",
+    "anchoringTips": "Cite GM mustard clearance debates and India's 3-stage Nuclear Power Programme (Bhabha's vision)."
+  },
+  {
+    "id": "quote-309",
+    "theme": "Science & Tech",
+    "quote": "We are made of star-stuff.",
+    "author": "Carl Sagan",
+    "coreConcept": "Cosmic perspective",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Conclusion: Elevating human identity from parochial divisions to cosmic humility and ecological fraternity.",
+    "anchoringTips": "Cite Carl Sagan's 'Cosmos' and Pale Blue Dot perspective on global unity."
+  },
+  {
+    "id": "quote-310",
+    "theme": "Science & Tech",
+    "quote": "The saddest aspect of life right now is that science gathers knowledge faster than society gathers wisdom.",
+    "author": "Isaac Asimov",
+    "coreConcept": "Wisdom gap",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Introduction / Body: The lag between exponential tech (gene editing CRISPR, AGI, deepfakes) and societal ethics.",
+    "anchoringTips": "Cite ICMR Guidelines for Gene Therapy Products and ethical oversight of bio-engineering."
+  },
+  {
+    "id": "quote-311",
+    "theme": "Science & Tech",
+    "quote": "The important thing is not to stop questioning.",
+    "author": "Albert Einstein",
+    "coreConcept": "Perpetual inquiry",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Fostering independent critical inquiry and intellectual honesty in civil services and academia.",
+    "anchoringTips": "Cite National Science Day themes and National Research Foundation grants."
+  },
+  {
+    "id": "quote-312",
+    "theme": "Science & Tech",
+    "quote": "I would rather have questions that can’t be answered than answers that can’t be questioned.",
+    "author": "Richard Feynman",
+    "coreConcept": "Intellectual openness",
+    "applicablePapers": ["Essay", "GS-3", "GS-4"],
+    "placement": "Body: Fighting dogma, authoritarian censorship, and fostering open dialectics in public policy.",
+    "anchoringTips": "Cite peer review integrity and Richard Feynman's Cargo Cult Science lecture."
+  },
+  {
+    "id": "quote-313",
+    "theme": "Education & Culture",
+    "quote": "Education is the key to unlock the golden door of freedom.",
+    "author": "George Washington Carver",
+    "coreConcept": "Education & liberty",
+    "applicablePapers": ["Essay", "GS-1", "GS-2"],
+    "placement": "Introduction: Education breaking the shackles of generational bondage and caste discrimination.",
+    "anchoringTips": "Cite Jyotirao and Savitribai Phule opening first schools for girls and untouchables in 1848."
+  },
+  {
+    "id": "quote-314",
+    "theme": "Education & Culture",
+    "quote": "Education is the best friend. An educated person is respected everywhere.",
+    "author": "Chanakya",
+    "coreConcept": "Social mobility",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Human capital as the supreme mobile asset that surpasses inherited wealth.",
+    "anchoringTips": "Cite Chanakya Niti on Vidya (learning) and knowledge empowerment."
+  },
+  {
+    "id": "quote-315",
+    "theme": "Education & Culture",
+    "quote": "He who opens a school door, closes a prison.",
+    "author": "Victor Hugo",
+    "coreConcept": "Education & crime",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Positive correlation between universal quality schooling and drastic reduction in juvenile crime.",
+    "anchoringTips": "Cite Juvenile Justice (Care and Protection of Children) Act and prison reform educational programs."
+  },
+  {
+    "id": "quote-316",
+    "theme": "Education & Culture",
+    "quote": "The best way to predict the future is to create it.",
+    "author": "Peter Drucker",
+    "coreConcept": "Proactive vision",
+    "applicablePapers": ["Essay", "GS-2", "GS-3"],
+    "placement": "Conclusion: Strategic proactive national planning (Viksit Bharat @2047, National Space Policy).",
+    "anchoringTips": "Cite NITI Aayog's Vision 2047 document and India's long-term science roadmaps."
+  },
+  {
+    "id": "quote-317",
+    "theme": "Education & Culture",
+    "quote": "All the powers in the universe are already ours… It is we who put our hands before our eyes and cry that it is dark.",
+    "author": "Swami Vivekananda",
+    "coreConcept": "Self-empowerment",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Conclusion: Swami Vivekananda’s roaring message of self-reliance, moral strength, and national resurgence.",
+    "anchoringTips": "Cite Swami Vivekananda's Chicago Parliament address and youth empowerment initiatives."
+  },
+  {
+    "id": "quote-318",
+    "theme": "Ethics & Integrity",
+    "quote": "The strength of a nation derives from the integrity of the home.",
+    "author": "Confucius",
+    "coreConcept": "Family ethics",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Introduction / Body: Family as the primary crucible of empathy, gender equality, and moral character.",
+    "anchoringTips": "Cite GS-4 topic on the role of family in value transmission and filial piety traditions."
+  },
+  {
+    "id": "quote-319",
+    "theme": "Ethics & Integrity",
+    "quote": "He who conquers others is strong; he who conquers himself is mighty.",
+    "author": "Lao Tzu",
+    "coreConcept": "Self-mastery",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Emotional regulation, overcoming personal ego and prejudice in civil service decision-making.",
+    "anchoringTips": "Connect with Goleman's Emotional Intelligence framework (Self-Regulation) and Bhagavad Gita's Sthitaprajna."
+  },
+  {
+    "id": "quote-320",
+    "theme": "Ethics & Integrity",
+    "quote": "Without knowledge, action is useless; and knowledge without action is futile.",
+    "author": "Abu Bakr",
+    "coreConcept": "Praxis",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Bridging theoretical administrative understanding with resolute ground-level execution.",
+    "anchoringTips": "Cite Aristotle's concept of Phronesis (practical wisdom) and Mission Karmayogi competencies."
+  },
+  {
+    "id": "quote-321",
+    "theme": "Ethics & Integrity",
+    "quote": "The single biggest problem in communication is the illusion that it has taken place.",
+    "author": "George Bernard Shaw",
+    "coreConcept": "Clear communication",
+    "applicablePapers": ["Essay", "GS-2", "GS-4"],
+    "placement": "Body: Administrative jargon vs transparent citizen communication; bridging the citizen-state trust deficit.",
+    "anchoringTips": "Cite 2nd ARC recommendations on Citizen-Centric Administration and plain-language public notices."
+  },
+  {
+    "id": "quote-322",
+    "theme": "Ethics & Integrity",
+    "quote": "Lead me, follow me, or get out of my way.",
+    "author": "George S. Patton",
+    "coreConcept": "Decisive leadership",
+    "applicablePapers": ["Essay", "GS-4"],
+    "placement": "Body: Decisive disaster command leadership; eliminating administrative paralysis in critical emergencies.",
+    "anchoringTips": "Cite Incident Command System (ICS) in National Disaster Response Force (NDRF) operations."
+  },
+  {
+    "id": "quote-323",
+    "theme": "Health & Well-being",
+    "quote": "Let food be thy medicine and medicine be thy food.",
+    "author": "Hippocrates",
+    "coreConcept": "Nutrition & health",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Body: Traditional dietary wisdom, AYUSH integration, and tackling lifestyle diseases through organic diet.",
+    "anchoringTips": "Cite National AYUSH Mission and National Nutrition Mission (POSHAN Abhiyaan)."
+  },
+  {
+    "id": "quote-324",
+    "theme": "Health & Well-being",
+    "quote": "Health is a human right, not a privilege to be purchased.",
+    "author": "World Health Organization",
+    "coreConcept": "Right-based health",
+    "applicablePapers": ["Essay", "GS-2"],
+    "placement": "Introduction / Body: Right to health as an integral facet of Article 21 (Right to Life with Dignity).",
+    "anchoringTips": "Cite Paschim Banga Khet Mazdoor Samity (1996) and Rajasthan Right to Health Act 2023."
+  },
+  {
+    "id": "quote-325",
+    "theme": "Education & Culture",
+    "quote": "Yoga teaches us to cure what need not be endured and endure what cannot be cured.",
+    "author": "B. K. S. Iyengar",
+    "coreConcept": "Holistic wellness",
+    "applicablePapers": ["Essay", "GS-1", "GS-4"],
+    "placement": "Conclusion: Integrating mental equilibrium, mindfulness, and physical wellness in modern high-stress lifestyles.",
+    "anchoringTips": "Cite International Day of Yoga recognition by 175+ nations and integrative AYUSH wellness protocols."
+  }
+]

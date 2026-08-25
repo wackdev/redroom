@@ -1,11 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { getDailyCurrentAffairs } from "@/lib/current-affairs/cache";
 import { getDateKey } from "@/lib/core/utils";
-import { ApiResponse, CurrentAffairsArticle } from "@/lib/core/types";
+import { apiSuccess, apiError } from "@/lib/core/api-response";
 
-export async function GET(
-  request: NextRequest
-): Promise<NextResponse<ApiResponse<CurrentAffairsArticle[]>>> {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const dateParam = searchParams.get("date") || getDateKey();
@@ -16,27 +14,14 @@ export async function GET(
 
     const articles = await getDailyCurrentAffairs(dateParam, forceRefresh);
 
-    return NextResponse.json({
-      success: true,
-      data: articles,
-      meta: {
-        count: articles.length,
-        date: dateParam,
-        refreshedAt: new Date().toISOString(),
-      },
+    return apiSuccess(articles, {
+      count: articles.length,
+      date: dateParam,
+      refreshedAt: new Date().toISOString(),
     });
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : "Failed to retrieve current affairs";
-    return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: "CURRENT_AFFAIRS_FETCH_FAILED",
-          message,
-        },
-      },
-      { status: 500 }
-    );
+    return apiError("CURRENT_AFFAIRS_FETCH_FAILED", message, error, 500);
   }
 }

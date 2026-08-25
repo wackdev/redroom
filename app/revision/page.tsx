@@ -17,6 +17,7 @@ import FlashcardQuickDrill from "@/components/FlashcardQuickDrill";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
+import { trackActivityEvent } from "@/lib/brain/activity-events";
 
 const REVISION_STORAGE_KEY = "redroom_revision_items";
 
@@ -168,6 +169,15 @@ export default function RevisionPage() {
     // 3. Broadcast sync across tabs & push to cloud
     broadcastSyncChange("revision");
     void pushStateToCloud();
+
+    void trackActivityEvent("REVISION_COMPLETED", {
+      topicId: currentItem.topicId,
+      topicName: currentItem.topicName,
+      subject: currentItem.subject,
+      confidence,
+      intervalDays: sm2.intervalDays,
+      nextReviewDate: sm2.nextReviewDate,
+    });
 
     // 4. Send API update in background
     try {

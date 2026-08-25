@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { queryAI } from "@/lib/ai/client";
-import { ApiResponse } from "@/lib/core/types";
+import { apiSuccess, apiError } from "@/lib/core/api-response";
 
 export const runtime = "nodejs";
 
@@ -30,11 +30,9 @@ interface MainsEvaluationResult {
   valueAdditionPointers: string[];
 }
 
-export async function POST(
-  request: NextRequest
-): Promise<NextResponse<ApiResponse<MainsEvaluationResult>>> {
+export async function POST(request: NextRequest) {
   try {
-    const body: MainsEvaluationRequest = await request.json();
+    const body: MainsEvaluationRequest = await request.json().catch(() => ({}));
     const question = body.question?.trim();
     const answerText = body.answerText?.trim();
     const maxScore = body.marks || 15;
@@ -42,15 +40,11 @@ export async function POST(
     const directive = body.directive || "Critically Examine";
 
     if (!question || !answerText) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: "INVALID_INPUT",
-            message: "Both question and candidate answer are required for evaluation.",
-          },
-        },
-        { status: 400 }
+      return apiError(
+        "INVALID_INPUT",
+        "Both question and candidate answer are required for evaluation.",
+        null,
+        400
       );
     }
 
@@ -96,10 +90,7 @@ Provide full examiner grading and actionable feedback:`;
     });
 
     if (aiRes.success && aiRes.data?.data) {
-      return NextResponse.json({
-        success: true,
-        data: aiRes.data.data,
-      });
+      return apiSuccess(aiRes.data.data);
     }
 
     // High quality deterministic fallback
@@ -127,7 +118,11 @@ Provide full examiner grading and actionable feedback:`;
       ],
       caseLawsAndArticles: {
         cited: ["Article 21", "Separation of Powers"],
-        recommended: ["2nd ARC 4th Report on Ethics in Governance", "Sarkaria Commission Recommendations", "Article 142"],
+        recommended: [
+          "2nd ARC 4th Report on Ethics in Governance",
+          "Sarkaria Commission Recommendations",
+          "Article 142",
+        ],
       },
       diagramOrFlowchartIdea:
         "A 3-tier concentric hub-and-spoke flowchart connecting Institutional Design -> Implementation Bottlenecks -> Policy Reforms.",
@@ -140,21 +135,9 @@ Provide full examiner grading and actionable feedback:`;
       ],
     };
 
-    return NextResponse.json({
-      success: true,
-      data: fallbackResult,
-    });
+    return apiSuccess(fallbackResult);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Mains evaluation error";
-    return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: "MAINS_EVAL_ERROR",
-          message: msg,
-        },
-      },
-      { status: 500 }
-    );
+    return apiError("MAINS_EVAL_ERROR", msg, err, 500);
   }
 }

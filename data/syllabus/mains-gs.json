@@ -1,0 +1,373 @@
+[
+  {
+    "id": "upsc.mains.gs1",
+    "name": "General Studies I: Heritage, History, Geography and Society",
+    "slug": "mains-gs1",
+    "description": "Indian Heritage and Culture, History and Geography of the World and Society",
+    "parent_id": null,
+    "exam_stage": "MAINS",
+    "paper": "GS-1",
+    "subject": "Mains GS-1",
+    "importance": "CRITICAL",
+    "display_order": 1,
+    "units": [
+      {
+        "id": "upsc.mains.gs1.society",
+        "name": "Indian Society & Social Issues",
+        "slug": "indian-society",
+        "description": "Salient features of Indian Society, Diversity, Women's organizations, Population, Poverty, Urbanization, Globalization, Social Empowerment, Communalism, Regionalism & Secularism",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "upsc.mains.gs1.society.diversity",
+            "name": "Salient Features of Indian Society & Diversity of India",
+            "slug": "society-diversity-features",
+            "importance": "HIGH",
+            "display_order": 1,
+            "subtopics": [
+              "Caste system, Kinship, Patriarchal structures & Changing family norms",
+              "Unity in Diversity: Linguistic, Religious, Ethnic and Cultural Dimensions"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs1.society.women_population",
+            "name": "Role of Women & Population Dynamics",
+            "slug": "women-population-urbanization",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Women's movements, Self-Help Groups (SHGs), Female labor force participation (FLFPR)",
+              "Demographic dividend vs demographic disaster, Ageing population",
+              "Urbanization issues: Slums, Transport, Sanitation, Smart Cities & Conurbations"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs1.society.globalization_secularism",
+            "name": "Globalization, Communalism, Regionalism & Secularism",
+            "slug": "globalization-communalism-secularism",
+            "importance": "CRITICAL",
+            "display_order": 3,
+            "subtopics": [
+              "Impact of Globalization on Youth, Elders, Women, Tribal communities",
+              "Communalism vs Secularism: Western vs Indian model of secularism",
+              "Regionalism, Sons of the Soil doctrine & Sub-nationalism"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "upsc.mains.gs1.world_history",
+        "name": "World History (18th Century to Modern Era)",
+        "slug": "world-history",
+        "description": "Industrial Revolution, World Wars, Colonization & Decolonization, Political Philosophies (Communism, Capitalism, Socialism)",
+        "importance": "MEDIUM",
+        "display_order": 2,
+        "topics": [
+          {
+            "id": "upsc.mains.gs1.world_history.revolutions_wars",
+            "name": "Revolutions, World Wars & Cold War",
+            "slug": "world-revolutions-wars",
+            "importance": "MEDIUM",
+            "display_order": 1,
+            "subtopics": [
+              "American Revolution, French Revolution, Industrial Revolution",
+              "World War I, Treaty of Versailles, League of Nations, Rise of Fascism/Nazism",
+              "World War II, Decolonization of Asia and Africa, Non-Aligned Movement (NAM)",
+              "Capitalism, Socialism, Communism: Forms and their effect on society"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "upsc.mains.gs2",
+    "name": "General Studies II: Governance, Constitution, Polity, Social Justice and IR",
+    "slug": "mains-gs2",
+    "description": "Indian Constitution, Governance, Public Policy, Civil Services, Welfare Schemes, International Relations",
+    "parent_id": null,
+    "exam_stage": "MAINS",
+    "paper": "GS-2",
+    "subject": "Mains GS-2",
+    "importance": "CRITICAL",
+    "display_order": 2,
+    "units": [
+      {
+        "id": "upsc.mains.gs2.governance_civil_services",
+        "name": "Governance, Transparency & Role of Civil Services",
+        "slug": "governance-civil-services",
+        "description": "E-governance, Citizen Charters, RTI, Role of Civil Services in Democracy",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "upsc.mains.gs2.governance_civil_services.e_gov_rti",
+            "name": "E-Governance, Transparency & Accountability",
+            "slug": "egovernance-accountability",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "E-Governance applications, models, successes, limitations and potential",
+              "Citizens Charters, Social Audits & Right to Information (RTI Act)",
+              "Lokpal, Lokayuktas, CVC & Whistleblowers Protection"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs2.governance_civil_services.civil_services",
+            "name": "Role of Civil Services in a Democracy",
+            "slug": "role-of-civil-services",
+            "importance": "HIGH",
+            "display_order": 2,
+            "subtopics": [
+              "Generalist vs Specialist debate, Lateral entry",
+              "Mission Karmayogi & Capacity building for Civil Services",
+              "Neutrality, Anonymity and Civil Service Ethics"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "upsc.mains.gs2.social_justice",
+        "name": "Social Justice & Welfare Schemes",
+        "slug": "social-justice-welfare",
+        "description": "Vulnerable sections, Health, Education, Human Resources, Poverty & Hunger issues",
+        "importance": "CRITICAL",
+        "display_order": 2,
+        "topics": [
+          {
+            "id": "upsc.mains.gs2.social_justice.vulnerable_sections",
+            "name": "Welfare Schemes & Mechanisms for Vulnerable Sections",
+            "slug": "welfare-schemes-vulnerable",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Constitutional bodies for SCs, STs, OBCs, Women, Children, Minorities, PwDs",
+              "Performance of schemes, Direct Benefit Transfer (DBT), Aadhaar linkage",
+              "Poverty & Hunger indices (Global Hunger Index, MPI, Poshan Abhiyaan)"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs2.social_justice.health_education",
+            "name": "Issues Relating to Health, Education & Human Resources",
+            "slug": "health-education-hr",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Ayushman Bharat, Universal Health Coverage, Primary Healthcare Infrastructure",
+              "National Education Policy (NEP 2020), Gross Enrolment Ratio (GER), Skill India"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "upsc.mains.gs2.ir",
+        "name": "International Relations & Global Diplomacy",
+        "slug": "international-relations",
+        "description": "India and its neighborhood, Bilateral, regional and global groupings, Effect of policies of developed and developing countries",
+        "importance": "CRITICAL",
+        "display_order": 3,
+        "topics": [
+          {
+            "id": "upsc.mains.gs2.ir.neighborhood",
+            "name": "India's Neighborhood First Policy & Bilateral Ties",
+            "slug": "neighborhood-first-bilateral",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "India-China border disputes, Belt and Road Initiative (BRI), String of Pearls",
+              "India-Pakistan ties, Cross-border terrorism, Indus Waters Treaty",
+              "India-US, India-Russia strategic partnerships in multipolar order",
+              "India-Middle East-Europe Economic Corridor (IMEC), West Asia & Abraham Accords"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs2.ir.groupings",
+            "name": "Regional & Global Groupings (QUAD, BRICS, SCO, G20)",
+            "slug": "regional-global-groupings",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "QUAD, I2U2, Indo-Pacific Economic Framework (IPEF)",
+              "BRICS Expansion, Shanghai Cooperation Organisation (SCO), G20 Presidency",
+              "UNSC Reforms, WTO Dispute Settlement Body, Global South Leadership"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "upsc.mains.gs3",
+    "name": "General Studies III: Technology, Economic Development, Biodiversity, Security and Disaster Management",
+    "slug": "mains-gs3",
+    "description": "Indian Economy, Agriculture, Infrastructure, Science & Tech, Environment, Internal Security, Disaster Management",
+    "parent_id": null,
+    "exam_stage": "MAINS",
+    "paper": "GS-3",
+    "subject": "Mains GS-3",
+    "importance": "CRITICAL",
+    "display_order": 3,
+    "units": [
+      {
+        "id": "upsc.mains.gs3.agriculture",
+        "name": "Agriculture Economics, Subsidies & Food Security",
+        "slug": "agriculture-economics-mains",
+        "description": "Cropping patterns, Irrigation, Storage, Transport, Marketing of agricultural produce, E-technology, Buffer stocks, PDS",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "upsc.mains.gs3.agriculture.subsidies_msp",
+            "name": "Direct & Indirect Farm Subsidies, MSP & Public Distribution System (PDS)",
+            "slug": "farm-subsidies-msp-pds",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Minimum Support Price (MSP) formula (A2+FL vs C2), Swaminathan Commission",
+              "PDS restructuring, Food Corporation of India (FCI) reforms, Shanta Kumar Committee",
+              "WTO Agreement on Agriculture: Green Box, Blue Box, Amber Box & Peace Clause"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs3.agriculture.tech_supply_chain",
+            "name": "Supply Chain, Food Processing & Precision Agriculture",
+            "slug": "supply-chain-food-processing",
+            "importance": "HIGH",
+            "display_order": 2,
+            "subtopics": [
+              "Upstream and downstream requirements, Mega Food Parks Scheme",
+              "e-NAM (National Agriculture Market), Precision farming, Drones in agriculture"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "upsc.mains.gs3.internal_security",
+        "name": "Internal Security, Cyber Warfare & Border Management",
+        "slug": "internal-security",
+        "description": "Linkages between development and spread of extremism, Role of external state and non-state actors, Cyber security, Money laundering, Border security",
+        "importance": "CRITICAL",
+        "display_order": 2,
+        "topics": [
+          {
+            "id": "upsc.mains.gs3.internal_security.extremism_border",
+            "name": "Left-Wing Extremism, Insurgency & Border Security",
+            "slug": "extremism-border-security",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "LWE root causes: Tribal displacement, Forest rights, SAMADHAN doctrine",
+              "North-East Insurgency, AFSPA, Peace accords (Bodo, Naga framework)",
+              "Border management challenges: LoC, LAC, Indo-Bangladesh fencing, Golden Crescent & Triangle"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs3.internal_security.cyber_money_laundering",
+            "name": "Cyber Security, Dark Web & Money Laundering",
+            "slug": "cyber-security-money-laundering",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "National Cyber Security Strategy, CERT-In, Ransomware, Critical Information Infrastructure",
+              "Prevention of Money Laundering Act (PMLA), Financial Action Task Force (FATF)",
+              "Terror financing, Hawala networks, Cryptocurrencies and national security"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "upsc.mains.gs3.disaster_mgmt",
+        "name": "Disaster Management & Climate Resilience",
+        "slug": "disaster-management-mains",
+        "description": "Disaster Management Act 2005, Sendai Framework, NDMA guidelines, Urban Floods, Glacial Lake Outbursts",
+        "importance": "HIGH",
+        "display_order": 3,
+        "topics": [
+          {
+            "id": "upsc.mains.gs3.disaster_mgmt.frameworks",
+            "name": "Disaster Management Frameworks & Climate Vulnerability",
+            "slug": "disaster-frameworks",
+            "importance": "HIGH",
+            "display_order": 1,
+            "subtopics": [
+              "Sendai Framework for Disaster Risk Reduction (2015-2030 - 4 Priorities)",
+              "Prime Minister's 10-Point Agenda on Disaster Risk Reduction",
+              "Urban Floods (Drainage collapse), Heatwaves, Glacial Lake Outburst Floods (GLOFs), Landslides in Himalayas"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "upsc.mains.gs4",
+    "name": "General Studies IV: Ethics, Integrity and Aptitude",
+    "slug": "mains-gs4",
+    "description": "Ethics and Human Interface, Attitude, Emotional Intelligence, Moral Thinkers, Public Service Values, Probity in Governance, Case Studies",
+    "parent_id": null,
+    "exam_stage": "MAINS",
+    "paper": "GS-4",
+    "subject": "Mains GS-4",
+    "importance": "CRITICAL",
+    "display_order": 4,
+    "units": [
+      {
+        "id": "upsc.mains.gs4.theory",
+        "name": "Ethical Foundations & Public Service Values",
+        "slug": "ethical-foundations-values",
+        "description": "Determinants and consequences of Ethics, Human values, Emotional Intelligence, Nolan Principles",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "upsc.mains.gs4.theory.foundations",
+            "name": "Ethics & Human Interface, Moral Thinkers",
+            "slug": "ethics-human-interface-thinkers",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Deontological (Kant), Consequentialist / Utilitarian (Bentham, Mill), Virtue Ethics (Aristotle)",
+              "Indian Moral Philosophy (Dharma, Nishkama Karma, Gandhi's 7 Sins, Kautilya)",
+              "Role of Family, Society and Educational Institutions in Inculcating Values"
+            ]
+          },
+          {
+            "id": "upsc.mains.gs4.theory.public_service_values",
+            "name": "Foundational Values for Civil Service & Emotional Intelligence",
+            "slug": "foundational-values-ei",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Nolan Principles: Selflessness, Integrity, Objectivity, Accountability, Openness, Honesty, Leadership",
+              "Empathy, Compassion towards the weaker sections, Tolerance, Non-partisanship",
+              "Emotional Intelligence (Goleman model: Self-awareness, Self-regulation, Motivation, Empathy, Social skills) in Administration"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "upsc.mains.gs4.case_studies",
+        "name": "Ethical Case Studies & Dilemma Resolution",
+        "slug": "ethics-case-studies",
+        "description": "Practical application of ethical frameworks to administrative dilemmas, conflict of interest, corruption, whistleblower protection",
+        "importance": "CRITICAL",
+        "display_order": 2,
+        "topics": [
+          {
+            "id": "upsc.mains.gs4.case_studies.frameworks",
+            "name": "Administrative Dilemma Resolution Frameworks",
+            "slug": "case-study-frameworks",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Stakeholder mapping and identification of ethical issues involved",
+              "Evaluating options against Constitutional morality, laws, rules, conscience and utilitarian outcome",
+              "Conflict of interest (Personal vs Public interest), Law vs Conscience, Orders of superiors vs Public good"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

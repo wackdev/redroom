@@ -1,17 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { queryAI } from "@/lib/ai/client";
 import { buildQuizGenerationPrompt, UPSC_MENTOR_SYSTEM_PROMPT } from "@/lib/ai/prompts";
-import { ApiResponse, CurrentAffairsQuizQuestion } from "@/lib/core/types";
+import { CurrentAffairsQuizQuestion } from "@/lib/core/types";
+import { apiSuccess, apiError } from "@/lib/core/api-response";
 
 export interface QuizResponseData {
   questions: CurrentAffairsQuizQuestion[];
 }
 
-export async function POST(
-  request: NextRequest
-): Promise<NextResponse<ApiResponse<QuizResponseData>>> {
+export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const { topic, content, count = 3 } = body;
 
     const topicText = topic || content || "General Current Affairs";
@@ -25,7 +24,12 @@ export async function POST(
     });
 
     if (!aiResponse.success) {
-      return NextResponse.json(aiResponse, { status: 500 });
+      return apiError(
+        aiResponse.error.code,
+        aiResponse.error.message,
+        aiResponse.error.details,
+        500
+      );
     }
 
     const questions = aiResponse.data.data?.questions || [
@@ -44,25 +48,15 @@ export async function POST(
       },
     ];
 
-    return NextResponse.json({
-      success: true,
-      data: { questions },
-      meta: {
+    return apiSuccess(
+      { questions },
+      {
         modelUsed: aiResponse.data.modelUsed,
         latencyMs: aiResponse.data.latencyMs,
-      },
-    });
+      }
+    );
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Quiz generation failed";
-    return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: "QUIZ_GENERATION_ERROR",
-          message,
-        },
-      },
-      { status: 500 }
-    );
+    return apiError("QUIZ_GEN_ERROR", message, error, 500);
   }
 }

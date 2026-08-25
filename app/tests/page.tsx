@@ -23,6 +23,7 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { dexieDb } from "@/lib/db/dexie";
+import { trackActivityEvent } from "@/lib/brain/activity-events";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
 
@@ -163,25 +164,28 @@ export default function TestsPage() {
   }, [modules, selectedSubject, selectedTopic, searchQuery]);
 
   // Save Result & Broadcast
-  const saveResult = async (finalResult: TestResultRecord) => {
-    setSaving(true);
-    const activeUser = UserSessionManager.getActiveUser();
-    const resultWithUser: TestResultRecord = {
-      ...finalResult,
-      userId: activeUser?.id || "local-user",
-    };
-    const updated = [resultWithUser, ...savedResults].slice(0, 100);
-    setSavedResults(updated);
+  const saveResult = useCallback(
+    async (finalResult: TestResultRecord) => {
+      setSaving(true);
+      const activeUser = UserSessionManager.getActiveUser();
+      const resultWithUser: TestResultRecord = {
+        ...finalResult,
+        userId: activeUser?.id || "local-user",
+      };
+      const updated = [resultWithUser, ...savedResults].slice(0, 100);
+      setSavedResults(updated);
 
-    try {
-      localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(updated));
-      await dexieDb.test_results.put(resultWithUser as any);
-      broadcastSyncChange("test_results");
-      void pushStateToCloud();
-    } catch {}
+      try {
+        localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(updated));
+        await dexieDb.test_results.put(resultWithUser as any);
+        broadcastSyncChange("test_results");
+        void pushStateToCloud();
+      } catch {}
 
-    setSaving(false);
-  };
+      setSaving(false);
+    },
+    [savedResults]
+  );
 
   // Submit Test
   const submitTest = useCallback(
@@ -195,24 +199,36 @@ export default function TestsPage() {
       let correct = 0;
       let wrong = 0;
       let skipped = 0;
+      const questionList = selectedTest.questionList || [];
+      const userAnswersMap: Record<string | number, string> = {};
 
-      safeArray(selectedTest.questionList).forEach((q) => {
-        const selected = answers[q.id];
-        if (!selected) skipped++;
-        else if (selected.toUpperCase() === q.answer.toUpperCase()) correct++;
-        else wrong++;
+      questionList.forEach((q) => {
+        const sel = answers[q.id];
+        if (!sel) {
+          skipped++;
+        } else {
+          userAnswersMap[q.id] = sel;
+          if (sel === q.answer) {
+            correct++;
+          } else {
+            wrong++;
+          }
+        }
       });
 
+      const marksPerQ = selectedTest.marksPerQuestion || 2;
+      const negPerQ = selectedTest.negativeMarking || 0.66;
+      const totalPossibleQuestions = questionList.length || selectedTest.questions || 1;
+      const maxScore = totalPossibleQuestions * marksPerQ;
+      const rawScore = correct * marksPerQ - wrong * negPerQ;
+      const finalScore = Math.max(0, +rawScore.toFixed(2));
       const attempted = correct + wrong;
-      const rawScore =
-        correct * selectedTest.marksPerQuestion - wrong * selectedTest.negativeMarking;
-      const finalScore = Number(rawScore.toFixed(2));
-      const maxScore = selectedTest.questions * selectedTest.marksPerQuestion;
 
       const finalResult: TestResultRecord = {
         id: `RES-${Date.now()}`,
         testId: selectedTest.id,
         title: selectedTest.title,
+        test_title: selectedTest.title,
         subject: selectedTest.subject,
         moduleNumber: selectedTest.moduleNumber,
         score: finalScore,
@@ -221,9 +237,13 @@ export default function TestsPage() {
         wrong,
         skipped,
         attempted,
-        total: selectedTest.questions,
+        total: totalPossibleQuestions,
+        total_questions: totalPossibleQuestions,
+        accuracy: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
         date: new Date().toISOString(),
-        userAnswers: answers,
+        completed_at: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        userAnswers: userAnswersMap,
       };
 
       setResult(finalResult);
@@ -231,9 +251,21 @@ export default function TestsPage() {
       setStarted(false);
       setEndTime(null);
 
+      void trackActivityEvent("TEST_COMPLETED", {
+        testId: selectedTest.id,
+        testTitle: selectedTest.title,
+        subject: selectedTest.subject,
+        score: finalScore,
+        totalMarks: maxScore,
+        correct,
+        wrong,
+        skipped,
+        accuracyPercent: attempted > 0 ? Math.round((correct / attempted) * 100) : 0,
+      });
+
       await saveResult(finalResult);
     },
-    [selectedTest, answers, savedResults]
+    [selectedTest, answers, saveResult]
   );
 
   const submitTestRef = useRef(submitTest);

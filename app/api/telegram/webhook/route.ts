@@ -5,7 +5,7 @@ import { getDailyCurrentAffairs } from "@/lib/current-affairs/cache";
 import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 import { createAdminClient } from "@/lib/db/supabase";
-import { addBroadcastToStore, AdminBroadcastMessage } from "@/app/api/admin/broadcast/route";
+import { addBroadcastToStore, AdminBroadcastMessage } from "@/lib/admin/broadcast-store";
 
 /**
  * Validates if the incoming Telegram message is from the authorized Admin.
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         STATIC_MAINS_PYQ_DATASET[Math.floor(Math.random() * STATIC_MAINS_PYQ_DATASET.length)];
       if (randomMains) {
         const outlines: string[] = (randomMains as any).modelAnswerOutline || (randomMains as any).modelAnswer || [
-          "Structure into Introduction context, 3 PESTLE dimensions, and a balanced constitutional conclusion."
+          "Structure into Introduction context, 3 PESTLE dimensions, and a balanced constitutional conclusion.",
         ];
         const mMsg =
           `✍️ *UPSC MAINS DRILL (${randomMains.paper} — ${randomMains.marks}M)*\n\n` +
@@ -226,7 +226,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       maxTokens: 500,
     });
 
-    const reply = aiResponse.success && aiResponse.data?.text ? aiResponse.data.text : "I am ready to assist with your civil services preparation strategy.";
+    const reply =
+      aiResponse.success && aiResponse.data?.text
+        ? aiResponse.data.text
+        : "I am ready to assist with your civil services preparation strategy.";
     await sendMsg(`🤖 *WHYNOTUPSC STRATEGIC MENTOR*\n\n${reply}`);
     return NextResponse.json({ ok: true });
   } catch (err: any) {

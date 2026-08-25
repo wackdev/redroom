@@ -8,6 +8,14 @@ import {
   SyllabusProgressRecord,
   RevisionItem,
 } from "../core/types";
+import {
+  UniversalTopic,
+  KnowledgeSource,
+  SourceChunk,
+  TopicRelationship,
+  TopicRevisionCard,
+  StudentTopicProgress,
+} from "../knowledge/types";
 
 // ============================================================================
 // OUTBOX ENTITY TYPES
@@ -22,7 +30,8 @@ export type OutboxEntityType =
   | "revision_items"
   | "pyq_progress"
   | "pyq_attempts"
-  | "profiles";
+  | "profiles"
+  | "student_topic_progress";
 
 export type OutboxAction = "INSERT" | "UPDATE" | "DELETE" | "UPSERT";
 
@@ -75,6 +84,14 @@ export class RedroomDexieDB extends Dexie {
   pyq_attempts!: Table<LocalPYQAttempt, string>;
   sync_outbox!: Table<SyncOutboxItem, number>;
 
+  // Knowledge Engine Tables
+  topics!: Table<UniversalTopic, string>;
+  sources!: Table<KnowledgeSource, string>;
+  source_chunks!: Table<SourceChunk, string>;
+  topic_relationships!: Table<TopicRelationship, string>;
+  topic_revision_cards!: Table<TopicRevisionCard, string>;
+  student_topic_progress!: Table<StudentTopicProgress, string>;
+
   constructor() {
     super("redroom_dexie_db");
 
@@ -89,6 +106,26 @@ export class RedroomDexieDB extends Dexie {
       pyq_progress: "id, userId, pyqId, completed, updatedAt",
       pyq_attempts: "id, userId, pyqId, isCorrect, attemptedAt",
       sync_outbox: "++id, entityType, action, entityId, status, retryCount, createdAt, updatedAt",
+    });
+
+    this.version(2).stores({
+      profiles: "id, email, updatedAt",
+      study_plans: "id, planDate, userId, updatedAt",
+      study_tasks: "id, planDate, userId, completed, updatedAt",
+      notes: "id, userId, subject, topic, updatedAt",
+      test_results: "++id, userId, date, createdAt",
+      syllabus_progress: "id, userId, topicId, completed, updatedAt",
+      revision_items: "id, userId, topicId, nextReviewDate, updatedAt",
+      pyq_progress: "id, userId, pyqId, completed, updatedAt",
+      pyq_attempts: "id, userId, pyqId, isCorrect, attemptedAt",
+      sync_outbox: "++id, entityType, action, entityId, status, retryCount, createdAt, updatedAt",
+      // New Knowledge tables
+      topics: "id, slug, subjectId, parentTopicId, importanceScore, topicLevel",
+      sources: "id, title, sourceType, primarySubjectId, isProcessed",
+      source_chunks: "id, sourceId, topicId, chunkType, pageStart",
+      topic_relationships: "++id, fromTopicId, toTopicId, relationshipType",
+      topic_revision_cards: "id, topicId, cardType, upscImportance",
+      student_topic_progress: "++id, userId, topicId, status, lastStudiedAt",
     });
   }
 }

@@ -17,3 +17,6 @@ export const STATIC_PYQ_DATASET: PYQQuestion[] = [
   ...(environmentQuestions as unknown as PYQQuestion[]),
   ...(scienceTechQuestions as unknown as PYQQuestion[]),
 ];
+
+export const STATIC_PYQS = STATIC_PYQ_DATASET;
+

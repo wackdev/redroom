@@ -1,0 +1,938 @@
+[
+  {
+    "id": "mod-hist-mod-1",
+    "moduleNumber": 1,
+    "title": "Discovery of Sea Route & Advent of European Powers",
+    "era": "1498–1759",
+    "summary": "Fall of Constantinople (1453) and Ottoman control of traditional Levant trade routes forced Europeans to seek direct sea routes to India. Portugal led under Prince Henry and Vasco da Gama (1498), followed by Dutch VOC (1602), English East India Company (1600), and French Compagnie des Indes (1664).",
+    "keyTopics": [
+      {
+        "id": "topic-portuguese-arrival",
+        "title": "Portuguese Expansion, Blue Water Policy & Estado da Índia",
+        "keyFigures": ["Prince Henry the Navigator", "Bartolomeu Dias", "Vasco da Gama", "Pedro Álvares Cabral", "Francisco de Almeida", "Alfonso de Albuquerque", "Nuno da Cunha"],
+        "keyEvents": [
+          "1453: Fall of Constantinople to Ottoman Turks; traditional silk/spice routes closed.",
+          "1494: Treaty of Tordesillas divides New World (Spain) and Known World (Portugal).",
+          "1498: Vasco da Gama lands at Kappad, Calicut (Zamorin's kingdom) guided by Gujarati sailor Abdul Majid.",
+          "1505-1509: Francisco de Almeida introduces 'Cartaz' (Blue Water Policy); Battle of Diu (1508) defeats Mamluk Egypt & Gujarat.",
+          "1509-1515: Alfonso de Albuquerque captures Goa from Sultan of Bijapur (1510), establishes bases at Ormuz, Malacca, Socotra, abolishes Sati in Goa.",
+          "1530: Nuno da Cunha shifts Portuguese HQ from Cochin to Goa; Treaty of Bassein (1534) acquires Diu and Bassein from Bahadur Shah of Gujarat."
+        ],
+        "prelimsTraps": [
+          "Almeida formulated the Blue Water Policy (naval supremacy), NOT Albuquerque.",
+          "Albuquerque was the real founder who captured Goa in 1510, NOT Vasco da Gama.",
+          "Goa was captured from the Adil Shahi Sultanate of Bijapur, NOT the Vijayanagara Empire or Mughals."
+        ],
+        "mainsPointers": [
+          "Cartaz License System: Early template of coercive trade monopoly that future European companies militarized.",
+          "Introduction of new agricultural crops (Tobacco, Cashew, Chilly, Pineapple) and Western printing press (1556, Goa)."
+        ]
+      },
+      {
+        "id": "topic-dutch-voc-arrival",
+        "title": "Dutch East India Company (VOC) & Anglo-Dutch Rivalry",
+        "keyFigures": ["Cornelis de Houtman", "Jan Pieterszoon Coen"],
+        "keyEvents": [
+          "1602: Formation of United East India Company of Netherlands (VOC) with chartered powers to wage war and build forts.",
+          "1605: First Dutch factory in India established at Masulipatnam (Andhra Coast).",
+          "1623: Amboyna Massacre in Indonesia; leads to 1667 Anglo-Dutch compromise (Dutch focus on Indonesian Spice Islands, English in India).",
+          "1759: Battle of Bedara (Chinsurah, Bengal) - British decisively defeat the Dutch."
+        ],
+        "prelimsTraps": [
+          "First Dutch factory was in Masulipatnam (1605), NOT Pulicat or Surat.",
+          "Dutch coinage in India was the Gold Pagoda minted at Pulicat."
+        ],
+        "mainsPointers": [
+          "Dutch transformed Indian textile trade into an international exchange currency for Indonesian spices."
+        ]
+      },
+      {
+        "id": "topic-english-eic-foundation",
+        "title": "English East India Company & Foundation of Three Presidencies",
+        "keyFigures": ["Queen Elizabeth I", "Captain William Hawkins", "Sir Thomas Roe", "Job Charnock", "Francis Day", "Emperor Farrukhsiyar"],
+        "keyEvents": [
+          "Dec 31, 1600: Royal Charter granted by Queen Elizabeth I to 'Governor and Company of Merchants of London Trading into the East Indies'.",
+          "1607-1612: Captain Hawkins on Hector reaches Jahangir's court; receives Mansab of 400; Battle of Swally (1612, Thomas Best defeats Portuguese) impresses Jahangir.",
+          "1613: First permanent English factory in Western India at Surat; Sir Thomas Roe embassy (1615-1619) secures Mughal-wide trading privileges.",
+          "1639: Francis Day acquires Madras from Raja of Chandragiri; builds Fort St. George (First British fortified factory).",
+          "1661-1668: Bombay received as royal dowry (King Charles II & Catherine of Braganza), leased to EIC for £10/year; becomes Western HQ in 1687.",
+          "1690-1700: Job Charnock establishes settlement at Sutanuti; 1698 zamindari of Sutanuti, Govindpur, Kalighat for ₹1,200; builds Fort William (1700, Charles Eyre 1st President).",
+          "1717: Emperor Farrukhsiyar grants Royal Farman ('Magna Carta of Company') for duty-free trade in Bengal for ₹3,000/year and right to issue Dastaks."
+        ],
+        "prelimsTraps": [
+          "First English factory in South India was Masulipatnam (1611); first in Western India was Surat (1613).",
+          "Farrukhsiyar's 1717 Farman exempted Company trade from duties, NOT private trade of Company servants (source of friction leading to Plassey/Buxar)."
+        ],
+        "mainsPointers": [
+          "Strategic triangular presidency structure (Calcutta, Bombay, Madras) provided naval depth and mutual reinforcement during colonial wars."
+        ]
+      },
+      {
+        "id": "topic-french-eic-arrival",
+        "title": "French East India Company & Early Settlements",
+        "keyFigures": ["Jean-Baptiste Colbert", "King Louis XIV", "Francois Martin", "Joseph François Dupleix"],
+        "keyEvents": [
+          "1664: Colbert creates state-backed 'Compagnie des Indes Orientales'.",
+          "1667: First French factory at Surat established by Francis Caron; 1669 factory at Masulipatnam.",
+          "1674: Francois Martin founds Pondicherry with permission from Sher Khan Lodhi (governor of Valikondapuram).",
+          "1690-1692: French acquire Chandannagar in Bengal from Shaista Khan; fortified in 1692."
+        ],
+        "prelimsTraps": [
+          "French EIC was a purely state-owned, state-controlled enterprise, unlike the privately-owned English EIC which had greater operational flexibility.",
+          "Francois Martin founded Pondicherry, NOT Dupleix."
+        ],
+        "mainsPointers": [
+          "State dependency of the French Company made it vulnerable to French domestic treasury shocks during European continental wars."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-2",
+    "moduleNumber": 2,
+    "title": "Carnatic Wars & Anglo-French Supremacy Struggle",
+    "era": "1744–1763",
+    "summary": "Three Carnatic Wars fought between British and French East India Companies in the Deccan/Coromandel coast. The conflict established British military and naval supremacy while reducing the French to commercial enclaves.",
+    "keyTopics": [
+      {
+        "id": "topic-first-carnatic-war",
+        "title": "First Carnatic War (1744–1748) & Battle of St. Thome",
+        "keyFigures": ["Dupleix", "La Bourdonnais", "Anwaruddin (Nawab of Carnatic)"],
+        "keyEvents": [
+          "Direct extension of Austrian War of Succession in Europe (1740-1748).",
+          "1746: Dupleix and La Bourdonnais capture Madras from the British.",
+          "1746: Battle of Adyar / St. Thome - Captain Paradise with 1,000 disciplined French/Sepoy troops decisively routs Anwaruddin's 10,000-strong cavalry.",
+          "1748: Treaty of Aix-la-Chapelle ends war; Madras returned to British in exchange for Louisbourg (North America) to France."
+        ],
+        "prelimsTraps": [
+          "Battle of St. Thome proved for the first time that small, disciplined European-trained infantry could annihilate large Indian feudal armies.",
+          "Madras was restored to British by the European Treaty of Aix-la-Chapelle, NOT an Indian military victory."
+        ],
+        "mainsPointers": [
+          "Exposed the military weakness of fragmented successor states and encouraged European interference in internal dynastic successions."
+        ]
+      },
+      {
+        "id": "topic-second-carnatic-war",
+        "title": "Second Carnatic War (1749–1754) & Clive's Siege of Arcot",
+        "keyFigures": ["Dupleix", "Robert Clive", "Muzaffar Jang", "Nasir Jang", "Chanda Sahib", "Muhammad Ali Walajah"],
+        "keyEvents": [
+          "Succession conflicts in Hyderabad (Nasir Jang vs Muzaffar Jang) and Carnatic (Anwaruddin vs Chanda Sahib).",
+          "French Alliance: Dupleix + Muzaffar Jang + Chanda Sahib wins Battle of Ambur (1749); Anwaruddin killed.",
+          "Dupleix made Governor of Mughal territories from River Krishna to Kanyakumari; Salabat Jang grants Northern Circars to French.",
+          "1751: Robert Clive with 500 men executes daring Siege of Arcot, relieving pressure on Trichinopoly.",
+          "1752: French forced to surrender at Trichinopoly; Chanda Sahib killed by Raja of Tanjore; Muhammad Ali becomes Nawab of Carnatic.",
+          "1754: French government recalls Dupleix; Treaty of Pondicherry (1755, Godeheu) restores status quo."
+        ],
+        "prelimsTraps": [
+          "Robert Clive's fame originated from the Siege of Arcot (1751), which broke French momentum.",
+          "Dupleix was the pioneer who invented the Subsidiary Alliance concept (lending European troops for land/money) before Clive and Wellesley."
+        ],
+        "mainsPointers": [
+          "Demonstrated the decisive role of individual field leadership (Clive vs Godeheu) and financial sustainability."
+        ]
+      },
+      {
+        "id": "topic-third-carnatic-war",
+        "title": "Third Carnatic War (1756–1763) & Battle of Wandiwash",
+        "keyFigures": ["Comte de Lally", "Sir Eyre Coote"],
+        "keyEvents": [
+          "Triggered by Seven Years' War in Europe (1756-1763).",
+          "1757: British capture French settlement of Chandannagar in Bengal, securing vast financial resources after Plassey.",
+          "1760: Battle of Wandiwash (Tamil Nadu) - Sir Eyre Coote decisively crushes Comte de Lally's French forces.",
+          "1761: British capture Pondicherry, Mahé, and Karaikal; French power completely eliminated in India.",
+          "1763: Treaty of Paris restores French trade factories but forbids fortifications and troop maintenance."
+        ],
+        "prelimsTraps": [
+          "Battle of Wandiwash (1760) ended French political-military ambitions in India, NOT Battle of Plassey.",
+          "Under the 1763 Treaty of Paris, French could only maintain non-fortified commercial factories."
+        ],
+        "mainsPointers": [
+          "Key reasons for British victory: Superior Royal Navy, private commercial autonomy of EIC, financial backing of rich Bengal province after Plassey."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-3",
+    "moduleNumber": 3,
+    "title": "British Conquest of Bengal (Plassey to Buxar)",
+    "era": "1757–1765",
+    "summary": "Bengal, the richest Mughal province, fell to the British through diplomatic betrayal (Plassey 1757) and superior military firepower (Buxar 1764), culminating in the 1765 Treaty of Allahabad and Dual Government.",
+    "keyTopics": [
+      {
+        "id": "topic-battle-of-plassey",
+        "title": "Battle of Plassey (1757) & The Black Hole Tragedy",
+        "keyFigures": ["Siraj-ud-Daulah", "Robert Clive", "Mir Jafar", "Jagat Seth", "Omichand", "Rai Durlabh"],
+        "keyEvents": [
+          "1756: Siraj-ud-Daulah succeeds Alivardi Khan; orders demolition of unauthorized British fortifications at Fort William.",
+          "June 1756: Siraj captures Calcutta; renamed Alinagar; controversial 'Black Hole Tragedy' reported by J.Z. Holwell.",
+          "Jan-Feb 1757: Clive and Watson recapture Calcutta; Treaty of Alinagar signed.",
+          "Clive hatches secret conspiracy with Mir Jafar (Commander), Jagat Seth (Banker), Omichand (Merchant), and Rai Durlabh.",
+          "June 23, 1757: Battle of Plassey - Mir Jafar prevents major Nawab forces from fighting; Siraj captured and killed by Miran.",
+          "Mir Jafar installed as puppet Nawab; cedes 24 Parganas zamindari and ₹2.25 crore in bribes/compensations to EIC."
+        ],
+        "prelimsTraps": [
+          "Plassey was a diplomatic coup / skirmish (only 22 British died), NOT a pitched military battle.",
+          "24 Parganas zamindari was granted to EIC after Plassey (1757), NOT Buxar."
+        ],
+        "mainsPointers": [
+          "Significance: Plassey transformed EIC from a commercial trading venture into the political master of Bengal's revenues."
+        ]
+      },
+      {
+        "id": "topic-battle-of-buxar",
+        "title": "Battle of Buxar (1764) & Treaty of Allahabad (1765)",
+        "keyFigures": ["Mir Qasim", "Shuja-ud-Daulah (Nawab of Awadh)", "Shah Alam II (Mughal Emperor)", "Major Hector Munro", "Robert Clive"],
+        "keyEvents": [
+          "1760: Mir Qasim made Nawab; shifts capital from Murshidabad to Munger (Bihar) to escape British surveillance; establishes arms factory.",
+          "1762-1763: Mir Qasim abolishes all internal transit duties to create parity between Indian and British merchants; EIC declares war.",
+          "Oct 22, 1764: Battle of Buxar - Major Hector Munro decisively defeats combined armies of Mir Qasim + Shuja-ud-Daulah + Mughal Emperor Shah Alam II.",
+          "Aug 1765: Treaty of Allahabad signed by Clive:",
+          "  • Shah Alam II grants Diwani (Revenue Collection Rights) of Bengal, Bihar, and Odisha to EIC in exchange for annual tribute of ₹26 lakh and Allahabad & Kara districts.",
+          "  • Shuja-ud-Daulah pays ₹50 lakh war indemnity and signs defensive alliance (Awadh becomes buffer state).",
+          "1765-1772: Dual Government in Bengal (Diwani with EIC, Nizamat with Nawab) causing immense administrative chaos and 1770 Bengal Famine."
+        ],
+        "prelimsTraps": [
+          "Hector Munro commanded the British forces at Buxar (1764), NOT Robert Clive (who arrived in 1765 for the treaty).",
+          "Buxar was a decisive pitched battle defeating the Sovereign of Delhi, proving British military superiority over all Indian powers."
+        ],
+        "mainsPointers": [
+          "Dual Government System: Separation of power from responsibility (EIC held revenue without administrative accountability; Nawab held responsibility without funds)."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-4",
+    "moduleNumber": 4,
+    "title": "Anglo-Mysore Wars & The Fall of Seringapatam",
+    "era": "1767–1799",
+    "summary": "Four bloody wars fought between the British and the resilient state of Mysore under Hyder Ali and Tipu Sultan. Concluded with the death of Tipu in 1799 and restoration of the Wodeyars under the Subsidiary Alliance.",
+    "keyTopics": [
+      {
+        "id": "topic-first-second-mysore-wars",
+        "title": "First & Second Anglo-Mysore Wars (Hyder Ali's Military Genius)",
+        "keyFigures": ["Hyder Ali", "Sir Eyre Coote", "Warren Hastings", "Colonel Baillie"],
+        "keyEvents": [
+          "1766-1769: First Anglo-Mysore War - Hyder Ali outmaneuvers British-Maratha-Nizam confederacy; reaches walls of Madras.",
+          "1769: Treaty of Madras - Mutual restitution of territories and British promise of defensive alliance in case of external attack.",
+          "1780-1784: Second Anglo-Mysore War - Triggered by British breach of 1769 treaty (refused help against Marathas in 1771) and British attack on French port of Mahé (in Mysore territory).",
+          "1780: Tipu Sultan annihilates Col. Baillie's force at Battle of Pollilur.",
+          "1781: Sir Eyre Coote defeats Hyder Ali at Porto Novo, Pollilur, and Sholinghur.",
+          "1782: Hyder Ali dies of cancer; Tipu Sultan continues war; Treaty of Mangalore (1784) signed with Lord Macartney on mutual restitution."
+        ],
+        "prelimsTraps": [
+          "First Anglo-Mysore War ended with Treaty of Madras (1769), which was a decisive diplomatic victory for Hyder Ali.",
+          "Second War ended with Treaty of Mangalore (1784) under Tipu Sultan."
+        ],
+        "mainsPointers": [
+          "Modernization of Mysore army: Westernized cavalry tactics, rocket artillery (Mysorean rockets), and Dindigul foundry."
+        ]
+      },
+      {
+        "id": "topic-third-fourth-mysore-wars",
+        "title": "Third & Fourth Anglo-Mysore Wars (Fall of Tipu Sultan)",
+        "keyFigures": ["Tipu Sultan", "Lord Cornwallis", "Lord Wellesley", "Arthur Wellesley"],
+        "keyEvents": [
+          "1790-1792: Third Anglo-Mysore War - Tipu attacks Travancore (British ally) over Dutch forts; Cornwallis allies with Marathas and Nizam.",
+          "1792: Treaty of Seringapatam - Tipu surrenders half his kingdom (Baramahal, Dindigul, Malabar to British); pays ₹3.3 crore indemnity and gives two sons as hostages.",
+          "1799: Fourth Anglo-Mysore War - Tipu establishes Jacobin Club (1794), plants 'Tree of Liberty', sends embassies to France, Turkey, Afghanistan; refuses Wellesley's Subsidiary Alliance.",
+          "May 4, 1799: Storming of Seringapatam - Tipu dies heroically defending fort; Mysore divided; Wodeyar minor (Krishnaraja III) installed under Subsidiary Alliance."
+        ],
+        "prelimsTraps": [
+          "Tipu Sultan planted the Tree of Liberty at Seringapatam (1794) and was an honorary member of the French Jacobin Club.",
+          "Lord Cornwallis commanded in the 3rd War, while Lord Wellesley launched the 4th War."
+        ],
+        "mainsPointers": [
+          "Tipu's statecraft: State commercial corporation, sericulture introduction, coin and calendar reforms, naval board at Jamalabad."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-5",
+    "moduleNumber": 5,
+    "title": "Ring Fence & Subsidiary Alliance Systems",
+    "era": "1773–1818",
+    "summary": "The grand imperial strategy of the British Empire transitioning from defensive buffer zones (Warren Hastings' Ring Fence) to aggressive subordinate isolation (Lord Wellesley's Subsidiary Alliance).",
+    "keyTopics": [
+      {
+        "id": "topic-subsidiary-alliance-framework",
+        "title": "Subsidiary Alliance: Mechanism, Conditions & Chronology",
+        "keyFigures": ["Dupleix (Originator)", "Warren Hastings", "Lord Wellesley (Master Architect)"],
+        "keyEvents": [
+          "Origin: Concept created by French governor Dupleix and adapted by Clive/Hastings (Protectorate system).",
+          "1798: Lord Wellesley systematizes Subsidiary Alliance with 4 rigid conditions:",
+          "  1. Stationing of permanent British subsidiary military force in native state territory.",
+          "  2. State bears maintenance costs (subsidy cash or territory cessions).",
+          "  3. Permanent British Resident stationed in state court (de facto internal interference).",
+          "  4. Surrender of external sovereignty (no alliances, wars, or hiring Europeans without EIC approval).",
+          "Chronology of Signatories:",
+          "  • 1798: Hyderabad (Nizam Ali Khan - first state)",
+          "  • 1799: Mysore (after 4th War) & Tanjore",
+          "  • 1801: Awadh (Nawab Saadat Ali Khan - ceded half of Awadh)",
+          "  • 1802: Peshwa Bajirao II (Treaty of Bassein)",
+          "  • 1803: Bhonsle of Berar (Deogaon) & Scindia (Surji-Anjangaon)",
+          "  • 1818: Holkars of Indore (Treaty of Mandsaur - last major Maratha power)"
+        ],
+        "prelimsTraps": [
+          "First state to sign Wellesley's systematized Subsidiary Alliance was Hyderabad (1798), NOT Awadh (Awadh signed in 1801, though it was a protectorate since 1765).",
+          "The Holkars were the LAST Maratha house to sign (1818), NOT Scindias."
+        ],
+        "mainsPointers": [
+          "Military & Financial Genius of the System: Expanded British army at the expense of Indian exchequers while isolating regional powers from combining."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-6",
+    "moduleNumber": 6,
+    "title": "Anglo-Maratha Wars & End of the Maratha Confederacy",
+    "era": "1775–1818",
+    "summary": "Three Anglo-Maratha wars dismantled the largest indigenous power in 18th-century India. Internal feuds between Peshwa, Holkar, Scindia, Bhonsle, and Gaikwad allowed the British to divide and conquer.",
+    "keyTopics": [
+      {
+        "id": "topic-maratha-confederacy-origin",
+        "title": "Maratha Confederacy & 3rd Battle of Panipat (1761)",
+        "keyFigures": ["Peshwa Bajirao I", "Balaji Bajirao (Nana Sahib)", "Sadashivrao Bhau", "Ahmad Shah Abdali"],
+        "keyEvents": [
+          "Peshwa Bajirao I (1720-1740) establishes Confederacy: Gaikwad (Baroda), Bhonsle (Nagpur), Holkar (Indore), Scindia (Gwalior), Peshwa (Pune).",
+          "1752: Maratha-Mughal agreement grants Chauth of Punjab/Multan to Marathas; Raghunath Rao captures Lahore.",
+          "Jan 14, 1761: Third Battle of Panipat - Afghan King Ahmad Shah Abdali crushes Maratha army; Sadashivrao Bhau and Vishwas Rao killed.",
+          "1761-1772: Madhavrao I restores Maratha supremacy in the North within a decade; dies 1772 of tuberculosis."
+        ],
+        "prelimsTraps": [
+          "3rd Battle of Panipat did not decide who would rule India, but rather who would NOT rule India (clearing path for British).",
+          "Nana Phadnavis headed the Barabhai Council (Council of Twelve) for infant Peshwa Sawai Madhavrao."
+        ],
+        "mainsPointers": [
+          "Internal factionalism after Madhavrao I's death proved fatal for Maratha unity."
+        ]
+      },
+      {
+        "id": "topic-three-anglo-maratha-wars",
+        "title": "The Three Wars & Abolition of the Peshwaship (1818)",
+        "keyFigures": ["Nana Phadnavis", "Mahadji Scindia", "Peshwa Bajirao II", "Jaswant Rao Holkar", "Lord Hastings"],
+        "keyEvents": [
+          "1775-1782: First Anglo-Maratha War - Treaty of Surat (1775) with Raghoba; Battle of Wadgaon (1779 British surrender); Treaty of Salbai (1782, Mahadji Scindia guarantor, guarantees 20-year peace).",
+          "1803-1805: Second Anglo-Maratha War - 1802 Battle of Hadapsar (Holkar defeats Scindia & Peshwa); Bajirao II signs Treaty of Bassein (1802 Subsidiary Alliance); Treaty of Surji-Anjangaon (1803 Scindia), Treaty of Deogaon (1803 Bhonsle).",
+          "1817-1818: Third Anglo-Maratha War & Pindari War - Lord Hastings attacks Pindaris; Peshwa attacks Pune Residency (Battle of Khadki); Battles of Sitabuldi (Bhonsle), Mahidpur (Holkar), Koregaon (1818).",
+          "1818: Peshwaship abolished; Bajirao II exiled to Bithur (Kanpur) on British pension; Satara created for Shivaji's descendant Pratap Singh."
+        ],
+        "prelimsTraps": [
+          "Treaty of Salbai (1782) ended the First War and gave the British 20 years of peace to focus on Mysore.",
+          "Battle of Koregaon (Jan 1, 1818) was fought between British troops (including Mahar battalion) and Peshwa's forces."
+        ],
+        "mainsPointers": [
+          "Causes of Maratha Defeat: Inept leadership of Bajirao II, lack of modern administrative institutions, failure to integrate Pindaris productively, and absence of naval strength."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-7",
+    "moduleNumber": 7,
+    "title": "Colonial Land Revenue Settlements & Agrarian Ruin",
+    "era": "1772–1833",
+    "summary": "British agrarian policies were designed for maximum extraction to fund colonial conquests and export capital to Britain. Three distinct systems (Permanent Settlement, Ryotwari, Mahalwari) reorganized rural Indian society into debt and tenancy.",
+    "keyTopics": [
+      {
+        "id": "topic-permanent-settlement",
+        "title": "Izaredari (1772) & Permanent Settlement of Bengal (1793)",
+        "keyFigures": ["Warren Hastings", "Lord Cornwallis", "Sir John Shore"],
+        "keyEvents": [
+          "1772: Warren Hastings introduces Izaredari System (5-year auction to highest bidder); total failure, caused 1770 Bengal Famine.",
+          "1793: Lord Cornwallis introduces Permanent Settlement in Bengal, Bihar, Odisha, Northern Carnatic, and Varanasi (covering ~19% of British India).",
+          "Provisions: Zamindars recognized as permanent owners of land with hereditary rights; state demand fixed permanently at 10/11th for EIC and 1/11th for Zamindar.",
+          "Sunset Law: If revenue not paid by sunset of appointed date, zamindari auctioned off.",
+          "Consequences: Creation of loyal landed aristocracy, rise of Absentee Landlordism, sub-infeudation, and total dispossession of cultivating peasants into tenants-at-will."
+        ],
+        "prelimsTraps": [
+          "Permanent Settlement covered only ~19% of British India, NOT the majority.",
+          "Under the Sunset Law, the entire zamindari was auctioned, giving rise to urban speculators."
+        ],
+        "mainsPointers": [
+          "Economic Drain: State revenue was fixed permanently, meaning the colonial government could not share in agricultural price rises, leading to rigid extraction."
+        ]
+      },
+      {
+        "id": "topic-ryotwari-system",
+        "title": "Ryotwari System (1820) & Polygar Resistance",
+        "keyFigures": ["Captain Alexander Read", "Sir Thomas Munro"],
+        "keyEvents": [
+          "1792: Alexander Read experiments in Baramahal after 3rd Mysore War.",
+          "1820: Thomas Munro implements Ryotwari across Madras and Bombay Presidencies, Assam, and Coorg (~51% of British India).",
+          "Provisions: Direct settlement with individual cultivator (Ryot); recognized as owner with right to sell/mortgage; revenue fixed at 50% of gross produce; revised every 20-30 years.",
+          "Polygar Revolt (1795-1799): Veerapandiya Kattabomman of Panchalankurichi resists British revenue demand; hanged 1799."
+        ],
+        "prelimsTraps": [
+          "Ryotwari covered the LARGEST area of British India (~51%), NOT Zamindari.",
+          "Revenue was assessed on the land's potential capacity rather than actual seasonal harvest, leading to heavy peasant debt during droughts."
+        ],
+        "mainsPointers": [
+          "Replaced private zamindars with the colonial state itself acting as the supreme predatory landlord."
+        ]
+      },
+      {
+        "id": "topic-mahalwari-system",
+        "title": "Mahalwari System (1822 / 1833)",
+        "keyFigures": ["Holt Mackenzie", "Robert Merttins Bird", "Lord William Bentinck"],
+        "keyEvents": [
+          "1822: Holt Mackenzie introduces Mahalwari via Regulation VII of 1822 in North-Western Provinces, Punjab, and Central Provinces (~30% of British India).",
+          "Unit of Assessment: Village community or estate ('Mahal'); collective responsibility of village headed by village headman ('Lambardar').",
+          "1833: Revised under William Bentinck (Regulation IX of 1833 by Merttins Bird); revenue reduced from 80% to 66%, fixed for 30 years."
+        ],
+        "prelimsTraps": [
+          "Mahalwari recognized communal village ownership through the Lambardar, NOT individual ryots or big zamindars.",
+          "Covered roughly 30% of British India (North-Western Provinces, Punjab, Gangetic Valley)."
+        ],
+        "mainsPointers": [
+          "Disrupted traditional village brotherhood (Bhaichara) by empowering the Lambardar as a coercive tax agent."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-8",
+    "moduleNumber": 8,
+    "title": "Constitutional & Administrative Evolution under EIC",
+    "era": "1773–1853",
+    "summary": "The gradual transformation of the East India Company from a commercial charter monopoly into a centralized bureaucratic governing body supervised by the British Parliament.",
+    "keyTopics": [
+      {
+        "id": "topic-regulating-pitts-acts",
+        "title": "Regulating Act (1773) & Pitt's India Act (1784)",
+        "keyFigures": ["Warren Hastings", "William Pitt the Younger", "Sir Elijah Impey"],
+        "keyEvents": [
+          "Regulating Act 1773: Governor of Bengal elevated to Governor-General of Bengal (Warren Hastings); 4-member Executive Council; Supreme Court at Calcutta (1774, Elijah Impey 1st CJ); Bombay & Madras subordinate.",
+          "Act of Settlement 1781 (Touchett Committee): Supreme Court jurisdiction barred from revenue collection and personal religious laws.",
+          "Pitt's India Act 1784: Dual control established - Board of Control (6 political/military members) and Court of Directors (commercial affairs); 'British possessions in India' term coined; Council reduced to 3 with casting vote for GG."
+        ],
+        "prelimsTraps": [
+          "Pitt's India Act created the Board of Control (Crown body) to supervise the Court of Directors (Company body).",
+          "1773 Supreme Court at Calcutta had jurisdiction ONLY over British subjects and Company servants, NOT all native Indians."
+        ],
+        "mainsPointers": [
+          "Shift from mercantile company rule to state-supervised colonial bureaucracy."
+        ]
+      },
+      {
+        "id": "topic-charter-acts-series",
+        "title": "Charter Acts of 1793, 1813, 1833 & 1853",
+        "keyFigures": ["Lord Cornwallis", "Lord William Bentinck", "Lord Macaulay", "Lord Dalhousie"],
+        "keyEvents": [
+          "Charter Act 1793: Home charges (salaries of Board of Control paid from Indian revenue); separation of judicial from revenue functions (Diwani Adalats).",
+          "Charter Act 1813: Abolished commercial monopoly except Tea and China trade; ₹1 lakh annual allocation for Indian education; Christian missionaries allowed.",
+          "Charter Act 1833 (Saint Helena Act): Complete abolition of commercial activities (purely administrative body); Governor-General of Bengal becomes Governor-General of India (Lord William Bentinck); 4th Law Member added (Lord Macaulay); First Law Commission appointed.",
+          "Charter Act 1853: Separation of legislative and executive functions; 12-member Legislative Council ('mini-parliament') with local provincial representation; Open competition for Civil Services (Macaulay Committee 1854); No fixed 20-year charter renewal."
+        ],
+        "prelimsTraps": [
+          "Charter Act 1833 made William Bentinck the first Governor-General of INDIA (not Bengal).",
+          "Open competition for civil services was enacted in 1853, NOT 1833 (where it was proposed but blocked by Court of Directors).",
+          "1853 Act did not specify any 20-year limit, signaling imminent Crown takeover."
+        ],
+        "mainsPointers": [
+          "Tracing the legislative centralization trajectory: from provincial autonomy to extreme centralization in 1833, before devolution in 1861."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-9",
+    "moduleNumber": 9,
+    "title": "Frontier Expansion & Geopolitical Wars",
+    "era": "1809–1880",
+    "summary": "British efforts to secure India's northwestern borders against potential Russian expansion (The Great Game) through the Anglo-Sikh Wars and Anglo-Afghan Wars.",
+    "keyTopics": [
+      {
+        "id": "topic-anglo-sikh-wars",
+        "title": "Anglo-Sikh Wars & Annexation of Punjab (1845–1849)",
+        "keyFigures": ["Maharaja Ranjit Singh", "Rani Jindan", "Duleep Singh", "Lord Hardinge", "Lord Dalhousie", "Henry Lawrence"],
+        "keyEvents": [
+          "1809: Treaty of Amritsar between Ranjit Singh and Metcalfe; Sutlej River recognized as southern boundary.",
+          "1839: Death of Ranjit Singh leads to rapid succession crisis (Kharak Singh, Nau Nihal Singh, Sher Singh, Duleep Singh).",
+          "1845-1846: First Anglo-Sikh War - Sikh army betrayed by Lal Singh and Teja Singh; Treaty of Lahore (1846, Jalandhar Doab ceded, Kashmir sold to Gulab Singh for ₹75 lakh); Treaty of Bherowal (1846, Henry Lawrence heads Regency Council).",
+          "1848-1849: Second Anglo-Sikh War - Revolt of Diwan Mulraj in Multan and Chattar Singh; Battles of Ramnagar, Chillianwala, and Gujarat ('Battle of Guns'); Dalhousie annexes Punjab (1849); John Lawrence becomes first Chief Commissioner (1853)."
+        ],
+        "prelimsTraps": [
+          "Under the 1846 Treaty of Lahore, Kashmir was sold to Gulab Singh of Jammu for ₹75 lakh because Lahore durbar could not pay war indemnity.",
+          "Dalhousie annexed Punjab in 1849 after the Second War, NOT after the First."
+        ],
+        "mainsPointers": [
+          "Punjab's martial classes were later systematically recruited after 1857 to balance Bengal regiments."
+        ]
+      },
+      {
+        "id": "topic-anglo-afghan-wars",
+        "title": "Anglo-Afghan Wars & The Great Game",
+        "keyFigures": ["Lord Auckland", "Dost Mohammad", "Shah Shuja", "Lord Lawrence", "Lord Lytton", "Sir Mortimer Durand"],
+        "keyEvents": [
+          "1838: Tripartite Treaty (EIC + Shah Shuja + Ranjit Singh).",
+          "1839-1842: First Anglo-Afghan War - Auckland's disastrous 'Forward Policy'; British army massacred during winter retreat from Kabul; Dost Mohammad restored.",
+          "1864-1876: Policy of Masterly Inactivity under John Lawrence, Lord Mayo, and Lord Northbrook.",
+          "1878-1880: Second Anglo-Afghan War - Lord Lytton's aggressive forward policy; Treaty of Gandamak (1879, Yakub Khan cedes foreign relations to British, British Resident in Kabul).",
+          "1893: Durand Agreement demarcates Durand Line between British India and Afghanistan.",
+          "1901: Lord Curzon creates North-West Frontier Province (NWFP) directly under Government of India."
+        ],
+        "prelimsTraps": [
+          "Policy of Masterly Inactivity is associated with Sir John Lawrence, NOT Lord Lytton (who pursued Forward Policy).",
+          "Durand Line was drawn in 1893 between British India and Afghanistan."
+        ],
+        "mainsPointers": [
+          "Afghanistan served as the ultimate buffer state preventing direct territorial clash between the British and Russian empires."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-10",
+    "moduleNumber": 10,
+    "title": "Lord Dalhousie & The Doctrine of Lapse",
+    "era": "1848–1856",
+    "summary": "Lord Dalhousie combined aggressive imperialist annexation through the Doctrine of Lapse with modern infrastructure foundations (Railways, Telegraph, Postal, Education).",
+    "keyTopics": [
+      {
+        "id": "topic-doctrine-of-lapse",
+        "title": "Doctrine of Lapse: Concept & Chronology of Annexations",
+        "keyFigures": ["Lord Dalhousie", "Rani Lakshmi Bai", "Nawab Wajid Ali Shah"],
+        "keyEvents": [
+          "Principle: In dependent princely states, adopted son could inherit personal private property but NOT political sovereignty or title.",
+          "Chronology of Annexations under Lapse:",
+          "  • 1848: Satara (first state - Raja Shahaji)",
+          "  • 1849: Jaitpur (Bundelkhand) & Sambalpur (Odisha)",
+          "  • 1850: Baghat (Punjab hills)",
+          "  • 1852: Udaipur (Madhya Pradesh)",
+          "  • 1853: Jhansi (Raja Gangadhar Rao)",
+          "  • 1854: Nagpur (Bhosle dynasty)",
+          "1856: Annexation of Awadh on pretext of 'misgovernance' (Outram Report), exiling Nawab Wajid Ali Shah to Calcutta."
+        ],
+        "prelimsTraps": [
+          "Satara was the FIRST state annexed under Doctrine of Lapse (1848).",
+          "Awadh was annexed in 1856 on the pretext of 'misgovernance', NOT under the Doctrine of Lapse.",
+          "Berar was ceded by the Nizam in 1853 for arrears of subsidiary army payment."
+        ],
+        "mainsPointers": [
+          "Direct catalyst for the Revolt of 1857: Discontented rulers, dispossessed talukdars of Awadh, and disbanded sepoys."
+        ]
+      },
+      {
+        "id": "topic-dalhousie-modernization",
+        "title": "Administrative & Modernization Reforms of Dalhousie",
+        "keyFigures": ["Lord Dalhousie", "Charles Wood", "Satyendranath Tagore", "Ishwar Chandra Vidyasagar"],
+        "keyEvents": [
+          "1852: Electric Telegraph system introduced (first line between Calcutta and Agra, Dr. William O'Shaughnessy).",
+          "1853: First passenger railway line in India (Bombay to Thane, 34 km, locomotives: Saheb, Sindh, Sultan).",
+          "1854: Post Office Act passes; uniform postage rates and postage stamps introduced; Central Postal Dept established.",
+          "1854: Public Works Department (PWD) established, separating civil works from military control.",
+          "1854: Wood's Despatch ('Magna Carta of English Education in India') recommending universities on London model (Calcutta, Bombay, Madras 1857).",
+          "1856: Hindu Widows' Remarriage Act (Act XV of 1856) drafted under Dalhousie and passed under Canning; promoted by Ishwar Chandra Vidyasagar.",
+          "1853: Open competition for Civil Services (Satyendranath Tagore first Indian in 1863)."
+        ],
+        "prelimsTraps": [
+          "Wood's Despatch was issued in 1854 under Dalhousie, while the universities were established in 1857 under Canning.",
+          "Hindu Widows' Remarriage Act was drafted by Dalhousie but passed by Lord Canning in 1856."
+        ],
+        "mainsPointers": [
+          "Dual role of Dalhousie: Built modern capitalist infrastructure to accelerate colonial economic exploitation and military troop mobility."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-11",
+    "moduleNumber": 11,
+    "title": "The Great Revolt of 1857 & Government of India Act 1858",
+    "era": "1857–1858",
+    "summary": "The first major multi-class rebellion against British colonial rule, sparked by the greased cartridges and fueled by deep socio-economic and political grievances. Resulted in the abolition of EIC and direct Crown takeover.",
+    "keyTopics": [
+      {
+        "id": "topic-revolt-1857-causes-outbreak",
+        "title": "Causes, Immediate Spark & Storm Centers of 1857",
+        "keyFigures": ["Mangal Pandey", "Bahadur Shah Zafar", "Bakht Khan", "Nana Sahib", "Begum Hazrat Mahal", "Rani Lakshmi Bai", "Kunwar Singh", "Maulvi Ahmadullah", "Shah Mal"],
+        "keyEvents": [
+          "Causes: Economic (deindustrialization, heavy land revenue, Inam commission), Political (Doctrine of Lapse, Awadh annexation), Socio-Religious (Religious Disabilities Act 1856, Sati/Widow laws, missionary interference), Military (General Service Enlistment Act 1856, racial discrimination, batta stoppage).",
+          "Immediate Spark: Pattern 1853 Enfield rifle cartridges greased with cow and pig fat.",
+          "March 29, 1857: Mangal Pandey (34th Native Infantry) revolts at Barrackpore; hanged April 8.",
+          "May 10, 1857: Sepoys of 3rd Native Cavalry mutiny at Meerut; march to Delhi; proclaim Bahadur Shah Zafar Emperor of India.",
+          "Storm Centers & Leaders:",
+          "  • Delhi: Bahadur Shah Zafar & General Bakht Khan (Suppressed by John Nicholson & Hudson).",
+          "  • Kanpur: Nana Sahib (Dhondu Pant) & Tantia Tope (Suppressed by Colin Campbell).",
+          "  • Lucknow: Begum Hazrat Mahal & Birjis Qadir (Suppressed by Colin Campbell).",
+          "  • Jhansi & Gwalior: Rani Lakshmi Bai & Tantia Tope (Suppressed by Sir Hugh Rose).",
+          "  • Arrah/Jagdishpur: Kunwar Singh (80-year-old zamindar) & Amar Singh (Suppressed by William Taylor & Vincent Eyre).",
+          "  • Bareilly: Khan Bahadur Khan (Rohilkhand).",
+          "  • Faizabad: Maulvi Ahmadullah (Danka Shah).",
+          "  • Baghpat (UP): Shah Mal (mobilized 84 villages)."
+        ],
+        "prelimsTraps": [
+          "The revolt began officially in Meerut on May 10, 1857, NOT Barrackpore (Mangal Pandey was an individual isolated incident in March).",
+          "Sir Hugh Rose termed Rani Lakshmi Bai 'the bravest and best military leader of the rebels'.",
+          "Kunwar Singh fought and defeated British forces multiple times before dying of battle wounds in April 1858."
+        ],
+        "mainsPointers": [
+          "Civilian participation: 1857 was not merely a military mutiny but a popular agrarian rebellion with heavy peasant and talukdar involvement in Awadh."
+        ]
+      },
+      {
+        "id": "topic-goi-act-1858",
+        "title": "Suppression, Failure Causes & Government of India Act 1858",
+        "keyFigures": ["Lord Canning", "Lord Stanley", "Queen Victoria"],
+        "keyEvents": [
+          "Reasons for Failure: Localized nature (limited to North & Central India; South, West, and East largely quiet); Non-participation of educated middle class and major princes (Scindia, Holkar, Nizam, Kashmir); Outdated arms vs British telegraph and rifles; Lack of unified forward-looking political ideology.",
+          "Government of India Act 1858 ('Act for Better Government of India'):",
+          "  • Abolished East India Company; transfer of government to British Crown.",
+          "  • Abolished Dual Government (Board of Control and Court of Directors).",
+          "  • Created office of Secretary of State for India (Lord Stanley first SOS) with 15-member advisory Council of India.",
+          "  • Governor-General given additional title of Viceroy (Lord Canning first Viceroy).",
+          "Nov 1, 1858: Queen Victoria's Proclamation at Allahabad Durbar ('Magna Carta of the People of India') - promised end to annexations, religious non-interference, and equal treatment under law."
+        ],
+        "prelimsTraps": [
+          "Lord Canning was the LAST Governor-General of the Company and the FIRST Viceroy of the Crown.",
+          "1858 Act abolished the Board of Control and Court of Directors created under Pitt's India Act 1784."
+        ],
+        "mainsPointers": [
+          "Military reorganization after 1857: Peel Commission (1859) mandated 'Divide and Rule' by balancing martial vs non-martial races and maintaining strict European-to-Indian soldier ratios (1:2 in Bengal, 1:3 in Madras/Bombay)."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-12",
+    "moduleNumber": 12,
+    "title": "Early Nationalism, Pre-Congress Bodies & Foundation of INC",
+    "era": "1858–1905",
+    "summary": "Rise of modern political consciousness, administrative resistance (Ilbert Bill), growth of regional political associations, and the formation of the Indian National Congress in 1885.",
+    "keyTopics": [
+      {
+        "id": "topic-pre-congress-orgs",
+        "title": "Pre-1885 Political Associations & Ilbert Bill Controversy",
+        "keyFigures": ["Raja Ram Mohan Roy", "Radhakant Deb", "Dadabhai Naoroji", "Surendranath Banerjee", "M.G. Ranade", "Lord Ripon", "C.P. Ilbert"],
+        "keyEvents": [
+          "1838: Landholders' Society / Zamindari Association (Radhakant Deb, Dwarkanath Tagore - first constitutional petitioning body).",
+          "1851: British Indian Association (merger of Landholders' Society & Bengal British India Society).",
+          "1866: East India Association founded in London by Dadabhai Naoroji to lobby British public opinion.",
+          "1867: Poona Sarvajanik Sabha (M.G. Ranade, S.H. Chiplunkar).",
+          "1876: Indian Association of Calcutta (Surendranath Banerjee & Anand Mohan Bose) - protested reduction of ICS age to 19 (1878) and Lytton's Vernacular Press Act.",
+          "1884: Madras Mahajan Sabha (M. Veeraraghavachariar, G. Subramania Iyer, P. Ananda Charlu).",
+          "1885: Bombay Presidency Association (Pherozeshah Mehta, K.T. Telang, Badruddin Tyabji).",
+          "1883-1884: Ilbert Bill Controversy - C.P. Ilbert proposes allowing Indian district magistrates to try Europeans; fierce racist white opposition forces dilution (1884 CrPC Amendment requiring 50% European jury); unites Indian intelligentsia."
+        ],
+        "prelimsTraps": [
+          "Indian Association of Calcutta (1876) was the precursor to INC and launched the first All-India civil services agitation.",
+          "Ilbert Bill was introduced under Viceroy Lord Ripon (1880-1884)."
+        ],
+        "mainsPointers": [
+          "The Ilbert Bill controversy unmasked the myth of British racial equality and convinced Indian elites of the necessity of an All-India political platform."
+        ]
+      },
+      {
+        "id": "topic-inc-formation-moderates",
+        "title": "Foundation of INC (1885) & The Moderate Era (1885–1905)",
+        "keyFigures": ["A.O. Hume", "W.C. Bonnerjee", "Dadabhai Naoroji", "Gopal Krishna Gokhale", "Romesh Chunder Dutt", "Lord Dufferin"],
+        "keyEvents": [
+          "Dec 28, 1885: First session of INC at Gokuldas Tejpal Sanskrit College, Bombay; presided by W.C. Bonnerjee; attended by 72 delegates.",
+          "Theories of Origin: 'Safety Valve Theory' (Lala Lajpat Rai in Young India 1916 / Wedderburn biography) vs 'Lightning Conductor / Nationalist Theory' (G.K. Gokhale, Bipan Chandra).",
+          "Key Early Sessions:",
+          "  • 1886 Calcutta: Dadabhai Naoroji (appointed Hutchinson Commission for Civil Services).",
+          "  • 1887 Madras: Badruddin Tyabji (1st Muslim President; use of Tamil pamphlets).",
+          "  • 1888 Allahabad: George Yule (1st Non-Indian/British President).",
+          "  • 1889 Bombay: William Wedderburn (1st session with women delegates, Kadambini Ganguly).",
+          "Methodology: 3Ps (Prayer, Petition, Protest); constitutional agitation within law.",
+          "Economic Critique of Colonialism: Dadabhai Naoroji's 'Poverty and Un-British Rule in India' (1901) and Drain of Wealth theory; R.C. Dutt's 'Economic History of India'.",
+          "Indian Councils Act 1892: Concession to Congress - increased non-official members, indirect election principle, budget discussion allowed (no voting)."
+        ],
+        "prelimsTraps": [
+          "Lord Dufferin initially invited delegates to tea in 1886, but later mocked INC as a 'microscopic minority'.",
+          "Kadambini Ganguly, the first female graduate of Calcutta University, addressed the 1890 Congress session.",
+          "Indian Councils Act 1892 allowed discussion on the budget and questioning with 6 days notice, but NO supplementary questions or voting on financial bills."
+        ],
+        "mainsPointers": [
+          "Achievements of Moderates: Created an All-India national consciousness, exposed the economic drain of British rule, and laid ideological foundations for mass struggle."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-13",
+    "moduleNumber": 13,
+    "title": "Swadeshi Movement, Surat Split & Revolutionary Surge",
+    "era": "1905–1915",
+    "summary": "Lord Curzon's partition of Bengal ignited the Swadeshi & Boycott movement, splitting the Congress at Surat (1907) and giving birth to militant nationalism and revolutionary secret societies in India and abroad.",
+    "keyTopics": [
+      {
+        "id": "topic-partition-bengal-swadeshi",
+        "title": "Partition of Bengal (1905) & Swadeshi / Boycott Movement",
+        "keyFigures": ["Lord Curzon", "Surendranath Banerjee", "Bal Gangadhar Tilak", "Bipin Chandra Pal", "Lala Lajpat Rai", "Aurobindo Ghosh", "Rabindranath Tagore"],
+        "keyEvents": [
+          "July 1905: Curzon announces Partition of Bengal (effective Oct 16, 1905) - Western Bengal (Hindu majority) and Eastern Bengal & Assam (Muslim majority).",
+          "Aug 7, 1905: Boycott Resolution passed at Calcutta Town Hall; launch of Swadeshi Movement; 'Vande Mataram' becomes anthem; Raksha Bandhan celebrated.",
+          "Swadeshi Institutions: National Council of Education (1906), Bengal National College (Aurobindo Ghosh principal), Bengal Chemicals (P.C. Ray).",
+          "Spread: Tilak (Maharashtra & Poona), Lala Lajpat Rai & Ajit Singh (Punjab), Syed Haider Raza (Delhi), Chidambaram Pillai (Madras).",
+          "1906 Calcutta Session: Dadabhai Naoroji presides; passes 4 historic resolutions: Swaraj (Self-Government), Swadeshi, Boycott, National Education.",
+          "1911: Delhi Durbar (King George V) annuls Partition of Bengal; shifts capital from Calcutta to Delhi; Bihar and Orissa carved out."
+        ],
+        "prelimsTraps": [
+          "Swaraj was declared the goal of Congress for the first time at the 1906 Calcutta session under Dadabhai Naoroji, NOT 1929 Lahore.",
+          "Chidambaram Pillai founded the Swadeshi Steam Navigation Company in Tuticorin (Madras)."
+        ],
+        "mainsPointers": [
+          "Evolution of National Struggle: Swadeshi marked the transition from elite petitioning to mass mobilization, including student, women, and labor participation."
+        ]
+      },
+      {
+        "id": "topic-surat-split-muslim-league",
+        "title": "Surat Split (1907) & Foundation of Muslim League (1906)",
+        "keyFigures": ["Rash Behari Ghosh", "Bal Gangadhar Tilak", "Nawab Salimullah", "Aga Khan III", "Lord Minto"],
+        "keyEvents": [
+          "Dec 1906: All India Muslim League founded at Dhaka by Nawab Salimullah, Waqar-ul-Mulk, and Aga Khan III; aimed to promote Muslim loyalty to British and demand separate electorates.",
+          "Dec 1907: Surat Split at INC session (Rash Behari Ghosh elected president over Tilak/Lajpat Rai); violent clash; Extremists expelled.",
+          "British Repression: Tilak sentenced to 6 years in Mandalay Jail (1908-1914); Aurobindo retires to Pondicherry; Lala Lajpat Rai leaves for US; Swadeshi fades by 1908.",
+          "Indian Councils Act 1909 (Morley-Minto Reforms): Separate electorates introduced for Muslims (seeds of communal representation); Imperial Legislative Council expanded to 60; Satyendra P. Sinha first Indian in Viceroy's Executive Council."
+        ],
+        "prelimsTraps": [
+          "Surat session was originally scheduled for Nagpur, but Moderates shifted it to Surat to prevent Tilak from becoming president.",
+          "Separate electorates were first introduced in 1909 under Morley-Minto, fulfilling the Muslim League's 1906 Shimla Deputation."
+        ],
+        "mainsPointers": [
+          "Surat Split weakened the national movement for nearly a decade until the 1916 Lucknow reunion."
+        ]
+      },
+      {
+        "id": "topic-revolutionary-societies-ghadar",
+        "title": "Early Revolutionary Phase (Bengal, Maharashtra, Punjab & Ghadar)",
+        "keyFigures": ["Vasudev Balwant Phadke", "Chapekar Brothers", "V.D. Savarkar", "Barindra Ghosh", "Khudiram Bose", "Prafulla Chaki", "Lala Hardayal", "Rash Behari Bose", "Kartar Singh Sarabha", "Baba Gurdit Singh"],
+        "keyEvents": [
+          "Maharashtra: 1879 Ramosi Peasant Force (Phadke); 1897 Chapekar brothers assassinate Plague Commissioner Rand; 1904 Abhinav Bharat Society (Savarkar brothers - Nasik Conspiracy Case 1909).",
+          "Bengal: 1902 Anushilan Samiti (Pramatha Mitra); 1906 Jugantar (Barindra Ghosh, Bhupendra Nath Datta); 1908 Alipore Bomb Case (Khudiram Bose & Prafulla Chaki attempt on Kingsford).",
+          "Punjab: 1907 Bharat Mata Society (Ajit Singh & Lala Lajpat Rai - Pagri Sambhal Jatta); 1912 Delhi Conspiracy Case (Rash Behari Bose bomb on Lord Hardinge).",
+          "Abroad: 1905 India House & Indian Sociologist (Shyamji Krishna Varma in London, Madan Lal Dhingra shoots Curzon Wyllie 1909); Madam Bhikaji Cama hoists tricolor at Stuttgart (1907).",
+          "1913: Ghadar Party formed in San Francisco (Yugantar Ashram, Lala Hardayal, Sohan Singh Bhakna, 'The Ghadar' weekly).",
+          "1914: Komagata Maru incident (Baba Gurdit Singh, 376 passengers denied entry in Canada, Budge Budge firing); 1915 Ghadar Mutiny plan uncovered by British CID."
+        ],
+        "prelimsTraps": [
+          "Khudiram Bose (18 yrs) was hanged in 1908 for the Muzaffarpur bombing; Prafulla Chaki shot himself.",
+          "Madam Cama hoisted the first version of the Indian National Flag at the International Socialist Congress in Stuttgart, Germany (1907).",
+          "Komagata Maru was a Japanese steamship chartered by Baba Gurdit Singh."
+        ],
+        "mainsPointers": [
+          "Revolutionary movement provided the radical impetus and heroic inspiration that sustained national fervor when mainstream constitutional politics was dormant."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-14",
+    "moduleNumber": 14,
+    "title": "Gandhian Era, Mass Movements & Constitutional Deadlocks",
+    "era": "1915–1934",
+    "summary": "Return of Mahatma Gandhi (1915), Home Rule Movement (1916), Lucknow Pact, Early Satyagrahas, Non-Cooperation Movement (1920–22), Revolutionary Socialism (HSRA), Civil Disobedience Movement (1930–34), and the Poona Pact.",
+    "keyTopics": [
+      {
+        "id": "topic-home-rule-lucknow-pact",
+        "title": "Home Rule Movement (1916) & Lucknow Pact (1916)",
+        "keyFigures": ["Bal Gangadhar Tilak", "Annie Besant", "Ambica Charan Mazumdar", "Muhammad Ali Jinnah"],
+        "keyEvents": [
+          "April 1916: Tilak launches Indian Home Rule League in Belgaum/Poona (Maharashtra, CP, Berar, Karnataka, 6 branches; demanded linguistic states and vernacular education).",
+          "Sept 1916: Annie Besant launches Home Rule League in Madras (Adyar HQ, 200+ branches, rest of India; New India & Commonweal newspapers).",
+          "1916 Lucknow Session (A.C. Mazumdar): Moderate-Extremist reunion; joint session with Muslim League.",
+          "Lucknow Pact 1916: Congress accepts separate electorates for Muslims; joint demand for self-government; Jinnah hailed as 'Ambassador of Hindu-Muslim Unity'.",
+          "August 1917: Montagu Declaration ('August Declaration') promises progressive realization of responsible government in India."
+        ],
+        "prelimsTraps": [
+          "Tilak's Home Rule League was founded FIRST (April 1916) before Annie Besant's (Sept 1916).",
+          "Tilak and Besant maintained separate leagues to prevent personality clashes among followers.",
+          "Annie Besant was elected first WOMAN President of INC at Calcutta (1917)."
+        ],
+        "mainsPointers": [
+          "Lucknow Pact created a short-term political alliance but legitimized separate electorates, institutionalizing communalism in national politics."
+        ]
+      },
+      {
+        "id": "topic-early-gandhian-satyagrahas",
+        "title": "Champaran, Ahmedabad, Kheda & Rowlatt Satyagraha (1917–1919)",
+        "keyFigures": ["Mahatma Gandhi", "Raj Kumar Shukla", "Rajendra Prasad", "Anasuya Sarabhai", "Sardar Vallabhbhai Patel", "General Dyer", "Dr. Saifuddin Kitchlew"],
+        "keyEvents": [
+          "Jan 9, 1915: Gandhi returns to India from South Africa (Pravasi Bharatiya Divas).",
+          "1917: Champaran Satyagraha (First Civil Disobedience) - Opposed Tinkathia system (3/20th indigo); Champaran Agrarian Act 1918 abolishes system with 25% compensation refund.",
+          "Feb-March 1918: Ahmedabad Mill Strike (First Hunger Strike) - Dispute over Plague Bonus; Gandhi's 3-day fast secures 35% wage hike with Anasuya Sarabhai.",
+          "March 1918: Kheda Satyagraha (First Non-Cooperation) - Crop failure (>75% loss); Revenue Code 1/4th remission rule; Sardar Patel leads; government suspends revenue.",
+          "March 1919: Rowlatt Act (Anarchical and Revolutionary Crimes Act) - Arrest without warrant, 2-year detention without trial; Gandhi launches Satyagraha Sabha & April 6 nationwide hartal.",
+          "April 13, 1919: Jallianwala Bagh Massacre (Amritsar) - Protesting arrest of Dr. Kitchlew and Dr. Satyapal on Baisakhi; General Dyer fires on crowd; Hunter Committee appointed; Tagore renounces Knighthood."
+        ],
+        "prelimsTraps": [
+          "Chronology of early Gandhi movements: Champaran (1917) → Ahmedabad Mill Strike (Feb 1918) → Kheda Satyagraha (March 1918).",
+          "Champaran was First Civil Disobedience; Ahmedabad was First Hunger Strike; Kheda was First Non-Cooperation."
+        ],
+        "mainsPointers": [
+          "Gandhian Methodology: Truth (Satya), Non-violence (Ahimsa), Moral Superiority, and testing mass readiness before escalating."
+        ]
+      },
+      {
+        "id": "topic-non-cooperation-khilafat",
+        "title": "Non-Cooperation Movement (1920–1922) & Swarajists",
+        "keyFigures": ["Mahatma Gandhi", "Ali Brothers (Shaukat & Mohammad Ali)", "C.R. Das", "Motilal Nehru", "Sardar Patel"],
+        "keyEvents": [
+          "1919-1920: Khilafat Movement - Ali Brothers & Maulana Azad protest dismemberment of Ottoman Empire/Caliph (Treaty of Sèvres); Gandhi elected President of All India Khilafat Conference.",
+          "Aug 1, 1920: NCM launched (coincides with death of Bal Gangadhar Tilak; Tilak Swaraj Fund collects ₹1 crore+).",
+          "Sept 1920 Calcutta Special Session (Lajpat Rai) & Dec 1920 Nagpur Session (Vijayaraghavachariar) ratify NCM; goal changed to 'Swaraj via peaceful mass struggle'; linguistic Provincial Congress Committees formed.",
+          "Programmes: Boycott of government schools, law courts, foreign cloth, titles, and legislative councils; promotion of Khadi, charkha, and national colleges.",
+          "Feb 5, 1922: Chauri Chaura incident (Gorakhpur, UP) - 22 policemen burnt alive in police station; Gandhi suspends NCM on Feb 12 (Bardoli Resolution); arrested March 10 (6 years jail).",
+          "1922-1923: Gaya Session (1922) - Split between Swarajists (Pro-Changers: C.R. Das, Motilal Nehru - enter councils to 'end or mend' from within) and No-Changers (Rajendra Prasad, Patel, Rajagopalachari - constructive work); Swaraj Party wins 42/101 elected seats in 1923; Vithalbhai Patel elected Central Legislative Assembly Speaker (1925)."
+        ],
+        "prelimsTraps": [
+          "Congress Constitution was restructured on linguistic basis at Nagpur Session (1920).",
+          "Vithalbhai Patel was elected the first Indian Speaker of the Central Legislative Assembly in 1925."
+        ],
+        "mainsPointers": [
+          "NCM marked the definitive transformation of Indian nationalism from an elite urban phenomenon into a genuine peasant and working-class mass movement."
+        ]
+      },
+      {
+        "id": "topic-revolutionary-socialism-hsra",
+        "title": "Revolutionary Socialism (HRA, HSRA, Bhagat Singh & Surya Sen)",
+        "keyFigures": ["Ramprasad Bismil", "Ashfaqullah Khan", "Chandrashekhar Azad", "Bhagat Singh", "Batukeshwar Dutt", "Jatin Das", "Surya Sen"],
+        "keyEvents": [
+          "1924: Hindustan Republican Association (HRA) founded in Kanpur by Ramprasad Bismil, Sachindra Sanyal, Jogesh Chatterjee.",
+          "Aug 9, 1925: Kakori Train Action - Government treasury looted; Kakori Conspiracy trial leads to hanging of Bismil, Ashfaqullah, Roshan Singh, Rajendra Lahiri.",
+          "1928: Hindustan Socialist Republican Association (HSRA) formed at Feroz Shah Kotla, Delhi, under Chandrashekhar Azad and Bhagat Singh (embracing Marxist-Socialist goals).",
+          "Dec 1928: Saunders Assassination (Lahore) - Bhagat Singh, Rajguru, and Azad avenge death of Lala Lajpat Rai.",
+          "April 8, 1929: Central Legislative Assembly Bombing - Bhagat Singh & Batukeshwar Dutt throw harmless smoke bombs against Public Safety Bill & Trade Disputes Bill ('To make the deaf hear').",
+          "1929: Lahore Conspiracy Case - 63-day hunger strike in jail; Jatin Das achieves martyrdom.",
+          "March 23, 1931: Bhagat Singh, Sukhdev, and Rajguru executed at Lahore Jail.",
+          "April 18, 1930: Chittagong Armoury Raid - Surya Sen ('Master Da'), Indian Republican Army, Pritilata Waddedar, Kalpana Dutt liberate Chittagong armories."
+        ],
+        "prelimsTraps": [
+          "HRA (1924, Kanpur) added 'Socialist' to become HSRA in 1928 at Feroz Shah Kotla, Delhi.",
+          "Bhagat Singh and Batukeshwar Dutt threw bombs in the Assembly to get arrested and use court proceedings for revolutionary propaganda, NOT to kill."
+        ],
+        "mainsPointers": [
+          "Ideological shift: Revolutionaries evolved from individual terrorism/dacoities into disciplined socialist revolutionaries aiming for the overthrow of both foreign imperialism and domestic capitalism."
+        ]
+      },
+      {
+        "id": "topic-simon-nehru-lahore-purna-swaraj",
+        "title": "Simon Commission, Nehru Report & Lahore Purna Swaraj (1927–1929)",
+        "keyFigures": ["Sir John Simon", "Lord Birkenhead", "Motilal Nehru", "Jawaharlal Nehru", "Subhash Chandra Bose", "M.A. Jinnah"],
+        "keyEvents": [
+          "Nov 1927: British appoint 7-member all-white Simon Commission (Indian Statutory Commission) under Sir John Simon; boycotted across India ('Simon Go Back').",
+          "Oct 1928: Lala Lajpat Rai assaulted by ASP Saunders/Scott during Lahore lathi charge; dies Nov 17, 1928.",
+          "1928: Nehru Report (Motilal Nehru Committee) drafts constitutional blueprint in response to Birkenhead's challenge: demanded Dominion Status, 19 Fundamental Rights, Joint Electorates with reservation, Linguistic Provinces; rejected separate electorates.",
+          "1928: Independence for India League formed by Jawaharlal Nehru and Subhash Bose, rejecting Dominion Status in favor of Complete Independence.",
+          "1928: Bardoli Satyagraha - Vallabhbhai Patel leads no-tax movement against 22% land revenue hike; Maxwell-Broomfield inquiry reduces hike to 6.03%; women confer title 'Sardar'.",
+          "1929: Jinnah presents '14 Points' after rejection of Nehru Report amendments.",
+          "Dec 1929: Lahore Congress Session (Jawaharlal Nehru President) - Passes Purna Swaraj (Complete Independence) Resolution; Tricolor hoisted on banks of Ravi (Dec 31); Jan 26, 1930 declared Independence Day."
+        ],
+        "prelimsTraps": [
+          "Nehru Report (1928) demanded DOMINION STATUS, which was opposed by younger leaders Jawaharlal Nehru and Subhash Bose.",
+          "Sardar title was given to Vallabhbhai Patel by the women of Bardoli (1928)."
+        ],
+        "mainsPointers": [
+          "Lahore Session 1929 was the watershed moment when the national movement formally ended all ambiguity and committed itself to total Purna Swaraj."
+        ]
+      },
+      {
+        "id": "topic-civil-disobedience-round-table",
+        "title": "Civil Disobedience Movement, RTCs & Poona Pact (1930–1934)",
+        "keyFigures": ["Mahatma Gandhi", "Lord Irwin", "Sarojini Naidu", "Khan Abdul Ghaffar Khan", "B.R. Ambedkar", "Ramsay MacDonald"],
+        "keyEvents": [
+          "March 12 – April 6, 1930: Dandi Salt March (390 km / 240 miles from Sabarmati to Dandi with 78 ashramites); Gandhi breaks salt law on April 6, launching CDM.",
+          "Regional CDM hubs: Vedaranyam March in Tamil Nadu (C. Rajagopalachari); Payyanur in Malabar (K. Kelappan); Peshawar/NWFP (Khan Abdul Ghaffar Khan's Khudai Khidmatgars / Red Shirts; Garhwal Rifles refuse to fire); Dharasana Salt Works (Sarojini Naidu, Webb Miller report); Eastern India (Chaukidari tax refusal); Nagaland (Rani Gaidinliu).",
+          "Nov 1930 – Jan 1931: First Round Table Conference in London; boycotted by INC.",
+          "March 5, 1931: Gandhi-Irwin Pact (Delhi Pact) - CDM suspended; INC agrees to attend 2nd RTC; political prisoners released; coastal salt manufacture allowed.",
+          "March 1931: Karachi Session (Sardar Patel President) - Endorses Delhi Pact; passes historic Resolutions on Fundamental Rights and National Economic Programme.",
+          "Sept – Dec 1931: Second Round Table Conference (London) - Gandhi attends as sole INC representative; deadlocks over separate electorates; returns empty-handed; resumes CDM Phase 2; Lord Willingdon bans Congress.",
+          "Aug 16, 1932: British PM Ramsay MacDonald announces Communal Award (separate electorates for Depressed Classes for 71 seats).",
+          "Sept 20, 1932: Gandhi begins fast unto death in Yerwada Jail; Poona Pact signed on Sept 24, 1932 (Ambedkar & Gandhi) - separate electorates replaced with Joint Electorates with 148 reserved seats in provincial assemblies and 18% in central legislature.",
+          "1934: Gandhi officially withdraws Civil Disobedience Movement."
+        ],
+        "prelimsTraps": [
+          "Karachi Session (1931) passed the Fundamental Rights & National Economic Programme resolutions, drafted by Nehru.",
+          "Poona Pact (1932) DOUBLED reserved seats for Depressed Classes (from 71 under Communal Award to 148) in exchange for abandoning separate electorates.",
+          "Gandhi attended ONLY the Second Round Table Conference (1931)."
+        ],
+        "mainsPointers": [
+          "CDM demonstrated unprecedented mass participation of women in picketing, salt making, and jail courting, permanently altering the gender dynamics of Indian politics."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mod-hist-mod-15",
+    "moduleNumber": 15,
+    "title": "Road to Independence, Partition & Integration",
+    "era": "1935–1947",
+    "summary": "Government of India Act 1935, 1937 elections, World War II crisis, Quit India Movement (1942), INA trials, Cabinet Mission (1946), Mountbatten Plan, Partition, and the integration of 565 princely states.",
+    "keyTopics": [
+      {
+        "id": "topic-goi-act-1935-elections",
+        "title": "Government of India Act 1935 & 1937 Provincial Elections",
+        "keyFigures": ["Lord Linlithgow", "Jawaharlal Nehru", "Subhash Chandra Bose", "M.A. Jinnah"],
+        "keyEvents": [
+          "Government of India Act 1935: Longest act (321 sections, 10 schedules); Abolished Dyarchy in provinces and introduced Provincial Autonomy; Proposed All-India Federation (never implemented as princely states refused); Dyarchy introduced at Centre with 3 lists (Federal 59, Provincial 54, Concurrent 36); Established Federal Court (1937), RBI (1935), and Federal PSC; Burma separated from India.",
+          "1937 Provincial Elections: INC wins absolute majority in 5 provinces (UP, Bihar, Madras, CP, Orissa) and forms coalition in 3 (Bombay, NWFP, Assam) = 8/11 provinces; Muslim League performs poorly (wins only 106/482 Muslim seats).",
+          "1938 Haripura Session: Subhash Chandra Bose president; sets up National Planning Committee (Nehru chairman).",
+          "1939 Tripuri Session: Bose re-elected defeating Gandhi's candidate Pattabhi Sitaramayya; ideological rift leads to Bose's resignation; Forward Bloc founded.",
+          "Oct 1939: Viceroy Linlithgow declares India at war in WWII without consulting Indian leaders; all Congress ministries resign; Muslim League celebrates 'Day of Deliverance' (Dec 22, 1939).",
+          "March 1940: Muslim League passes Lahore Resolution ('Pakistan Resolution') demanding sovereign Muslim states.",
+          "Oct 1940: Individual Satyagraha launched by Gandhi to affirm right to free speech against war mobilization (Vinoba Bhave 1st Satyagrahi, Nehru 2nd, Brahma Datt 3rd; 'Delhi Chalo')."
+        ],
+        "prelimsTraps": [
+          "All-India Federation under 1935 Act NEVER came into existence because princely states failed to sign the Instrument of Accession.",
+          "Vinoba Bhave was the FIRST Individual Satyagrahi (Oct 1940), NOT Jawaharlal Nehru.",
+          "Day of Deliverance was celebrated by Muslim League on Dec 22, 1939, following Congress ministries' resignation."
+        ],
+        "mainsPointers": [
+          "1937-1939 Congress provincial administration demonstrated Indian governance competence and enacted significant agrarian tenancy and debt relief laws."
+        ]
+      },
+      {
+        "id": "topic-quit-india-ina",
+        "title": "Cripps Mission (1942), Quit India Movement & Netaji's INA",
+        "keyFigures": ["Sir Stafford Cripps", "Mahatma Gandhi", "Aruna Asaf Ali", "Usha Mehta", "Subhash Chandra Bose", "Captain Mohan Singh", "Rash Behari Bose"],
+        "keyEvents": [
+          "March 1942: Cripps Mission offers post-war Dominion Status, Constituent Assembly, and right of provinces to secede; rejected by Congress (Gandhi: 'post-dated cheque on a failing bank') and Muslim League.",
+          "Aug 8, 1942: Quit India Resolution passed at Gowalia Tank, Bombay ('Do or Die'); Operation Zero Hour arrests all top leaders on Aug 9.",
+          "Mass Uprising: Attacks on railway lines, police stations, courts; Parallel Governments established: Ballia (Chittu Pandey), Tamluk Jatiya Sarkar (Midnapore, Bengal), Satara Prati Sarkar (Nana Patil & Y.B. Chavan).",
+          "Underground Networks: Aruna Asaf Ali hoists tricolor at Gowalia Tank; Ram Manohar Lohia, Jayaprakash Narayan, Sucheta Kripalani; Usha Mehta runs clandestine 'Congress Radio'.",
+          "Indian National Army (INA): Formed initially by Captain Mohan Singh (1942) with Japanese Major Fujiwara; Rash Behari Bose transfers Indian Independence League to Netaji Subhash Chandra Bose in Singapore (July 1943).",
+          "Oct 1943: Netaji establishes Provisional Government of Free India (Azad Hind) in Singapore; Rani of Jhansi all-women combat regiment (Captain Lakshmi Swaminathan); INA hoists tricolor at Moirang, Manipur (1944).",
+          "Nov 1945: Red Fort INA Trials (Prem Sahgal, Gurbaksh Dhillon, Shahnawaz Khan) sparks massive nationwide solidarity defended by Bhulabhai Desai, Tej Bahadur Sapru, and Nehru.",
+          "Feb 18, 1946: Royal Indian Navy (RIN) Mutiny on HMIS Talwar in Bombay ('No Food, No Work'); 78 ships revolt under Naval Central Strike Committee (M.S. Khan); Patel & Jinnah persuade surrender."
+        ],
+        "prelimsTraps": [
+          "First INA was conceived by Captain Mohan Singh with Japanese POWs in 1942 before Netaji took command in 1943.",
+          "Parallel governments: Ballia (Chittu Pandey - 1st), Tamluk Jatiya Sarkar (Bengal - Vidyut Vahini), Satara Prati Sarkar (Maharashtra - longest lasting 1943-46).",
+          "Usha Mehta operated the secret Congress Radio during Quit India."
+        ],
+        "mainsPointers": [
+          "INA Trials and RIN Mutiny proved to the British that the Indian Armed Forces could no longer be relied upon to suppress the Indian population, rendering colonial rule unsustainable."
+        ]
+      },
+      {
+        "id": "topic-cabinet-mission-partition-integration",
+        "title": "Cabinet Mission (1946), Mountbatten Plan & Integration of States",
+        "keyFigures": ["Lord Pethick-Lawrence", "Sir Stafford Cripps", "A.V. Alexander", "Lord Wavell", "Lord Mountbatten", "Sardar Vallabhbhai Patel", "V.P. Menon", "Cyril Radcliffe"],
+        "keyEvents": [
+          "March 1946: Cabinet Mission (Pethick-Lawrence, Cripps, A.V. Alexander) proposes 3-Tier Grouping of provinces (Section A Hindu, Section B NW Muslim, Section C NE Muslim), Constituent Assembly, and rejects Pakistan.",
+          "Aug 16, 1946: Direct Action Day called by Muslim League; 'Great Calcutta Killings' (H.S. Suhrawardy); spreads to Noakhali, Bihar, Punjab.",
+          "Sept 2, 1946: Interim Government sworn in with Jawaharlal Nehru as Vice President of Executive Council; Muslim League joins Oct 1946 (Liaquat Ali Khan Finance Minister).",
+          "Feb 20, 1947: Clement Attlee announces British intention to transfer power and leave India by June 30, 1948.",
+          "June 3, 1947: Mountbatten Plan (3rd June Plan) advances independence date to August 15, 1947; accepts Partition of India; Boundary Commission under Sir Cyril Radcliffe.",
+          "July 18, 1947: Indian Independence Act 1947 receives royal assent; creates two independent dominions (India & Pakistan); lapses British paramountcy over 565 princely states.",
+          "Integration of Princely States: Sardar Vallabhbhai Patel (States Minister) and V.P. Menon integrate 562 states via Instrument of Accession; remaining three resolved: Junagadh (Plebiscite 1948), Hyderabad (Operation Polo Sept 1948), Jammu & Kashmir (Instrument of Accession Oct 26, 1947)."
+        ],
+        "prelimsTraps": [
+          "Cabinet Mission PLAN REJECTED the demand for a separate sovereign Pakistan and proposed an undivided 3-tier federation.",
+          "Direct Action Day was observed on August 16, 1946.",
+          "Radcliffe Line demarcated borders in Punjab and Bengal.",
+          "Operation Polo was the police action that integrated Hyderabad in September 1948."
+        ],
+        "mainsPointers": [
+          "Sardar Patel's diplomatic genius: Used carrots (Privy Purses, internal autonomy guarantees) and sticks (popular pressure, economic blockade) to forge a united Republic without balkanization."
+        ]
+      }
+    ]
+  }
+]

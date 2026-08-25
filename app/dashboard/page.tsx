@@ -16,12 +16,13 @@ import PomodoroStudyTracker from "@/components/PomodoroStudyTracker";
 import FutureYouSimulator from "@/components/FutureYouSimulator";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
 import RevisionHeatmap from "@/components/RevisionHeatmap";
-import CadetRankBadge from "@/components/CadetRankBadge";
 import AuthGuard from "@/components/auth/AuthGuard";
-
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { dexieDb } from "@/lib/db/dexie";
+import { calculateExamReadiness, ReadinessScoreResult } from "@/lib/brain/scoring/readiness-engine";
+import { generatePersonalizedMission, PersonalizedPlanResponse } from "@/lib/brain/recommendations/recommendation-engine";
+import { BrainDashboardData, getBrainDashboardData } from "@/lib/brain/intelligence-engine";
 
 const RESULT_STORAGE_KEY = "redroom_test_results";
 const PLANS_STORAGE_KEY = "redroom_study_plan";
@@ -50,9 +51,29 @@ export default function DashboardPage() {
   const [results, setResults] = useState<TestResultRecord[]>([]);
   const [plans, setPlans] = useState<Record<string, any>>({});
   const [intelligence, setIntelligence] = useState<DailyIntelligence | null>(null);
+  const [readiness, setReadiness] = useState<ReadinessScoreResult | null>(null);
+  const [mission, setMission] = useState<PersonalizedPlanResponse | null>(null);
+  const [brainData, setBrainData] = useState<BrainDashboardData | null>(null);
+  const [showWhyModal, setShowWhyModal] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [telegramBroadcasts, setTelegramBroadcasts] = useState<TelegramBroadcast[]>([]);
   const [dismissedBroadcastIds, setDismissedBroadcastIds] = useState<Set<string>>(new Set());
+
+  // Dynamic Greeting based on local hour
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 17) return "Good afternoon";
+    return "Good evening";
+  }, []);
+
+  // Exam Countdown (Target: UPSC Prelims 2027)
+  const daysToPrelims = useMemo(() => {
+    const examDate = new Date("2027-05-23T09:30:00+05:30").getTime();
+    const now = new Date().getTime();
+    const diff = examDate - now;
+    return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+  }, []);
 
   const loadDashboardData = useCallback(async () => {
     setLoading(true);
@@ -63,7 +84,7 @@ export default function DashboardPage() {
         setEmail(currentCadet.email);
       }
 
-      // 1. Auth check (only if Supabase credentials exist)
+      // 1. Auth check
       if (isSupabaseConfigured()) {
         try {
           const {
@@ -76,18 +97,49 @@ export default function DashboardPage() {
         } catch {}
       }
 
-      // 2. Fetch Master Intelligence
+      // 2. Fetch Central WhyNotUPSC Brain Intelligence (/api/brain/dashboard)
+      try {
+        const brainRes = await fetch("/api/brain/dashboard");
+        const brainJson = await brainRes.json();
+        if (brainJson.success && brainJson.data) {
+          setBrainData(brainJson.data);
+          setReadiness(brainJson.data.readiness);
+          setMission({
+            date: new Date().toISOString().slice(0, 10),
+            estimatedTotalMinutes: (brainJson.data.todayMission || []).reduce(
+              (sum: number, t: any) => sum + (t.estimatedMinutes || 0),
+              0
+            ),
+            missionTitle: `Mission ${new Date().toLocaleDateString("en-IN", {
+              month: "short",
+              day: "numeric",
+            })} — Targeted Consolidation`,
+            readiness: brainJson.data.readiness,
+            tasks: brainJson.data.todayMission,
+            tacticalQuote:
+              "Champions do not make fewer mistakes; they resolve their mistakes faster than the competition.",
+          });
+        } else {
+          const localBrain = await getBrainDashboardData();
+          setBrainData(localBrain);
+          setReadiness(localBrain.readiness);
+        }
+      } catch (err) {
+        console.warn("Brain API fallback to local calculation:", err);
+        const localBrain = await getBrainDashboardData();
+        setBrainData(localBrain);
+        setReadiness(localBrain.readiness);
+      }
+
       try {
         const intelRes = await fetch("/api/dashboard/intelligence");
         const intelJson = await intelRes.json();
         if (intelJson.success && intelJson.data) {
           setIntelligence(intelJson.data);
         }
-      } catch (err) {
-        console.warn("Could not load intelligence:", err);
-      }
+      } catch {}
 
-      // 3. Fetch Telegram & Admin Live Broadcasts
+      // 3. Telegram Broadcasts
       try {
         const bcRes = await fetch("/api/admin/broadcast");
         const bcJson = await bcRes.json();
@@ -96,7 +148,7 @@ export default function DashboardPage() {
         }
       } catch {}
 
-      // 4. Load Test Results from Dexie + localStorage
+      // 4. Test results from Dexie + LocalStorage
       try {
         let loadedResults: TestResultRecord[] = [];
         const saved = localStorage.getItem(RESULT_STORAGE_KEY);
@@ -147,250 +199,310 @@ export default function DashboardPage() {
     };
     window.addEventListener("redroom_new_broadcast", handleLocalBroadcast);
 
-    // Fast poll broadcasts every 5s
-    const pollInterval = setInterval(() => {
-      fetch("/api/admin/broadcast")
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.success && Array.isArray(json.data)) {
-            setTelegramBroadcasts(json.data);
-          }
-        })
-        .catch(() => {});
-    }, 5000);
-
     return () => {
       unsubscribe();
       window.removeEventListener("redroom_new_broadcast", handleLocalBroadcast);
-      clearInterval(pollInterval);
     };
   }, [loadDashboardData]);
 
-  const handleToggleSound = () => {
-    const muteState = sound.toggleMute();
-    setIsMuted(muteState);
-  };
-
+  // Dismiss a specific telegram broadcast
   const handleDismissBroadcast = (id: string) => {
-    sound.playSelect();
+    sound.playHover();
     setDismissedBroadcastIds((prev) => new Set([...prev, id]));
   };
 
-  const handleSendQuickBroadcast = async () => {
-    sound.playLock();
-    try {
-      const res = await fetch("/api/telegram/dispatch", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "alert",
-          title: "⚡ LIVE TELEGRAM NOTIFICATION ALERT",
-          message: `UPSC Mission Directive dispatched from Commander Hub at ${new Date().toLocaleTimeString()}. Focus sprint active!`,
-          priority: "URGENT",
-        }),
-      });
-      const json = await res.json();
-      if (json.success) {
-        sound.playVictory();
-        window.dispatchEvent(new CustomEvent("redroom_new_broadcast"));
-        void loadDashboardData();
-      }
-    } catch {}
-  };
+  const activeBroadcasts = useMemo(() => {
+    return telegramBroadcasts.filter((b) => !dismissedBroadcastIds.has(b.id));
+  }, [telegramBroadcasts, dismissedBroadcastIds]);
 
-  const logout = async () => {
-    try {
-      await supabase.auth.signOut();
-    } catch {}
-    UserSessionManager.logout();
-    router.push("/login");
-  };
+  const recentResults = useMemo(() => {
+    return results.slice(0, 4);
+  }, [results]);
 
-  const calculatedHours = Math.round(
-    Object.values(plans).reduce((acc: number, p: any) => {
-      if (p && Array.isArray(p.tasks)) {
-        return (
-          acc +
-          p.tasks.reduce(
-            (sum: number, t: any) =>
-              t.completed ? sum + (Number(t.hours) || 0) : sum,
-            0
-          )
-        );
-      }
-      return acc;
-    }, 0) * 10
-  ) / 10;
-
-  const recentResults = safeArray(results).slice(0, 4);
-
-  // Active Telegram broadcasts visible
-  const activeTelegramAlerts = telegramBroadcasts.filter(
-    (b) => !dismissedBroadcastIds.has(b.id)
-  );
+  const isNewCadetProfile = Boolean(readiness?.isNewUser);
 
   return (
     <AuthGuard>
-      <main className="min-h-screen bg-[#040406] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
-        {/* UNIVERSAL LUXURY HUD HEADER */}
-        <AppUniversalHeader moduleName="Command Centre" moduleBadge="CADET DASHBOARD" />
+      <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
+        {/* UNIVERSAL REDROOM HUD HEADER */}
+        <AppUniversalHeader moduleName="Command Centre HUD" moduleBadge="WHYNOTUPSC OS" />
 
-        {/* UNIFIED COMMAND DASHBOARD BODY */}
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
-          {/* 1. LIVE TELEGRAM BROADCASTS & COMMAND DIRECTIVES BANNER */}
-          {activeTelegramAlerts.length > 0 && (
-            <section className="space-y-3">
-              {activeTelegramAlerts.slice(0, 2).map((alert) => (
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-6 space-y-6 sm:space-y-8">
+          {/* 1. TELEGRAM DISPATCH BROADCASTS */}
+          {activeBroadcasts.length > 0 && (
+            <div className="space-y-3">
+              {activeBroadcasts.map((b) => (
                 <div
-                  key={alert.id}
-                  className="overflow-hidden rounded-3xl border border-amber-500/50 bg-gradient-to-r from-[#211505] via-[#170e03] to-[#0d0d0d] p-4 sm:p-5 shadow-[0_0_25px_rgba(245,158,11,0.25)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-in fade-in duration-300"
+                  key={b.id}
+                  className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-2xl border p-4 shadow-xl transition-all ${
+                    b.priority === "URGENT"
+                      ? "border-red-500/50 bg-red-950/20 text-red-200 shadow-red-950/30"
+                      : b.priority === "HIGH"
+                      ? "border-amber-500/50 bg-amber-950/20 text-amber-200 shadow-amber-950/30"
+                      : "border-blue-500/50 bg-blue-950/20 text-blue-200 shadow-blue-950/30"
+                  }`}
                 >
-                  <div className="flex items-start sm:items-center gap-3.5">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-amber-500/20 text-xl border border-amber-500/40">
-                      📡
-                    </div>
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl">
+                      {b.priority === "URGENT" ? "🚨" : b.priority === "HIGH" ? "⚠️" : "📢"}
+                    </span>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="rounded-md bg-amber-500 px-2 py-0.5 font-mono text-[9px] font-black uppercase text-black">
-                          TELEGRAM DISPATCH
+                        <span className="font-mono text-[10px] font-black uppercase tracking-wider bg-white/10 px-2 py-0.5 rounded-full">
+                          {b.type} • {b.priority}
                         </span>
-                        <span className="font-mono text-[10px] text-white/50">
-                          {alert.author || "Commander"} · {formatDate(alert.createdAt)}
-                        </span>
+                        <span className="text-[10px] text-white/50">{formatDate(b.createdAt)}</span>
                       </div>
-                      <h3 className="mt-1 font-mono text-sm font-bold text-white">
-                        {alert.title}
-                      </h3>
-                      <p className="text-xs text-white/80 mt-0.5 leading-relaxed font-sans">
-                        {alert.message}
-                      </p>
+                      <h4 className="font-bold text-sm text-white mt-1">{b.title}</h4>
+                      <p className="text-xs text-white/80 mt-0.5">{b.message}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-                    {alert.actionLink && (
-                      <button
-                        onClick={() => {
-                          sound.playWarp();
-                          router.push(alert.actionLink!);
-                        }}
+                  <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                    {b.actionLink && (
+                      <Link
+                        href={b.actionLink}
+                        onClick={() => sound.playSelect()}
                         className="rounded-xl bg-[#D8A63A] px-3.5 py-1.5 font-mono text-xs font-bold text-black hover:bg-[#F4C95D] transition"
                       >
-                        {alert.actionLabel || "Open Task →"}
-                      </button>
+                        {b.actionLabel || "View Action"} →
+                      </Link>
                     )}
                     <button
-                      onClick={() => handleDismissBroadcast(alert.id)}
-                      className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-1.5 font-mono text-xs text-white/60 hover:text-white hover:bg-white/10 transition"
-                      title="Dismiss notification"
+                      onClick={() => handleDismissBroadcast(b.id)}
+                      className="rounded-xl border border-white/10 bg-white/5 p-1.5 text-xs text-white/60 hover:bg-white/10 hover:text-white transition"
                     >
-                      Dismiss ✕
+                      ✕
                     </button>
                   </div>
                 </div>
               ))}
-            </section>
+            </div>
           )}
 
-          {/* 2. HERO TITLE & OPERATING MOTTO */}
-          <section className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <p className="font-mono text-[11px] font-black uppercase tracking-[0.25em] text-[#F4C95D]">
-                CENTRAL INTELLIGENCE & TELEMETRY
-              </p>
-              <h1 className="mt-1 text-2xl sm:text-4xl md:text-5xl font-black text-white">
-                Preparation Command Matrix
-              </h1>
-              <p className="mt-2 text-xs sm:text-sm text-[#8C8C8C] max-w-2xl font-sans">
-                Every aspirant can dream of UPSC. The real question is —{" "}
-                <strong className="text-white">WHY NOT YOU?</strong> Real-time diagnostic intelligence from your syllabus, tests, spaced active recall, and 3D reality labs.
-              </p>
-            </div>
+          {/* 2. COMMAND HERO & NEXT BEST ACTION */}
+          <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#121212] via-[#0d0d0d] to-[#080808] p-5 sm:p-8 shadow-2xl">
+            <div className="absolute right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-[#D8A63A]/10 blur-3xl pointer-events-none" />
 
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs shrink-0">
-              <button
-                onClick={() => {
-                  sound.playWarp();
-                  router.push("/3d-zone?lab=universe_core");
-                }}
-                className="flex items-center gap-2 rounded-2xl border border-amber-500/50 bg-gradient-to-r from-[#211505] to-[#141005] px-4 py-2 font-bold text-amber-300 hover:border-amber-400 hover:bg-amber-500/20 transition shadow-[0_0_25px_rgba(245,158,11,0.25)]"
-              >
-                <span>🌀</span>
-                <span>THE POSSIBILITY CORE →</span>
-              </button>
-              <Link
-                href="/3d-zone"
-                className="flex items-center gap-2 rounded-2xl border border-[#D8A63A]/40 bg-[#D8A63A]/10 px-4 py-2 font-bold text-[#F4C95D] hover:bg-[#D8A63A]/20 transition shadow-[0_0_20px_rgba(216,166,58,0.25)]"
-              >
-                <span>🌌</span>
-                <span>3D SIMULATION ZONE</span>
-              </Link>
-              <Link
-                href="/chill-zone"
-                className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-white/70 hover:bg-white/10 hover:text-white transition"
-              >
-                <span>🎮</span>
-                <span>CHILL ARCADE</span>
-              </Link>
-            </div>
-          </section>
-
-          {/* 3. MASTER INTELLIGENCE PRIORITY MISSION (HERO BANNER) */}
-          {intelligence && (
-            <section className="overflow-hidden rounded-3xl border border-[#D8A63A]/40 bg-gradient-to-r from-[#171408] via-[#241d0a] to-[#0d0d0d] p-6 sm:p-8 shadow-[0_0_30px_rgba(216,166,58,0.15)]">
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="max-w-2xl">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-6 items-center rounded-full bg-[#D8A63A] px-3 font-mono text-[10px] font-black uppercase text-black tracking-wider shadow">
-                      ⚡ {intelligence.topPriorityTask.urgency} Priority Mission
-                    </span>
-                    <span className="font-mono text-xs font-semibold text-white/70">
-                      Subject: <strong className="text-white">{intelligence.topPriorityTask.subject}</strong>
-                    </span>
-                  </div>
-                  <h2 className="mt-3 text-xl sm:text-2xl md:text-3xl font-black text-white">
-                    {intelligence.topPriorityTask.title}
-                  </h2>
-                  <p className="mt-2 text-xs sm:text-sm text-white/80 leading-relaxed font-sans">
-                    {intelligence.topPriorityTask.description}
-                  </p>
-                  <p className="mt-2 font-mono text-xs text-[#F4C95D]/80 italic">
-                    Strategic reason: {intelligence.topPriorityTask.reason}
-                  </p>
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-2 max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-[11px] font-bold">
+                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-emerald-400">
+                    ● BRAIN TELEMETRY ACTIVE
+                  </span>
+                  <span className="text-white/40">•</span>
+                  <span className="text-white/60">
+                    TARGET: UPSC PRELIMS {brainData?.meta.targetYear || 2027} ({brainData?.meta.daysToPrelims || daysToPrelims} DAYS LEFT)
+                  </span>
                 </div>
 
-                <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row md:flex-col">
+                <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
+                  {greeting}, Cadet {activeCadet?.fullName?.split(" ")[0] || email.split("@")[0] || "Aspirant"}.
+                </h1>
+
+                {/* COMMAND DIRECTIVE: NEXT BEST ACTION */}
+                <div className="mt-3 p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] font-black uppercase tracking-wider text-[#F4C95D]">
+                      COMMAND DIRECTIVE • {brainData?.nextBestAction.badge || (isNewCadetProfile ? "PROFILE CALIBRATION" : "NEXT BEST ACTION")}
+                    </span>
+                    <span className="font-mono text-[11px] text-white/50">
+                      ⏱ {brainData?.nextBestAction.estimatedMinutes || 25} MINS
+                    </span>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-black text-white">
+                    {brainData?.nextBestAction.title || "Take 15-Question Baseline Diagnostic Mock"}
+                  </h3>
+                  <p className="text-xs text-white/70 font-sans leading-relaxed">
+                    {brainData?.nextBestAction.reason ||
+                      "Calibrate your multi-subject baseline accuracy radar to generate real-time exam readiness metrics."}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-4 shrink-0 font-mono">
+                <div className="flex items-baseline gap-2 bg-black/40 px-5 py-3 rounded-2xl border border-white/10">
+                  <span className="text-[10px] font-black text-white/50 uppercase">
+                    {isNewCadetProfile ? "PROFILE" : "READINESS"}
+                  </span>
+                  <span className="text-3xl sm:text-4xl font-black text-white">
+                    {isNewCadetProfile ? "50" : (brainData?.readiness.overallScore ?? readiness?.overallScore ?? 72)}
+                    <span className="text-xl text-[#D8A63A] font-bold">%</span>
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2.5 w-full sm:w-auto">
                   <button
                     onClick={() => {
                       sound.playWarp();
-                      router.push(intelligence.topPriorityTask.actionRoute);
+                      const target = brainData?.nextBestAction.actionRoute || mission?.tasks[0]?.route || (isNewCadetProfile ? "/tests" : "/revision");
+                      router.push(target);
                     }}
-                    className="rounded-2xl bg-gradient-to-r from-[#D8A63A] to-[#B38322] px-6 py-3.5 font-mono text-xs sm:text-sm font-black text-black shadow-xl transition hover:scale-105 active:scale-95 text-center"
+                    className="flex items-center justify-center gap-2 flex-1 sm:flex-initial rounded-2xl bg-gradient-to-r from-[#D8A63A] to-[#B38322] px-7 py-3.5 font-mono text-xs font-black text-black shadow-[0_0_25px_rgba(216,166,58,0.4)] hover:scale-105 active:scale-95 transition text-center cursor-pointer"
                   >
-                    Start Priority Mission →
+                    <span>⚡</span>
+                    <span>{isNewCadetProfile ? "START CALIBRATION" : "START MISSION NOW"}</span>
+                    <span>→</span>
                   </button>
+
                   <button
                     onClick={() => {
-                      sound.playSelect();
-                      window.scrollTo({ top: 850, behavior: "smooth" });
+                      sound.playWarp();
+                      router.push("/3d-zone?lab=universe_core");
                     }}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-6 py-2.5 font-mono text-xs font-semibold text-white/70 hover:bg-white/10 transition text-center"
+                    className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 px-3.5 py-3.5 text-xs text-white/80 transition cursor-pointer"
+                    title="Possibility Core 3D"
                   >
-                    Launch Deep Focus Sprint ⏳
+                    🌀
                   </button>
                 </div>
               </div>
-            </section>
-          )}
+            </div>
+          </section>
 
-          {/* 4. DIAGNOSTIC SIGNAL PULSE (QUICK STATUS CARDS) */}
-          <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* 3. TODAY'S READINESS & TODAY'S MISSION SECTION */}
+          <div className="grid gap-6 lg:grid-cols-3">
+            {/* TODAY'S READINESS HUD */}
+            <div className="rounded-3xl border border-[#D8A63A]/40 bg-gradient-to-br from-[#171305] via-[#100c02] to-[#0d0d0d] p-5 sm:p-6 shadow-[0_0_30px_rgba(216,166,58,0.15)] flex flex-col justify-between space-y-6">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-black uppercase tracking-wider text-[#F4C95D] bg-[#D8A63A]/10 px-2.5 py-1 rounded-full border border-[#D8A63A]/20">
+                    {isNewCadetProfile ? "CALIBRATING PROFILE" : "TODAY'S READINESS"}
+                  </span>
+                  <span className="font-mono text-xs text-white/50">Diagnostic Telemetry</span>
+                </div>
+
+                <div className="mt-5 flex items-baseline gap-3">
+                  <span className="text-4xl sm:text-5xl font-black text-white">
+                    {isNewCadetProfile ? "50" : (readiness?.overallScore ?? 72)}
+                    <span className="text-2xl text-[#D8A63A] font-bold">%</span>
+                  </span>
+                  <span className="font-mono text-xs text-emerald-400 font-bold">
+                    {isNewCadetProfile ? "★ Baseline Ready" : "▲ +4.2% this week"}
+                  </span>
+                </div>
+                <p className="text-xs text-white/70 mt-2 font-sans leading-relaxed">
+                  {isNewCadetProfile
+                    ? "Your preparation profile is being built. Complete your first diagnostic mock or study session to calibrate your live 6-axis radar."
+                    : "Composite benchmark across Prelims MCQ accuracy, SM-2 retention, and syllabus mapping."}
+                </p>
+
+                {/* SUB-SCORES */}
+                <div className="mt-5 grid grid-cols-2 gap-3 font-mono text-xs">
+                  <div className="rounded-2xl bg-white/5 p-3 border border-white/5">
+                    <span className="text-[10px] text-white/50 block">PRELIMS SCORE</span>
+                    <span className="text-lg font-black text-amber-300 mt-0.5 block">
+                      {isNewCadetProfile ? "Calibrating" : `${readiness?.prelimsScore ?? 78}%`}
+                    </span>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 p-3 border border-white/5">
+                    <span className="text-[10px] text-white/50 block">MAINS SCORE</span>
+                    <span className="text-lg font-black text-blue-300 mt-0.5 block">
+                      {isNewCadetProfile ? "Calibrating" : `${readiness?.mainsScore ?? 66}%`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  sound.playLock();
+                  setShowWhyModal(true);
+                }}
+                className="w-full min-h-[44px] rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 px-4 py-3 font-mono text-xs font-bold text-white/90 transition text-center cursor-pointer"
+              >
+                🔍 WHY THIS SCORE? (Explain Breakdown)
+              </button>
+            </div>
+
+            {/* TODAY'S MISSION & WHAT SHOULD I DO NEXT */}
+            <div className="lg:col-span-2 rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-7 shadow-xl flex flex-col justify-between space-y-6">
+              <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] font-black uppercase tracking-wider text-[#F4C95D] bg-[#D8A63A]/10 px-2 py-0.5 rounded-full">
+                        {isNewCadetProfile ? "STARTER DIRECTIVES" : "TODAY'S MISSION"}
+                      </span>
+                      <span className="font-mono text-xs text-white/60">
+                        {mission?.missionTitle || "Daily Strategic Directives"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="font-mono text-xs text-white/60">
+                    Estimated Time: <strong className="text-white">{Math.round(((mission?.estimatedTotalMinutes || 90) / 60) * 10) / 10} Hours</strong>
+                  </div>
+                </div>
+
+                {/* ORDERED MISSION TASKS */}
+                <div className="mt-4 space-y-2.5">
+                  {(mission?.tasks || [
+                    { id: "1", order: 1, title: "Take 15-Question Baseline Diagnostic Mock", description: "Establish your baseline accuracy across Polity, Economy & History.", estimatedMinutes: 20, subject: "Diagnostic Mock", route: "/tests", completed: false, priority: "CRITICAL" },
+                    { id: "2", order: 2, title: "Configure GS Syllabus Milestones", description: "Map GS 1-4 micro-topics for target exam cycle.", estimatedMinutes: 15, subject: "Syllabus Matrix", route: "/syllabus", completed: false, priority: "HIGH" },
+                    { id: "3", order: 3, title: "Complete First 25-Minute Focus Sprint", description: "Initialize daily study stamina in the Focus Sanctuary.", estimatedMinutes: 25, subject: "Focus Sanctuary", route: "/study-plan", completed: false, priority: "HIGH" },
+                  ]).map((task, idx) => (
+                    <div
+                      key={task.id || idx}
+                      onClick={() => {
+                        sound.playWarp();
+                        router.push(task.route);
+                      }}
+                      className="group flex cursor-pointer items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-[#D8A63A]/40 p-3.5 transition"
+                    >
+                      <div className="flex items-center gap-3.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-white/5 font-mono text-xs font-bold text-[#F4C95D] group-hover:bg-[#D8A63A] group-hover:text-black transition">
+                          {task.order || idx + 1}
+                        </span>
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-[#F4C95D] transition">
+                            {task.title}
+                          </h4>
+                          <p className="text-[11px] text-white/50 font-sans mt-0.5 line-clamp-1">
+                            {task.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 shrink-0 font-mono text-xs">
+                        <span className="text-white/40 text-[11px]">{task.estimatedMinutes}m</span>
+                        <span className="text-[#F4C95D] opacity-0 group-hover:opacity-100 transition">
+                          Start →
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* PRIMARY CTA */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/5 pt-4">
+                <p className="text-xs text-[#8C8C8C] italic font-sans">
+                  &ldquo;{mission?.tacticalQuote || "Resolve mistakes faster than the competition."}&rdquo;
+                </p>
+
+                <button
+                  onClick={() => {
+                    sound.playWarp();
+                    const firstRoute = mission?.tasks[0]?.route || (isNewCadetProfile ? "/tests" : "/revision");
+                    router.push(firstRoute);
+                  }}
+                  className="w-full sm:w-auto rounded-2xl bg-gradient-to-r from-[#D8A63A] to-[#B38322] px-8 py-3.5 font-mono text-xs font-black text-black shadow-xl hover:scale-105 active:scale-95 transition text-center shrink-0 cursor-pointer"
+                >
+                  START TODAY&apos;S MISSION ⚡
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* 4. DIAGNOSTIC SIGNAL PULSE */}
+          <section className="grid gap-4 grid-cols-2 lg:grid-cols-4">
             <div
               onClick={() => {
                 sound.playWarp();
                 router.push("/revision");
               }}
-              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl flex flex-col justify-between"
+              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-4 sm:p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -405,10 +517,10 @@ export default function DashboardPage() {
                     {(intelligence?.dueRevisionsCount || 0) > 0 ? "Time to Recall" : "Optimal"}
                   </span>
                 </div>
-                <p className="mt-3 font-mono text-3xl font-black text-white">{intelligence?.dueRevisionsCount ?? 0}</p>
-                <p className="text-xs font-semibold text-white/60">Topics Requiring Active Recall</p>
+                <p className="mt-3 font-mono text-2xl sm:text-3xl font-black text-white">{intelligence?.dueRevisionsCount ?? 0}</p>
+                <p className="text-xs font-semibold text-white/60">Topics for Active Recall</p>
               </div>
-              <p className="mt-3 font-mono text-[11px] text-[#F4C95D]">Reconnect memory pathways →</p>
+              <p className="mt-3 font-mono text-[11px] text-[#F4C95D]">Reconnect pathways →</p>
             </div>
 
             <div
@@ -416,7 +528,7 @@ export default function DashboardPage() {
                 sound.playWarp();
                 router.push("/pyqs");
               }}
-              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl flex flex-col justify-between"
+              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-4 sm:p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -425,14 +537,14 @@ export default function DashboardPage() {
                     Pattern Radar
                   </span>
                 </div>
-                <p className="mt-3 text-sm font-bold truncate text-white">
+                <p className="mt-3 text-xs sm:text-sm font-bold truncate text-white">
                   {intelligence?.weakTopics[0]?.topic || "Polity Writs & Rights"}
                 </p>
                 <p className="text-xs font-semibold text-white/60">
-                  {intelligence?.weakTopics[0]?.accuracyPercent || 58}% Recent Accuracy
+                  {intelligence?.weakTopics[0]?.accuracyPercent || 58}% Accuracy
                 </p>
               </div>
-              <p className="mt-3 font-mono text-[11px] text-[#F4C95D]">Practice targeted MCQs →</p>
+              <p className="mt-3 font-mono text-[11px] text-[#F4C95D]">Targeted MCQs →</p>
             </div>
 
             <div
@@ -440,7 +552,7 @@ export default function DashboardPage() {
                 sound.playWarp();
                 router.push("/current-affairs");
               }}
-              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl flex flex-col justify-between"
+              className="cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-4 sm:p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -449,10 +561,10 @@ export default function DashboardPage() {
                     Daily Spoken
                   </span>
                 </div>
-                <p className="mt-3 text-sm font-bold truncate text-white">Editorials & GS Dimensions</p>
-                <p className="text-xs font-semibold text-white/60">Prelims Pointers & AI Quiz</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold truncate text-white">Editorials & GS</p>
+                <p className="text-xs font-semibold text-white/60">Audio Brief & AI Quiz</p>
               </div>
-              <p className="mt-3 font-mono text-[11px] text-blue-300">Listen 7-min audio digest →</p>
+              <p className="mt-3 font-mono text-[11px] text-blue-300">7-min audio digest →</p>
             </div>
 
             <div
@@ -460,7 +572,7 @@ export default function DashboardPage() {
                 sound.playWarp();
                 router.push("/3d-zone?lab=universe_core");
               }}
-              className="cursor-pointer rounded-3xl border border-amber-500/40 bg-gradient-to-br from-[#1c1304] to-[#0a0701] p-5 transition hover:border-amber-400 hover:scale-[1.02] shadow-[0_0_25px_rgba(245,158,11,0.2)] flex flex-col justify-between"
+              className="cursor-pointer rounded-3xl border border-amber-500/40 bg-gradient-to-br from-[#1c1304] to-[#0a0701] p-4 sm:p-5 transition hover:border-amber-400 hover:scale-[1.02] shadow-[0_0_25px_rgba(245,158,11,0.2)] flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -469,19 +581,19 @@ export default function DashboardPage() {
                     Possibility Core
                   </span>
                 </div>
-                <p className="mt-3 text-sm font-bold truncate text-white">Kinetic Orbital System</p>
-                <p className="text-xs font-semibold text-white/60">Live 3D telemetry for all 10 hubs</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold truncate text-white">Kinetic Orbital</p>
+                <p className="text-xs font-semibold text-white/60">3D reality simulators</p>
               </div>
-              <p className="mt-3 font-mono text-[11px] text-amber-300">Launch Possibility Core →</p>
+              <p className="mt-3 font-mono text-[11px] text-amber-300">Launch Core →</p>
             </div>
           </section>
 
-          {/* 5. INTEGRATED POMODORO & STUDY READING TRACKER (TODAY / WEEK / MONTH / ALL-TIME) */}
-          <section className="rounded-3xl border border-white/10 bg-[#080511] p-5 sm:p-7 shadow-2xl space-y-6">
+          {/* 5. INTEGRATED POMODORO & STUDY TRACKER */}
+          <section className="rounded-3xl border border-white/10 bg-[#080511] p-4 sm:p-7 shadow-2xl space-y-6">
             <PomodoroStudyTracker />
           </section>
 
-          {/* 6. INTERACTIVE 3D SIMULATION REALITY LABS SHOWCASE */}
+          {/* 6. 3D SIMULATION REALITY LABS */}
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -489,60 +601,37 @@ export default function DashboardPage() {
                   SPATIAL & VISUAL SIMULATION CENTER
                 </p>
                 <h2 className="text-lg sm:text-2xl font-black text-white">
-                  3D Reality & GIS Visual Labs
+                  3D Reality Simulation Labs
                 </h2>
               </div>
               <Link
                 href="/3d-zone"
+                onClick={() => sound.playSelect()}
                 className="font-mono text-xs font-bold text-[#F4C95D] hover:underline"
               >
-                View All 10 Labs →
+                Open 3D Zone →
               </Link>
             </div>
 
-            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 {
-                  id: "universe_core",
-                  title: "The Possibility Core",
-                  category: "Central Kinetic Hub",
-                  icon: "🌀",
-                  desc: "Real-time 60fps kinetic particle universe connecting all 10 preparation sectors.",
-                },
-                {
-                  id: "geo_globe",
-                  title: "3D Earth GIS Globe",
-                  category: "Geography & Oceanography",
+                  id: "geography_globe",
+                  title: "Interactive 3D GIS Earth",
                   icon: "🌍",
-                  desc: "Interactive planetary globe with tectonic fault lines, ocean currents & global straits.",
+                  desc: "Tectonic plates, Himalayan fault lines, ocean currents & atmospheric circulation.",
                 },
                 {
                   id: "history_tunnel",
-                  title: "History 3D Time Tunnel",
-                  category: "Ancient to Modern",
+                  title: "History Space-Time Tunnel",
                   icon: "⏳",
-                  desc: "Chronological immersive visual timeline from Indus Valley to 1947.",
+                  desc: "Chronological 3D corridor from Indus Valley to 1947 Independence.",
                 },
                 {
-                  id: "polity_3d",
-                  title: "Constitutional 3D Atlas",
-                  category: "Polity & Supreme Court",
-                  icon: "📜",
-                  desc: "Articles 1-395, Schedules 1-12 & Landmark Supreme Court Judgments.",
-                },
-                {
-                  id: "spatial_map",
-                  title: "Spatial GIS Map Trainer",
-                  category: "Environment & Geography",
-                  icon: "🗺️",
-                  desc: "Cartographic GIS trainer for 106+ National Parks, Ramsar Wetlands & River Basins.",
-                },
-                {
-                  id: "mindmap",
-                  title: "Neural Knowledge Mindmap",
-                  category: "Inter-Subject Cross-Links",
-                  icon: "🧠",
-                  desc: "Dynamic graph node network illuminating hidden overlaps between GS 1-4 topics.",
+                  id: "constitutional_atlas",
+                  title: "Constitutional Neural Atlas",
+                  icon: "🏛️",
+                  desc: "Articles 1 to 395 spatial node network with landmark Supreme Court judgments.",
                 },
               ].map((lab) => (
                 <div
@@ -551,48 +640,36 @@ export default function DashboardPage() {
                     sound.playWarp();
                     router.push(`/3d-zone?lab=${lab.id}`);
                   }}
-                  className="group flex cursor-pointer flex-col justify-between rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl hover:scale-[1.01]"
+                  className="group cursor-pointer rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 text-xl group-hover:scale-110 group-hover:bg-[#D8A63A]/10 transition">
-                        {lab.icon}
-                      </span>
-                      <span className="font-mono text-[10px] uppercase font-bold text-[#F4C95D] bg-[#D8A63A]/10 px-2 py-0.5 rounded-full border border-[#D8A63A]/20">
-                        {lab.category}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm text-white group-hover:text-[#F4C95D] transition">
-                        {lab.title}
-                      </h3>
-                      <p className="text-xs text-white/50 mt-1 line-clamp-2">
-                        {lab.desc}
-                      </p>
-                    </div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-3xl">{lab.icon}</span>
+                    <span className="font-mono text-xs text-white/40 group-hover:text-[#F4C95D] transition">
+                      Enter Lab →
+                    </span>
                   </div>
-                  <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-2 font-mono text-[11px] text-white/40 group-hover:text-[#F4C95D]">
-                    <span>Enter Simulator</span>
-                    <span>→</span>
-                  </div>
+                  <h3 className="font-bold text-sm text-white group-hover:text-[#F4C95D] transition">
+                    {lab.title}
+                  </h3>
+                  <p className="text-xs text-white/50 mt-1 line-clamp-2">{lab.desc}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* 7. CORE UPSC SYSTEM LAUNCHPAD (ALL ESSENTIAL SECTORS) */}
+          {/* 7. ALL 25 SYSTEM HUBS GRID */}
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-mono text-[10px] font-black uppercase tracking-wider text-[#F4C95D]">
-                  CENTRAL UPSC OPERATING HUBS
+                  COMPLETE ARCHITECTURE
                 </p>
                 <h2 className="text-lg sm:text-2xl font-black text-white">
                   Core System Launchpad
                 </h2>
               </div>
               <span className="font-mono text-xs text-[#8C8C8C]">
-                16 Interconnected Systems
+                {APP_ROUTES.length - 1} Interconnected Systems
               </span>
             </div>
 
@@ -629,26 +706,26 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          {/* 8. REVISION & DAILY CONSISTENCY HEATMAP */}
+          {/* 8. REVISION HEATMAP */}
           <section className="space-y-3">
             <RevisionHeatmap plans={plans} testResults={results} />
           </section>
 
-          {/* 9. FUTURE YOU TRAJECTORY SIMULATOR */}
+          {/* 9. FUTURE YOU SIMULATOR */}
           <section className="space-y-3">
             <FutureYouSimulator />
           </section>
 
-          {/* 10. AI STRATEGIST "WHY" DIAGNOSTIC ENGINE */}
+          {/* 10. AI STRATEGIST */}
           <section className="space-y-3">
             <AIStrategistWhy />
           </section>
 
-          {/* 11. RECENT SIMULATION LOGS & SCORE TRACKER */}
-          <section className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-6 shadow-xl">
+          {/* 11. RECENT TEST SIMULATION LOGS */}
+          <section className="rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 sm:p-6 shadow-xl">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="font-mono text-sm font-black uppercase tracking-wider text-white">
+                <h2 className="font-mono text-xs sm:text-sm font-black uppercase tracking-wider text-white">
                   Recent Simulation Logs
                 </h2>
                 <p className="text-xs text-[#8C8C8C]">Latest mock attempts and score tracking</p>
@@ -658,32 +735,32 @@ export default function DashboardPage() {
                   sound.playWarp();
                   router.push("/performance");
                 }}
-                className="font-mono text-xs font-bold text-[#F4C95D] hover:underline"
+                className="font-mono text-xs font-bold text-[#F4C95D] hover:underline cursor-pointer"
               >
                 Full Analytics Radar →
               </button>
             </div>
 
             {recentResults.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-white/10 p-8 text-center text-xs text-white/40">
-                No mock test logs yet. Take a test in the{" "}
+              <div className="rounded-2xl border border-dashed border-white/10 p-6 sm:p-8 text-center text-xs text-white/50">
+                No mock test logs yet. Take your baseline diagnostic in the{" "}
                 <button
                   onClick={() => {
                     sound.playWarp();
                     router.push("/tests");
                   }}
-                  className="text-[#F4C95D] underline font-bold"
+                  className="text-[#F4C95D] underline font-bold cursor-pointer"
                 >
                   Mock Test Arena
                 </button>{" "}
                 to begin tracking telemetry.
               </div>
             ) : (
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
                 {recentResults.map((rec, i) => (
                   <div
                     key={rec.id || i}
-                    className="rounded-2xl border border-white/5 bg-white/[0.02] p-4 flex flex-col justify-between"
+                    className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5 sm:p-4 flex flex-col justify-between"
                   >
                     <div>
                       <span className="font-mono text-[10px] font-bold text-[#F4C95D] uppercase">
@@ -714,6 +791,112 @@ export default function DashboardPage() {
             )}
           </section>
         </div>
+
+        {/* 12. "WHY THIS SCORE?" DIAGNOSTIC MODAL */}
+        {showWhyModal && readiness && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-3 sm:p-4 animate-in fade-in duration-200">
+            <div className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-[#D8A63A]/50 bg-[#0d0d0d] p-5 sm:p-8 shadow-[0_0_50px_rgba(216,166,58,0.25)] space-y-5 sm:space-y-6">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <span className="font-mono text-[10px] font-bold text-[#F4C95D] uppercase">
+                    CAUSAL TELEMETRY DIAGNOSTIC
+                  </span>
+                  <h3 className="text-lg sm:text-2xl font-black text-white mt-0.5">
+                    {isNewCadetProfile
+                      ? "Why is your Readiness 50% (Calibrating)?"
+                      : `Why is your Readiness ${readiness.overallScore}%?`}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => {
+                    sound.playHover();
+                    setShowWhyModal(false);
+                  }}
+                  className="h-9 w-9 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
+                {/* Summary */}
+                <p className="text-xs text-white/80 leading-relaxed font-sans bg-white/5 p-3.5 rounded-2xl border border-white/5">
+                  {readiness.whyThisScore.summary}
+                </p>
+
+                {/* Strengths */}
+                {readiness.whyThisScore.strengths.length > 0 && (
+                  <div>
+                    <h4 className="font-mono text-xs font-bold text-emerald-400 uppercase flex items-center gap-1.5 mb-2">
+                      <span>✓</span> Key Strengths
+                    </h4>
+                    <ul className="space-y-1 text-xs text-white/70 list-disc list-inside">
+                      {readiness.whyThisScore.strengths.map((s, i) => (
+                        <li key={i}>{s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Weaknesses / Declines */}
+                {readiness.whyThisScore.weaknesses.length > 0 && (
+                  <div>
+                    <h4 className="font-mono text-xs font-bold text-amber-400 uppercase flex items-center gap-1.5 mb-2">
+                      <span>⚠️</span> Areas Requiring Immediate Focus
+                    </h4>
+                    <ul className="space-y-1 text-xs text-white/70 list-disc list-inside">
+                      {readiness.whyThisScore.weaknesses.map((w, i) => (
+                        <li key={i}>{w}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Immediate Next Best Actions */}
+                <div className="border-t border-white/10 pt-3">
+                  <h4 className="font-mono text-xs font-bold text-[#F4C95D] uppercase mb-2">
+                    🎯 Recommended Next Actions
+                  </h4>
+                  <div className="space-y-2">
+                    {readiness.whyThisScore.nextActions.map((action, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between rounded-xl bg-white/5 p-3 border border-white/5 text-xs gap-2"
+                      >
+                        <div className="min-w-0">
+                          <span className="font-bold text-white block truncate">{action.step}</span>
+                          <span className="text-white/50 block text-[11px] mt-0.5 line-clamp-1">{action.reason}</span>
+                        </div>
+                        <button
+                          onClick={() => {
+                            sound.playWarp();
+                            setShowWhyModal(false);
+                            router.push(action.route);
+                          }}
+                          className="min-h-[38px] rounded-lg bg-[#D8A63A] px-3.5 py-1 font-mono text-[11px] font-bold text-black hover:bg-[#F4C95D] transition shrink-0 ml-2 cursor-pointer"
+                        >
+                          Execute →
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-2 border-t border-white/10">
+                <button
+                  onClick={() => {
+                    sound.playHover();
+                    setShowWhyModal(false);
+                  }}
+                  className="min-h-[44px] rounded-xl bg-white/10 px-5 py-2 font-mono text-xs font-bold text-white hover:bg-white/20 transition cursor-pointer"
+                >
+                  Close Diagnostic
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </AuthGuard>
   );

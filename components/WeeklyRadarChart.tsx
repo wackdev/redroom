@@ -34,7 +34,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
   // SVG Geometry Calculation (6-point Polygon)
   const size = 300;
   const center = size / 2;
-  const radius = 110;
+  const radius = 105;
   const maxScale = 10.0; // Max 10 hours for scaling
 
   const calculatePoint = (index: number, val: number) => {
@@ -52,7 +52,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
   const targetPolygon = targetPoints.map((p) => `${p.x},${p.y}`).join(" ");
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#0F0F12]/80 p-5 shadow-2xl backdrop-blur-xl">
+    <div className="rounded-3xl border border-white/10 bg-[#0F0F12]/80 p-4 sm:p-6 shadow-2xl backdrop-blur-xl">
       {/* Header */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
         <div>
@@ -60,23 +60,23 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
             <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#D8A63A]/20 text-xs">
               🕸️
             </span>
-            <h3 className="font-mono text-sm font-bold text-white tracking-wide">
+            <h3 className="font-mono text-xs sm:text-sm font-bold text-white tracking-wide">
               Weekly GS Radar & Velocity Audit
             </h3>
           </div>
-          <p className="text-xs text-white/50">
-            Automated Sunday performance balancing & tactical velocity metrics
+          <p className="text-[11px] sm:text-xs text-white/50">
+            Automated performance balancing & tactical velocity metrics
           </p>
         </div>
 
-        <div className="flex items-center gap-4 text-xs">
+        <div className="flex flex-wrap items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-[#D8A63A] shadow-[0_0_8px_#D8A63A]" />
-            <span className="font-mono text-white/80">Candidate Actual</span>
+            <span className="font-mono text-[11px] text-white/80">Candidate Actual</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full border border-dashed border-cyan-400" />
-            <span className="font-mono text-cyan-400">Target Benchmark (7h)</span>
+            <span className="font-mono text-[11px] text-cyan-400">Target Benchmark (7h)</span>
           </div>
         </div>
       </div>
@@ -84,7 +84,10 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
       <div className="grid gap-6 lg:grid-cols-[1fr_300px] items-center">
         {/* SVG RADAR CHART */}
         <div className="flex items-center justify-center py-2">
-          <svg width={size} height={size} className="overflow-visible">
+          <svg
+            viewBox={`0 0 ${size} ${size}`}
+            className="w-full max-w-[260px] sm:max-w-[290px] aspect-square overflow-visible"
+          >
             {/* Concentric Grid Rings */}
             {[0.25, 0.5, 0.75, 1].map((scale, ringIdx) => {
               const ringPoints = Array.from({ length: 6 }).map((_, i) => {
@@ -145,7 +148,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
                 key={i}
                 cx={p.x}
                 cy={p.y}
-                r="4.5"
+                r="4"
                 fill="#D8A63A"
                 stroke="#000"
                 strokeWidth="1.5"
@@ -156,7 +159,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
             {/* Axis Labels */}
             {axes.map((axis, i) => {
               const angle = (Math.PI * 2 * i) / 6 - Math.PI / 2;
-              const labelR = radius + 24;
+              const labelR = radius + 22;
               const lx = center + labelR * Math.cos(angle);
               const ly = center + labelR * Math.sin(angle);
 
@@ -165,7 +168,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
                   <text
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    className="fill-white/80 font-mono text-[10px] font-bold"
+                    className="fill-white/80 font-mono text-[9px] sm:text-[10px] font-bold"
                   >
                     {axis.icon} {axis.value}h
                   </text>
@@ -178,7 +181,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
         {/* TACTICAL METRICS & DIAGNOSTICS */}
         <div className="flex flex-col gap-3">
           {/* Prelims Elimination Accuracy */}
-          <div className="rounded-xl border border-white/5 bg-white/[0.02] p-3.5">
+          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5">
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="text-white/70">🎯 Prelims Elimination Accuracy</span>
               <span className="font-mono font-bold text-emerald-400">
@@ -197,7 +200,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
           </div>
 
           {/* Mains Writing Velocity */}
-          <div className="rounded-xl border border-white/5 bg-white/[0.02] p-3.5">
+          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-3.5">
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="text-white/70">✍️ Mains Writing Velocity</span>
               <span className="font-mono font-bold text-[#F4C95D]">
@@ -205,13 +208,13 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
               </span>
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2 text-center">
-              <div className="rounded-lg bg-black/40 p-2 border border-white/5">
+              <div className="rounded-xl bg-black/40 p-2 border border-white/5">
                 <span className="block text-[10px] text-white/50">150W (10M)</span>
                 <span className="font-mono text-xs font-bold text-white">
                   ~{radar.avgMainsTimePer150W} mins
                 </span>
               </div>
-              <div className="rounded-lg bg-black/40 p-2 border border-white/5">
+              <div className="rounded-xl bg-black/40 p-2 border border-white/5">
                 <span className="block text-[10px] text-white/50">250W (15M)</span>
                 <span className="font-mono text-xs font-bold text-white">
                   ~{radar.avgMainsTimePer250W} mins
@@ -221,7 +224,7 @@ export default function WeeklyRadarChart({ summary }: WeeklyRadarChartProps) {
           </div>
 
           {/* Strategic Balance Flag */}
-          <div className="rounded-xl border border-[#D8A63A]/20 bg-[#D8A63A]/5 p-3 text-xs">
+          <div className="rounded-2xl border border-[#D8A63A]/20 bg-[#D8A63A]/5 p-3 text-xs">
             <span className="font-bold text-[#F4C95D]">💡 Mentor Diagnostic: </span>
             <span className="text-white/80">
               {radar.gs4Hours < 4

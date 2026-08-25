@@ -1300,6 +1300,7 @@ export default function MainsPYQCommandCenter() {
                           key={index}
                           className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/60 shadow-lg"
                         >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={sheet}
                             alt={`Scanned Answer Page ${index + 1}`}

@@ -16,6 +16,7 @@ import {
 import { sound } from "@/lib/audio/sound-engine";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
+import { trackActivityEvent } from "@/lib/brain/activity-events";
 
 const STORAGE_KEY = "redroom_syllabus_progress";
 
@@ -75,13 +76,24 @@ export default function SyllabusPage() {
 
   const toggleTopic = useCallback((topicId: string) => {
     sound.playSelect();
+    let isMarkedDone = false;
     setCompleted((prev) => {
+      isMarkedDone = !prev.includes(topicId);
       const nextList = prev.includes(topicId) ? prev.filter((id) => id !== topicId) : [...prev, topicId];
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(nextList));
       } catch {}
       return nextList;
     });
+
+    if (isMarkedDone) {
+      void trackActivityEvent("TOPIC_STUDIED", {
+        topicId,
+      });
+      void trackActivityEvent("TOPIC_COMPLETED", {
+        topicId,
+      });
+    }
 
     broadcastSyncChange("syllabus");
     void pushStateToCloud();

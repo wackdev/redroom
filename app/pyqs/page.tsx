@@ -31,6 +31,7 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { dexieDb } from "@/lib/db/dexie";
+import { trackActivityEvent } from "@/lib/brain/activity-events";
 
 const LOCAL_STORAGE_PROGRESS_KEY = "redroom_pyq_progress";
 const LOCAL_STORAGE_ATTEMPTS_KEY = "redroom_pyq_user_attempts";
@@ -375,6 +376,14 @@ export default function PYQCommandCenter() {
 
     if (isCorrect) {
       sound.playCorrect();
+      void trackActivityEvent("PYQ_CORRECT", {
+        questionId: question.id,
+        subject: question.subject,
+        topic: question.topic,
+        selectedOption: optionId,
+        year: question.year,
+      });
+
       if (!completedIds.has(strId)) {
         const nextDone = new Set(completedIds);
         nextDone.add(strId);
@@ -395,7 +404,32 @@ export default function PYQCommandCenter() {
       }
     } else {
       sound.playWrong();
+      void trackActivityEvent("PYQ_INCORRECT", {
+        questionId: question.id,
+        subject: question.subject,
+        topic: question.topic,
+        selectedOption: optionId,
+        correctOption: question.correctAnswer,
+        year: question.year,
+      });
+      void trackActivityEvent("MISTAKE_LOGGED", {
+        questionId: question.id,
+        subject: question.subject,
+        topic: question.topic,
+        trapType: (question as any).trapType || question.difficulty || "CONCEPT_TRAP",
+        year: question.year,
+      });
     }
+
+    void trackActivityEvent("PYQ_ATTEMPTED", {
+      questionId: question.id,
+      subject: question.subject,
+      topic: question.topic,
+      isCorrect,
+      selectedOption: optionId,
+      correctOption: question.correctAnswer,
+      year: question.year,
+    });
 
     try {
       localStorage.setItem(LOCAL_STORAGE_ATTEMPTS_KEY, JSON.stringify(nextAttempts));

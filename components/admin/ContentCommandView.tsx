@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { QuestionDraft } from "@/lib/admin/types";
 import { sound } from "@/lib/audio/sound-engine";
 
@@ -23,7 +23,7 @@ export default function ContentCommandView() {
   const [formAnswer, setFormAnswer] = useState("A");
   const [formExplanation, setFormExplanation] = useState("");
 
-  const loadDrafts = async () => {
+  const loadDrafts = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/content/pyqs");
       const json = await res.json();
@@ -34,11 +34,11 @@ export default function ContentCommandView() {
         }
       }
     } catch {}
-  };
+  }, [selectedDraft]);
 
   useEffect(() => {
     loadDrafts();
-  }, []);
+  }, [loadDrafts]);
 
   const handleStartNew = () => {
     sound.playHover();

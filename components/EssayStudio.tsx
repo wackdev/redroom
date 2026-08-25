@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { sound } from "@/lib/audio/sound-engine";
 
 interface EssayFramework {
@@ -113,10 +113,26 @@ const ESSAY_BLUEPRINT_BANK: EssayFramework[] = [
   }
 ];
 
+import { getQuotesForEssayTopic } from "@/lib/knowledge/quotes-engine";
+import { UPSCQuote } from "@/lib/knowledge/datasets/quotes-dataset";
+
 export default function EssayStudio() {
   const [selectedEssay, setSelectedEssay] = useState<EssayFramework>(ESSAY_BLUEPRINT_BANK[0]);
   const [customPrompt, setCustomPrompt] = useState("");
   const [generating, setGenerating] = useState(false);
+  const [copiedQuoteId, setCopiedQuoteId] = useState<string | null>(null);
+
+  const recommendedQuotes = useMemo(() => {
+    return getQuotesForEssayTopic(selectedEssay.topic + " " + selectedEssay.quoteOrPrompt, 3);
+  }, [selectedEssay]);
+
+  const handleCopyQuote = (q: UPSCQuote) => {
+    sound.playSelect();
+    const formatted = `"${q.quote}" — ${q.author} [UPSC Mains: ${q.coreConcept}]`;
+    navigator.clipboard.writeText(formatted);
+    setCopiedQuoteId(q.id);
+    setTimeout(() => setCopiedQuoteId(null), 2000);
+  };
 
   const handleCopyFramework = () => {
     sound.playClick();
@@ -270,6 +286,42 @@ Constitutional Anchor: ${selectedEssay.forwardLookingConclusion.constitutionalAn
             {selectedEssay.forwardLookingConclusion.constitutionalAndGlobalAnchors}
           </div>
         </div>
+
+        {/* 5. RECOMMENDED QUOTE HOOKS (FROM 300+ MASTER QUOTES) */}
+        {recommendedQuotes.length > 0 && (
+          <div className="rounded-2xl border border-amber-500/20 bg-[#0b0816] p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10px] font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                <span>📜</span>
+                <span>Recommended Quote Hooks for this Theme</span>
+              </span>
+              <span className="font-mono text-[10px] text-white/40">From Master Bank</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {recommendedQuotes.map((q) => (
+                <div
+                  key={q.id}
+                  className="p-3 rounded-xl bg-white/[0.03] border border-white/5 space-y-2 flex flex-col justify-between hover:border-amber-400/30 transition"
+                >
+                  <div className="space-y-1">
+                    <p className="text-xs font-serif italic text-white/90 leading-snug">
+                      &ldquo;{q.quote}&rdquo;
+                    </p>
+                    <p className="text-[11px] font-bold text-amber-300">— {q.author}</p>
+                    <p className="text-[10px] font-mono text-white/50">{q.coreConcept}</p>
+                  </div>
+                  <button
+                    onClick={() => handleCopyQuote(q)}
+                    className="w-full py-1 rounded-lg text-[10px] font-mono font-bold bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 transition"
+                  >
+                    {copiedQuoteId === q.id ? "✓ Copied!" : "📋 Copy Hook"}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

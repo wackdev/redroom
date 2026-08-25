@@ -10,6 +10,7 @@ import GeopoliticsMapAtlas from "@/components/GeopoliticsMapAtlas";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { sound } from "@/lib/audio/sound-engine";
+import { trackActivityEvent } from "@/lib/brain/activity-events";
 
 interface NewspaperEditorial {
   id: string;
@@ -667,8 +668,9 @@ export default function CurrentAffairsPage() {
 
                         <div className="space-y-2.5 pt-2">
                           {q.options.map((opt) => {
-                            const isChosen = selected === opt.key;
-                            const isCorrect = opt.key === q.correctAnswer;
+                            const optKey = opt.key || opt.id || "";
+                            const isChosen = selected === optKey;
+                            const isCorrect = optKey === q.answer;
 
                             let optStyle = {
                               background: "rgba(255,255,255,0.03)",
@@ -688,17 +690,17 @@ export default function CurrentAffairsPage() {
 
                             return (
                               <div
-                                key={opt.key}
+                                key={optKey}
                                 onClick={() => {
                                   if (!isRevealed) {
                                     sound.playClick();
-                                    setSelectedAnswers({ ...selectedAnswers, [q.id]: opt.key });
+                                    setSelectedAnswers((prev) => ({ ...prev, [q.id]: optKey }));
                                   }
                                 }}
                                 className="p-3.5 rounded-2xl cursor-pointer transition-all flex items-center gap-3 text-xs"
                                 style={optStyle}>
                                 <span className="w-6 h-6 rounded-lg bg-black/40 flex items-center justify-center font-bold">
-                                  {opt.key}
+                                  {optKey}
                                 </span>
                                 <span className="font-medium">{opt.text}</span>
                               </div>
@@ -711,6 +713,13 @@ export default function CurrentAffairsPage() {
                             onClick={() => {
                               sound.playLock();
                               setRevealedQuestions({ ...revealedQuestions, [q.id]: true });
+                              const isCorrect = selected === q.answer;
+                              void trackActivityEvent("CURRENT_AFFAIRS_COMPLETED", {
+                                questionId: q.id,
+                                selectedAnswer: selected,
+                                correctAnswer: q.answer,
+                                isCorrect,
+                              });
                             }}
                             className="w-full py-3 rounded-2xl text-xs font-bold text-black bg-amber-400 hover:bg-amber-300 transition-all">
                             Submit Answer & View UPSC Reasoning

@@ -1,12 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { getAllPYQs, recordPYQAttempt, getUserPYQAttempts } from "@/lib/pyq/database";
 import { analyzeUserMistakes } from "@/lib/pyq/mistake-engine";
-import { ApiResponse, PYQQuestion } from "@/lib/core/types";
+import { apiSuccess, apiError } from "@/lib/core/api-response";
 
-export async function GET(request: NextRequest): Promise<NextResponse<ApiResponse<{
-  questions: PYQQuestion[];
-  analytics?: ReturnType<typeof analyzeUserMistakes>;
-}>>> {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId") || undefined;
@@ -29,34 +26,24 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
       analytics = analyzeUserMistakes(attempts, questions);
     }
 
-    return NextResponse.json({
-      success: true,
-      data: {
+    return apiSuccess(
+      {
         questions,
         analytics,
       },
-      meta: {
+      {
         total: questions.length,
-      },
-    });
+      }
+    );
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to retrieve PYQs";
-    return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: "PYQ_FETCH_ERROR",
-          message,
-        },
-      },
-      { status: 500 }
-    );
+    return apiError("PYQ_FETCH_ERROR", message, error, 500);
   }
 }
 
-export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse<{ recorded: boolean }>>> {
+export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const {
       userId = "local-user",
       pyqId,
@@ -68,16 +55,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
     } = body;
 
     if (!pyqId || !selectedOption) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: "INVALID_PARAMS",
-            message: "Missing pyqId or selectedOption",
-          },
-        },
-        { status: 400 }
-      );
+      return apiError("INVALID_PARAMS", "Missing pyqId or selectedOption", null, 400);
     }
 
     await recordPYQAttempt(
@@ -90,21 +68,9 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       notes
     );
 
-    return NextResponse.json({
-      success: true,
-      data: { recorded: true },
-    });
+    return apiSuccess({ recorded: true });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to record PYQ attempt";
-    return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: "PYQ_RECORD_ERROR",
-          message,
-        },
-      },
-      { status: 500 }
-    );
+    return apiError("PYQ_RECORD_ERROR", message, error, 500);
   }
 }

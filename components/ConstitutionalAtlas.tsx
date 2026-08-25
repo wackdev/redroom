@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { sound } from "@/lib/audio/sound-engine";
 
 export interface ConstitutionalEntry {
@@ -655,6 +656,7 @@ const COMPREHENSIVE_ARTICLES_DATASET: ConstitutionalEntry[] = [
 ];
 
 export default function ConstitutionalAtlas() {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedArticle, setSelectedArticle] = useState<ConstitutionalEntry | null>(null);
@@ -1069,9 +1071,9 @@ export default function ConstitutionalAtlas() {
               <button
                 onClick={() => {
                   sound.playVictory();
-                  window.location.href = `/mains-pyqs?search=${encodeURIComponent(
-                    selectedArticle?.article || "Polity"
-                  )}`;
+                  router.push(
+                    `/mains-pyqs?search=${encodeURIComponent(selectedArticle?.article || "Polity")}`
+                  );
                 }}
                 className="w-full rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 py-2.5 text-xs font-bold text-white shadow-lg transition hover:opacity-90 active:scale-95"
               >

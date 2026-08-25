@@ -44,7 +44,7 @@ export default function ChillLeaderboard({
             <span className="text-2xl">{selectedGame.icon}</span>
             <div>
               <h2 className="font-mono text-lg font-black text-white uppercase">
-                {selectedGame.name} // LEADERBOARD
+                {selectedGame.name} {"//"} LEADERBOARD
               </h2>
               <p className="font-mono text-[10px] text-[#8C8C8C] uppercase">
                 Scoring: {selectedGame.scoringType === "ASCENDING_TIME" ? "Lower time is superior (ms)" : "Higher score is superior"}
