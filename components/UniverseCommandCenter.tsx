@@ -138,6 +138,36 @@ export default function UniverseCommandCenter() {
       color: "#D8A63A",
       status: "UNLOCKED",
     },
+    {
+      id: "knowledge_vault",
+      title: "UNIVERSAL KNOWLEDGE VAULT",
+      code: "SYSTEM-11",
+      route: "/knowledge",
+      icon: "🏛️",
+      description: "One Topic · All Sources · 38+ Subjects · Graph Mindmaps",
+      color: "#F4C95D",
+      status: "EXPLORE",
+    },
+    {
+      id: "3d_zone",
+      title: "3D REALITY SIMULATION LABS",
+      code: "SYSTEM-12",
+      route: "/3d-zone",
+      icon: "🌌",
+      description: "10 Interactive 3D Visual Labs · Geography Globe & Constitutional Atlas",
+      color: "#E5B94E",
+      status: "10 LABS",
+    },
+    {
+      id: "mains_writing",
+      title: "TIMED QCAB SPEED LAB",
+      code: "SYSTEM-13",
+      route: "/mains-writing",
+      icon: "⏱️",
+      description: "Live WPM Counter · UPSC QCAB Simulator · Diagram Studio",
+      color: "#D8A63A",
+      status: "TIMED",
+    },
   ], [stats]);
 
   // Read Local Preparation Data

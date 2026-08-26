@@ -187,6 +187,20 @@ export default function AnswerLabPage() {
           <p className="text-gray-400 max-w-2xl mx-auto text-sm">
             In UPSC Mains, you must write <span className="text-emerald-400 font-semibold">4,000 words in 3 hours (22 WPM)</span> while maintaining multidimensional depth. Train under exact timed pressure with live dimension diagnostics.
           </p>
+          <div className="mt-4 flex items-center justify-center gap-3 font-mono text-xs">
+            <a
+              href="/mains-writing"
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-white/70 hover:border-[#D8A63A] hover:text-[#F4C95D] transition"
+            >
+              ⏱️ Timed QCAB Lab & Diagrams →
+            </a>
+            <a
+              href="/mains-pyqs"
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-white/70 hover:border-[#D8A63A] hover:text-[#F4C95D] transition"
+            >
+              🏛️ Model Copies Archive →
+            </a>
+          </div>
         </div>
 
         {/* Question Selector Carousel */}

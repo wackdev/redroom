@@ -16,6 +16,7 @@ import PomodoroStudyTracker from "@/components/PomodoroStudyTracker";
 import FutureYouSimulator from "@/components/FutureYouSimulator";
 import AIStrategistWhy from "@/components/AIStrategistWhy";
 import RevisionHeatmap from "@/components/RevisionHeatmap";
+import CadetRankBadge from "@/components/CadetRankBadge";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
@@ -58,6 +59,8 @@ export default function DashboardPage() {
   const [isMuted, setIsMuted] = useState(false);
   const [telegramBroadcasts, setTelegramBroadcasts] = useState<TelegramBroadcast[]>([]);
   const [dismissedBroadcastIds, setDismissedBroadcastIds] = useState<Set<string>>(new Set());
+  const [selectedSector, setSelectedSector] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Dynamic Greeting based on local hour
   const greeting = useMemo(() => {
@@ -221,6 +224,35 @@ export default function DashboardPage() {
 
   const isNewCadetProfile = Boolean(readiness?.isNewUser);
 
+  const sectorCounts = useMemo(() => {
+    return {
+      all: APP_ROUTES.length,
+      prelims: APP_ROUTES.filter((r) => r.sector === "prelims").length,
+      mains: APP_ROUTES.filter((r) => r.sector === "mains").length,
+      routine: APP_ROUTES.filter((r) => r.sector === "routine").length,
+      peer: APP_ROUTES.filter((r) => r.sector === "peer").length,
+      system: APP_ROUTES.filter((r) => r.sector === "system").length,
+    };
+  }, []);
+
+  const filteredSystems = useMemo(() => {
+    let list = APP_ROUTES;
+    if (selectedSector !== "all") {
+      list = list.filter((r) => r.sector === selectedSector);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(
+        (r) =>
+          r.label.toLowerCase().includes(q) ||
+          r.description.toLowerCase().includes(q) ||
+          r.path.toLowerCase().includes(q) ||
+          (r.badge && r.badge.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  }, [selectedSector, searchQuery]);
+
   return (
     <AuthGuard>
       <main className="min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-[#D8A63A] selection:text-black">
@@ -356,6 +388,101 @@ export default function DashboardPage() {
                     🌀
                   </button>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 2.5 CADET QUICK STATS & TELEMETRY RIBBON */}
+          <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-xs">
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 flex flex-col justify-between">
+              <span className="text-[10px] text-white/50 uppercase">Cadet Rank</span>
+              <div className="mt-1 flex items-center justify-between">
+                <CadetRankBadge
+                  totalHours={Math.round(((mission?.estimatedTotalMinutes || 90) / 60) * 10) / 10 + 15}
+                  streakDays={activeCadet?.streakDays || 3}
+                  mainsAnswerCount={4}
+                  pyqSolvedCount={results.length * 15}
+                  revisionsDone={8}
+                />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 flex flex-col justify-between">
+              <span className="text-[10px] text-white/50 uppercase">Target Exam</span>
+              <div className="mt-1">
+                <span className="font-bold text-white text-sm block">
+                  UPSC CSE &apos;{String(activeCadet?.targetYear || 2027).slice(2)}
+                </span>
+                <span className="text-[10px] text-[#F4C95D] block mt-0.5">
+                  {daysToPrelims} Days Countdown
+                </span>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 flex flex-col justify-between">
+              <span className="text-[10px] text-white/50 uppercase">Optional Subject</span>
+              <div className="mt-1">
+                <span className="font-bold text-white text-sm block truncate">
+                  {activeCadet?.optionalSubject || "PSIR / Anthro"}
+                </span>
+                <Link
+                  href="/optional"
+                  onClick={() => sound.playSelect()}
+                  className="text-[10px] text-[#F4C95D] hover:underline block mt-0.5"
+                >
+                  500-Mark Hub →
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 flex flex-col justify-between">
+              <span className="text-[10px] text-white/50 uppercase">Study Streak</span>
+              <div className="mt-1 flex items-center gap-1.5">
+                <span className="text-xl">🔥</span>
+                <div>
+                  <span className="font-black text-amber-400 text-sm block">
+                    {activeCadet?.streakDays || 1} Days
+                  </span>
+                  <span className="text-[10px] text-white/50 block">Consistency Radar</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 flex flex-col justify-between">
+              <span className="text-[10px] text-white/50 uppercase">Active Recalls</span>
+              <div className="mt-1">
+                <span
+                  className={`font-black text-sm block ${
+                    (intelligence?.dueRevisionsCount || 0) > 0 ? "text-amber-400" : "text-emerald-400"
+                  }`}
+                >
+                  {intelligence?.dueRevisionsCount ?? 0} Due
+                </span>
+                <Link
+                  href="/revision"
+                  onClick={() => sound.playSelect()}
+                  className="text-[10px] text-[#F4C95D] hover:underline block mt-0.5"
+                >
+                  SM-2 Vault →
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 flex flex-col justify-between">
+              <span className="text-[10px] text-white/50 uppercase">Readiness Composite</span>
+              <div className="mt-1">
+                <span className="font-black text-emerald-400 text-sm block">
+                  {readiness?.overallScore ?? 72}% Calibrated
+                </span>
+                <button
+                  onClick={() => {
+                    sound.playLock();
+                    setShowWhyModal(true);
+                  }}
+                  className="text-[10px] text-[#F4C95D] hover:underline block mt-0.5 text-left cursor-pointer"
+                >
+                  Explain Score 🔍
+                </button>
               </div>
             </div>
           </section>
@@ -657,53 +784,171 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          {/* 7. ALL 25 SYSTEM HUBS GRID */}
-          <section className="space-y-4">
-            <div className="flex items-center justify-between">
+          {/* 7. ALL 27 SYSTEM HUBS GRID & DIRECTORY */}
+          <section className="space-y-5 rounded-3xl border border-white/10 bg-gradient-to-br from-[#0c0c0c] to-[#070707] p-5 sm:p-7 shadow-2xl">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-5">
               <div>
                 <p className="font-mono text-[10px] font-black uppercase tracking-wider text-[#F4C95D]">
-                  COMPLETE ARCHITECTURE
+                  COMPLETE WHYNOTUPSC PLATFORM ARCHITECTURE
                 </p>
-                <h2 className="text-lg sm:text-2xl font-black text-white">
-                  Core System Launchpad
+                <h2 className="text-xl sm:text-2xl font-black text-white mt-0.5">
+                  Universal System Launchpad
                 </h2>
+                <p className="text-xs text-white/60 font-sans mt-0.5">
+                  27 Connected UPSC operating environments, simulators & tactical tools.
+                </p>
               </div>
-              <span className="font-mono text-xs text-[#8C8C8C]">
-                {APP_ROUTES.length - 1} Interconnected Systems
-              </span>
+
+              {/* Instant Search Bar */}
+              <div className="relative w-full lg:w-80">
+                <input
+                  type="text"
+                  placeholder="Search 27 systems, PYQs, labs..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full min-h-[42px] rounded-2xl border border-white/10 bg-black/60 px-4 py-2 pl-9 font-mono text-xs text-white placeholder:text-white/40 focus:border-[#D8A63A] focus:outline-none transition shadow-inner"
+                />
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-white/40">
+                  🔍
+                </span>
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-white/50 hover:text-white p-1"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-              {APP_ROUTES.slice(1).map((route) => (
-                <div
-                  key={route.path}
+            {/* Sector Category Pills */}
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+              {[
+                { id: "all", label: "All Systems", count: sectorCounts.all, icon: "⚡" },
+                { id: "prelims", label: "Prelims Sector", count: sectorCounts.prelims, icon: "🎯" },
+                { id: "mains", label: "Mains & Optional", count: sectorCounts.mains, icon: "✍️" },
+                { id: "routine", label: "Knowledge & Routine", count: sectorCounts.routine, icon: "📚" },
+                { id: "peer", label: "Peer & Personality", count: sectorCounts.peer, icon: "👥" },
+                { id: "system", label: "Dossier & AI", count: sectorCounts.system, icon: "🤖" },
+              ].map((tab) => {
+                const isActive = selectedSector === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => {
+                      sound.playSelect();
+                      setSelectedSector(tab.id);
+                    }}
+                    className={`flex min-h-[38px] items-center gap-1.5 rounded-xl px-3.5 py-1.5 font-bold transition cursor-pointer ${
+                      isActive
+                        ? "bg-[#D8A63A] text-black shadow-[0_0_15px_rgba(216,166,58,0.35)] scale-105"
+                        : "border border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <span>{tab.icon}</span>
+                    <span>{tab.label}</span>
+                    <span
+                      className={`ml-1 rounded-full px-1.5 py-0.2 text-[10px] ${
+                        isActive ? "bg-black/30 text-black font-black" : "bg-white/10 text-white/60"
+                      }`}
+                    >
+                      {tab.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Quick Speed-Jump Row */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono text-white/70 no-scrollbar">
+              <span className="text-[10px] text-white/40 uppercase font-black shrink-0">Quick Jump:</span>
+              {[
+                { label: "5-MCQ Sprint", route: "/pyqs", icon: "🔥" },
+                { label: "Knowledge Vault", route: "/knowledge", icon: "🏛️" },
+                { label: "Timed QCAB Lab", route: "/mains-writing", icon: "⏱️" },
+                { label: "Answer Lab", route: "/answer-lab", icon: "✍️" },
+                { label: "CSAT Math", route: "/csat", icon: "📐" },
+                { label: "3D GIS Earth", route: "/3d-zone?lab=geography_globe", icon: "🌍" },
+                { label: "Spaced Recall", route: "/revision", icon: "🔄" },
+                { label: "Peer Study Room", route: "/study-room", icon: "👥" },
+              ].map((jump) => (
+                <button
+                  key={jump.label}
                   onClick={() => {
                     sound.playWarp();
-                    router.push(route.path);
+                    router.push(jump.route);
                   }}
-                  className="group flex cursor-pointer flex-col justify-between rounded-3xl border border-white/10 bg-[#0d0d0d] p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#141414] shadow-xl hover:scale-[1.01]"
+                  className="flex shrink-0 items-center gap-1.5 rounded-lg border border-white/5 bg-white/[0.03] px-2.5 py-1 text-[11px] hover:border-[#D8A63A]/40 hover:bg-[#D8A63A]/10 hover:text-[#F4C95D] transition cursor-pointer"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 text-xl group-hover:scale-110 group-hover:bg-[#D8A63A]/10 transition">
-                        {route.icon}
-                      </span>
-                      <span className="font-mono text-xs text-white/30 group-hover:text-[#F4C95D] group-hover:translate-x-1 transition">
-                        Launch →
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm text-white group-hover:text-[#F4C95D] transition">
-                        {route.label}
-                      </h3>
-                      <p className="text-xs text-white/50 mt-1 line-clamp-2">
-                        {route.description || "Active UPSC preparation laboratory and simulator."}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                  <span>{jump.icon}</span>
+                  <span>{jump.label}</span>
+                </button>
               ))}
             </div>
+
+            {/* 27-SYSTEM CARDS GRID */}
+            {filteredSystems.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-white/10 p-8 text-center text-xs text-white/50 space-y-2">
+                <p>No systems matching &ldquo;{searchQuery}&rdquo;</p>
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedSector("all");
+                  }}
+                  className="rounded-xl bg-[#D8A63A] px-4 py-2 font-mono text-xs font-bold text-black"
+                >
+                  Reset Filter & Search
+                </button>
+              </div>
+            ) : (
+              <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {filteredSystems.map((route) => (
+                  <div
+                    key={route.path}
+                    onClick={() => {
+                      sound.playWarp();
+                      router.push(route.path);
+                    }}
+                    className="group flex cursor-pointer flex-col justify-between rounded-2xl border border-white/10 bg-[#121212]/80 p-4 sm:p-5 transition hover:border-[#D8A63A]/50 hover:bg-[#181818] shadow-lg hover:scale-[1.01]"
+                  >
+                    <div className="space-y-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-xl group-hover:scale-110 group-hover:bg-[#D8A63A]/15 transition">
+                          {route.icon}
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          {route.badge && (
+                            <span className="font-mono text-[9px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-[#F4C95D] px-2 py-0.5 rounded-full">
+                              {route.badge}
+                            </span>
+                          )}
+                          <span className="font-mono text-xs text-white/30 group-hover:text-[#F4C95D] group-hover:translate-x-0.5 transition">
+                            →
+                          </span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3 className="font-bold text-sm text-white group-hover:text-[#F4C95D] transition">
+                          {route.label}
+                        </h3>
+                        <p className="text-xs text-white/50 mt-1 line-clamp-2 leading-relaxed">
+                          {route.description || "Active UPSC preparation laboratory and simulator."}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-3.5 flex items-center justify-between border-t border-white/5 pt-2 font-mono text-[10px] text-white/40">
+                      <span className="truncate">{route.path}</span>
+                      <span className="text-[#F4C95D] opacity-0 group-hover:opacity-100 transition font-bold">
+                        OPEN
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* 8. REVISION HEATMAP */}

@@ -5,6 +5,11 @@ export interface CadetProfile {
   targetYear: number;
   optionalSubject?: string;
   role: "USER" | "ADMIN" | "SUPER_ADMIN" | "CONTENT_ADMIN" | "MODERATOR" | "ANALYST";
+  streakDays?: number;
+  longestStreak?: number;
+  dailyGoalHours?: number;
+  rankTier?: string;
+  avatarUrl?: string;
   createdAt: string;
   lastActiveAt: string;
 }

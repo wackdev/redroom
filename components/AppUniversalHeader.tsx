@@ -139,7 +139,7 @@ export default function AppUniversalHeader({
               <div className="fixed sm:absolute top-14 sm:top-full left-3 sm:left-0 right-3 sm:right-auto sm:w-96 rounded-2xl border border-white/15 bg-[#0c0c0c] p-3 text-white shadow-[0_15px_50px_rgba(0,0,0,0.95)] z-50 animate-in fade-in duration-150">
                 <div className="mb-2.5 flex items-center justify-between border-b border-white/10 pb-2">
                   <span className="font-mono text-[10px] font-black tracking-widest text-[#F4C95D] uppercase">
-                    16-SYSTEM COMMAND DIRECTORY
+                    27-SYSTEM COMMAND DIRECTORY
                   </span>
                   <button
                     onClick={() => setDropdownOpen(false)}

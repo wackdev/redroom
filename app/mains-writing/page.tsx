@@ -197,46 +197,56 @@ export default function MainsWritingPage() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/10">
-              <button
-                onClick={() => {
-                  sound.playSelect();
-                  setActiveTab("speed-lab");
-                }}
-                className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
-                  activeTab === "speed-lab"
-                    ? "bg-[#D8A63A] text-black shadow-lg"
-                    : "text-white/60 hover:text-white"
-                }`}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/10">
+                <button
+                  onClick={() => {
+                    sound.playSelect();
+                    setActiveTab("speed-lab");
+                  }}
+                  className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
+                    activeTab === "speed-lab"
+                      ? "bg-[#D8A63A] text-black shadow-lg"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  ⏱️ Timed Speed Lab
+                </button>
+                <button
+                  onClick={() => {
+                    sound.playSelect();
+                    setActiveTab("diagrams");
+                  }}
+                  className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
+                    activeTab === "diagrams"
+                      ? "bg-[#D8A63A] text-black shadow-lg"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  📊 Diagram Studio
+                </button>
+                <button
+                  onClick={() => {
+                    sound.playSelect();
+                    setActiveTab("qcab");
+                  }}
+                  className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
+                    activeTab === "qcab"
+                      ? "bg-[#D8A63A] text-black shadow-lg"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  📑 QCAB Print Sheet
+                </button>
+              </div>
+
+              <a
+                href="/answer-lab"
+                className="px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 font-mono text-xs font-bold text-white/70 hover:border-[#D8A63A] hover:text-[#F4C95D] transition flex items-center gap-1.5"
               >
-                ⏱️ Timed Speed Lab
-              </button>
-              <button
-                onClick={() => {
-                  sound.playSelect();
-                  setActiveTab("diagrams");
-                }}
-                className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
-                  activeTab === "diagrams"
-                    ? "bg-[#D8A63A] text-black shadow-lg"
-                    : "text-white/60 hover:text-white"
-                }`}
-              >
-                📊 Diagram Studio
-              </button>
-              <button
-                onClick={() => {
-                  sound.playSelect();
-                  setActiveTab("qcab");
-                }}
-                className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
-                  activeTab === "qcab"
-                    ? "bg-[#D8A63A] text-black shadow-lg"
-                    : "text-white/60 hover:text-white"
-                }`}
-              >
-                📑 QCAB Print Sheet
-              </button>
+                <span>✍️</span>
+                <span>Answer Lab →</span>
+              </a>
             </div>
           </div>
 
