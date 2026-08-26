@@ -239,6 +239,13 @@ export class AdminService {
   }
 
   /**
+   * Directly register or update a cadet in the server-side registry
+   */
+  public static registerServerCadet(user: UserAdminSummary) {
+    serverRegisteredCadets.set(user.id, user);
+  }
+
+  /**
    * Fetches real registered users from Supabase Auth + Profiles + User Roles + Server Store
    */
   public static async getUsersList(query?: string, roleFilter?: string): Promise<UserAdminSummary[]> {

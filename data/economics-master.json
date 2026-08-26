@@ -1,0 +1,526 @@
+[
+  {
+    "id": "econ-pillar-1",
+    "pillarNumber": 1,
+    "title": "Economic Fundamentals, Markets & Micro-Foundations",
+    "theme": "Core Concepts & Microeconomics",
+    "summary": "Exploration of resource scarcity, economic agents, comparative economic systems (Capitalism, Socialism, Mixed Economy), market structures, laws of demand & supply, types of goods, and elasticity frameworks.",
+    "keyTopics": [
+      {
+        "id": "topic-economic-systems-factors",
+        "title": "Economic Systems & Factors of Production (CELL)",
+        "keyConcepts": [
+          "Scarcity & Allocation: Economics is the study of choice under resource constraints.",
+          "Economic Agents: Households (consumers), Firms (producers), Government (regulator/welfare provider), Central Bank.",
+          "Factors of Production (CELL): Land (Natural resources -> Rent), Labor (Human effort -> Wages/Salary), Capital (Human-made production goods -> Interest), Entrepreneurship (Risk-taking organizer -> Profit).",
+          "Factor Cost vs Factor Income: Factor cost to the producer equals factor income to the input provider.",
+          "Capitalism (Market Economy): Private ownership, Adam Smith's 'Invisible Hand', consumer sovereignty, profit-driven, but prone to high inequality and business cycles.",
+          "Socialism (Centrally Planned): State ownership, social welfare maximization, price controls, but prone to red-tapism and low innovation.",
+          "Mixed Economy (India): Blends state welfare with private market efficiency; post-1991 reforms dismantled License Raj."
+        ],
+        "prelimsTraps": [
+          "Factor cost includes the profit of the entrepreneur (as profit is the factor income for entrepreneurship), NOT just wages and rent.",
+          "Capital goods are human-produced goods used for further production (e.g., machinery), NOT strictly liquid cash."
+        ],
+        "mainsPointers": [
+          "India's mixed economic model serves as an institutional necessity to balance rapid industrial growth with acute poverty alleviation (SDG 1 & 10)."
+        ]
+      },
+      {
+        "id": "topic-market-structures-goods",
+        "title": "Market Structures, Types of Goods & Elasticities",
+        "keyConcepts": [
+          "Market Structures: Perfect Competition (Infinite sellers, price takers, homogenous goods, zero barriers), Monopoly (Single seller, price maker, entry barriers, e.g. Indian Railways), Oligopoly (Few large sellers, mutual interdependence/collusion, e.g. Telecom, Aviation), Monopolistic Competition (Many sellers, product differentiation, e.g. FMCG).",
+          "Law of Demand (Ceteris Paribus): Inverse relation between price and quantity demanded. Reasons: Income Effect, Substitution Effect, Law of Diminishing Marginal Utility.",
+          "Defying Law of Demand: Giffen Goods (inferior staple food for very poor where income effect dominates substitution effect; upward sloping demand) & Veblen Goods (conspicuous luxury items with snob appeal; upward sloping demand).",
+          "Public vs Private Goods Matrix: Private Goods (Rival & Excludable - laptops, food), Public Goods (Non-rival & Non-excludable - national defense, street lights), Club Goods (Non-rival & Excludable - OTT subscriptions, toll roads), Common Pool Resources (Rival & Non-excludable - fisheries, groundwater, open pasture).",
+          "Merit vs Demerit Goods: Merit goods create positive externalities (Education, Healthcare); Demerit goods create negative externalities (Tobacco, Alcohol).",
+          "Elasticity Measures: Price Elasticity of Demand (PED > 1 elastic, PED < 1 inelastic like essential medicines/petrol); Income Elasticity (IED > 0 Normal goods, IED < 0 Inferior goods); Cross Elasticity (CED > 0 Substitutes like tea/coffee, CED < 0 Complements like car/fuel)."
+        ],
+        "prelimsTraps": [
+          "Demand curves for ALL goods are NOT downward sloping: Giffen and Veblen goods have upward sloping demand curves.",
+          "Free government services still carry an Opportunity Cost borne by taxpayers (Free Rider Problem)."
+        ],
+        "mainsPointers": [
+          "Market failure in public and merit goods mandates state intervention, direct provisioning, and universal social security floors."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-2",
+    "pillarNumber": 2,
+    "title": "National Income Accounting & GDP/GVA Methodology",
+    "theme": "Macroeconomic Aggregates",
+    "summary": "Measurement of national output across Output, Income, and Expenditure methods; 2015 GDP revision (MCA21, Market Price, Basic Price); National Income aggregates (GNP, NDP, NNP at Factor Cost); and Business Cycles.",
+    "keyTopics": [
+      {
+        "id": "topic-gdp-calculation-methods",
+        "title": "GDP & GVA: Concept, 3 Measurement Methods & 2015 Reforms",
+        "keyConcepts": [
+          "GDP Definition: Monetary value of all final goods and services produced within the domestic economic territory of a country in a financial year.",
+          "Output / Value Added Method: GVA = Value of Output - Value of Intermediate Consumption. Prevents double counting.",
+          "Income Method: Sum of all factor payments: Compensation of Employees (Wages) + Operating Surplus (Rent, Interest, Profit) + Mixed Income of Self-Employed.",
+          "Expenditure Method: GDP = C + I + G + (X - M). C (Private Final Consumption Expenditure ~58%), I (Gross Fixed Capital Formation ~30-32%), G (Government Final Consumption ~10-11%), Net Exports (X - M).",
+          "2015 Methodology Shift: Base year updated to 2011-12; Data sourced from MCA21 database (Ministry of Corporate Affairs); Headline GDP shifted from Factor Cost to Market Price in line with UN SNA 2008.",
+          "Price Relationships:",
+          "  • GVA at Basic Price = GVA at Factor Cost + Production Taxes - Production Subsidies.",
+          "  • GDP at Market Price = GVA at Basic Price + Product Taxes - Product Subsidies.",
+          "  • Production Taxes/Subsidies: Independent of output volume (Stamp duty, land revenue, capital subsidy).",
+          "  • Product Taxes/Subsidies: Proportional to output volume (GST, excise duty, per-unit subsidy)."
+        ],
+        "prelimsTraps": [
+          "GVA is measured at Basic Prices, while Headline GDP is measured at Market Prices.",
+          "Intermediate goods, transfer payments (pensions, scholarships), sale of second-hand goods (excluding dealer commission), and unpaid domestic care work are EXCLUDED from GDP."
+        ],
+        "mainsPointers": [
+          "GDP as an imperfect gauge of welfare: Excludes environmental degradation, unpaid care economy, and income inequality (Gini coefficient)."
+        ]
+      },
+      {
+        "id": "topic-national-income-aggregates-cycles",
+        "title": "National Income Aggregates & Business Cycles",
+        "keyConcepts": [
+          "GNP (Gross National Product) = GDP + Net Factor Income from Abroad (NFIA). Nationality concept (who produces) vs Territorial concept (where produced).",
+          "NDP (Net Domestic Product) = GDP - Depreciation (consumption of fixed capital).",
+          "NNP (Net National Product) = GNP - Depreciation.",
+          "National Income = NNP at Factor Cost (Purest indicator of factor earnings of domestic residents).",
+          "GDP Deflator = (Nominal GDP / Real GDP) * 100. Comprehensive measure of inflation across all produced goods and services.",
+          "Business Cycle Phases: Expansion (Boom), Slowdown, Recession (Technical recession = 2 consecutive quarters of negative GDP growth), Depression (Prolonged acute collapse, 1929), Recovery.",
+          "Fiscal Stance: Pro-cyclical (accentuates cycle) vs Counter-cyclical (mitigates cycle e.g. fiscal stimulus during recession)."
+        ],
+        "prelimsTraps": [
+          "Technical recession is defined as two consecutive QUARTERS of negative year-on-year GDP growth, NOT two consecutive years.",
+          "National Income in official statistics refers specifically to NNP at Factor Cost, NOT GDP at Market Price."
+        ],
+        "mainsPointers": [
+          "Counter-cyclical fiscal policy during economic shocks stabilizes aggregate demand through infrastructure capex and expanded welfare transfers."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-3",
+    "pillarNumber": 3,
+    "title": "Inflation Dynamics, Indices & Flexible Inflation Targeting",
+    "theme": "Price Stability & Monetary Policy",
+    "summary": "Analysis of Wholesale Price Index (WPI), Consumer Price Index (CPI), Producer Price Index (PPI), GDP Deflator, inflation types, stagflation, and the Flexible Inflation Targeting (FIT) framework under the Monetary Policy Committee (MPC).",
+    "keyTopics": [
+      {
+        "id": "topic-inflation-indices-comparison",
+        "title": "Inflation Measurement: CPI vs WPI vs PPI vs GDP Deflator",
+        "keyConcepts": [
+          "CPI (Consumer Price Index): Measures retail inflation; covers goods and services; base year 2012; published monthly by NSO (MoSPI). CPI-Combined has 299 items (Food & Beverages ~45.86%, Miscellaneous ~28.32%, Housing ~10.07%, Fuel ~6.84%).",
+          "Specific CPIs: CPI-IW (Industrial Workers, base 2016) published by Labour Bureau for Dearness Allowance (DA); CPI-AL (Agricultural Labourers) for MGNREGA wage revision.",
+          "WPI (Wholesale Price Index): Measures wholesale transaction prices; goods ONLY (no services); base year 2011-12; published monthly by Office of Economic Adviser (DPIIT, MoC&I). Weights: Manufactured Products (64.23%), Primary Articles (22.62%), Fuel & Power (13.15%).",
+          "Reasons for WPI-CPI Divergence: Different commodity baskets, absence of services in WPI, high food weight in CPI vs high manufactured weight in WPI, different base years, and base effect.",
+          "Producer Price Index (PPI): Measures price changes at the factory gate, eliminating double-counting and transport/trade markups (Ramesh Chand Committee recommendation).",
+          "Headline vs Core Inflation: Headline includes all items; Core excludes volatile Food and Fuel components."
+        ],
+        "prelimsTraps": [
+          "WPI does NOT include services; CPI includes BOTH goods and services.",
+          "CPI-Combined is published by NSO (MoSPI), while CPI-IW is published by the Labour Bureau (Ministry of Labour).",
+          "Food & Beverages has the HIGHEST weight in CPI-Combined (~45.86%)."
+        ],
+        "mainsPointers": [
+          "Persistent food inflation in India is predominantly supply-driven (climate shocks, storage bottlenecks, perishability), limiting the efficacy of pure monetary tightening."
+        ]
+      },
+      {
+        "id": "topic-flexible-inflation-targeting",
+        "title": "Flexible Inflation Targeting (FIT) & Monetary Policy Committee",
+        "keyConcepts": [
+          "Monetary Policy Framework Agreement (2015): Signed between GoI and RBI; statutory backing under Section 45ZB of RBI Act 1934 (effective 2016).",
+          "Inflation Target: 4% Headline CPI with a tolerance band of +/- 2% (2% floor to 6% ceiling) set for a 5-year period.",
+          "Monetary Policy Committee (MPC): 6-member body (3 RBI members: Governor, Deputy Governor, Executive Director + 3 external experts appointed by Central Government for 4-year non-renewable term).",
+          "Decision Making: Majority voting; RBI Governor has casting vote in case of tie; meets at least 4 times a year (bi-monthly in practice); publishes minutes after 14 days.",
+          "Accountability Clause: If average inflation is outside 2-6% for 3 consecutive quarters, RBI must submit a written explanation to Central Govt detailing reasons, remedial actions, and expected timeline for return to 4% target."
+        ],
+        "prelimsTraps": [
+          "The inflation target is based on HEADLINE CPI-Combined, NOT Core CPI or WPI.",
+          "The RBI Governor does NOT possess absolute veto power in the MPC; he has only a casting vote in the event of a tie.",
+          "External members of the MPC hold office for 4 years and are NOT eligible for reappointment."
+        ],
+        "mainsPointers": [
+          "FIT provides macroeconomic predictability and anchors inflationary expectations, protecting low-income households from the regressive 'inflation tax'."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-4",
+    "pillarNumber": 4,
+    "title": "Money, Banking Architecture & Monetary Policy Tools",
+    "theme": "Financial System & Central Banking",
+    "summary": "Evolution of money, Reserve Bank of India (RBI Act 1934), Monetary Aggregates (M0–M4), Money Multiplier, Quantitative & Qualitative tools, Lending rate regimes (MCLR, External Benchmarking), Basel Norms, NPAs, IBC 2016, and Bad Bank (NARCL).",
+    "keyTopics": [
+      {
+        "id": "topic-rbi-monetary-tools-aggregates",
+        "title": "RBI Framework, Monetary Aggregates & Policy Tools",
+        "keyConcepts": [
+          "RBI Evolution: Established April 1, 1935 under RBI Act 1934 on Hilton Young Commission (1926) recommendation; nationalized 1949; Central Board of Directors (max 21 members).",
+          "Monetary Base & Aggregates:",
+          "  • M0 (High-Powered Money / Reserve Money) = Currency in Circulation + Bankers' Deposits with RBI + Other Deposits with RBI.",
+          "  • M1 (Narrow Money) = Currency with Public + Demand Deposits with Banking System + Other Deposits with RBI.",
+          "  • M2 = M1 + Post Office Savings Bank Deposits.",
+          "  • M3 (Broad Money) = M1 + Time Deposits with Banking System.",
+          "  • M4 = M3 + Total Post Office Deposits (excluding National Savings Certificates).",
+          "  • Money Multiplier = M3 / M0 (or 1 / Reserve Ratio).",
+          "Quantitative Tools (General Liquidity Control):",
+          "  • Repo Rate: Short-term lending rate against G-Sec collateral.",
+          "  • Reverse Repo Rate: Rate at which RBI borrows from banks with collateral.",
+          "  • Standing Deposit Facility (SDF): Overnight uncollateralized liquidity absorption tool (Urjit Patel committee).",
+          "  • Marginal Standing Facility (MSF): Penal overnight borrowing rate for banks against SLR quota.",
+          "  • Rate Corridor: Reverse Repo < SDF < Repo Rate < MSF / Bank Rate.",
+          "  • Cash Reserve Ratio (CRR): Percentage of NDTL deposited in cash with RBI (no interest paid).",
+          "  • Statutory Liquidity Ratio (SLR): Percentage of NDTL maintained by banks in liquid assets (G-Secs, cash, gold).",
+          "  • Open Market Operations (OMO) & Operation Twist (simultaneous sale of short-term bonds and purchase of 10-year benchmark bonds).",
+          "Qualitative Tools: Priority Sector Lending (PSL: 40% ANBC for commercial banks, 18% agriculture; 60% for SFBs/UCBs), Margin Requirements / Loan-to-Value (LTV), Moral Suasion, Direct Action."
+        ],
+        "prelimsTraps": [
+          "RBI pays ZERO interest to banks on CRR deposits.",
+          "SDF does NOT require collateral G-Secs from RBI, unlike Reverse Repo.",
+          "Withdrawing cash from a demand deposit leaves M3 and aggregate money supply UNCHANGED (currency with public increases, demand deposits decrease)."
+        ],
+        "mainsPointers": [
+          "Transmission of Monetary Policy: External Benchmarking (linking loans to Repo Rate or T-Bill yields) has significantly improved rate pass-through compared to the sticky Base Rate and MCLR regimes."
+        ]
+      },
+      {
+        "id": "topic-banking-reforms-npas-ibc",
+        "title": "Banking Sector Health: Basel Norms, NPAs, IBC 2016 & NARCL",
+        "keyConcepts": [
+          "Basel III Accords: Capital Adequacy Ratio (CAR = Total Capital / Risk-Weighted Assets); RBI mandates 9% minimum (vs Basel 8%); Common Equity Tier 1 (CET1) min 5.5%; Capital Conservation Buffer (CCB) 2.5%; Liquidity Coverage Ratio (LCR 100% 30-day HQLA).",
+          "Bonds: Additional Tier 1 (AT1) perpetual bonds (unsecured, write-down clause at Point of Non-Viability) vs Tier 2 subordinated debt.",
+          "NPA Lifecycle: Special Mention Accounts (SMA-0: 1-30 days overdue, SMA-1: 31-60 days, SMA-2: 61-90 days); NPA (overdue >90 days) -> Substandard (<=12 months) -> Doubtful (1-3 yrs) -> Loss Asset (>3 yrs).",
+          "Insolvency and Bankruptcy Code (IBC 2016): IBBI regulator, NCLT judicial forum, Committee of Creditors (CoC) voting (66% threshold), 330-day resolution timeline, Pre-packaged Insolvency (PIRP for MSMEs within 120 days).",
+          "Bad Bank Architecture: National Asset Reconstruction Company Ltd (NARCL - 51% PSB owned) acquires legacy NPAs (>₹500 cr) paying 15% cash + 85% Security Receipts (backed by ₹30,600 cr 5-yr GoI guarantee); IDRCL manages asset turnaround.",
+          "Deposit Insurance: DICGC (wholly-owned RBI subsidiary) insures up to ₹5 lakh per depositor per bank within 90 days."
+        ],
+        "prelimsTraps": [
+          "A loan becomes an NPA after 90 DAYS of overdue principal or interest payment.",
+          "AT1 bonds are PERPETUAL (no maturity date) and carry no collateral.",
+          "DICGC covers both Principal and Interest up to a maximum ceiling of ₹5 Lakh."
+        ],
+        "mainsPointers": [
+          "Twin Balance Sheet problem resolved through the 4R Strategy: Recognition (AQR), Resolution (IBC), Recapitalization (PSB capital infusion), and Reforms (EASE framework, NARCL)."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-5",
+    "pillarNumber": 5,
+    "title": "Public Finance, Taxation Architecture & GST",
+    "theme": "Tax Policy & Fiscal Federalism",
+    "summary": "Direct and Indirect tax principles, Corporate tax cuts, MAT, GAAR, BEPS 2.0, GST 101st Amendment, GST Council (Article 279A), Dual GST model, Tax Buoyancy, and the Laffer Curve.",
+    "keyTopics": [
+      {
+        "id": "topic-direct-indirect-taxes-beps",
+        "title": "Tax Principles, Corporate Reforms, GAAR & BEPS 2.0",
+        "keyConcepts": [
+          "Tax Classification: Direct Taxes (Incidence and impact on same entity, non-transferable, progressive e.g. Income Tax, Corporate Tax, Capital Gains Tax, STT) vs Indirect Taxes (Incidence on producer, impact shifted to consumer, regressive e.g. GST, Customs).",
+          "Specific vs Ad Valorem Taxes: Specific is fixed per physical unit (Excise duty on petrol per litre); Ad Valorem is percentage of transaction value (GST).",
+          "Surcharge (extra levy on high tax brackets) vs Cess (levy for designated purpose e.g. 4% Health & Education Cess). Neither is shared in the Divisible Pool under Article 270.",
+          "Corporate Tax Reforms 2019: Reduced base rate to 22% (~25.17% effective) for domestic companies foregoing exemptions (Section 115BAA); 15% for new manufacturing units (Section 115BAB).",
+          "Minimum Alternate Tax (MAT): 15% on book profits of 'zero-tax companies' under Section 115JB.",
+          "GAAR (General Anti-Avoidance Rules 2017): Shome Committee; principle of 'substance over form' against Impermissible Avoidance Arrangements (Tiger Global SC case).",
+          "OECD/G20 BEPS 2.0: Pillar One (Reallocation of taxing rights over MNE profits to market jurisdictions); Pillar Two (15% Global Minimum Corporate Tax rate)."
+        ],
+        "prelimsTraps": [
+          "Cess and Surcharge collections go to the Consolidated Fund of India and are NOT part of the divisible tax pool shared with states.",
+          "Indirect taxes are generally REGRESSIVE because they take a higher proportion of income from lower-income individuals."
+        ],
+        "mainsPointers": [
+          "India's low Tax-to-GDP ratio (~17-18% vs OECD ~34%) stems from a narrow tax base (only ~5% file ITR, >80% zero returns) and a vast unorganized informal sector."
+        ]
+      },
+      {
+        "id": "topic-gst-architecture-metrics",
+        "title": "GST Architecture, Council (Art 279A) & Taxation Metrics",
+        "keyConcepts": [
+          "101st Constitutional Amendment Act 2016: Introduced GST from July 1, 2017; subsumed 17 central/state levies and 23 cesses; 'One Nation, One Tax, One Market'.",
+          "GST Council (Article 279A): Constitutional federal body chaired by Union Finance Minister. Voting weightage: Central Government = 1/3rd, States = 2/3rd. Decision threshold: 75% weighted majority (Center holds de facto veto). SC Mohit Minerals ruling: GST Council recommendations are advisory/non-binding.",
+          "Dual GST Model (Canadian model): CGST (Center) + SGST (State) for intrastate trade; IGST (CGST + SGST) for interstate transactions (destination-based).",
+          "Exclusions from GST: 5 petroleum products (Crude, Petrol, Diesel, ATF, Natural Gas - rates not yet notified by Council) and Alcoholic Liquor for Human Consumption (requires Constitutional amendment to include).",
+          "Inverted Duty Structure: Higher tax on inputs than on finished outputs, locking input tax credit and creating refund burdens.",
+          "Tax Metrics: Tax Buoyancy (% change in tax revenue / % change in nominal GDP; post-GST >1.1); Tax Elasticity (change in tax revenue relative to tax rate changes); Tax Expenditure (revenue foregone via exemptions); Laffer Curve (inverted U-curve showing optimal tax rate maximizing revenue)."
+        ],
+        "prelimsTraps": [
+          "GST Council decisions require a 75% weighted majority; Center holds 1/3 (33.33%) and States hold 2/3 (66.67%).",
+          "Alcoholic liquor for human consumption is CONSTITUTIONALLY outside GST; petroleum products are legally under GST but rates are not yet notified.",
+          "GST is a DESTINATION-BASED consumption tax, collected by the state where goods/services are consumed."
+        ],
+        "mainsPointers": [
+          "GST federalism: Balancing revenue protection for states with nationwide market efficiency, e-Way bills, and rate rationalization."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-6",
+    "pillarNumber": 6,
+    "title": "Fiscal Policy, Budgeting & Public Debt Management",
+    "theme": "Fiscal Management & Intergovernmental Finance",
+    "summary": "Article 112 Annual Financial Statement, Money Bills, Gender & Outcome Budgeting, Revenue vs Capital Accounts, the Deficit Quartet (RD, ERD, FD, PD), FRBM Act 2003 & NK Singh Committee, and Finance Commission (Article 280).",
+    "keyTopics": [
+      {
+        "id": "topic-budget-accounts-deficits",
+        "title": "Budget Framework, Account Structure & The Deficit Quartet",
+        "keyConcepts": [
+          "Constitutional Mandate: Article 112 (Annual Financial Statement); presented on 1st working day of February. Money Bills under Article 110: Appropriation Bill (Art 114 to withdraw from Consolidated Fund) & Finance Bill (tax proposals).",
+          "Budget Models: Gender Budgeting (Part A 100% women, Part B >=30%, Part C <=30%), Outcome Budgeting (linking financial outlays with physical deliverables), Zero-Based Budgeting (ZBB - justifying every expenditure from zero base).",
+          "Budget Accounts Division:",
+          "  • Revenue Account (No change in assets/liabilities): Revenue Receipts (Tax + Non-Tax: dividends, interest, fees) vs Revenue Expenditure (Salaries, pensions, interest payments, subsidies, GCCA).",
+          "  • Capital Account (Changes assets/liabilities): Capital Receipts (Debt: market loans; Non-Debt: loan recoveries, disinvestment) vs Capital Expenditure (Infrastructure capex, loan principal repayment, loans to states).",
+          "  • Grants for Creation of Capital Assets (GCCA): Revenue expenditure for Center, but capital formation for recipient State.",
+          "Deficit Quartet:",
+          "  1. Revenue Deficit (RD) = Revenue Expenditure - Revenue Receipts.",
+          "  2. Effective Revenue Deficit (ERD) = RD - GCCA (Rangarajan Committee).",
+          "  3. Fiscal Deficit (FD) = Total Expenditure - (Revenue Receipts + Non-Debt Capital Receipts) = Net Total Borrowing.",
+          "  4. Primary Deficit (PD) = Fiscal Deficit - Interest Payments (Measures current year fiscal performance excluding legacy debt servicing)."
+        ],
+        "prelimsTraps": [
+          "Grants to states for capital assets (GCCA) are classified as REVENUE EXPENDITURE in the Union Budget, NOT capital expenditure.",
+          "Fiscal Deficit exactly equals the total market borrowing and debt liabilities incurred by the government during that financial year.",
+          "Primary Deficit equals ZERO if Fiscal Deficit equals Interest Payments."
+        ],
+        "mainsPointers": [
+          "Quality of Fiscal Deficit: A deficit driven by Capital Expenditure (Capex multiplier ~3.5-4x) crowds in private investment, whereas a deficit driven by Revenue Expenditure worsens intergenerational debt burdens."
+        ]
+      },
+      {
+        "id": "topic-frbm-public-debt-finance-commission",
+        "title": "Public Debt, FRBM Act & Finance Commission (Art 280)",
+        "keyConcepts": [
+          "Public Debt Composition: Internal Debt (>95% - G-Secs, T-Bills, low forex risk) + External Debt (~4-5%). Extra-Budgetary Resources (EBR / Off-Budget Liabilities) adjusted under Net Borrowing Ceiling (Article 293).",
+          "FRBM Act 2003 & NK Singh Committee (2016): Combined Debt-to-GDP target 60% (40% Center, 20% States); Shift from FD target to Debt-to-GDP fiscal anchor (targeting 50% by FY31); Escape clause allows 0.5% GDP deviation under war, national calamity, or severe structural reforms.",
+          "Finance Commission (Article 280): 5-member constitutional body constituted every 5 years by the President.",
+          "Vertical Devolution: Share of states in divisible pool (14th FC: 42%, 15th FC & 16th FC: 41% due to J&K UT adjustment).",
+          "Horizontal Devolution Parameters (16th FC by Arvind Panagariya vs 15th FC): Income Distance (25% in 16th FC vs 45% in 15th FC), Population 2011 (17.5% vs 15%), Contribution to GDP (10% new parameter in 16th FC), Area (10% vs 15%), Forest & Ecology (10%), Tax Effort (0% vs 2.5%).",
+          "Grants: 16th FC recommended discontinuing Revenue Deficit Grants (RDG) to encourage state fiscal discipline."
+        ],
+        "prelimsTraps": [
+          "15th and 16th Finance Commissions recommended 41% vertical devolution to states, NOT 42% (1% adjusted for J&K/Ladakh UTs).",
+          "The 16th Finance Commission introduced 'Contribution to GDP' (10% weight) and removed 'Tax & Fiscal Effort'.",
+          "Finance Commission recommendations are purely ADVISORY in nature, not legally binding on Parliament."
+        ],
+        "mainsPointers": [
+          "Fiscal Federalism Dynamics: Balancing the equity imperative (supporting poorer states via income distance) with efficiency incentives (rewarding economic contribution and fiscal prudence)."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-7",
+    "pillarNumber": 7,
+    "title": "External Sector, Balance of Payments & Exchange Rates",
+    "theme": "International Macroeconomics & Trade",
+    "summary": "Balance of Payments accounts, CAD dynamics, Forex management, Nominal vs Real Exchange Rate, NEER/REER, PPP, Managed Floating, Currency Convertibility, and Rupee Internationalization.",
+    "keyTopics": [
+      {
+        "id": "topic-bop-forex-exchange-rates",
+        "title": "Balance of Payments, Forex Reserves & Exchange Rate Regimes",
+        "keyConcepts": [
+          "Balance of Payments (BoP) Structure: Systematic record of all economic transactions between residents and the rest of the world (published by RBI).",
+          "Current Account: Merchandise Trade (Goods Deficit) + Services Trade (Surplus, IT/ITES) + Primary Income (Investment profits, interest) + Secondary Income (Transfers/Remittances >$135B - India rank 1).",
+          "Capital Account: Foreign Investment (FDI + FPI) + External Loans (ECBs, Bilateral/Multilateral) + Banking Capital (NRI deposits).",
+          "Current Account Deficit (CAD): Sustainable threshold is 2-2.5% of GDP. Twin Deficit = High Fiscal Deficit + High CAD.",
+          "Forex Reserves (> $700 Billion, ~11 months import cover): 4 Components: 1. Foreign Currency Assets (FCA), 2. Gold, 3. Special Drawing Rights (SDRs), 4. Reserve Tranche Position (RTP) in IMF.",
+          "Exchange Rate Regimes: Fixed (Devaluation/Revaluation) vs Floating (Depreciation/Appreciation) vs Managed Floating ('Dirty Float' - RBI intervenes via market operations and Sterilization OMOs to curb excessive volatility).",
+          "Exchange Rate Indices: Nominal Exchange Rate, Real Exchange Rate (RER), NEER (trade-weighted bilateral rate, base 2015-16), REER (NEER adjusted for inflation differential; REER > 100 indicates currency overvaluation and declining export competitiveness), Purchasing Power Parity (PPP - Big Mac Index; India 3rd largest economy in PPP vs 4th/5th nominal)."
+        ],
+        "prelimsTraps": [
+          "Foreign Currency Assets (FCA) is the LARGEST component of India's Forex Reserves, followed by Gold, SDR, and RTP.",
+          "Remittances are recorded in the CURRENT ACCOUNT under Secondary Income (Transfers), NOT the Capital Account.",
+          "An increase in REER implies Indian exports have become MORE expensive and less competitive."
+        ],
+        "mainsPointers": [
+          "Managing external vulnerabilities: Maintaining robust forex buffers, diversifying energy supplies, and promoting non-oil merchandise exports to insulate against global monetary tightening (US Fed Tapering)."
+        ]
+      },
+      {
+        "id": "topic-convertibility-rupee-internationalization",
+        "title": "Currency Convertibility, Rupee Internationalization & FTP 2023",
+        "keyConcepts": [
+          "Convertibility: Current Account has FULL convertibility since 1994 (after LERMS dual rate in 1992-93); Capital Account has PARTIAL convertibility (SS Tarapore Committees recommended phased full CAC).",
+          "Liberalized Remittance Scheme (LRS): Resident individuals can remit up to $250,000 per financial year for permissible current/capital transactions without prior RBI approval.",
+          "Rupee Internationalization & De-dollarization: Invoicing cross-border trade in INR; Special Rupee Vostro Accounts (SRVA) established for India-Russia trade; bypassing SWIFT dependency.",
+          "Foreign Trade Policy (FTP) 2023: No sunset clause; targets $2 Trillion exports by 2030 ($1T merchandise + $1T services); transition from export subsidies (MEIS/SEIS) to tax remission (RoDTEP, GK Pillai Committee); promotion of E-commerce exports and One District One Product (ODOP)."
+        ],
+        "prelimsTraps": [
+          "India has FULL Current Account Convertibility, but only PARTIAL Capital Account Convertibility.",
+          "A Vostro Account is a bank account held by a FOREIGN bank in an Indian bank in INDIAN RUPEES.",
+          "RoDTEP is a tax REMISSION scheme (refunding un-rebated embedded taxes), NOT an export subsidy, making it fully WTO compliant."
+        ],
+        "mainsPointers": [
+          "Rupee internationalization reduces exchange rate volatility and transaction costs but requires deeper domestic bond markets and calibrated capital account opening."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-8",
+    "pillarNumber": 8,
+    "title": "Global Trade Architecture, WTO & Foreign Investment Models",
+    "theme": "International Institutions & Investment",
+    "summary": "Bretton Woods institutions (IMF & World Bank), WTO Agreements (AoA, GATS, TRIPS, TRIMS, ASCM), Dispute Settlement Crisis, Levels of Economic Integration (PTA to EU), and Foreign Investment (FDI vs FPI).",
+    "keyTopics": [
+      {
+        "id": "topic-wto-agreements-disputes",
+        "title": "WTO Framework, Agreement on Agriculture & Appellate Crisis",
+        "keyConcepts": [
+          "WTO Genesis: 1944 Bretton Woods -> 1947 GATT -> Jan 1, 1995 WTO (Marrakech Agreement, Geneva HQ).",
+          "Core Principles: Most Favored Nation (MFN - non-discrimination, equal tariff treatment), National Treatment (imported goods treated on par with domestic goods post-customs), Free Trade, Special & Differential Treatment (S&DT for developing/LDCs).",
+          "Agreement on Agriculture (AoA) 3 Pillars: Market Access (Tariffication), Export Subsidies, Domestic Support (Traffic Light Boxes):",
+          "  • Green Box: Non-trade distorting (R&D, infrastructure, decoupled income support) - No limits.",
+          "  • Blue Box: Direct payments under production-limiting programs - No limits.",
+          "  • Amber Box: Trade-distorting support (MSP, input subsidies / Aggregate Measure of Support - AMS). De Minimis limits: 5% of agricultural output for developed, 10% for developing nations.",
+          "  • Bali Peace Clause (2013): Protects developing nations from WTO disputes if food security public stockholding exceeds the 10% de minimis limit, pending permanent solution.",
+          "Other Agreements: GATS (4 Modes of Service Supply), TRIPS (Intellectual property), TRIMS (prohibits local content mandates), ASCM (bans export subsidies once per capita income > $1,000 for 3 consecutive years).",
+          "DSB Crisis: WTO Appellate Body rendered dysfunctional due to US blocking judicial appointments ('Appealing into the void')."
+        ],
+        "prelimsTraps": [
+          "Green Box and Blue Box subsidies have NO financial limits under WTO rules.",
+          "The De Minimis limit for Amber Box subsidies is 10% for developing nations and 5% for developed nations based on 1986-88 external reference prices.",
+          "GATS Mode 4 refers to the 'Presence of Natural Persons' (temporary movement of Indian professionals abroad)."
+        ],
+        "mainsPointers": [
+          "India's stand at WTO: Defending public stockholding for food security (NFSA) and demanding update of outdated 1986-88 reference prices for calculating agricultural support."
+        ]
+      },
+      {
+        "id": "topic-fdi-fpi-investment-models",
+        "title": "Foreign Investment: FDI vs FPI, Depository Receipts & SBR",
+        "keyConcepts": [
+          "FDI vs FPI (Arvind Mayaram Committee):",
+          "  • FDI: Foreign investment of 10% or more in equity of a listed company, or any percentage in an unlisted company (long-term, physical assets, management control).",
+          "  • FPI: Foreign investment of less than 10% in a listed company (short-term, financial portfolio, 'hot money', regulated by SEBI).",
+          "FDI Entry Routes: Automatic Route (RBI intimation within 30 days) vs Government Approval Route (Foreign Investment Facilitation Portal / CCEA for >₹5,000 cr; Press Note 3 of 2020 mandates approval for countries sharing land borders).",
+          "FPI Investment Channels: Medium Term Framework (MTF), Voluntary Retention Route (VRR - min 3-yr lock-in for 75% funds), Fully Accessible Route (FAR - unrestricted G-Sec investment).",
+          "Offshore Instruments: Participatory Notes (P-Notes - offshore derivatives issued by registered FIIs to overseas investors without direct SEBI registration); Depository Receipts: ADR (USA), GDR (outside USA), IDR (India).",
+          "Tax Haven Issues: Round Tripping (laundering domestic black money back via shell entities) vs Treaty Shopping (exploiting beneficial DTAAs, e.g. Mauritius DTAA amendment)."
+        ],
+        "prelimsTraps": [
+          "Any investment in an UNLISTED Indian company is automatically classified as FDI regardless of percentage.",
+          "P-Notes (Participatory Notes) are offshore derivative instruments issued by SEBI-registered FIIs to overseas investors.",
+          "Depository Receipts (ADRs/GDRs) are counted as FDI by the Reserve Bank of India."
+        ],
+        "mainsPointers": [
+          "Attracting quality greenfield FDI requires structural reforms in land acquisition, contract enforcement, logistics, and regulatory stability rather than tax competition alone."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-9",
+    "pillarNumber": 9,
+    "title": "Agriculture, Food Security & Subsidies Management",
+    "theme": "Agrarian Economy & Social Safety Nets",
+    "summary": "Agricultural credit (PSL, KCC), MSP mechanism (CACP, A2+FL vs C2), Sugarcane FRP, Shanta Kumar Committee report, PDS & NFSA 2013, ONORC, Fertilizer subsidies (Urea vs NBS), and Agri-technology.",
+    "keyTopics": [
+      {
+        "id": "topic-msp-agri-credit-shanta-kumar",
+        "title": "Agricultural Credit, MSP Calculation & Shanta Kumar Reforms",
+        "keyConcepts": [
+          "Agricultural Credit Flow: Priority Sector Lending (18% ANBC to agriculture), Kisan Credit Card (KCC 1998, interest subvention reduces effective rate to 4%, prompt repayment bonus to 2%), Priority Sector Lending Certificates (PSLCs).",
+          "Minimum Support Price (MSP): Announced for 22 mandated crops + Fair and Remunerative Price (FRP) for Sugarcane before sowing season by CCEA based on CACP recommendations.",
+          "Cost Concepts in MSP:",
+          "  • A2: Paid-out direct costs (seeds, fertilizer, hired labor, diesel, irrigation).",
+          "  • A2+FL: A2 + Imputed value of unpaid Family Labor. (Current GoI policy sets MSP at 150% of A2+FL).",
+          "  • C2: Comprehensive cost = A2+FL + Imputed rent on owned land + Interest on owned fixed capital (Swaminathan Commission formula).",
+          "Sugarcane Pricing: Central FRP under Sugarcane Control Order 1966; States can set State Advisory Price (SAP).",
+          "Shanta Kumar Committee Recommendations on FCI (2015):",
+          "  1. Decentralized procurement to states with surplus infrastructure.",
+          "  2. Restrict procurement to buffer requirements; stop procurement from states giving extra bonuses.",
+          "  3. Reduce NFSA population coverage from 67% to 40% while increasing entitlement to 7 kg/person.",
+          "  4. Introduce Direct Cash Transfers / Food Coupons under PDS in major urban centers (>1M population).",
+          "  5. End-to-end computerization of supply chain and promotion of e-NWRS (e-Negotiable Warehouse Receipts)."
+        ],
+        "prelimsTraps": [
+          "MSP currently announced by Government of India is based on A2+FL formula, NOT C2 cost.",
+          "Sugarcane is NOT covered by MSP; it is covered by Fair and Remunerative Price (FRP) approved by CCEA.",
+          "CACP is an attached advisory office under the Ministry of Agriculture; CCEA takes the final decision."
+        ],
+        "mainsPointers": [
+          "Legal backing for MSP: Benefits of price assurance vs risks of astronomical fiscal liability, cereal monoculture, and WTO dispute exposure. PM-AASHA deficiency payment model as a viable alternative."
+        ]
+      },
+      {
+        "id": "topic-food-security-subsidies-agritech",
+        "title": "NFSA 2013, Fertilizer Subsidies (Urea vs NBS) & Agri-Tech",
+        "keyConcepts": [
+          "National Food Security Act (NFSA) 2013: Covers 67% population (75% rural, 50% urban); Priority Households get 5 kg/person/month, Antyodaya Anna Yojana (AAY) gets 35 kg/household/month. Currently free under PMGKAY until 2028. Eldest adult female (18+ yrs) recognized as head of household for ration cards.",
+          "PDS Modernization: One Nation, One Ration Card (ONORC) using Aadhaar biometric authentication on Integrated Management of PDS (IMPDS) portal; Grain ATMs (Annapurti).",
+          "Food Subsidy Calculation = Total Economic Cost of Foodgrains (MSP + Procurement incidentals + Storage/Distribution) - Central Issue Price (CIP).",
+          "Fertilizer Subsidy Architecture:",
+          "  • Urea: Controlled MRP (cheapest fertilizer ~₹268/bag, 46% Nitrogen); Government pays difference between production cost and MRP directly to manufacturers under DBT. Leads to severe NPK ratio imbalance (actual 8:3:1 vs ideal 4:2:1) and soil degradation.",
+          "  • Non-Urea (DAP, MOP): Nutrient Based Subsidy (NBS) since 2010; fixed per-kg subsidy for N, P, K, S based on nutrient content; MRP deregulated.",
+          "Agricultural Modernization: IFFCO Nano Urea liquid (500 ml bottle replaces 45 kg bag), Agri Drones (SMAM, Drone Didi), Silo Warehousing under PPP, Agriculture Infrastructure Fund (AIF ₹1 Lakh Cr), e-NAM (SFAC nodal agency, online mandi integration), Mega Food Parks (Hub & Spoke model) and PM-FME."
+        ],
+        "prelimsTraps": [
+          "Under NFSA 2013, the eldest woman of 18 years or above is designated as the Head of the Household for ration card issuance.",
+          "Nutrient Based Subsidy (NBS) applies to P&K fertilizers (DAP, MOP), but UREA is EXCLUDED from NBS.",
+          "India imports 100% of its Muriate of Potash (MOP) requirements."
+        ],
+        "mainsPointers": [
+          "Direct Benefit Transfer (DBT) in fertilizers and shift to per-acre input support can eliminate leakage, curb black-market diversion, and restore balanced soil nutrient stoichiometry."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "econ-pillar-10",
+    "pillarNumber": 10,
+    "title": "Industry, Infrastructure, Planning & Inclusive Growth",
+    "theme": "Industrial Strategy, Public Investment & Social Equity",
+    "summary": "Industrial policies (1948, 1956, 1991), Strategic Disinvestment 2021, NIP & NMP 2.0, PPP Models (BOT, EPC, HAM), Power sector RDSS, Planning Commission vs NITI Aayog, 12 FYPs, Labor Codes, MSME reforms, and Inclusive Growth metrics.",
+    "keyTopics": [
+      {
+        "id": "topic-industrial-policy-infrastructure-ppp",
+        "title": "Industrial Evolution, Disinvestment, Infrastructure & PPPs",
+        "keyConcepts": [
+          "Industrial Policy Evolution: IPR 1948 (Mixed economy), IDRA 1951 (License Raj), IPR 1956 (Mahalanobis Heavy Industrialization, Schedule A state monopolies), 1991 LPG Policy (Industrial delicensing, MRTP replaced by Competition Act 2002 / CCI).",
+          "Public Sector Enterprises Policy (2021): Strategic Sectors (Atomic Energy, Defense, Space, Transport, Power, Banking/Insurance - max 4 CPSEs retained; balance merged/privatized) vs Non-Strategic Sectors (100% privatization or closure).",
+          "Infrastructure Strategy: National Infrastructure Pipeline (NIP ₹110L Cr: Center 39%, State 40%, Private 21%), National Monetization Pipeline (NMP 2.0 - brownfield asset leasing, NOT selling ownership), PM Gati Shakti (57 ministries, 7 engines).",
+          "Capex Multiplier: ₹1 in infrastructure capital expenditure yields ₹3.5-4.0 in GDP expansion vs ₹1-2 for revenue welfare transfers.",
+          "PPP Investment Models:",
+          "  • BOT (Build, Operate, Transfer): Private developer designs, finances, builds, collects toll, transfers back after concession (traffic risk with private).",
+          "  • EPC (Engineering, Procurement, Construction): Government finances 100%, private builds on contractual payment (no private revenue risk).",
+          "  • HAM (Hybrid Annuity Model): 40% government construction grant + 60% private investment; government collects tolls and pays fixed semi-annual annuities to developer (eliminates traffic risk for private builder).",
+          "  • Viability Gap Funding (VGF): Grant up to 60% TPC / 80% capex for economically vital but financially unviable infrastructure.",
+          "  • InvITs (Infrastructure Investment Trusts) & REITs (Real Estate): Regulated by SEBI; mandate 90% revenue distribution to unit holders; 80% invested in completed assets."
+        ],
+        "prelimsTraps": [
+          "In the Hybrid Annuity Model (HAM), the GOVERNMENT collects toll revenue and bears the traffic risk, NOT the private developer.",
+          "NMP (National Monetization Pipeline) involves LEASING of brownfield operational assets for a fixed tenure, NOT outright privatization.",
+          "SEBI mandates that InvITs and REITs must distribute at least 90% of their net distributable cash flows to investors."
+        ],
+        "mainsPointers": [
+          "Unlocking private infrastructure capital: Transitioning from high-risk BOT models to de-risked HAM, InvITs, and specialized development financiers like NaBFID."
+        ]
+      },
+      {
+        "id": "topic-planning-niti-employment-inclusive-growth",
+        "title": "Planning to NITI Aayog, Labor Reforms & Inclusive Growth",
+        "keyConcepts": [
+          "Planning History: Visvesvaraya Plan (1934), National Planning Committee (1938, Nehru), Bombay Plan (1944), Gandhian Plan (SN Agarwal), People's Plan (MN Roy).",
+          "Planning Commission (1950, top-down allocation) vs NITI Aayog (Jan 1, 2015, bottom-up think tank, Governing Council includes all CMs/LGs, promotes Cooperative & Competitive Federalism, DMEO, no financial fund allocation powers).",
+          "Key Five Year Plans: 1st FYP (Harrod-Domar $g = s/ICOR$), 2nd FYP (Mahalanobis Heavy Industry), 4th FYP (Gadgil Formula), 5th FYP (Garibi Hatao), Plan Holidays (1966-69), Rolling Plan (1978-80). Hindu Rate of Growth (Prof. Raj Krishna ~3.5-4%).",
+          "Employment Metrics: Periodic Labour Force Survey (PLFS by NSO/MoSPI). LFPR, Worker Population Ratio (WPR), Unemployment Rate (UR). Types: Frictional, Structural (skill mismatch), Cyclical, Seasonal, Disguised (8-9% in agriculture, marginal productivity = 0).",
+          "Labor Reforms: 29 central labor laws consolidated into 4 Labor Codes (Code on Wages 2019, Industrial Relations Code 2020, Code on Social Security 2020, Occupational Safety, Health & Working Conditions Code 2020). Extends social security to Gig & Platform workers.",
+          "MSME 2020 Composite Criteria: Micro (Investment <₹1 cr, Turnover <₹5 cr), Small (Investment <₹10 cr, Turnover <₹50 cr), Medium (Investment <₹50 cr, Turnover <₹250 cr).",
+          "Inclusive Growth (World Bank: Pace & Pattern): Multi-dimensional Poverty Index (NITI Aayog: MPI dropped to 11.28%); World Inequality Report 2022 (Top 1% holds 22% income, 40% wealth)."
+        ],
+        "prelimsTraps": [
+          "NITI Aayog was created by an EXECUTIVE RESOLUTION of the Union Cabinet, NOT by an Act of Parliament or the Constitution.",
+          "NITI Aayog has NO power to allocate financial resources to states, unlike the erstwhile Planning Commission.",
+          "The revised MSME classification (2020) applies UNIFORMLY to both Manufacturing and Services sectors."
+        ],
+        "mainsPointers": [
+          "Addressing Jobless Growth: Rebalancing India's growth engine from capital-intensive services toward labor-intensive manufacturing (textiles, electronics assembly, food processing) supported by PLI and skill development."
+        ]
+      }
+    ]
+  }
+]

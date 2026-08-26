@@ -27,6 +27,8 @@ import { exportMainsAnswerBooklet } from "@/lib/mains-pyq/export";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
+import { useNotesStore } from "@/store/useNotesStore";
+import { createNoteFromMainsQuestion, findRelatedNotesForMains } from "@/lib/notes/topic-linker";
 
 const LOCAL_STORAGE_MAINS_KEY = "redroom_mains_pyqs_custom";
 
@@ -80,6 +82,32 @@ export default function MainsPYQCommandCenter() {
   const [jsonUploadText, setJsonUploadText] = useState<string>("");
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
+
+  // Notes Vault Integration
+  const [noteSaveStatus, setNoteSaveStatus] = useState<Record<string, string>>({});
+  const { notes: userVaultNotes, addNote: addNoteToVault } = useNotesStore();
+
+  const handleSaveMainsToNotes = async (m: MainsPYQQuestion) => {
+    sound.playSelect();
+    const strId = String(m.id);
+    setNoteSaveStatus((prev) => ({ ...prev, [strId]: "Saving..." }));
+    try {
+      const partialNote = createNoteFromMainsQuestion(m);
+      await addNoteToVault(partialNote);
+      sound.playVictory();
+      setNoteSaveStatus((prev) => ({ ...prev, [strId]: "✓ Saved in Notes" }));
+      setTimeout(() => {
+        setNoteSaveStatus((prev) => {
+          const next = { ...prev };
+          delete next[strId];
+          return next;
+        });
+      }, 3500);
+    } catch {
+      sound.playWrong();
+      setNoteSaveStatus((prev) => ({ ...prev, [strId]: "Error Saving" }));
+    }
+  };
 
   // Load Saved Data from LocalStorage
   const loadLocalState = useCallback(() => {
@@ -846,6 +874,26 @@ export default function MainsPYQCommandCenter() {
                           {q.question}
                         </h3>
 
+                        {/* LINKED USER NOTES PREVIEW CHIPS */}
+                        {(() => {
+                          const linkedNotes = findRelatedNotesForMains(q, userVaultNotes, 2);
+                          if (linkedNotes.length === 0) return null;
+                          return (
+                            <div className="mt-2 flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+                              <span className="text-[#8C8C8C]">🔗 Linked Notes:</span>
+                              {linkedNotes.map(({ note: n }) => (
+                                <button
+                                  key={n.id}
+                                  onClick={() => router.push("/notes")}
+                                  className="rounded bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 text-purple-300 hover:bg-purple-500/20 transition cursor-pointer"
+                                >
+                                  {n.title.length > 28 ? `${n.title.slice(0, 28)}...` : n.title}
+                                </button>
+                              ))}
+                            </div>
+                          );
+                        })()}
+
                         {/* DIRECTIVE GUIDANCE */}
                         {q.directiveGuidance && (
                           <p className="mt-2 text-xs italic text-pink-300/80">
@@ -856,11 +904,25 @@ export default function MainsPYQCommandCenter() {
                     </div>
 
                     {/* ACTION BUTTONS */}
-                    <div className="flex shrink-0 items-center gap-2 self-end sm:self-start">
+                    <div className="flex shrink-0 flex-wrap items-center gap-2 self-end sm:self-start">
+                      {/* SAVE MODEL ANSWER TO NOTES */}
+                      <button
+                        onClick={() => handleSaveMainsToNotes(q)}
+                        title="Save complete model framework, case laws & diagram to Notes Vault"
+                        className={`rounded-xl border px-3 py-1.5 text-xs font-semibold font-mono transition flex items-center gap-1 cursor-pointer ${
+                          noteSaveStatus[strId]
+                            ? "border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold"
+                            : "border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+                        }`}
+                      >
+                        <span>📝</span>
+                        <span>{noteSaveStatus[strId] || "Save to Notes"}</span>
+                      </button>
+
                       <button
                         onClick={() => handleToggleBookmark(q.id)}
                         title={isBookmarked ? "Remove Bookmark" : "Bookmark Question"}
-                        className={`rounded-xl border p-2 text-xs transition ${
+                        className={`rounded-xl border p-2 text-xs transition cursor-pointer ${
                           isBookmarked
                             ? "border-amber-500/40 bg-amber-500/20 text-amber-300"
                             : "border-white/10 bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
@@ -871,7 +933,7 @@ export default function MainsPYQCommandCenter() {
 
                       <button
                         onClick={() => handleOpenWritingWorkspace(q)}
-                        className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg shadow-pink-600/30 transition hover:opacity-90"
+                        className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg shadow-pink-600/30 transition hover:opacity-90 cursor-pointer"
                       >
                         <span>✍️</span>
                         <span>{draft ? "Continue Draft" : "Write Answer"}</span>
@@ -879,7 +941,7 @@ export default function MainsPYQCommandCenter() {
 
                       <button
                         onClick={() => handleTogglePracticed(q.id)}
-                        className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition ${
+                        className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${
                           isPracticed
                             ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
                             : "border-white/10 bg-white/5 text-white/50 hover:bg-white/10"

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient, createClient } from "@/lib/db/supabase";
 import { SINGLE_ADMIN_CREDENTIALS, CadetProfile } from "@/lib/core/user-context";
+import { AdminService } from "@/lib/admin/admin-service";
 import { ApiResponse } from "@/lib/core/types";
 
 interface LoginRequestBody {
@@ -83,6 +84,23 @@ export async function POST(
             createdAt: signInData.user.created_at || new Date().toISOString(),
             lastActiveAt: new Date().toISOString(),
           };
+
+          AdminService.registerServerCadet({
+            id: signInData.user.id,
+            email: signInData.user.email || email,
+            fullName: cadet.fullName,
+            role: (userMeta.role as any) || "ASPIRANT",
+            accountStatus: "ACTIVE",
+            joinedAt: cadet.createdAt.split("T")[0],
+            lastActiveAt: "Active Now",
+            totalStudyHours: 0,
+            pyqsSolved: 0,
+            pyqAccuracy: 0,
+            testsTaken: 0,
+            mainsDraftsCount: 0,
+            revisionsPending: 0,
+            chillGamesCount: 0,
+          });
 
           return NextResponse.json({
             success: true,

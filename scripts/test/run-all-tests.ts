@@ -11,6 +11,7 @@ import { runStudyPlanTests } from "../../tests/study-plan.test";
 import { testKnowledgeEngine } from "../../tests/knowledge-engine.test";
 import { runQuotesEngineTests } from "../../tests/quotes-engine.test";
 import { runModernHistoryEngineTests } from "../../tests/modern-history-engine.test";
+import { runEconomicsEngineTests } from "../../tests/economics-engine.test";
 
 async function runAllSuites() {
   console.log("=================================================");
@@ -30,6 +31,7 @@ async function runAllSuites() {
     { name: "Universal UPSC Knowledge Engine & Graph", fn: testKnowledgeEngine },
     { name: "UPSC CSE Mains Quotes & Thinkers Vault Engine", fn: runQuotesEngineTests },
     { name: "Modern Indian History (1498–1947) Master Engine", fn: runModernHistoryEngineTests },
+    { name: "Indian Economy & Macroeconomics Master Engine", fn: runEconomicsEngineTests },
   ];
 
   for (const suite of suites) {

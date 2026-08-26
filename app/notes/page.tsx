@@ -22,6 +22,9 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { useNotesStore } from "@/store/useNotesStore";
+import { findRelatedPrelimsForNote, findRelatedMainsForNote } from "@/lib/notes/topic-linker";
+import { PYQQuestion, MainsPYQQuestion } from "@/lib/core/types";
+import { sound } from "@/lib/audio/sound-engine";
 
 const NOTES_STORAGE_KEY = "redroom_notes_data";
 
@@ -101,6 +104,21 @@ export default function NotesPage() {
   const [aiSubject, setAiSubject] = useState("Polity");
   const [aiTopic, setAiTopic] = useState("");
   const [generating, setGenerating] = useState(false);
+
+  // Interactive Linked Question Modals
+  const [activeQuizQuestion, setActiveQuizQuestion] = useState<PYQQuestion | null>(null);
+  const [activeQuizAnswer, setActiveQuizAnswer] = useState<string | null>(null);
+  const [showQuizExplanation, setShowQuizExplanation] = useState(false);
+  const [activeMainsModalQuestion, setActiveMainsModalQuestion] = useState<MainsPYQQuestion | null>(null);
+
+  // Computed Linked Prelims & Mains Questions via Semantic Topic Linker
+  const relatedPrelims = useMemo(() => {
+    return selectedNote ? findRelatedPrelimsForNote(selectedNote, 5) : [];
+  }, [selectedNote]);
+
+  const relatedMains = useMemo(() => {
+    return selectedNote ? findRelatedMainsForNote(selectedNote, 4) : [];
+  }, [selectedNote]);
 
   const loadLocalData = useCallback(() => {
     // Daily Synchronized Notes from Study Plans
@@ -433,6 +451,146 @@ export default function NotesPage() {
                         ))}
                       </div>
                     )}
+
+                    {/* ------------------------------------------------------------- */}
+                    {/* CROSS-LINKED SECTOR: PRELIMS & MAINS QUESTIONS LINKED TO NOTE */}
+                    {/* ------------------------------------------------------------- */}
+                    <div className="mt-8 space-y-6 border-t border-white/10 pt-6 font-mono">
+                      {/* 1. Related Prelims PYQs */}
+                      <div className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.03] p-4 sm:p-5">
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base">🎯</span>
+                            <h4 className="text-xs font-black tracking-wider text-[#F4C95D] uppercase">
+                              Linked Prelims PYQs ({relatedPrelims.length} Identified)
+                            </h4>
+                          </div>
+                          <button
+                            onClick={() => router.push("/pyqs")}
+                            className="text-[10px] text-[#8C8C8C] hover:text-[#F4C95D] transition"
+                          >
+                            Open Full PYQ Arena →
+                          </button>
+                        </div>
+
+                        {relatedPrelims.length === 0 ? (
+                          <p className="text-xs text-[#8C8C8C] italic">
+                            No direct Prelims keyword matches found for this topic yet.
+                          </p>
+                        ) : (
+                          <div className="grid gap-2.5 sm:grid-cols-2">
+                            {relatedPrelims.map(({ question: q }) => (
+                              <div
+                                key={q.id}
+                                className="group relative flex flex-col justify-between rounded-xl border border-white/10 bg-black/40 p-3 hover:border-amber-500/40 hover:bg-amber-500/5 transition"
+                              >
+                                <div>
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-bold text-amber-300">
+                                      UPSC {q.year} • {q.paper}
+                                    </span>
+                                    <span className="text-[9px] text-[#8C8C8C]">
+                                      {q.difficulty}
+                                    </span>
+                                  </div>
+                                  <p className="mt-1.5 line-clamp-2 text-xs font-sans text-white/90">
+                                    {q.question}
+                                  </p>
+                                </div>
+                                <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2">
+                                  <span className="text-[9px] text-[#8C8C8C]">
+                                    🏷️ {safeArray(q.conceptTags)[0] || q.topic}
+                                  </span>
+                                  <button
+                                    onClick={() => {
+                                      sound.playSelect();
+                                      setActiveQuizQuestion(q);
+                                      setActiveQuizAnswer(null);
+                                      setShowQuizExplanation(false);
+                                    }}
+                                    className="rounded-lg bg-[#D8A63A] px-2.5 py-1 text-[10px] font-bold text-black hover:bg-[#F4C95D] transition cursor-pointer"
+                                  >
+                                    ⚡ Solve Drill
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* 2. Related Mains Questions & Model Answers */}
+                      <div className="rounded-2xl border border-purple-500/20 bg-purple-500/[0.03] p-4 sm:p-5">
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base">🏛️</span>
+                            <h4 className="text-xs font-black tracking-wider text-purple-300 uppercase">
+                              Linked Mains 10/15-Markers ({relatedMains.length} Identified)
+                            </h4>
+                          </div>
+                          <button
+                            onClick={() => router.push("/mains-pyqs")}
+                            className="text-[10px] text-[#8C8C8C] hover:text-purple-300 transition"
+                          >
+                            Open Mains Archive →
+                          </button>
+                        </div>
+
+                        {relatedMains.length === 0 ? (
+                          <p className="text-xs text-[#8C8C8C] italic">
+                            No direct Mains questions mapped to this syllabus keyword.
+                          </p>
+                        ) : (
+                          <div className="grid gap-2.5 sm:grid-cols-2">
+                            {relatedMains.map(({ question: m }) => (
+                              <div
+                                key={m.id}
+                                className="group relative flex flex-col justify-between rounded-xl border border-white/10 bg-black/40 p-3 hover:border-purple-500/40 hover:bg-purple-500/5 transition"
+                              >
+                                <div>
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="rounded bg-purple-500/20 px-1.5 py-0.5 text-[9px] font-bold text-purple-300">
+                                      {m.paper} • {m.marks} Marks ({m.year})
+                                    </span>
+                                    <span className="text-[9px] text-[#8C8C8C]">
+                                      {m.directive}
+                                    </span>
+                                  </div>
+                                  <p className="mt-1.5 line-clamp-2 text-xs font-sans text-white/90">
+                                    {m.question}
+                                  </p>
+                                </div>
+                                <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2">
+                                  <span className="text-[9px] text-[#8C8C8C]">
+                                    📚 {m.topic}
+                                  </span>
+                                  <div className="flex items-center gap-1.5">
+                                    <button
+                                      onClick={() => {
+                                        sound.playSelect();
+                                        setActiveMainsModalQuestion(m);
+                                      }}
+                                      className="rounded-lg border border-purple-500/40 bg-purple-500/10 px-2 py-1 text-[10px] font-bold text-purple-300 hover:bg-purple-500/20 transition cursor-pointer"
+                                    >
+                                      🏆 Model Copy
+                                    </button>
+                                    <button
+                                      onClick={() => {
+                                        sound.playSelect();
+                                        router.push("/mains-writing");
+                                      }}
+                                      className="rounded-lg bg-white/10 px-2 py-1 text-[10px] font-bold text-white hover:bg-white/20 transition cursor-pointer"
+                                    >
+                                      ✍️ Practice
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </article>
                 )}
               </div>
@@ -697,6 +855,216 @@ export default function NotesPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------------- */}
+      {/* 3. INTERACTIVE PRELIMS SOLVE DRILL MODAL                      */}
+      {/* ------------------------------------------------------------- */}
+      {activeQuizQuestion && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
+          <div className="w-full max-w-2xl rounded-3xl border border-amber-500/40 bg-[#0d0d0d] p-6 sm:p-8 shadow-[0_0_60px_rgba(216,166,58,0.2)] font-mono max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">🎯</span>
+                <div>
+                  <h3 className="text-sm font-black text-white uppercase">
+                    Prelims Concept Drill // UPSC {activeQuizQuestion.year}
+                  </h3>
+                  <span className="text-[10px] text-[#8C8C8C]">
+                    {activeQuizQuestion.subject} • {activeQuizQuestion.topic}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setActiveQuizQuestion(null)}
+                className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-[#8C8C8C] hover:text-white"
+              >
+                ✕ Close
+              </button>
+            </div>
+
+            {/* Question Text */}
+            <div className="mt-5 rounded-2xl bg-white/[0.03] p-4 text-xs font-sans leading-relaxed text-white">
+              {activeQuizQuestion.question}
+            </div>
+
+            {/* Options Matrix */}
+            <div className="mt-4 space-y-2 font-mono text-xs">
+              {activeQuizQuestion.options.map((opt) => {
+                const isSelected = activeQuizAnswer === opt.id;
+                const isCorrect = opt.id === activeQuizQuestion.correctAnswer;
+                let optStyles = "border-white/10 bg-black/50 hover:border-amber-500/40 text-white";
+
+                if (activeQuizAnswer) {
+                  if (isSelected && isCorrect) {
+                    optStyles = "border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold";
+                  } else if (isSelected && !isCorrect) {
+                    optStyles = "border-red-500 bg-red-500/20 text-red-300 font-bold";
+                  } else if (isCorrect) {
+                    optStyles = "border-emerald-500/50 bg-emerald-500/10 text-emerald-400";
+                  } else {
+                    optStyles = "border-white/5 opacity-40 text-[#8C8C8C]";
+                  }
+                }
+
+                return (
+                  <button
+                    key={opt.id}
+                    disabled={Boolean(activeQuizAnswer)}
+                    onClick={() => {
+                      setActiveQuizAnswer(opt.id);
+                      setShowQuizExplanation(true);
+                      if (opt.id === activeQuizQuestion.correctAnswer) {
+                        sound.playVictory();
+                      } else {
+                        sound.playWrong();
+                      }
+                    }}
+                    className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition cursor-pointer ${optStyles}`}
+                  >
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[10px] font-bold">
+                      {opt.id}
+                    </span>
+                    <span className="font-sans text-xs">{opt.text}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* In-depth Explanation Drawer */}
+            {showQuizExplanation && (
+              <div className="mt-5 rounded-2xl border border-white/10 bg-black/80 p-4 animate-fadeIn font-sans text-xs">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-mono text-[10px] font-bold uppercase text-amber-400">
+                    Official UPSC Rationale & Constitutional Analysis
+                  </span>
+                  <span className="rounded bg-emerald-500/20 px-2 py-0.5 font-mono text-[9px] font-bold text-emerald-300">
+                    Correct: Option {activeQuizQuestion.correctAnswer}
+                  </span>
+                </div>
+                <p className="leading-relaxed text-white/80 whitespace-pre-wrap">
+                  {activeQuizQuestion.explanation}
+                </p>
+                {activeQuizQuestion.conceptTags && (
+                  <div className="mt-3 flex flex-wrap gap-1.5 pt-2 border-t border-white/10 font-mono text-[9px]">
+                    {activeQuizQuestion.conceptTags.map((t) => (
+                      <span key={t} className="rounded bg-amber-500/10 px-2 py-0.5 text-amber-300">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ------------------------------------------------------------- */}
+      {/* 4. INTERACTIVE MAINS MODEL ANSWER BLUEPRINT MODAL             */}
+      {/* ------------------------------------------------------------- */}
+      {activeMainsModalQuestion && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
+          <div className="w-full max-w-3xl rounded-3xl border border-purple-500/40 bg-[#0d0d0d] p-6 sm:p-8 shadow-[0_0_60px_rgba(168,85,247,0.2)] font-mono max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">🏛️</span>
+                <div>
+                  <h3 className="text-sm font-black text-white uppercase">
+                    Mains Topper Model Blueprint // {activeMainsModalQuestion.paper} ({activeMainsModalQuestion.year})
+                  </h3>
+                  <span className="text-[10px] text-purple-300 font-bold">
+                    {activeMainsModalQuestion.marks} Marks • {activeMainsModalQuestion.wordLimit} Words • Directive: {activeMainsModalQuestion.directive}
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setActiveMainsModalQuestion(null)}
+                className="rounded-xl border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-[#8C8C8C] hover:text-white"
+              >
+                ✕ Close
+              </button>
+            </div>
+
+            {/* Question Text */}
+            <div className="mt-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 p-4 text-xs font-sans font-bold leading-relaxed text-white">
+              {activeMainsModalQuestion.question}
+            </div>
+
+            {/* Framework Content */}
+            {activeMainsModalQuestion.framework && (
+              <div className="mt-5 space-y-4 font-sans text-xs text-white/90">
+                {/* Introduction */}
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                  <span className="font-mono text-[10px] font-black uppercase text-amber-400 block mb-1">
+                    1. Introduction & Context Hook:
+                  </span>
+                  <p className="leading-relaxed text-white/80">
+                    {activeMainsModalQuestion.framework.introduction}
+                  </p>
+                </div>
+
+                {/* Dimensions */}
+                {activeMainsModalQuestion.framework.dimensions && (
+                  <div className="space-y-2.5">
+                    <span className="font-mono text-[10px] font-black uppercase text-purple-300 block">
+                      2. Multi-Dimensional Arguments & Subheadings:
+                    </span>
+                    {activeMainsModalQuestion.framework.dimensions.map((dim, i) => (
+                      <div key={i} className="rounded-xl border border-white/5 bg-black/30 p-3">
+                        <strong className="text-white text-xs block mb-1">{dim.heading}</strong>
+                        <ul className="list-disc pl-4 space-y-1 text-white/70">
+                          {dim.points.map((pt, pi) => (
+                            <li key={pi}>{pt}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Diagram & Case Laws */}
+                {activeMainsModalQuestion.framework.caseLawsOrArticlesOrCommittees && (
+                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                    <span className="font-mono text-[10px] font-black uppercase text-emerald-400 block mb-1">
+                      3. Committee & Judicial Citations:
+                    </span>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {activeMainsModalQuestion.framework.caseLawsOrArticlesOrCommittees.map((c) => (
+                        <span key={c} className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 text-[10px] text-emerald-300 font-mono font-bold">
+                          ⚖️ {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Conclusion */}
+                <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                  <span className="font-mono text-[10px] font-black uppercase text-blue-400 block mb-1">
+                    4. Sustainable Way Forward / Conclusion:
+                  </span>
+                  <p className="leading-relaxed text-white/80">
+                    {activeMainsModalQuestion.framework.conclusion}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <div className="mt-6 flex justify-end gap-3 border-t border-white/10 pt-4 font-mono text-xs">
+              <button
+                onClick={() => {
+                  sound.playSelect();
+                  setActiveMainsModalQuestion(null);
+                  router.push("/mains-writing");
+                }}
+                className="rounded-xl bg-[#D8A63A] px-5 py-2 font-bold text-black hover:bg-[#F4C95D] transition"
+              >
+                ✍️ Open in Mains Speed Lab →
+              </button>
+            </div>
           </div>
         </div>
       )}

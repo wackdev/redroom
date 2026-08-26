@@ -32,6 +32,8 @@ import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { dexieDb } from "@/lib/db/dexie";
 import { trackActivityEvent } from "@/lib/brain/activity-events";
+import { useNotesStore } from "@/store/useNotesStore";
+import { createNoteFromPrelimsQuestion, findRelatedNotesForPrelims } from "@/lib/notes/topic-linker";
 
 const LOCAL_STORAGE_PROGRESS_KEY = "redroom_pyq_progress";
 const LOCAL_STORAGE_ATTEMPTS_KEY = "redroom_pyq_user_attempts";
@@ -102,6 +104,32 @@ export default function PYQCommandCenter() {
   const [importantOnly, setImportantOnly] = useState<boolean>(false);
   const [pendingOnly, setPendingOnly] = useState<boolean>(false);
   const [bookmarksOnly, setBookmarksOnly] = useState<boolean>(false);
+
+  // Notes Vault Integration
+  const [noteSaveStatus, setNoteSaveStatus] = useState<Record<string, string>>({});
+  const { notes: userVaultNotes, addNote: addNoteToVault } = useNotesStore();
+
+  const handleSaveToNotes = async (q: PYQQuestion) => {
+    sound.playSelect();
+    const strId = String(q.id);
+    setNoteSaveStatus((prev) => ({ ...prev, [strId]: "Saving..." }));
+    try {
+      const partialNote = createNoteFromPrelimsQuestion(q);
+      await addNoteToVault(partialNote);
+      sound.playVictory();
+      setNoteSaveStatus((prev) => ({ ...prev, [strId]: "✓ Saved in Notes" }));
+      setTimeout(() => {
+        setNoteSaveStatus((prev) => {
+          const next = { ...prev };
+          delete next[strId];
+          return next;
+        });
+      }, 3500);
+    } catch {
+      sound.playWrong();
+      setNoteSaveStatus((prev) => ({ ...prev, [strId]: "Error Saving" }));
+    }
+  };
 
   // Exam Simulation States
   const [examIndex, setExamIndex] = useState<number>(0);
@@ -1220,14 +1248,48 @@ export default function PYQCommandCenter() {
                               <h3 className="mt-2.5 text-sm font-semibold leading-relaxed text-white/95 sm:text-base font-sans">
                                 {q.question}
                               </h3>
+
+                              {/* LINKED USER NOTES PREVIEW CHIPS */}
+                              {(() => {
+                                const linkedNotes = findRelatedNotesForPrelims(q, userVaultNotes, 2);
+                                if (linkedNotes.length === 0) return null;
+                                return (
+                                  <div className="mt-2 flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+                                    <span className="text-[#8C8C8C]">🔗 Linked Notes:</span>
+                                    {linkedNotes.map(({ note: n }) => (
+                                      <button
+                                        key={n.id}
+                                        onClick={() => router.push("/notes")}
+                                        className="rounded bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 text-purple-300 hover:bg-purple-500/20 transition cursor-pointer"
+                                      >
+                                        {n.title.length > 28 ? `${n.title.slice(0, 28)}...` : n.title}
+                                      </button>
+                                    ))}
+                                  </div>
+                                );
+                              })()}
                             </div>
                           </div>
 
-                          <div className="flex shrink-0 items-center gap-2 self-end sm:self-start">
+                          <div className="flex shrink-0 flex-wrap items-center gap-2 self-end sm:self-start">
+                            {/* SAVE QUESTION AS STRUCTURED NOTE */}
+                            <button
+                              onClick={() => handleSaveToNotes(q)}
+                              title="Save question, analysis & traps directly to Notes Vault"
+                              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold font-mono transition flex items-center gap-1 cursor-pointer ${
+                                noteSaveStatus[strId]
+                                  ? "border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold"
+                                  : "border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+                              }`}
+                            >
+                              <span>📝</span>
+                              <span>{noteSaveStatus[strId] || "Save to Notes"}</span>
+                            </button>
+
                             <button
                               onClick={() => handleToggleBookmark(q.id)}
                               title={isBookmarked ? "Remove Bookmark" : "Bookmark Question"}
-                              className={`rounded-xl border p-2 text-xs transition ${
+                              className={`rounded-xl border p-2 text-xs transition cursor-pointer ${
                                 isBookmarked
                                   ? "border-amber-500/40 bg-amber-500/20 text-amber-300"
                                   : "border-white/10 bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
@@ -1238,7 +1300,7 @@ export default function PYQCommandCenter() {
 
                             <button
                               onClick={() => handleToggleCompleted(q.id)}
-                              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold font-mono transition ${
+                              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold font-mono transition cursor-pointer ${
                                 isDone
                                   ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
                                   : "border-white/10 bg-white/5 text-white/50 hover:bg-white/10"

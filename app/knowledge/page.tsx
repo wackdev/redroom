@@ -12,6 +12,7 @@ import { executeKnowledgeSearch } from "@/lib/knowledge/search-engine";
 import { POLITY_SOURCE_CHUNKS } from "@/lib/knowledge/datasets/polity-chunks-seed";
 import { KnowledgeSearchResultItem, KnowledgeSubject, UniversalTopic } from "@/lib/knowledge/types";
 import ModernHistoryAtlas from "@/components/ModernHistoryAtlas";
+import EconomicsAtlas from "@/components/EconomicsAtlas";
 
 export default function KnowledgeVaultHubPage() {
   return (
@@ -35,7 +36,7 @@ function KnowledgeVaultContent() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedSubject, setSelectedSubject] = useState<string>(initialSubject);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>("ALL");
-  const [knowledgePillarTab, setKnowledgePillarTab] = useState<"polity" | "modern-history">("modern-history");
+  const [knowledgePillarTab, setKnowledgePillarTab] = useState<"polity" | "modern-history" | "economics">("economics");
 
   // Sync state if URL param changes
   useEffect(() => {
@@ -237,7 +238,20 @@ function KnowledgeVaultContent() {
         <main className="max-w-7xl mx-auto px-4 py-8 sm:px-8 space-y-10">
           {/* PILLAR SWITCHER */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-            <div className="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/10">
+            <div className="flex flex-wrap items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/10">
+              <button
+                onClick={() => {
+                  sound.playSelect();
+                  setKnowledgePillarTab("economics");
+                }}
+                className={`px-4 py-2 rounded-xl font-mono text-xs font-bold transition ${
+                  knowledgePillarTab === "economics"
+                    ? "bg-[#D8A63A] text-black shadow-lg"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                📈 Indian Economy & Macro Atlas (GS-3)
+              </button>
               <button
                 onClick={() => {
                   sound.playSelect();
@@ -266,14 +280,21 @@ function KnowledgeVaultContent() {
               </button>
             </div>
             <span className="font-mono text-xs text-amber-400 font-bold">
-              {knowledgePillarTab === "modern-history" ? "15 Complete Modules Indexed" : "21 Full Chapters Indexed"}
+              {knowledgePillarTab === "economics"
+                ? "10 Pillars • 33 Lectures Indexed"
+                : knowledgePillarTab === "modern-history"
+                ? "15 Complete Modules Indexed"
+                : "21 Full Chapters Indexed"}
             </span>
           </div>
 
-          {/* PILLAR 1: MODERN HISTORY ATLAS */}
+          {/* PILLAR 1: INDIAN ECONOMY & MACRO ATLAS */}
+          {knowledgePillarTab === "economics" && <EconomicsAtlas />}
+
+          {/* PILLAR 2: MODERN HISTORY ATLAS */}
           {knowledgePillarTab === "modern-history" && <ModernHistoryAtlas />}
 
-          {/* PILLAR 2: HIGH-YIELD TOPIC CARDS (GS-2 POLITY) */}
+          {/* PILLAR 3: HIGH-YIELD TOPIC CARDS (GS-2 POLITY) */}
           {knowledgePillarTab === "polity" && (
             <section className="space-y-4">
               <div className="flex items-center justify-between">

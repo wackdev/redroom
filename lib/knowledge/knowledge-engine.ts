@@ -29,16 +29,30 @@ import {
   MODERN_HISTORY_REVISION_CARDS,
   MODERN_HISTORY_MODULES,
 } from "./datasets/modern-history-seed";
+import {
+  ECONOMICS_TOPICS,
+  ECONOMICS_RELATIONSHIPS,
+  ECONOMICS_REVISION_CARDS,
+  ECONOMICS_PILLARS_DATASET,
+} from "./datasets/economics-seed";
 import { executeKnowledgeSearch } from "./search-engine";
 import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 
 // In-Memory mutable registry for runtime expansion and admin operations
-let runtimeTopics: UniversalTopic[] = [...UNIVERSAL_TOPICS_DATASET, ...MODERN_HISTORY_TOPICS];
+let runtimeTopics: UniversalTopic[] = [...UNIVERSAL_TOPICS_DATASET, ...MODERN_HISTORY_TOPICS, ...ECONOMICS_TOPICS];
 let runtimeSources: KnowledgeSource[] = [...CANONICAL_SOURCES_DATASET];
 let runtimeChunks: SourceChunk[] = [...POLITY_SOURCE_CHUNKS];
-let runtimeRelationships: TopicRelationship[] = [...KNOWLEDGE_RELATIONSHIPS_DATASET, ...MODERN_HISTORY_RELATIONSHIPS];
-let runtimeCards: TopicRevisionCard[] = [...TOPIC_REVISION_CARDS_DATASET, ...MODERN_HISTORY_REVISION_CARDS];
+let runtimeRelationships: TopicRelationship[] = [
+  ...KNOWLEDGE_RELATIONSHIPS_DATASET,
+  ...MODERN_HISTORY_RELATIONSHIPS,
+  ...ECONOMICS_RELATIONSHIPS,
+];
+let runtimeCards: TopicRevisionCard[] = [
+  ...TOPIC_REVISION_CARDS_DATASET,
+  ...MODERN_HISTORY_REVISION_CARDS,
+  ...ECONOMICS_REVISION_CARDS,
+];
 let studentProgressStore: Map<string, StudentTopicProgress> = new Map();
 
 /**
@@ -46,6 +60,13 @@ let studentProgressStore: Map<string, StudentTopicProgress> = new Map();
  */
 export function getModernHistoryModules() {
   return MODERN_HISTORY_MODULES;
+}
+
+/**
+ * Returns all Indian Economy master thematic pillars
+ */
+export function getEconomicsMasterPillars() {
+  return ECONOMICS_PILLARS_DATASET;
 }
 
 /**
