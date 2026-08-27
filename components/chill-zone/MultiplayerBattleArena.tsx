@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { sound } from "@/lib/audio/sound-engine";
-import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
+import { STATIC_PYQ_DATASET } from "@/lib/study/pyq-engine";
 import { UserSessionManager } from "@/lib/core/user-context";
 
 interface PeerOpponent {

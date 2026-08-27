@@ -1,6 +1,13 @@
 import { NextRequest } from "next/server";
-import { getAllPYQs, recordPYQAttempt, getUserPYQAttempts } from "@/lib/pyq/database";
-import { analyzeUserMistakes } from "@/lib/pyq/mistake-engine";
+import {
+  getAllPYQs,
+  recordPYQAttempt,
+  getUserPYQAttempts,
+  analyzeUserMistakes,
+  ALL_TAXONOMY_SUBJECTS,
+  getTaxonomyProgressSummary,
+} from "@/lib/study/pyq-engine";
+import { mergeIngestedQuestions } from "@/lib/study/pyq-importer";
 import { apiSuccess, apiError } from "@/lib/core/api-response";
 
 export async function GET(request: NextRequest) {
@@ -8,7 +15,9 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId") || undefined;
     const subject = searchParams.get("subject") || undefined;
+    const chapter = searchParams.get("chapter") || undefined;
     const year = searchParams.get("year") || undefined;
+    const includeTaxonomy = searchParams.get("taxonomy") === "true";
 
     let questions = await getAllPYQs();
 
@@ -16,20 +25,35 @@ export async function GET(request: NextRequest) {
       questions = questions.filter((q) => q.subject.toLowerCase() === subject.toLowerCase());
     }
 
+    if (chapter && chapter !== "All Topics" && chapter !== "All Chapters") {
+      questions = questions.filter(
+        (q) =>
+          q.topic.toLowerCase() === chapter.toLowerCase() ||
+          (q.subtopic && q.subtopic.toLowerCase() === chapter.toLowerCase())
+      );
+    }
+
     if (year && year !== "All Years") {
       questions = questions.filter((q) => String(q.year) === year);
     }
 
     let analytics: ReturnType<typeof analyzeUserMistakes> | undefined = undefined;
+    let taxonomySummary: ReturnType<typeof getTaxonomyProgressSummary> | undefined = undefined;
+
     if (userId) {
       const attempts = await getUserPYQAttempts(userId);
       analytics = analyzeUserMistakes(attempts, questions);
+      if (includeTaxonomy) {
+        taxonomySummary = getTaxonomyProgressSummary(questions, attempts);
+      }
     }
 
     return apiSuccess(
       {
         questions,
         analytics,
+        taxonomy: includeTaxonomy ? ALL_TAXONOMY_SUBJECTS : undefined,
+        taxonomySummary,
       },
       {
         total: questions.length,
@@ -45,6 +69,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
     const {
+      action,
+      questions,
       userId = "local-user",
       pyqId,
       selectedOption,
@@ -54,19 +80,29 @@ export async function POST(request: NextRequest) {
       notes,
     } = body;
 
+    // Handle bulk import from PDF parser or JSON upload
+    if (action === "batch_import" && Array.isArray(questions)) {
+      const mergeResult = await mergeIngestedQuestions(questions);
+      return apiSuccess({
+        message: `Successfully ingested ${mergeResult.added} questions into question bank.`,
+        ...mergeResult,
+      });
+    }
+
     if (!pyqId || !selectedOption) {
       return apiError("INVALID_PARAMS", "Missing pyqId or selectedOption", null, 400);
     }
 
-    await recordPYQAttempt(
-      userId,
+    await recordPYQAttempt({
+      userId: userId || "anonymous",
       pyqId,
       selectedOption,
-      Boolean(isCorrect),
+      isCorrect: Boolean(isCorrect),
       mistakeType,
-      timeSpentSeconds || 0,
-      notes
-    );
+      timeSpentSeconds: timeSpentSeconds || 0,
+      notes,
+      attemptedAt: new Date().toISOString(),
+    });
 
     return apiSuccess({ recorded: true });
   } catch (error: unknown) {

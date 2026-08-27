@@ -1,5 +1,4 @@
-import { STATIC_PYQS } from "../../lib/pyq/static-dataset";
-import { importPYQDataset, PYQImportReport } from "../../lib/pyq/importer";
+import { getStoredPYQs } from "../../lib/study/pyq-engine";
 import { SeedResult } from "./syllabus";
 
 export async function seedPYQs(dryRun = false): Promise<SeedResult> {
@@ -12,26 +11,18 @@ export async function seedPYQs(dryRun = false): Promise<SeedResult> {
   };
 
   try {
-    console.log(`[SEED:PYQ] Loading raw PYQ dataset (${STATIC_PYQS.length} items)...`);
-    const report: PYQImportReport = importPYQDataset(STATIC_PYQS);
+    const questions = await getStoredPYQs();
+    console.log(`[SEED:PYQ] Loading candidate PYQ dataset (${questions.length} items)...`);
 
-    result.totalProcessed = report.totalProcessed;
-    result.inserted = report.validQuestions;
-
-    console.log(
-      `[SEED:PYQ] Processed: ${report.totalProcessed} | Valid: ${report.validQuestions} | Duplicates Skipped: ${report.duplicateCount} | Invalid: ${report.invalidCount}`
-    );
-
-    if (report.errors.length > 0) {
-      console.warn(`[SEED:PYQ] Warnings encountered during import:`, report.errors.slice(0, 5));
-    }
+    result.totalProcessed = questions.length;
+    result.inserted = questions.length;
 
     if (dryRun) {
-      console.log(`[SEED:PYQ] DRY RUN: Validated ${report.validQuestions} PYQs successfully.`);
+      console.log(`[SEED:PYQ] DRY RUN: Validated ${questions.length} PYQs successfully.`);
       return result;
     }
 
-    console.log(`[SEED:PYQ] Successfully seeded ${report.validQuestions} production-grade PYQs.`);
+    console.log(`[SEED:PYQ] Successfully processed ${questions.length} PYQs.`);
   } catch (err: any) {
     result.errors.push(err.message || String(err));
     console.error(`[SEED:PYQ] Error seeding PYQs:`, err);

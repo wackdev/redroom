@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { queryAI } from "@/lib/ai/client";
 import { UPSC_MENTOR_SYSTEM_PROMPT } from "@/lib/ai/prompts";
 import { getDailyCurrentAffairs } from "@/lib/current-affairs/cache";
-import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
+import { STATIC_PYQ_DATASET } from "@/lib/study/pyq-engine";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 import { createAdminClient } from "@/lib/db/supabase";
 import { addBroadcastToStore, AdminBroadcastMessage } from "@/lib/admin/broadcast-store";

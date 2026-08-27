@@ -1,0 +1,281 @@
+import fs from "fs";
+import path from "path";
+
+const gs4Subjects = [
+  {
+    id: "gs4-ethics",
+    name: "Ethics, Integrity & Aptitude",
+    slug: "ethics-integrity-aptitude",
+    description: "Human interface, attitude, emotional intelligence, moral thinkers, civil service values, probity, case studies.",
+    parent_id: null,
+    exam_stage: "MAINS",
+    paper: "GS-4",
+    subject: "Ethics",
+    importance: "CRITICAL",
+    display_order: 1,
+    units: [
+      {
+        id: "eth-unit-01",
+        name: "Ethics & Human Interface",
+        slug: "ethics-human-interface",
+        description: "Essence, determinants, consequences of ethics, dimensions, ethics in private and public relationships.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "eth-top-01",
+            name: "Essence, Determinants & Dimensions of Ethics",
+            slug: "essence-determinants-dimensions",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Essence of Ethics: Definition, morals vs values vs ethics",
+              "Determinants and Consequences of Ethics in human actions",
+              "Dimensions of Ethics: Meta-ethics, Normative ethics (Deontology, Teleology/Consequentialism, Virtue Ethics), Applied ethics",
+              "Ethics in Private and Public Relationships: Boundaries, overlapping loyalties, role conflicts",
+              "Human Values: Role of family, society, and educational institutions in inculcating moral values"
+            ]
+          }
+        ]
+      },
+      {
+        id: "eth-unit-02",
+        name: "Attitude & Emotional Intelligence",
+        slug: "attitude-emotional-intelligence",
+        description: "CAB model, functions of attitude, persuasion, EI competencies and administrative utility.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "eth-top-02",
+            name: "Attitude: Structure, Function & Persuasion",
+            slug: "attitude-structure-persuasion",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Attitude: Content, structure (CAB Model: Cognitive, Affective, Behavioral components)",
+              "Functions of Attitude: Knowledge, Ego-defensive, Value-expressive, Instrumental functions",
+              "Moral and Political Attitudes: Formulation, prejudices, stereotyping",
+              "Social Influence and Persuasion: Techniques (Cialdini's principles), nudging, behavioral economics in public policy"
+            ]
+          },
+          {
+            id: "eth-top-03",
+            name: "Emotional Intelligence: Concepts & Administrative Utility",
+            slug: "emotional-intelligence-administration",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Emotional Intelligence: Definition (Salovey-Mayer, Daniel Goleman model)",
+              "EI Competencies: Self-awareness, Self-regulation, Motivation, Empathy, Social skills",
+              "Application of EI in Civil Services: Conflict resolution, crisis management, public dealing, stress management"
+            ]
+          }
+        ]
+      },
+      {
+        id: "eth-unit-03",
+        name: "Contributions of Moral Thinkers & Philosophers",
+        slug: "moral-thinkers-philosophers",
+        description: "Indian thinkers (Gandhi, Ambedkar, Tagore, Vivekananda) and Western philosophers (Socrates, Kant, Mill, Rawls).",
+        importance: "CRITICAL",
+        display_order: 3,
+        topics: [
+          {
+            id: "eth-top-04",
+            name: "Indian Moral Thinkers & Leaders",
+            slug: "indian-moral-thinkers",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Mahatma Gandhi: Satya, Ahimsa, Sarvodaya, Trusteeship, Seven Social Sins, Talisman",
+              "Swami Vivekananda: Karma Yoga, spiritual nationalism, service to humanity (Daridra Narayana)",
+              "Dr. B.R. Ambedkar: Social democracy, liberty, equality, fraternity, constitutional morality",
+              "Rabindranath Tagore: Universal humanism, education philosophy, freedom of mind",
+              "Sardar Patel: Iron will, integrity, civil service vision (steel frame)",
+              "Ancient Indian thought: Kautilya on Rajdharma and corruption, Ashoka's Dhamma, Tirukkural ethics"
+            ]
+          },
+          {
+            id: "eth-top-05",
+            name: "Western Moral Philosophers",
+            slug: "western-moral-philosophers",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Socrates, Plato (Cardinal Virtues, Philosopher King), Aristotle (Golden Mean, Eudaimonia)",
+              "Immanuel Kant: Deontological ethics, Categorical Imperative, Duty for duty's sake",
+              "Jeremy Bentham & J.S. Mill: Utilitarianism (Greatest happiness of greatest number), Act vs Rule Utilitarianism",
+              "John Rawls: Theory of Justice, Veil of Ignorance, Difference Principle",
+              "Social Contract Theorists: Thomas Hobbes, John Locke, Jean-Jacques Rousseau",
+              "Feminist Ethics: Carol Gilligan's Ethics of Care vs Ethics of Justice"
+            ]
+          }
+        ]
+      },
+      {
+        id: "eth-unit-04",
+        name: "Public Service Values, Probity & Applied Ethics",
+        slug: "public-service-values-probity",
+        description: "Foundational values (Integrity, Impartiality), RTI, Code of Conduct, corruption, case studies.",
+        importance: "CRITICAL",
+        display_order: 4,
+        topics: [
+          {
+            id: "eth-top-06",
+            name: "Foundational Values for Civil Service",
+            slug: "civil-service-foundational-values",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Nolan Committee's Seven Principles of Public Life: Selflessness, Integrity, Objectivity, Accountability, Openness, Honesty, Leadership",
+              "Integrity vs Honesty, Intellectual integrity, Financial probity",
+              "Impartiality and Non-partisanship, Political neutrality of civil servants",
+              "Objectivity, Dedication to public service, Empathy, Tolerance and Compassion towards weaker sections"
+            ]
+          },
+          {
+            id: "eth-top-07",
+            name: "Probity in Governance & Anti-Corruption",
+            slug: "probity-governance-anticorruption",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Concept of Public Service and Philosophical basis of governance and probity",
+              "Information Sharing and Transparency: RTI Act, proactive disclosure, open government",
+              "Codes of Ethics vs Codes of Conduct (Civil Services Conduct Rules 1964)",
+              "Citizen's Charters: Formulation, commitment, grievance redressal",
+              "Work Culture: Professionalism, accountability, efficiency vs bureaucratic inertia",
+              "Utilization of Public Funds: Budgetary discipline, audit, prevention of corruption",
+              "Corruption in India: Causes, social cost, institutional mechanisms (CVC, CBI, Lokpal, Prevention of Corruption Act)"
+            ]
+          },
+          {
+            id: "eth-top-08",
+            name: "Applied Ethics & Case Studies Framework",
+            slug: "applied-ethics-case-studies",
+            importance: "CRITICAL",
+            display_order: 3,
+            subtopics: [
+              "Ethical issues in International Relations (Funding, Sanctions, Humanitarian intervention, Climate finance)",
+              "Corporate Governance and Corporate Social Responsibility (CSR)",
+              "Bioethics: Euthanasia, abortion ethics, surrogacy, organ donation, clinical trials",
+              "Environmental Ethics: Anthropocentrism vs Ecocentrism, intergenerational justice",
+              "Media and Tech Ethics: Paid news, clickbait, trial by media, AI algorithmic bias, surveillance state",
+              "Case Study Resolution Strategy: Identifying stakeholders, ethical dilemmas, course of actions, justification using ethical theories"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const csatSubjects = [
+  {
+    id: "csat-paper2",
+    name: "CSAT (Prelims Paper-II)",
+    slug: "csat-prelims-paper-2",
+    description: "Reading comprehension, logical reasoning, general mental ability, basic numeracy and data interpretation.",
+    parent_id: null,
+    exam_stage: "PRELIMS",
+    paper: "CSAT",
+    subject: "CSAT",
+    importance: "CRITICAL",
+    display_order: 1,
+    units: [
+      {
+        id: "csat-unit-01",
+        name: "Reading Comprehension & Critical Reasoning",
+        slug: "reading-comprehension",
+        description: "Passage inference, central theme, assumption validation, logical corollary.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "csat-top-01",
+            name: "Comprehension & Deductive Inference",
+            slug: "comprehension-inference",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Identifying Central Theme and Crux of the passage",
+              "Testing Logical Corollaries and Implicit Assumptions",
+              "Differentiating between Direct Facts vs Deductive Inferences",
+              "Understanding Author's Tone, Argumentation and Contradictions"
+            ]
+          }
+        ]
+      },
+      {
+        id: "csat-unit-02",
+        name: "Logical Reasoning & Analytical Ability",
+        slug: "logical-analytical-reasoning",
+        description: "Syllogisms, blood relations, seating arrangements, coding-decoding, direction sense.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "csat-top-02",
+            name: "Logical & Analytical Reasoning",
+            slug: "logical-reasoning-topics",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Syllogisms and Venn Diagrams",
+              "Blood Relations and Family Trees",
+              "Seating Arrangements (Linear and Circular)",
+              "Direction Sense and Distance calculations",
+              "Coding-Decoding, Series Completion, and Analogies",
+              "Clocks, Calendars, Puzzles and Ranking tests"
+            ]
+          }
+        ]
+      },
+      {
+        id: "csat-unit-03",
+        name: "Basic Numeracy & Data Interpretation",
+        slug: "basic-numeracy-di",
+        description: "Class X level quantitative aptitude, percentages, ratios, permutations, charts, tables.",
+        importance: "CRITICAL",
+        display_order: 3,
+        topics: [
+          {
+            id: "csat-top-03",
+            name: "Quantitative Aptitude & Number Systems",
+            slug: "quantitative-aptitude",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Number Systems: Divisibility rules, LCM/HCF, Unit digits, Remainders",
+              "Percentages, Profit and Loss, Simple and Compound Interest",
+              "Ratio, Proportion, Averages and Mixtures/Alligations",
+              "Time, Speed and Distance (Trains, Boats and Streams)",
+              "Time and Work, Pipes and Cisterns",
+              "Permutations, Combinations and Probability basics"
+            ]
+          },
+          {
+            id: "csat-top-04",
+            name: "Data Interpretation & Sufficiency",
+            slug: "data-interpretation-sufficiency",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Data Interpretation: Bar Charts, Pie Charts, Line Graphs, Data Tables",
+              "Data Sufficiency: Analyzing statement adequacy for problem solution"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const gs4Path = path.join(process.cwd(), "data", "syllabus", "gs4-ethics-integrity-aptitude.json");
+fs.writeFileSync(gs4Path, JSON.stringify(gs4Subjects, null, 2), "utf-8");
+console.log("Successfully generated GS-4 Syllabus at:", gs4Path);
+
+const csatPath = path.join(process.cwd(), "data", "syllabus", "prelims-csat.json");
+fs.writeFileSync(csatPath, JSON.stringify(csatSubjects, null, 2), "utf-8");
+console.log("Successfully generated CSAT Syllabus at:", csatPath);

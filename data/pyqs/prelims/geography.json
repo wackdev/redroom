@@ -1,0 +1,2419 @@
+[
+  {
+    "id": "geo-ch1-q1",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Solar System and Evolution of Earth",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "1. In the northern hemisphere, the longest day of the year normally occurs in the: (2022)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "First half of the month of June"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Second half of the month of June"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "First half of the month of July"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Second half of the month of July"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "On June 21st (Summer Solstice), the Northern Hemisphere is tilted at maximum towards the Sun, with the subsolar point falling directly on the Tropic of Cancer (23.5°N). This produces the longest daylight period of the year in the Northern Hemisphere, occurring in the second half of June.",
+    "extraEdge": "During the summer solstice, the Arctic Circle (66.5°N) experiences continuous daylight for 24 hours (Midnight Sun), while regions south of the Antarctic Circle experience total continuous darkness.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Summer Solstice",
+      "Northern Hemisphere",
+      "Tropic of Cancer",
+      "Axial Tilt",
+      "Day Length"
+    ]
+  },
+  {
+    "id": "geo-ch1-q2",
+    "year": 2019,
+    "subject": "Geography",
+    "topic": "Solar System and Evolution of Earth",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "2. On 21st June, the Sun: (2019)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "does not set below the horizon at the Arctic Circle"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "does not set below the horizon at Antarctic Circle"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "shines vertically overhead at noon on the Equator"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "shines vertically overhead at the Tropic of Capricorn"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "On June 21st (Summer Solstice), the Arctic Circle (66.5°N) is completely illuminated throughout Earth's 24-hour diurnal rotation, meaning the Sun remains above the horizon continuously (the Midnight Sun phenomenon). The Sun is vertically overhead at noon on the Tropic of Cancer, not the Equator or Capricorn.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Arctic Circle",
+      "Midnight Sun",
+      "Summer Solstice",
+      "Insolation"
+    ]
+  },
+  {
+    "id": "geo-ch1-q3",
+    "year": 2013,
+    "subject": "Geography",
+    "topic": "Solar System and Evolution of Earth",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "3. Variations in the length of daytime and night time from season to season are due to: (2013)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "The earth’s rotation on its axis"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "The earth’s revolution around the sun in an elliptical manner"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Latitudinal position of the place"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Revolution of the earth on a tilted axis"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Earth rotates on an axis tilted at 23.5° relative to the perpendicular to its orbital plane (or 66.5° to the plane of the ecliptic). As Earth revolves around the Sun on this fixed tilted axis, the angle of incoming solar radiation and the orientation of the Circle of Illumination relative to parallels change continually across the seasons, causing seasonal variations in day and night duration.",
+    "superHint": "Rotation alone produces day and night cycles (24h). Revolution on an un-tilted axis would produce constant 12h days everywhere year-round. It is the combination of revolution AND the tilted axis (axial parallelism) that causes seasonal day-length variation.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Axial Tilt",
+      "Revolution of Earth",
+      "Seasonal Variations",
+      "Circle of Illumination"
+    ]
+  },
+  {
+    "id": "geo-ch1-q5",
+    "year": 2012,
+    "subject": "Geography",
+    "topic": "Solar System and Evolution of Earth",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "5. Electrically charged particles from space traveling at speeds of several hundred km/sec can severely harm living beings if they reach the surface of the Earth. What prevents them from reaching the surface of the Earth? (2012)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "The Earth’s magnetic field diverts them towards its poles."
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Ozone layer around the Earth reflects them back to outer space."
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Moisture in the upper layers of the atmosphere prevents them from reaching the surface of the Earth."
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None of the statements (a), (b), and (c) given above is correct."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Earth's internal geodynamo generates a magnetic dipole field extending into space as the magnetosphere. The magnetosphere deflects high-energy solar wind and galactic cosmic rays (charged protons and electrons) along magnetic field lines toward the geomagnetic poles into the Van Allen radiation belts, producing auroral displays (Aurora Borealis and Australis) in polar ionospheres.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Earth Magnetic Field",
+      "Magnetosphere",
+      "Solar Wind",
+      "Van Allen Belts",
+      "Auroras"
+    ]
+  },
+  {
+    "id": "geo-ch1-q6",
+    "year": 2010,
+    "subject": "Geography",
+    "topic": "Solar System and Evolution of Earth",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "6. Consider the following statements: (2010)\n1. On the planet Earth, the fresh water available for use amounts to about less than 1% of the total water found.\n2. Of the total fresh water found on the planet Earth 95% is bound up in polar ice caps and glaciers.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: About 97.5% of total water on Earth is saline oceanic water, leaving only 2.5% as freshwater. Of this 2.5% freshwater, ~68.7% is locked in ice caps/glaciers and ~30.1% is groundwater. Accessible surface freshwater in rivers, lakes, and atmosphere accounts for less than 1% of total freshwater (and <0.01% of total global water).\nStatement 2 is incorrect: Glaciers and ice caps hold approximately 68.7% of total freshwater, not 95%.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Hydrological Distribution",
+      "Freshwater Resources",
+      "Glaciers",
+      "Groundwater"
+    ]
+  },
+  {
+    "id": "geo-ch1-q14",
+    "year": 2002,
+    "subject": "Geography",
+    "topic": "Solar System and Evolution of Earth",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "14. Which one of the following statements is correct with reference to our solar system? (2002)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "The earth is the densest of all the planets in our solar system"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "The predominant element in the composition of earth is silicon"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "The sun contains 75 percent of the mass of the solar system"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "The diameter of the sun is 190 times that of the earth"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Option (a) is correct: Earth has the highest average density (5.51 g/cm³) among all planets in the solar system due to its dense metallic core (Fe-Ni). Mercury is second at 5.43 g/cm³, while Saturn is the least dense (0.69 g/cm³).\nOption (b) is incorrect: Iron (Fe ~35%) is the most abundant element in the whole Earth by mass (Iron > Oxygen > Silicon > Magnesium).\nOption (c) is incorrect: The Sun contains 99.8% of the total mass of the solar system.\nOption (d) is incorrect: The Sun's diameter is ~109 times that of Earth.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Earth Density",
+      "Solar System Mass",
+      "Elemental Composition of Earth",
+      "Terrestrial Planets"
+    ]
+  },
+  {
+    "id": "geo-ch2-q21",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "21. Consider the following statements: (2024)\nStatement-I: The atmosphere is heated more by incoming solar radiation than by terrestrial radiation.\nStatement-II: Carbon dioxide and other greenhouse gases in the atmosphere are good absorbers of long wave radiation.\n\nWhich one of the following is correct in respect of the above statements?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Both Statement-I and Statement-II are correct but Statement-II does not explain Statement-I"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Statement-I is correct, but Statement-II is incorrect"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Statement-I is incorrect, but Statement-II is correct"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Statement-I is incorrect: The atmosphere is largely transparent to incoming shortwave solar radiation and is primarily heated from below by outgoing longwave terrestrial radiation emitted by the Earth's warmed surface.\nStatement-II is correct: Water vapour, carbon dioxide, methane, and other greenhouse gases readily absorb longwave infrared terrestrial radiation, driving atmospheric heating (the natural greenhouse effect).",
+    "extraEdge": "Without the natural greenhouse effect, Earth's mean surface temperature would drop from +15°C to -18°C, freezing the hydrosphere and rendering life impossible.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Heat Budget of Earth",
+      "Terrestrial Radiation",
+      "Insolation",
+      "Greenhouse Gases",
+      "Longwave Radiation"
+    ]
+  },
+  {
+    "id": "geo-ch2-q22",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "22. Consider the following statements: (2024)\nStatement-I: Thickness of the troposphere at the equator is much greater as compared to poles.\nStatement-II: At the equator, heat is transported to great heights by strong convectional currents.\n\nWhich one of the following is correct in respect of the above statements?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Both Statement-I and Statement-II are correct, but Statement-II does not explain Statement-I"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Statement-I is correct, but Statement-II is incorrect"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Statement-I is incorrect, but Statement-II is correct"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The troposphere extends to an altitude of ~18 km at the equator but only ~8 km at the poles. Intense solar insolation at the equator heats surface air, driving powerful vertical convective updrafts that lift heat and moisture high into the atmosphere, pushing the tropopause upward. Hence, Statement-II is true and accurately explains Statement-I.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Troposphere",
+      "Tropopause",
+      "Convection Currents",
+      "Equatorial Heating",
+      "Atmospheric Structure"
+    ]
+  },
+  {
+    "id": "geo-ch2-q24",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "24. Consider the following statements: (2023)\nStatement-I: The soil in tropical rain forests is rich in nutrients.\nStatement-II: The high temperature and moisture of tropical rain forests cause dead organic matter in the soil to decompose quickly.\n\nWhich one of the following is correct in respect of the above statements?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Both Statement-I and Statement-II are correct and Statement-II explains Statement-I"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Both Statement-I and Statement-II are correct and Statement-II is not the correct explanation for Statement-I"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Statement-I is correct but Statement-II is incorrect"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Statement-I is incorrect but Statement-II is correct"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Statement-I is incorrect: Tropical rainforest soils (Oxisols/Latosols) are heavily leached, acidic, and nutrient-poor because torrential equatorial rains wash soluble bases deep into the subsoil.\nStatement-II is correct: Constant warmth and high humidity foster intense microbial activity, causing rapid decomposition of leaf litter; released nutrients are immediately absorbed by shallow root systems rather than stored in the soil.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Tropical Rainforest",
+      "Oxisols",
+      "Soil Leaching",
+      "Decomposition Rate",
+      "Nutrient Cycle"
+    ]
+  },
+  {
+    "id": "geo-ch2-q26",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "26. Consider the following statements: (2022)\n1. High clouds primarily reflect solar radiation and cool the surface of the Earth.\n2. Low clouds have a high absorption of infrared radiation emanating from the Earth’s surface and thus cause a warming effect.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Both statements reverse reality:\n1. Low, thick stratiform clouds (stratocumulus) have high albedo, primarily reflecting incoming solar radiation back to space, thereby cooling Earth's surface.\n2. High, thin cirriform clouds (cirrus) are largely transparent to incoming sunlight but absorb outgoing longwave infrared terrestrial radiation and re-emit it back downward, producing a net warming effect.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": [
+      "Cloud Radiative Forcing",
+      "High vs Low Clouds",
+      "Albedo Effect",
+      "Terrestrial Infrared Absorption"
+    ]
+  },
+  {
+    "id": "geo-ch2-q29",
+    "year": 2020,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "29. Consider the following statements: (2020)\n1. Jet streams occur in the Northern Hemisphere only.\n2. Only some cyclones develop an eye.\n3. The temperature inside the eye of a cyclone is nearly 10°C less than that of the surroundings.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "2 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1 and 3 only"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statement 1 is incorrect: Jet streams (Subtropical and Polar front jet streams) encircle both the Northern and Southern Hemispheres in upper tropospheric westerlies.\nStatement 2 is correct: Only mature, intense tropical cyclones develop a clear central eye; mid-latitude/temperate frontal cyclones do not have an eye.\nStatement 3 is incorrect: Due to adiabatic compression of subsiding air in the calm central core, the eye of a tropical cyclone is warmer (by 0-2°C at surface and up to 10°C in upper troposphere) than surrounding eyewall clouds, not colder.",
+    "superHint": "S1 uses absolute 'only' across symmetrical planetary physics. S3 uses 'less' — the eye is a warm core system where sinking air warms adiabatically.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Jet Streams",
+      "Tropical Cyclones",
+      "Cyclone Eye",
+      "Adiabatic Warming"
+    ]
+  },
+  {
+    "id": "geo-ch2-q34",
+    "year": 2014,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "34. The seasonal reversal of winds is the typical characteristic of: (2014)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Equatorial climate"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Mediterranean climate"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Monsoon climate"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "All of the above climates"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The monsoon climate (derived from the Arabic 'Mausim' meaning season) is uniquely characterized by complete seasonal wind reversals: south-west monsoons blowing from maritime oceans to land during summer, and north-east monsoons blowing from continental landmass to ocean in winter.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Monsoon Climate",
+      "Seasonal Wind Reversal",
+      "South-West Monsoon",
+      "North-East Monsoon"
+    ]
+  },
+  {
+    "id": "geo-ch2-q48",
+    "year": 2010,
+    "subject": "Geography",
+    "topic": "Climatology",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "48. A geographic region has the following distinct characteristics: (2010)\n1. Warm and dry climate\n2. Mild and wet winter\n3. Evergreen Oak trees\n\nThe above features are distinct characteristics of which one of the following regions?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Mediterranean"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Eastern China"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Central Asia"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Atlantic coast of North America"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The Mediterranean climate (Cs in Köppen classification) is uniquely distinguished by dry, sunny summers (due to subtropical high-pressure cells shifting poleward) and rainy, mild winters (brought by prevailing westerlies and temperate depressions). Its native sclerophyllous vegetation includes drought-adapted evergreen oaks, cork, olive, and chaparral.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Mediterranean Climate",
+      "Sclerophyllous Vegetation",
+      "Evergreen Oak",
+      "Winter Rainfall"
+    ]
+  },
+  {
+    "id": "geo-ch3-q74",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Oceanography",
+    "chapterNumber": 3,
+    "paper": "GS-1",
+    "question": "74. Which of the following is/are correct inference/inferences from isothermal maps in the month of January? (2024)\n1. The isotherms deviate to the north over the ocean and to the south over the continent.\n2. The presence of cold ocean currents, Gulf Stream and North Atlantic Drift make the North Atlantic Ocean colder and the isotherms bend towards the north.\n\nSelect the answer using the code given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: In January (Northern Hemisphere winter), continents cool much faster than oceans. Over oceans (warmer), isotherms bend poleward (northward); over continents (colder), isotherms sag equatorward (southward).\nStatement 2 is incorrect: The Gulf Stream and North Atlantic Drift are WARM ocean currents, not cold, which transport tropical warmth to Western Europe.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Isotherms in January",
+      "Gulf Stream",
+      "North Atlantic Drift",
+      "Marine vs Continental Heating"
+    ]
+  },
+  {
+    "id": "geo-ch3-q75",
+    "year": 2020,
+    "subject": "Geography",
+    "topic": "Oceanography",
+    "chapterNumber": 3,
+    "paper": "GS-1",
+    "question": "75. With reference to Ocean Mean Temperature (OMT), which of the following statements is/are correct? (2020)\n1. OMT is measured up to a depth of 26°C isotherm which is 129 metres in the south-western Indian Ocean during January–March.\n2. OMT collected during January–March can be used in assessing whether the amount of rainfall in monsoon will be less or more than a certain long-term mean.\n\nSelect the correct using the code given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: The 26°C isotherm depth in the south-western Indian Ocean during January–March is approximately 59 metres (not 129 metres).\nStatement 2 is correct: OMT reflects the upper ocean thermal heat content much better than surface skin SST. A higher OMT in the pre-monsoon season correlates with enhanced summer monsoon rainfall over India.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": [
+      "Ocean Mean Temperature (OMT)",
+      "26°C Isotherm",
+      "Monsoon Forecasting",
+      "Indian Ocean Dynamics"
+    ]
+  },
+  {
+    "id": "geo-ch3-q76",
+    "year": 2018,
+    "subject": "Geography",
+    "topic": "Oceanography",
+    "chapterNumber": 3,
+    "paper": "GS-1",
+    "question": "76. Consider the following statements: (2018)\n1. Most of the world’s coral reefs are in tropical waters.\n2. More than one-third of the world’s coral reefs are located in the territories of Australia, Indonesia and Philippines.\n3. Coral reefs host far more animal phyla than those hosted by tropical rainforests.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 and 2 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Statement 1 is correct: Reef-building hermatypic corals require warm (20-28°C), shallow, saline, and clear waters, concentrated between 30°N and 30°S.\nStatement 2 is correct: Australia (Great Barrier Reef) and the Coral Triangle nations (Indonesia, Philippines) host over 33% of global coral reef area.\nStatement 3 is correct: While rainforests host greater total species counts (dominated by insects), coral reefs exhibit greater taxonomic phylum diversity, hosting 32 of the 33 recognized animal phyla.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Coral Reefs",
+      "Marine Biodiversity",
+      "Coral Triangle",
+      "Taxonomic Phyla"
+    ]
+  },
+  {
+    "id": "geo-ch3-q77",
+    "year": 2017,
+    "subject": "Geography",
+    "topic": "Oceanography",
+    "chapterNumber": 3,
+    "paper": "GS-1",
+    "question": "77. With reference to ‘Indian Ocean Dipole (IOD)’ sometimes mentioned in the news while forecasting Indian monsoon, which of the following statements is/are correct? (2017)\n1. The IOD phenomenon is characterised by a difference in sea surface temperature between tropical Western Indian Ocean and tropical Eastern Pacific Ocean.\n2. An IOD phenomenon can influence an El Nino’s impact on the monsoon.\n\nSelect the correct answer using the code given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: Indian Ocean Dipole is a coupled ocean-atmosphere phenomenon within the INDIAN OCEAN (difference between the tropical western Indian Ocean and southeastern equatorial Indian Ocean), NOT the Pacific Ocean.\nStatement 2 is correct: A positive IOD phase (warmer western Indian Ocean) brings abundant moisture and can neutralize/mitigate the drying impact of an adverse El Niño on the Indian monsoon (as seen during the 1997 and 2019 monsoons).",
+    "superHint": "Look at the name: *Indian Ocean* Dipole. It operates between two poles of the Indian Ocean itself, not between the Indian Ocean and the Pacific.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Indian Ocean Dipole (IOD)",
+      "Positive IOD",
+      "El Nino Neutralization",
+      "Monsoon Dynamics"
+    ]
+  },
+  {
+    "id": "geo-ch3-q79",
+    "year": 2015,
+    "subject": "Geography",
+    "topic": "Oceanography",
+    "chapterNumber": 3,
+    "paper": "GS-1",
+    "question": "79. Tides occur in the oceans and seas due to which among the following? (2015)\n1. Gravitational force of the Sun\n2. Gravitational force of the Moon\n3. Centrifugal force of the Earth\n\nSelect the correct answer using the code given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Tides are generated by differential gravitational forces and orbital mechanics:\n1. Moon's gravitational pull is the primary tide-generating force (2.17 times stronger than the Sun's due to proximity).\n2. Sun's gravitational pull modifies tidal amplitude (spring tides when aligned, neap tides at quadrature).\n3. Earth's rotation around the Earth-Moon barycentre produces a centrifugal force that creates a second tidal bulge on the side directly opposite the Moon.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Ocean Tides",
+      "Gravitational Pull",
+      "Centrifugal Force",
+      "Tidal Bulge",
+      "Spring & Neap Tides"
+    ]
+  },
+  {
+    "id": "geo-ch4-q93",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Geomorphology",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "93. Consider the following statements: (2024)\nStatement-I: Rainfall is one of the reasons for the weathering of rocks.\nStatement-II: Rain water contains carbon dioxide in solution.\nStatement-III: Rain water contains atmospheric oxygen.\n\nWhich one of the following is correct in respect of the above statements?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Both Statement-II and Statement-III are correct and both of them explain Statement-I"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Both Statement-II and Statement-III are correct, but only one of them explains Statement-I"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Only one of the Statement II and III is correct and that explains Statement-I"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither Statement-II nor Statement-III is correct"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement-I is correct: Rainfall triggers both chemical and physical breakdown of bedrock.\nStatement-II is correct: Rainwater dissolves CO2 from air, forming weak carbonic acid (H2CO3) that drives carbonation and dissolution of carbonate rocks (limestone karst).\nStatement-III is correct: Rainwater carries dissolved atmospheric oxygen that oxidizes iron-bearing minerals into rust/ferric oxides, loosening mineral grains.\nBoth Statement-II and Statement-III correctly explain chemical weathering of rocks.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Weathering of Rocks",
+      "Carbonation",
+      "Oxidation",
+      "Chemical Weathering",
+      "Karst Topography"
+    ]
+  },
+  {
+    "id": "geo-ch4-q94",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Geomorphology",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "94. Consider the following: (2024)\n1. Pyroclastic debris\n2. Ash and dust\n3. Nitrogen compounds\n4. Sulphur compounds\n\nHow many of the above are products of volcanic eruptions?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Only three"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "All four"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Volcanic eruptions eject solid, liquid, and gaseous materials:\n- Solid: Pyroclastic debris (scoria, cinders, volcanic bombs) (1) and volcanic ash/dust (2).\n- Gaseous: Water vapour (>60%), sulphur compounds (SO2, H2S) (4), nitrogen compounds (NOx, NH3) (3), CO2, and halogens.\nHence, all four are products of volcanic eruptions.",
+    "superHint": "Apply the 'unlikely to be absent' heuristic: Can a massive subterranean magma explosion eject fragments (pyroclastic, ash) and volcanic gases (sulfur, nitrogen compounds)? Naturally yes.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Volcanic Eruptions",
+      "Pyroclastic Flow",
+      "Volcanic Ash",
+      "Volcanic Gases"
+    ]
+  },
+  {
+    "id": "geo-ch4-q95",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Geomorphology",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "95. Consider the following statements: (2023)\n1. In a seismograph, P waves are recorded earlier than S waves.\n2. In P waves, the individual particles vibrate to and fro in the direction of wave propagation, whereas in S waves, the particles vibrate up and down at right angles to the direction of wave propagation.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 Only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 Only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statement 1 is correct: Primary (P) waves are compressional longitudinal waves that travel fastest through solids, liquids, and gases, arriving first at seismographs. Secondary (S) waves travel slower and arrive second.\nStatement 2 is correct: P-waves vibrate parallel (to-and-fro) to the direction of wave propagation (compression and rarefaction), whereas S-waves are shear transverse waves vibrating perpendicular (up-and-down/at right angles) to wave travel.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Earthquake Waves",
+      "P-Waves",
+      "S-Waves",
+      "Seismograph",
+      "Body Waves"
+    ]
+  },
+  {
+    "id": "geo-ch4-q96",
+    "year": 2021,
+    "subject": "Geography",
+    "topic": "Geomorphology",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "96. The black cotton soil of India has been formed due to the weathering of: (2021)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Brown forest soil"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Fissure volcanic rock"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Granite and schist"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Shale and limestone"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Black cotton soil (Regur soil) of peninsular India was formed by the in-situ sub-aerial weathering of basaltic lava flows that poured out during the Cretaceous period through fissure eruptions (Deccan Trap volcanism). It is rich in montmorillonite clay minerals, imparting high moisture-retention capacity.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Black Cotton Soil",
+      "Regur Soil",
+      "Deccan Traps",
+      "Basalt Weathering",
+      "Fissure Eruptions"
+    ]
+  },
+  {
+    "id": "geo-ch4-q110",
+    "year": 2001,
+    "subject": "Geography",
+    "topic": "Geomorphology",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "110. Identify the correct order of the process of soil-erosion from the following: (2001)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Splash erosion, Sheet erosion, Rill erosion, Gully erosion"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Sheet erosion, Splash erosion, Gully erosion, Rill erosion"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Rill erosion, Gully erosion, Sheet erosion, Splash erosion"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Gully erosion, Rill erosion, Sheet erosion, Splash erosion"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Water-induced soil erosion progresses in four distinct chronological stages:\n1. Splash Erosion: Raindrops bombard bare soil, dislodging soil aggregates.\n2. Sheet Erosion: Uniform thin surface layer of soil is stripped away by sheet overland runoff.\n3. Rill Erosion: Runoff channelizes into small, finger-like incisions and micro-channels.\n4. Gully Erosion: Deepening and broadening of rills into pronounced chasms and ravines (badland topography).",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Soil Erosion Stages",
+      "Splash Erosion",
+      "Sheet Erosion",
+      "Rill Erosion",
+      "Gully Erosion"
+    ]
+  },
+  {
+    "id": "geo-ch5-q111",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Human and Economic Geography",
+    "chapterNumber": 5,
+    "paper": "GS-1",
+    "question": "111. With reference to coal-based thermal power plants in India, consider the following statements: (2023)\n1. None of them uses seawater.\n2. None of them are set up in water-stressed districts.\n3. None of them is privately owned.\n\nHow many of the above statements are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "All three"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Statement 1 is incorrect: Several coastal thermal power plants (such as Mundra Ultra Mega Power Plant in Gujarat) use seawater for once-through cooling systems.\nStatement 2 is incorrect: Over 40% of thermal power plants in India are located in water-stressed or drought-prone districts (e.g. Suratgarh in Rajasthan, Raichur in Karnataka).\nStatement 3 is incorrect: Substantial private sector entities (Tata Power, Adani Power, JSW Energy) own and operate major coal thermal stations.",
+    "superHint": "'None' is an absolute universal negative across three separate statements. Finding even a single counter-example (Mundra uses seawater; private plants exist) invalidates all three.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Thermal Power Plants",
+      "Seawater Cooling",
+      "Water Stress",
+      "Private Power Generation"
+    ]
+  },
+  {
+    "id": "geo-ch5-q114",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Human and Economic Geography",
+    "chapterNumber": 5,
+    "paper": "GS-1",
+    "question": "114. About three-fourths of the world’s cobalt, a metal required for the manufacture of batteries for electric motor vehicles, is produced by: (2023)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Argentina"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Botswana"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "The Democratic Republic of the Congo"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Kazakhstan"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The Democratic Republic of the Congo (DRC) accounts for approximately 70–75% of global cobalt production, centered in the Katanga Copperbelt. Cobalt is an indispensable cathode active material for high-energy density lithium-ion batteries used in electric vehicles.",
+    "extraEdge": "Argentina, Bolivia, and Chile constitute the 'Lithium Triangle', hosting over 50% of the world's identified lithium brine resources.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Cobalt Reserves",
+      "Democratic Republic of the Congo (DRC)",
+      "EV Batteries",
+      "Critical Minerals"
+    ]
+  },
+  {
+    "id": "geo-ch5-q115",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Human and Economic Geography",
+    "chapterNumber": 5,
+    "paper": "GS-1",
+    "question": "115. Ilmenite and rutile, abundantly available in certain coastal tracts of India, are rich sources of which one of the following? (2023)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Aluminium"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Copper"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Iron"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Titanium"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Ilmenite (FeTiO3) and rutile (TiO2) are heavy beach sand minerals found along the coasts of Kerala (Chavara), Tamil Nadu, Andhra Pradesh, and Odisha. They are the primary industrial ores for extracting Titanium metal and manufacturing titanium dioxide pigment used in aerospace, defence, and paints.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Ilmenite",
+      "Rutile",
+      "Titanium",
+      "Beach Sand Minerals",
+      "Heavy Minerals"
+    ]
+  },
+  {
+    "id": "geo-ch5-q117",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Human and Economic Geography",
+    "chapterNumber": 5,
+    "paper": "GS-1",
+    "question": "117. Consider the following statements: (2023)\n1. India has more arable area than China.\n2. The proportion of irrigated area is more in India as compared to China.\n3. The average productivity per hectare in Indian agriculture is higher than that in China.\n\nHow many of the above statements are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "All three"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is correct: India has the largest arable land area in the world (~156 million hectares, ~11.8% of global total), whereas China has ~119 million hectares.\nStatement 2 is incorrect: China has a significantly higher proportion of irrigated land (~50% of its arable land is irrigated vs ~35-40% in India).\nStatement 3 is incorrect: China's agricultural crop productivity per hectare (cereal yield ~6,300 kg/ha) is nearly double that of India (~3,200 kg/ha).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Arable Land",
+      "Irrigation Percentage",
+      "Agricultural Productivity",
+      "India vs China Agriculture"
+    ]
+  },
+  {
+    "id": "geo-ch5-q119",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Human and Economic Geography",
+    "chapterNumber": 5,
+    "paper": "GS-1",
+    "question": "119. With reference to India, consider the following statements: (2022)\n1. Monazite is a source of rare earths.\n2. Monazite contains thorium.\n3. Monazite occurs naturally in the entire Indian coastal sands in India.\n4. In India, government bodies only can process or export monazite.\n\nWhich of the statements given above are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1, 2 and 3 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "1, 2 and 4 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "3 and 4 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1, 2, 3 and 4"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is correct: Monazite contains lanthanum, cerium, and other light rare earth elements (LREEs).\nStatement 2 is correct: Monazite sand is a primary phosphate mineral containing up to 8–10% Thorium dioxide (ThO2), vital for India's 3-stage nuclear program.\nStatement 3 is incorrect: Monazite is concentrated in specific coastal pockets (Kerala, Tamil Nadu, Odisha, Andhra Pradesh), not across the 'entire' coastline.\nStatement 4 is correct: Being a prescribed substance under the Atomic Energy Act, Indian Rare Earths Limited (IREL) under DAE is the sole authorized entity to handle, process, and export monazite.",
+    "superHint": "S3 states 'in the entire Indian coastal sands' — classic sweeping extreme word trap. Coastal placer deposits are geographically localized.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Monazite Sands",
+      "Thorium",
+      "Rare Earth Elements",
+      "IREL",
+      "Atomic Energy Act"
+    ]
+  },
+  {
+    "id": "geo-ch6-q199",
+    "year": 2016,
+    "subject": "Geography",
+    "topic": "Agriculture",
+    "chapterNumber": 6,
+    "paper": "GS-1",
+    "question": "199. Which of the following is/are the advantages/advantages of practising drip irrigation? (2016)\n1. Reduction in weed\n2. Reduction in soil salinity\n3. Reduction in soil erosion\n\nSelect the correct answer using the code given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 and 2 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None of the above is an advantage of practising drip irrigation"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statement 1 is correct: Drip irrigation delivers water directly to the plant root zone, keeping inter-row soil dry and suppressing weed emergence.\nStatement 2 is incorrect: Drip irrigation does not eliminate or reduce soil salinity; in arid climates, limited water volumes can cause salt accumulation at the perimeter of the wetting bulb (unlike flood irrigation which leaches salts downward).\nStatement 3 is correct: Low-pressure localized water delivery eliminates high-velocity overland surface runoff, thereby preventing soil erosion.",
+    "superHint": "For S2: Salt is flushed out by deep leaching with substantial water volume. Trickle/drip irrigation delivers minimal localized water, leaving dissolved salts to concentrate near root zones over time.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Drip Irrigation",
+      "Micro-Irrigation",
+      "Weed Suppression",
+      "Soil Salinity",
+      "Water Conservation"
+    ]
+  },
+  {
+    "id": "geo-ch6-q200",
+    "year": 2013,
+    "subject": "Geography",
+    "topic": "Agriculture",
+    "chapterNumber": 6,
+    "paper": "GS-1",
+    "question": "200. Contour bunding is a method of soil conservation used in: (2013)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "desert margins, liable to strong wind action"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "low flat plains, close to stream courses, liable to flooding"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "scrublands, liable to spread of weed growth"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None of the above"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Contour bunding involves constructing small earthen embankments along equal elevation contour lines across sloping or hilly terrains. It acts as a physical barrier to impede overland runoff velocity, promote in-situ moisture percolation, and arrest topsoil erosion. It is not designed for wind-swept desert margins (which use shelterbelts), flat floodplains, or scrublands.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Contour Bunding",
+      "Soil Conservation",
+      "Sloping Terrain",
+      "Runoff Management"
+    ]
+  },
+  {
+    "id": "geo-ch6-q201",
+    "year": 2013,
+    "subject": "Geography",
+    "topic": "Agriculture",
+    "chapterNumber": 6,
+    "paper": "GS-1",
+    "question": "201. Which of the following adds nitrogen to the soil? (2013)\n1. Excretion of urea by animals\n2. Burning of coal by man\n3. Death of vegetation\n\nSelect the correct answer using the codes given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 3 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "1. Animal urine contains urea (CO(NH2)2), which soil ammonifying bacteria hydrolyze into ammonium (NH4+) and nitrates (NO3-), enriching soil nitrogen.\n2. Burning coal combusts carbonaceous fossil fuel and releases nitrous oxides (NOx) into the atmosphere as gaseous emissions; it does not directly add nitrogen to the soil.\n3. Decomposing dead plant biomass returns organic nitrogen to the soil via microbial mineralization and humus formation.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Nitrogen Cycle",
+      "Soil Fertility",
+      "Ammonification",
+      "Biological Recycling"
+    ]
+  },
+  {
+    "id": "geo-ch6-q206",
+    "year": 2010,
+    "subject": "Geography",
+    "topic": "Agriculture",
+    "chapterNumber": 6,
+    "paper": "GS-1",
+    "question": "206. Due to their extensive rice cultivation, some regions may be contributing to global warming. To what possible reason/reasons is this attributable? (2010)\n1. The anaerobic conditions associated with rice cultivation cause the emission of methane.\n2. When nitrogen based fertilizers are used, nitrous oxide is emitted from the cultivated soil.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statement 1 is correct: Continuous submergence in wetland paddy fields creates anoxic (oxygen-deprived) anaerobic conditions, fostering methanogenic archaea that digest organic matter to emit significant methane (CH4).\nStatement 2 is correct: Application of nitrogenous chemical fertilizers (urea) stimulates nitrification and denitrification pathways in wet soils, emitting nitrous oxide (N2O), a potent greenhouse gas with a global warming potential 265-298 times that of CO2.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Rice Cultivation Emissions",
+      "Methane (CH4)",
+      "Nitrous Oxide (N2O)",
+      "Anaerobic Soil",
+      "Agricultural Greenhouse Gases"
+    ]
+  },
+  {
+    "id": "geo-ch6-q207",
+    "year": 2010,
+    "subject": "Geography",
+    "topic": "Agriculture",
+    "chapterNumber": 6,
+    "paper": "GS-1",
+    "question": "207. Given below are the names of four energy crops. Which one of them can be cultivated for ethanol? (2010)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Jatropha"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Maize"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Pongamia"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Sunflower"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Maize (corn) is rich in starch that can be hydrolyzed into fermentable sugars and converted to bio-ethanol by yeast fermentation. Under India's National Biofuel Policy and Ethanol Blended Petrol (EBP) program, surplus maize and damaged food grains are promoted for 1G ethanol production. In contrast, Jatropha curcas and Pongamia pinnata (karanja) yield seed oil used for biodiesel, not ethanol.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Bio-Ethanol",
+      "Maize",
+      "Ethanol Blended Petrol",
+      "Biofuels vs Biodiesel"
+    ]
+  },
+  {
+    "id": "geo-ch6-q214",
+    "year": 1996,
+    "subject": "Geography",
+    "topic": "Agriculture",
+    "chapterNumber": 6,
+    "paper": "GS-1",
+    "question": "214. Which one of the following sets of conditions is necessary for a good crop of wheat? (1996)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Moderate temperature and moderate rainfall"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "High temperature and heavy rainfall"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "High temperature and moderate rainfall"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Low temperature and low rainfall"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Wheat (Triticum aestivum) is a temperate Rabi crop requiring a cool growing climate with moderate temperatures (10°C–15°C at sowing, 21°C–26°C at ripening) and moderate rainfall of 50–75 cm evenly distributed during vegetative growth, followed by warm sunny weather during harvesting.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Wheat Cultivation",
+      "Rabi Season",
+      "Agro-Climatic Requirements",
+      "Temperature and Rainfall"
+    ]
+  },
+  {
+    "id": "geo-ch7-q216",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "216. Consider the following trees: (2023)\n1. Jackfruit (Artocarpus heterophyllus)\n2. Mahua (Madhuca indica)\n3. Teak (Tectona grandis)\n\nHow many of the above are deciduous trees?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "All three"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "1. Jackfruit (Artocarpus heterophyllus) is a tropical evergreen tree found in the Western Ghats and Northeast India, retaining foliage year-round.\n2. Mahua (Madhuca indica) is a prominent tropical deciduous tree of Central India that sheds its leaves during dry summer months.\n3. Teak (Tectona grandis) is the signature dominant species of tropical moist and dry deciduous forests.\nHence, exactly two (Mahua and Teak) are deciduous trees.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Tropical Deciduous Trees",
+      "Teak",
+      "Mahua",
+      "Evergreen Jackfruit",
+      "Forest Flora"
+    ]
+  },
+  {
+    "id": "geo-ch7-q217",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "217. Which one of the following is the best example of repeated falls in sea level, giving rise to present-day extensive marshland? (2023)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Bhitarkanika Mangroves"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Marakkanam Salt Pans"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Naupada Swamp"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Rann of Kutch"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "The Great and Little Rann of Kutch were originally shallow arms of the Arabian Sea (an inlet of the sea). Due to episodic tectonic uplift and marine regression (repeated drops in relative sea level), this inlet was cut off from open sea circulation and gradually filled with marine sediments and river silt, creating an extensive mudflat and seasonal hypersaline salt marsh.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Rann of Kutch",
+      "Marine Regression",
+      "Sea Level Fall",
+      "Saline Marshland",
+      "Coastal Geomorphology"
+    ]
+  },
+  {
+    "id": "geo-ch7-q218",
+    "year": 2022,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "218. Gandikota canyon of South India was created by which one of the following rivers? (2022)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Cauvery"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Manjira"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Pennar"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Tungabhadra"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The majestic Gandikota canyon (celebrated as the 'Grand Canyon of India') was sculpted by the Pennar River cutting deeply through the Erramala quartzitic and sandstone plateaus in YSR Kadapa district of Andhra Pradesh.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Gandikota Canyon",
+      "Pennar River",
+      "Gorge Formation",
+      "Andhra Pradesh Landforms"
+    ]
+  },
+  {
+    "id": "geo-ch7-q221",
+    "year": 2021,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "221. With reference to the Indus river system, of the following four rivers, three of them pour into one of them which joins the Indus directly. Among the following, which one is such a river that joins the Indus directly? (2021)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Chenab"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Jhelum"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Ravi"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Sutlej"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "In the Panjnad system:\n- Jhelum joins Chenab at Trimmu.\n- Ravi joins Chenab near Ahmadpur Sial.\n- The combined waters of Jhelum, Chenab, and Ravi (carrying Panjnad discharge) join the Sutlej at Panjnad.\n- The Sutlej River then carries the collective flow of all Punjab rivers and pours directly into the Indus River at Mithankot in Pakistan.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Indus River System",
+      "Sutlej",
+      "Chenab",
+      "Panjnad",
+      "Mithankot"
+    ]
+  },
+  {
+    "id": "geo-ch7-q223",
+    "year": 2021,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "223. Consider the following rivers: (2021)\n1. Brahmani\n2. Nagavali\n3. Subarnarekha\n4. Vamsadhara\n\nWhich of the above rise from the Eastern Ghats?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 and 2"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 4"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "3 and 4"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1 and 3"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "1. Brahmani is formed by the confluence of the Sankh and South Koel rivers originating in the Chota Nagpur Plateau (not Eastern Ghats).\n2. Nagavali rises in the Eastern Ghats near Lakhbahal in Kalahandi district, Odisha.\n3. Subarnarekha originates in the Chota Nagpur Plateau near Ranchi (Jharkhand).\n4. Vamsadhara originates in the Durgakangar Hills of the Eastern Ghats in Kalahandi district, Odisha.\nHence, rivers 2 and 4 originate in the Eastern Ghats.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Eastern Ghats Rivers",
+      "Nagavali",
+      "Vamsadhara",
+      "Chota Nagpur Drainage",
+      "Brahmani",
+      "Subarnarekha"
+    ]
+  },
+  {
+    "id": "geo-ch7-q231",
+    "year": 2015,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "231. Consider the following rivers: (2015)\n1. Vamsadhara\n2. Indravati\n3. Pranahita\n4. Pennar\n\nWhich of the above are tributaries of Godavari?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1, 2 and 3"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2, 3 and 4"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1, 2 and 4"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "2 and 3 only"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "- Indravati (originating in Dandakaranya, Odisha) and Pranahita (formed by Wardha and Wainganga) are principal left-bank tributaries of the Godavari River.\n- Vamsadhara and Pennar are independent east-flowing peninsular river basins draining directly into the Bay of Bengal, not tributaries of Godavari.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Godavari Tributaries",
+      "Indravati",
+      "Pranahita",
+      "Pennar",
+      "Peninsular Drainage"
+    ]
+  },
+  {
+    "id": "geo-ch7-q239",
+    "year": 2013,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "239. The Narmada river flows to the west, while most other large peninsular rivers flow to the east. Why? (2013)\n1. It occupies a linear rift valley.\n2. It flows between the Vindhyas and the Satpuras.\n3. The land slopes to the west from Central India.\n\nSelect the correct answer using the codes given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 3"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 3"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Statement 1 is the sole causal reason: The Narmada flows westward because it occupies an ancient structural rift valley (trough/graben) produced by tectonic faulting when the Indian plate collided with Eurasia. The fault trough slopes gently to the west, forcing the river toward the Arabian Sea.\nStatement 2 is a factual description of geography, not the hydrological cause of westward flow.\nStatement 3 is factually incorrect: The general regional tilt of the Peninsular shield is towards the EAST/South-East.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Narmada River",
+      "Rift Valley Graben",
+      "Peninsular Tilt",
+      "West-Flowing Rivers"
+    ]
+  },
+  {
+    "id": "geo-ch7-q246",
+    "year": 2011,
+    "subject": "Geography",
+    "topic": "Indian Geography",
+    "chapterNumber": 7,
+    "paper": "GS-1",
+    "question": "246. The Brahmaputra, Irrawaddy and Mekong rivers originate in Tibet and flow through narrow and parallel mountain ranges in their upper reaches. Of these rivers, Brahmaputra makes a “U” turn in its course to flow into India. This “U” turn is due to: (2011)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Uplift of folded Himalayan series"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Syntaxial bending of geologically young Himalayas"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Geo-Tectonic disturbance in the tertiary folded mountain chains"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Both (a) and (b)"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The Tsangpo/Brahmaputra carves the dramatic Yarlung Tsangpo Grand Canyon around Namcha Barwa peak (7,782 m) and makes an abrupt hairpin 'U-turn' into Arunachal Pradesh (as the Siang/Dihang) due to the sharp Syntaxial Bend (knee-bend buckle) at the eastern extremity of the geologically youthful Himalayan mountain arc.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Brahmaputra River",
+      "Syntaxial Bends",
+      "Namcha Barwa",
+      "Himalayan Geomorphology"
+    ]
+  },
+  {
+    "id": "geo-ch8-q331",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Location/Map Based : Indian Geography",
+    "chapterNumber": 8,
+    "paper": "GS-1",
+    "question": "331. With reference to the Himalayan rivers joining the Ganga downstream of Prayagraj from West to East, which one of the following sequences is correct? (2024)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Ghaghara – Gomati – Gandak – Kosi"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Gomati – Ghaghara – Gandak – Kosi"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Ghaghara – Gomati – Kosi – Gandak"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Gomati – Ghaghara – Kosi – Gandak"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Travelling downstream along the left bank of the Ganga from Prayagraj toward the Bay of Bengal from West to East:\n1. Gomati (joins near Ghazipur, UP)\n2. Ghaghara (joins near Chhapra, Bihar)\n3. Gandak (joins near Sonpur/Patna, Bihar)\n4. Kosi (joins near Kursela, Katihar, Bihar).\nHence, the correct sequence is Gomati – Ghaghara – Gandak – Kosi.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Ganga Tributaries",
+      "Left Bank Tributaries",
+      "West to East Alignment",
+      "Drainage Map"
+    ]
+  },
+  {
+    "id": "geo-ch8-q334",
+    "year": 2020,
+    "subject": "Geography",
+    "topic": "Location/Map Based : Indian Geography",
+    "chapterNumber": 8,
+    "paper": "GS-1",
+    "question": "334. Siachen Glacier is situated to the: (2020)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "East of Aksai Chin"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "East of Leh"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "North of Gilgit"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "North of Nubra Valley"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Siachen Glacier, situated in the Eastern Karakoram range immediately east of the Saltoro Ridge, feeds the Nubra River (which originates from the snout of Siachen Glacier at the Siachen tongue) and drains south into the Shyok River. Therefore, Siachen lies directly North of the Nubra Valley.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Siachen Glacier",
+      "Nubra Valley",
+      "Karakoram Range",
+      "Strategic Geography"
+    ]
+  },
+  {
+    "id": "geo-ch8-q336",
+    "year": 2018,
+    "subject": "Geography",
+    "topic": "Location/Map Based : Indian Geography",
+    "chapterNumber": 8,
+    "paper": "GS-1",
+    "question": "336. Among the following cities, which one lies on a longitude closest to that of Delhi? (2018)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Bengaluru"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Hyderabad"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Nagpur"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Pune"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Comparing longitudes of Indian cities:\n- New Delhi: 77°12' E (77.21°E)\n- Bengaluru: 77°35' E (77.59°E) — difference of only 0.38° (approx. 40 km)\n- Nagpur: 79°05' E\n- Hyderabad: 78°28' E\n- Pune: 73°51' E.\nHence, Bengaluru is on a meridian closest to Delhi.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Longitudinal Alignment",
+      "Delhi Meridian",
+      "Bengaluru Longitude",
+      "Indian Map Coordinates"
+    ]
+  },
+  {
+    "id": "geo-ch8-q344",
+    "year": 2014,
+    "subject": "Geography",
+    "topic": "Location/Map Based : Indian Geography",
+    "chapterNumber": 8,
+    "paper": "GS-1",
+    "question": "344. Which one of the following pairs of islands is separated from each other by the ‘Ten Degree Channel’? (2014)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Andaman and Nicobar"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Nicobar and Sumatra"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Maldives and Lakshadweep"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Sumatra and Java"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The Ten Degree Channel (at 10°N latitude, approximately 150 km wide) separates the Andaman Island archipelago (Little Andaman Island in the north) from the Nicobar Island archipelago (Car Nicobar Island in the south).\n- The Six Degree Channel (Great Channel) separates Great Nicobar from Sumatra.\n- The Eight Degree Channel separates Minicoy (Lakshadweep) from the Maldives.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Ten Degree Channel",
+      "Andaman and Nicobar",
+      "Little Andaman",
+      "Car Nicobar",
+      "Maritime Straits"
+    ]
+  },
+  {
+    "id": "geo-ch8-q390",
+    "year": 2002,
+    "subject": "Geography",
+    "topic": "Location/Map Based : Indian Geography",
+    "chapterNumber": 8,
+    "paper": "GS-1",
+    "question": "390. The correct sequence of the eastward flowing rivers of the peninsular India from north to south is: (2002)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Subarnarekha, Mahanadi, Godavari, Krishna, Pennar, Cauvery and Vagai"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Subarnarekha, Mahanadi, Krishna, Godavari, Cauvery and Vagai"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Mahanadi, Subarnarekha, Godavari, Krishna, Cauvery, Pennar and Vagai"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Mahanadi, Subarnarekha, Krishna, Godavari, Cauvery, Vagai and Pennar"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The geographical alignment of major east-flowing peninsular rivers draining into the Bay of Bengal from North to South is:\n1. Subarnarekha (Jharkhand/WB/Odisha)\n2. Mahanadi (Chhattisgarh/Odisha)\n3. Godavari (Maharashtra/Telangana/AP)\n4. Krishna (Maharashtra/Karnataka/AP)\n5. Pennar (Karnataka/AP)\n6. Cauvery (Karnataka/TN)\n7. Vaigai (Tamil Nadu).",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Peninsular Rivers",
+      "East-Flowing Rivers",
+      "North to South River Sequence",
+      "Bay of Bengal Drainage"
+    ]
+  },
+  {
+    "id": "geo-ch9-q415",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Location/Map Based : World Geography",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "415. The longest border between any two countries in the world is between: (2024)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Canada and the United States of America"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Chile and Argentina"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "China and India"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Kazakhstan and Russian Federation"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The border between Canada and the United States (the International Boundary) is the longest land border between any two nations, stretching 8,891 km (5,525 miles) across two segments: the 49th parallel border of the lower 48 states (6,416 km) and the Alaska-Canada border (2,475 km).",
+    "extraEdge": "The Kazakhstan-Russia border (7,644 km) is the world's second-longest continuous land border.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "International Borders",
+      "US-Canada Border",
+      "49th Parallel",
+      "Political Geography"
+    ]
+  },
+  {
+    "id": "geo-ch9-q416",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Location/Map Based : World Geography",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "416. Consider the following statements: (2024)\n1. The Red Sea receives very little precipitation in any form.\n2. No water enters the Red Sea from rivers.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Both 1 and 2"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Neither 1 nor 2"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statement 1 is correct: Situated in an hyper-arid desert belt between northeastern Africa and the Arabian peninsula, rainfall across the Red Sea basin is exceedingly sparse (<100 mm annually).\nStatement 2 is correct: Remarkably, not a single permanent, perennial river enters the Red Sea; it relies entirely on water exchange with the Gulf of Aden via the narrow Bab-el-Mandeb strait to compensate for enormous evaporation losses.",
+    "difficulty": "Hard",
+    "important": true,
+    "conceptTags": [
+      "Red Sea",
+      "Bab-el-Mandeb",
+      "Arid Seas",
+      "Perennial Rivers",
+      "Marine Hydrology"
+    ]
+  },
+  {
+    "id": "geo-ch9-q417",
+    "year": 2024,
+    "subject": "Geography",
+    "topic": "Location/Map Based : World Geography",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "417. Which of the following countries are well known as the two largest cocoa producers in the world? (2024)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Algeria and Morocco"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Botswana and Namibia"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Cote d’Ivoire and Ghana"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Madagascar and Mozambique"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Côte d’Ivoire (producing ~40%) and Ghana (producing ~20%) together supply over 60% of the world's cocoa beans (Theobroma cacao). Both West African nations provide the hot, moist equatorial tropical climate and shaded agroforestry necessary for cocoa orchards.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Cocoa Production",
+      "Cote d'Ivoire",
+      "Ghana",
+      "West African Agriculture",
+      "Cash Crops"
+    ]
+  },
+  {
+    "id": "geo-ch9-q419",
+    "year": 2023,
+    "subject": "Geography",
+    "topic": "Location/Map Based : World Geography",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "419. Consider the following countries: (2023)\n1. Bulgaria\n2. Czech Republic\n3. Hungary\n4. Latvia\n5. Lithuania\n6. Romania\n\nHow many of the above-mentioned countries share a land border with Ukraine?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only two"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only three"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Only four"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Only five"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Ukraine shares international land borders with 7 countries: Russia (east/northeast), Belarus (north), Poland (northwest), Slovakia (west), Hungary (west), Romania (southwest/south), and Moldova (southwest).\nAmong the options listed, only Hungary (3) and Romania (6) border Ukraine. (Bulgaria, Czech Republic, Latvia, and Lithuania do not share land borders with Ukraine).\nHence, exactly two countries share a border.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Ukraine Borders",
+      "Eastern Europe",
+      "Geopolitical Boundaries",
+      "Black Sea Neighbours"
+    ]
+  },
+  {
+    "id": "geo-ch9-q424",
+    "year": 2019,
+    "subject": "Geography",
+    "topic": "Location/Map Based : World Geography",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "424. Consider the following pairs: (2019)\nSea : Bordering country\n1. Adriatic Sea : Albania\n2. Black Sea : Croatia\n3. Caspian Sea : Kazakhstan\n4. Mediterranean Sea : Morocco\n5. Red Sea : Syria\n\nWhich of the pairs given above are correctly matched?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1, 2 and 4 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "1, 3 and 4 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "2 and 5 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1, 2, 3, 4 and 5"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Pair 1 is correctly matched: Albania has an extensive coast on the Adriatic Sea.\nPair 2 is incorrectly matched: Croatia borders the Adriatic Sea, NOT the Black Sea.\nPair 3 is correctly matched: Kazakhstan borders the northeastern Caspian Sea (along with Russia, Azerbaijan, Iran, and Turkmenistan).\nPair 4 is correctly matched: Morocco borders the southwestern Mediterranean Sea (and the Atlantic).\nPair 5 is incorrectly matched: Syria borders the Mediterranean Sea; it has no access to the Red Sea.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Bordering Seas",
+      "Adriatic Sea",
+      "Caspian Sea",
+      "Mediterranean Sea",
+      "Red Sea"
+    ]
+  },
+  {
+    "id": "geo-ch9-q425",
+    "year": 2014,
+    "subject": "Geography",
+    "topic": "Location/Map Based : World Geography",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "425. Turkey is located between: (2014)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Black Sea and Caspian Sea"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Black Sea and Mediterranean Sea"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Gulf of Suez and Mediterranean Sea"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Gulf of Aqaba and Dead Sea"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The Anatolian peninsula of Turkey is uniquely bounded by the Black Sea to the north and the Mediterranean Sea (along with the Aegean Sea) to the south and west. The Turkish Straits (Bosporus, Sea of Marmara, Dardanelles) connect these two major maritime bodies.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Turkey Geography",
+      "Black Sea",
+      "Mediterranean Sea",
+      "Turkish Straits",
+      "Anatolia"
+    ]
+  },
+  {
+    "id": "geo-ch10-q500",
+    "year": 2009,
+    "subject": "Geography",
+    "topic": "Miscellaneous",
+    "chapterNumber": 10,
+    "paper": "GS-1",
+    "question": "500. Which one of the following is the country’s administrative capital, the new federal administrative centre of Malaysia? (2009)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Kota Bharu"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Kuala Terengganu"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Putrajaya"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Taiping"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Putrajaya is the planned smart city established in the late 1990s as the federal administrative center and seat of government of Malaysia, created to decongest Kuala Lumpur (which remains the national and royal capital).",
+    "difficulty": "Easy",
+    "important": false,
+    "conceptTags": [
+      "Putrajaya",
+      "Malaysia Administrative Capital",
+      "Planned Cities",
+      "Urban Capitals"
+    ]
+  },
+  {
+    "id": "geo-ch10-q501",
+    "year": 2008,
+    "subject": "Geography",
+    "topic": "Miscellaneous",
+    "chapterNumber": 10,
+    "paper": "GS-1",
+    "question": "501. Which one of the following is not essentially a species of the Himalayan vegetation? (2008)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Juniper"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Mahogany"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Silver fir"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Spruce"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Mahogany (Swietenia) is a tropical moist evergreen rainforest hardwood native to Central and South America. In contrast, Juniper, Silver Fir (Abies pindrow), and Spruce (Picea smithiana) are characteristic temperate coniferous trees native to the sub-alpine and temperate zones of the Himalayas.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Himalayan Vegetation",
+      "Coniferous Forests",
+      "Mahogany",
+      "Tropical vs Temperate Species"
+    ]
+  },
+  {
+    "id": "geo-ch10-q504",
+    "year": 2005,
+    "subject": "Geography",
+    "topic": "Miscellaneous",
+    "chapterNumber": 10,
+    "paper": "GS-1",
+    "question": "504. Which one of the following statements is correct? (2005)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "The first meeting of the Parties (MOP) to the Cartagena Protocol on Biosafety was held in the Philippines in the year 2004."
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "India is not a signatory to the Biosafety protocol/ convention on Biological Diversity."
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "The Biosafety protocol deals with genetically modified organisms."
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "The United State of America is a member of the Biosafety protocol/convention on Biological diversity."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statement (c) is correct: The Cartagena Protocol on Biosafety to the Convention on Biological Diversity (CBD) regulates the transboundary movement, transit, handling, and safe use of Living Modified Organisms (LMOs / GMOs) resulting from modern biotechnology.\nStatements (a), (b), and (d) are incorrect: MOP-1 took place in Kuala Lumpur (Malaysia) in 2004; India ratified the Protocol in 2003; the USA has not ratified the CBD or the Cartagena Protocol.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Cartagena Protocol on Biosafety",
+      "LMOs",
+      "GMOs",
+      "CBD",
+      "Environmental Protocols"
+    ]
+  },
+  {
+    "id": "geo-ch10-q507",
+    "year": 1999,
+    "subject": "Geography",
+    "topic": "Miscellaneous",
+    "chapterNumber": 10,
+    "paper": "GS-1",
+    "question": "507. Which one of the following types of coal contains a higher percentage of carbon than the rest? (1999)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Bituminous coal"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Lignite"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Peat"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Anthracite"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Coal rank by carbon content, calorific value, and metamorphic maturity (highest to lowest):\n1. Anthracite: 86%–98% carbon (highest metamorphic grade, hard, shiny, burns with short blue flame and minimal smoke)\n2. Bituminous coal: 60%–80% carbon\n3. Lignite (brown coal): 40%–55% carbon\n4. Peat: <40% carbon (earliest stage of organic plant decomposition).",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Types of Coal",
+      "Anthracite",
+      "Bituminous",
+      "Lignite",
+      "Carbon Content",
+      "Fossil Fuels"
+    ]
+  },
+  {
+    "id": "geo-ch10-q508",
+    "year": 1999,
+    "subject": "Geography",
+    "topic": "Miscellaneous",
+    "chapterNumber": 10,
+    "paper": "GS-1",
+    "question": "508. Which one of the following scholars suggested the earth’s origin from gases and dust particles? (1999)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "James Jeans"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "H. Alfven"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "F. Hoyle"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "O. Schmidt"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Soviet geophysicist Otto Schmidt (1943) propounded the 'Interstellar Dust Cloud Hypothesis' (modified by Carl Weizsäcker), proposing that the Sun captured a surrounding primordial cloud of dark interstellar gas and cosmic dust particles. Accretion, gravitational attraction, and collisions within this rotating disk coalesced dust particles into planetesimals and eventually planets.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Origin of Earth",
+      "Otto Schmidt",
+      "Dust Cloud Hypothesis",
+      "Planetary Formation"
+    ]
+  }
+]

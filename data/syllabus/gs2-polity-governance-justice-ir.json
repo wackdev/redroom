@@ -1,0 +1,376 @@
+[
+  {
+    "id": "gs2-polity",
+    "name": "Indian Constitution & Polity",
+    "slug": "indian-constitution-polity",
+    "description": "Historical evolution, Preamble, Fundamental Rights, DPSP, Federalism, Parliament, Judiciary, Executive.",
+    "parent_id": null,
+    "exam_stage": "BOTH",
+    "paper": "GS-2",
+    "subject": "Polity",
+    "importance": "CRITICAL",
+    "display_order": 1,
+    "units": [
+      {
+        "id": "pol-unit-01",
+        "name": "Constitutional Framework & Fundamental Principles",
+        "slug": "constitutional-framework",
+        "description": "Making of Constitution, Preamble, Citizenship, FRs, DPSPs, Fundamental Duties.",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "pol-top-01",
+            "name": "Evolution, Preamble & Citizenship",
+            "slug": "evolution-preamble-citizenship",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Historical evolution of the Constitution (Regulating Act 1773 to Indian Independence Act 1947)",
+              "Constituent Assembly: Composition, working, Objective Resolution, Drafting Committee",
+              "Salient features of Indian Constitution: Blend of rigidity & flexibility, unitary tilt in federal setup",
+              "Preamble: Sovereign, Socialist, Secular, Democratic, Republic, Justice, Liberty, Equality, Fraternity",
+              "Amendability of Preamble and Kesavananda Bharati basic structure doctrine",
+              "Citizenship: Constitutional provisions (Articles 5-11), Citizenship Act 1955, CAA, NRC, OCI, PIO"
+            ]
+          },
+          {
+            "id": "pol-top-02",
+            "name": "Fundamental Rights & Constitutional Remedies",
+            "slug": "fundamental-rights-remedies",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Concept of State under Article 12 and Judicial Review under Article 13",
+              "Right to Equality (Articles 14 to 18): Rule of law, non-arbitrariness, affirmative action & reservation debate",
+              "Right to Freedom (Articles 19 to 22): Freedom of speech, reasonable restrictions, right to privacy (Puttaswamy)",
+              "Protection in respect of conviction (Article 20) and Protection of life & personal liberty (Article 21, Due Process)",
+              "Right against Exploitation (Articles 23 and 24): Prohibition of trafficking, forced labour, child labour",
+              "Right to Freedom of Religion (Articles 25 to 28): Essential Religious Practices doctrine, Uniform Civil Code debate",
+              "Cultural and Educational Rights (Articles 29 and 30): Minority rights protection",
+              "Right to Constitutional Remedies (Article 32 & 226): Writs (Habeas Corpus, Mandamus, Prohibition, Quo-Warranto, Certiorari)",
+              "Armed Forces and Fundamental Rights (Article 33), Martial Law (Article 34)"
+            ]
+          },
+          {
+            "id": "pol-top-03",
+            "name": "DPSP, Fundamental Duties & Basic Structure",
+            "slug": "dpsp-duties-basic-structure",
+            "importance": "CRITICAL",
+            "display_order": 3,
+            "subtopics": [
+              "Directive Principles of State Policy (Articles 36 to 51): Socialistic, Gandhian, Liberal-intellectual principles",
+              "Implementation of DPSPs, conflict between Fundamental Rights and DPSPs (Champakam Dorairajan to Minerva Mills)",
+              "Fundamental Duties (Article 51A): Swaran Singh Committee, 42nd & 86th Amendments, legal enforceability",
+              "Basic Structure Doctrine: Evolution from Shankari Prasad, Golaknath to Kesavananda Bharati and its elements"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pol-unit-02",
+        "name": "Federal Structure & Centre-State Relations",
+        "slug": "federal-structure-relations",
+        "description": "Legislative, administrative, financial relations, Governor's role, Article 356, Inter-state councils.",
+        "importance": "CRITICAL",
+        "display_order": 2,
+        "topics": [
+          {
+            "id": "pol-top-04",
+            "name": "Centre-State Relations & Federal Issues",
+            "slug": "centre-state-relations-issues",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Legislative Relations: Seventh Schedule (Union, State, Concurrent Lists), Residuary powers, Parliamentary supremacy",
+              "Administrative Relations: Centre's directions to States, All India Services (AIS), deployment of central armed forces",
+              "Financial Relations: Distribution of tax revenues, GST Council, Finance Commission recommendations, cess and surcharges",
+              "Role of the Governor: Discretionary powers, reservation of bills for President (Article 200/201), floor test guidelines",
+              "Emergency Provisions: National Emergency (Article 352), President's Rule (Article 356, S.R. Bommai guidelines), Financial Emergency",
+              "Inter-State Mechanisms: Inter-State Council (Article 263), Zonal Councils, Inter-State River Water Disputes Act"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pol-unit-03",
+        "name": "Union & State Executive and Legislature",
+        "slug": "executive-legislature",
+        "description": "President, Prime Minister, Council of Ministers, Parliament workings, State Legislatures.",
+        "importance": "CRITICAL",
+        "display_order": 3,
+        "topics": [
+          {
+            "id": "pol-top-05",
+            "name": "The Executive: President, PM & Cabinet",
+            "slug": "union-state-executive",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "President of India: Election (proportional representation), powers (Executive, Legislative, Financial, Pardoning Art 72), Impeachment",
+              "Vice President: Election, functions, ex-officio Chairman of Rajya Sabha",
+              "Prime Minister and Council of Ministers: Appointment, Collective responsibility (Article 75), Cabinet system, PMO",
+              "Governor and Chief Minister: Comparative powers with President and PM, coalition politics dynamics",
+              "Attorney General of India (Article 76) and Advocate General for the State"
+            ]
+          },
+          {
+            "id": "pol-top-06",
+            "name": "Parliament & State Legislatures Functioning",
+            "slug": "parliament-state-legislature",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Composition of Lok Sabha and Rajya Sabha, delimitation commission",
+              "Presiding Officers: Speaker, Deputy Speaker, Chairman, powers and neutrality",
+              "Sessions of Parliament, Question Hour, Zero Hour, Calling Attention, Adjournment motions, No-Confidence motion",
+              "Legislative Procedure: Ordinary bills, Money bills (Article 110), Financial bills, Joint sitting (Article 108)",
+              "Parliamentary Privileges (Article 105) and issues of codification",
+              "Parliamentary Committees: Standing committees, PAC, Estimates Committee, Committee on Public Undertakings",
+              "Decline of Parliamentary productivity, ordinance raj (Article 123/213), Anti-Defection Law (Tenth Schedule)"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pol-unit-04",
+        "name": "Judiciary & Constitutional/Statutory Bodies",
+        "slug": "judiciary-bodies",
+        "description": "Supreme Court, High Courts, Collegium, Judicial Activism, ECI, UPSC, CAG, NITI Aayog.",
+        "importance": "CRITICAL",
+        "display_order": 4,
+        "topics": [
+          {
+            "id": "pol-top-07",
+            "name": "The Judiciary: Integrated & Independent System",
+            "slug": "indian-judiciary-system",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Supreme Court: Composition, appointment of judges, Collegium system vs NJAC, independence safeguards",
+              "Jurisdiction of Supreme Court: Original, Appellate, Advisory (Article 143), Writ jurisdiction, Curative petition",
+              "High Courts and Subordinate Judiciary: Powers, supervision, pendency of cases, All India Judicial Service (AIJS) proposal",
+              "Judicial Review, Judicial Activism vs Judicial Overreach, Public Interest Litigation (PIL)",
+              "Alternative Dispute Resolution (ADR): Lok Adalats, Gram Nyayalayas, Arbitration and Conciliation, Tribunals (Part XIV-A)"
+            ]
+          },
+          {
+            "id": "pol-top-08",
+            "name": "Constitutional & Statutory Bodies",
+            "slug": "constitutional-statutory-bodies",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Election Commission of India (Article 324): Appointment, powers, electoral reforms, model code of conduct",
+              "Union Public Service Commission (UPSC) and State Public Service Commissions (Articles 315-323)",
+              "Comptroller and Auditor General of India (CAG, Article 148): Public purse guardian, audit reports",
+              "Finance Commission (Article 280): Terms of reference, devolution criteria",
+              "National Commissions: NCSC, NCST, NCBC, National Commission for Minorities, NCW, NCPCR",
+              "Statutory & Regulatory Bodies: NHRC, CIC, CVC, Lokpal and Lokayuktas, CBI, SEBI, TRAI, CCI, NGT, NITI Aayog"
+            ]
+          },
+          {
+            "id": "pol-top-09",
+            "name": "Local Self-Government: Panchayats & Municipalities",
+            "slug": "local-self-government",
+            "importance": "CRITICAL",
+            "display_order": 3,
+            "subtopics": [
+              "73rd Constitutional Amendment Act: 3-tier Panchayati Raj, Gram Sabha, reservation, Eleventh Schedule",
+              "74th Constitutional Amendment Act: Municipal corporations, municipalities, Nagar Panchayats, Twelfth Schedule",
+              "PESA Act 1996: Extension to Scheduled Areas, empowerment of tribal Gram Sabhas",
+              "Challenges of 3Fs: Funds, Functions, Functionaries, State Finance Commissions, municipal bonds"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gs2-governance",
+    "name": "Governance & Public Policy",
+    "slug": "governance-public-policy",
+    "description": "Citizen centric governance, transparency, RTI, citizen charters, e-governance, civil services.",
+    "parent_id": null,
+    "exam_stage": "MAINS",
+    "paper": "GS-2",
+    "subject": "Governance",
+    "importance": "CRITICAL",
+    "display_order": 2,
+    "units": [
+      {
+        "id": "gov-unit-01",
+        "name": "Transparency, Accountability & Citizen Participation",
+        "slug": "transparency-accountability",
+        "description": "RTI Act, Citizen Charters, Social Audits, Whistleblower protection, Sevottam model.",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "gov-top-01",
+            "name": "RTI, Citizen Charters & Social Audits",
+            "slug": "rti-charters-social-audits",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Right to Information (RTI) Act 2005: Provisions, exemptions (Section 8), CIC powers, challenges, digital challenges",
+              "Citizen's Charters: Objectives, components, implementation hurdles, Sevottam model of public service delivery",
+              "Social Audit: Concepts, institutionalization (MGNREGA model), community empowerment",
+              "Ombudsman mechanisms: Lokpal and Lokayuktas Act, grievance redressal portals (CPGRAMS)",
+              "Whistleblower Protection Act and protection of witnesses"
+            ]
+          },
+          {
+            "id": "gov-top-02",
+            "name": "e-Governance & Digital Public Infrastructure",
+            "slug": "e-governance-dpi",
+            "importance": "HIGH",
+            "display_order": 2,
+            "subtopics": [
+              "e-Governance: Applications, models (G2C, G2B, G2G, G2E), success stories (DigiLocker, UMANG, UPI, GeM)",
+              "Digital Public Infrastructure (India Stack): Aadhaar, UPI, DigiLocker, Account Aggregator, ONDC",
+              "Challenges in e-Governance: Digital divide, data privacy, cybersecurity, connectivity gaps",
+              "Role of Civil Services in a Democracy: Steel frame of India, bureaucratic neutrality vs commitment, Mission Karmayogi, lateral entry debate"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gs2-social-justice",
+    "name": "Social Justice & Welfare Schemes",
+    "slug": "social-justice-welfare",
+    "description": "Welfare of vulnerable sections (SC, ST, OBC, Women, Children, Minorities, PwD), Health, Education, Poverty.",
+    "parent_id": null,
+    "exam_stage": "BOTH",
+    "paper": "GS-2",
+    "subject": "Social Justice",
+    "importance": "CRITICAL",
+    "display_order": 3,
+    "units": [
+      {
+        "id": "sj-unit-01",
+        "name": "Welfare Schemes & Vulnerable Sections",
+        "slug": "welfare-schemes-vulnerable",
+        "description": "Constitutional protections, institutional mechanisms, flagship welfare schemes.",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "sj-top-01",
+            "name": "Empowerment of Vulnerable Sections",
+            "slug": "vulnerable-sections-empowerment",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Constitutional and statutory protections for SCs, STs (Prevention of Atrocities Act, Forest Rights Act)",
+              "OBC reservation, Creamy layer criteria, Rohini Commission on sub-categorization of OBCs",
+              "Welfare of Persons with Disabilities (RPwD Act 2016, Accessible India Campaign)",
+              "Senior Citizens welfare, Maintenance and Welfare of Parents and Senior Citizens Act",
+              "Transgender Persons (Protection of Rights) Act, National Portal for Transgenders",
+              "Manual scavenging eradication: Prohibition of Employment as Manual Scavengers Act, NAMASTE scheme"
+            ]
+          },
+          {
+            "id": "sj-top-02",
+            "name": "Health, Education, Human Capital & Hunger",
+            "slug": "health-education-hunger",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Health Sector: National Health Policy 2017, Ayushman Bharat (PM-JAY, HWCs/Arogya Mandirs), primary healthcare infrastructure",
+              "Disease burden: Non-communicable diseases, infectious diseases, Antimicrobial Resistance (AMR)",
+              "Education Sector: National Education Policy (NEP) 2020, Right to Education (RTE) Act, Samagra Shiksha, NIPUN Bharat",
+              "Higher education reforms, Academic Bank of Credits, foreign universities entry",
+              "Issues relating to Poverty & Hunger: Global Hunger Index, NFHS-5 findings, POSHAN Abhiyaan, NFSA 2013, PM Garib Kalyan Anna Yojana"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gs2-international-relations",
+    "name": "International Relations",
+    "slug": "international-relations",
+    "description": "India's foreign policy, neighbourhood relations, major powers, groupings (QUAD, BRICS, SCO), UN bodies.",
+    "parent_id": null,
+    "exam_stage": "BOTH",
+    "paper": "GS-2",
+    "subject": "International Relations",
+    "importance": "CRITICAL",
+    "display_order": 4,
+    "units": [
+      {
+        "id": "ir-unit-01",
+        "name": "Foreign Policy Principles & India's Neighbourhood",
+        "slug": "foreign-policy-neighbourhood",
+        "description": "Panchsheel, Non-Alignment, Neighbourhood First, Act East, Bilateral relations.",
+        "importance": "CRITICAL",
+        "display_order": 1,
+        "topics": [
+          {
+            "id": "ir-top-01",
+            "name": "India & Immediate Neighbours",
+            "slug": "india-immediate-neighbours",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "Determinants and evolution of Indian Foreign Policy: Non-Alignment to Strategic Autonomy and Multi-Alignment",
+              "Neighbourhood First Policy and Gujral Doctrine",
+              "India-Nepal: 1950 Treaty, border disputes (Kalapani, Lipulekh), hydro-power cooperation, China factor",
+              "India-Bhutan: Special relationship, security pact, hydro-electric projects, Doklam tri-junction",
+              "India-Bangladesh: Land Boundary Agreement (LBA), Teesta dispute, transit connectivity, trade and security cooperation",
+              "India-Sri Lanka: Fishermen issues, 13th Amendment, Colombo Port terminal, economic assistance",
+              "India-Maldives: Strategic importance, Muizzu administration, Indian ocean security, infrastructure lines of credit",
+              "India-Pakistan: Kashmir dispute, cross-border terrorism, Indus Waters Treaty 1960, trade suspension",
+              "India-Afghanistan: Chabahar port connectivity, humanitarian assistance, engagement with Taliban"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ir-unit-02",
+        "name": "Major Powers, Regional Blocs & Global Institutions",
+        "slug": "major-powers-blocs-institutions",
+        "description": "USA, Russia, China, EU, QUAD, BRICS, SCO, ASEAN, WTO, UN reforms.",
+        "importance": "CRITICAL",
+        "display_order": 2,
+        "topics": [
+          {
+            "id": "ir-top-02",
+            "name": "Major Powers Bilateral Relations",
+            "slug": "major-powers-relations",
+            "importance": "CRITICAL",
+            "display_order": 1,
+            "subtopics": [
+              "India-USA: Comprehensive Global Strategic Partnership, 2+2 dialogue, iCET, Defense pacts (LEMOA, COMCASA, BECA)",
+              "India-Russia: Special and Privileged Strategic Partnership, military-technical ties (S-400), energy trade, Ukraine fallout",
+              "India-China: LAC standoffs (Galwan, Depsang), boundary negotiation mechanisms, trade deficit, Belt & Road Initiative (BRI) concerns",
+              "India-Japan: Special Strategic and Global Partnership, bullet train project, Asia-Africa Growth Corridor",
+              "India-West Asia: Look West Policy, Israel, Saudi Arabia, UAE (CEPA), I2U2 minilateral group, IMEC corridor",
+              "India-Africa: Historical links, African Union entry into G20, development cooperation, line of credit"
+            ]
+          },
+          {
+            "id": "ir-top-03",
+            "name": "Regional Groupings & Global Governance",
+            "slug": "groupings-global-governance",
+            "importance": "CRITICAL",
+            "display_order": 2,
+            "subtopics": [
+              "Indo-Pacific & QUAD: Maritime domain awareness, supply chain resilience, open and inclusive Indo-Pacific",
+              "BRICS: Expansion (BRICS+), de-dollarization debate, New Development Bank (NDB)",
+              "Shanghai Cooperation Organisation (SCO): Security, counter-terrorism (RATS), connectivity",
+              "BIMSTEC vs SAARC: Sub-regional integration, Bay of Bengal master plan",
+              "ASEAN: Act East Policy, ASEAN centrality, Regional Comprehensive Economic Partnership (RCEP) issues",
+              "United Nations & UNSC Reforms: India's bid for permanent membership (G4 nations), UN peacekeeping contribution",
+              "Bretton Woods Institutions (IMF, World Bank, WTO): Dispute Settlement Mechanism paralysis, WTO Appellate body, trade disputes"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

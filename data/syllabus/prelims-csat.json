@@ -1,9 +1,9 @@
 [
   {
-    "id": "upsc.prelims.csat.rc",
-    "name": "Reading Comprehension & Critical Reasoning",
-    "slug": "csat-reading-comprehension",
-    "description": "Short and long passages on socio-economic, environmental, philosophical and scientific issues with logical inference questions",
+    "id": "csat-paper2",
+    "name": "CSAT (Prelims Paper-II)",
+    "slug": "csat-prelims-paper-2",
+    "description": "Reading comprehension, logical reasoning, general mental ability, basic numeracy and data interpretation.",
     "parent_id": null,
     "exam_stage": "PRELIMS",
     "paper": "CSAT",
@@ -12,165 +12,85 @@
     "display_order": 1,
     "units": [
       {
-        "id": "upsc.prelims.csat.rc.inference",
-        "name": "Critical Inference & Assumptions",
-        "slug": "critical-inference",
-        "description": "Crucial assumption, logical corollary, central theme, tone of author",
+        "id": "csat-unit-01",
+        "name": "Reading Comprehension & Critical Reasoning",
+        "slug": "reading-comprehension",
+        "description": "Passage inference, central theme, assumption validation, logical corollary.",
         "importance": "CRITICAL",
         "display_order": 1,
         "topics": [
           {
-            "id": "upsc.prelims.csat.rc.inference.assumption",
-            "name": "Crucial Assumption Identification",
-            "slug": "crucial-assumption",
+            "id": "csat-top-01",
+            "name": "Comprehension & Deductive Inference",
+            "slug": "comprehension-inference",
             "importance": "CRITICAL",
             "display_order": 1,
             "subtopics": [
-              "Necessary vs Sufficient Assumptions",
-              "Eliminating Out-of-Scope and Extreme Distractors",
-              "Socio-Economic & Climate Editorial Passages"
-            ]
-          },
-          {
-            "id": "upsc.prelims.csat.rc.inference.corollary",
-            "name": "Logical Corollary & Central Message",
-            "slug": "logical-corollary-message",
-            "importance": "HIGH",
-            "display_order": 2,
-            "subtopics": [
-              "Primary Takeaway vs Secondary Example",
-              "Author Tone (Objective, Critical, Sarcastic, Prescriptive)",
-              "Strengthening vs Weakening the Argument"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "upsc.prelims.csat.quant",
-    "name": "Quantitative Aptitude & Basic Numeracy",
-    "slug": "csat-quantitative-aptitude",
-    "description": "Number systems, percentages, ratios, permutations, time & work, speed & distance (Class X level)",
-    "parent_id": null,
-    "exam_stage": "PRELIMS",
-    "paper": "CSAT",
-    "subject": "CSAT",
-    "importance": "CRITICAL",
-    "display_order": 2,
-    "units": [
-      {
-        "id": "upsc.prelims.csat.quant.number_systems",
-        "name": "Number System & Arithmetic Fundamentals",
-        "slug": "number-system-arithmetic",
-        "description": "Divisibility rules, remainder theorem, unit digits, prime factors, LCM/HCF",
-        "importance": "CRITICAL",
-        "display_order": 1,
-        "topics": [
-          {
-            "id": "upsc.prelims.csat.quant.number_systems.divisibility",
-            "name": "Divisibility, Remainder Theorem & Unit Digits",
-            "slug": "divisibility-remainders",
-            "importance": "CRITICAL",
-            "display_order": 1,
-            "subtopics": [
-              "Cyclicity & Unit Digit Calculation",
-              "Euler Theorem, Wilson Theorem & Chinese Remainder Theorem basics",
-              "Number of Zeroes & Factors of a Composite Number"
-            ]
-          },
-          {
-            "id": "upsc.prelims.csat.quant.number_systems.pnc_prob",
-            "name": "Permutations, Combinations & Probability",
-            "slug": "pnc-probability",
-            "importance": "CRITICAL",
-            "display_order": 2,
-            "subtopics": [
-              "Fundamental Principle of Counting",
-              "Permutations with Repetition & Arrangement in Circles",
-              "Combinations & Group Formation",
-              "Classical Probability & Independent Events"
+              "Identifying Central Theme and Crux of the passage",
+              "Testing Logical Corollaries and Implicit Assumptions",
+              "Differentiating between Direct Facts vs Deductive Inferences",
+              "Understanding Author's Tone, Argumentation and Contradictions"
             ]
           }
         ]
       },
       {
-        "id": "upsc.prelims.csat.quant.applied_math",
-        "name": "Applied Arithmetic & Speed Math",
-        "slug": "applied-arithmetic",
-        "description": "Percentages, Profit & Loss, Ratio & Proportion, Averages, Time & Work, Speed",
-        "importance": "HIGH",
+        "id": "csat-unit-02",
+        "name": "Logical Reasoning & Analytical Ability",
+        "slug": "logical-analytical-reasoning",
+        "description": "Syllogisms, blood relations, seating arrangements, coding-decoding, direction sense.",
+        "importance": "CRITICAL",
         "display_order": 2,
         "topics": [
           {
-            "id": "upsc.prelims.csat.quant.applied_math.averages_ratios",
-            "name": "Averages, Alligations & Ratios",
-            "slug": "averages-alligations-ratios",
-            "importance": "HIGH",
+            "id": "csat-top-02",
+            "name": "Logical & Analytical Reasoning",
+            "slug": "logical-reasoning-topics",
+            "importance": "CRITICAL",
             "display_order": 1,
             "subtopics": [
-              "Weighted Average & Replacement Formula",
-              "Rule of Alligation in Mixtures",
-              "Compounded & Inverse Ratios"
-            ]
-          },
-          {
-            "id": "upsc.prelims.csat.quant.applied_math.time_speed_work",
-            "name": "Time, Speed, Distance & Time and Work",
-            "slug": "time-speed-work",
-            "importance": "HIGH",
-            "display_order": 2,
-            "subtopics": [
-              "Relative Speed, Trains & Boats/Streams",
-              "Pipes & Cisterns, Alternate Work Shifts",
-              "Clocks & Calendars (Leap years, Angle between hands)"
+              "Syllogisms and Venn Diagrams",
+              "Blood Relations and Family Trees",
+              "Seating Arrangements (Linear and Circular)",
+              "Direction Sense and Distance calculations",
+              "Coding-Decoding, Series Completion, and Analogies",
+              "Clocks, Calendars, Puzzles and Ranking tests"
             ]
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "upsc.prelims.csat.reasoning",
-    "name": "Logical & Analytical Reasoning",
-    "slug": "csat-logical-reasoning",
-    "description": "Syllogisms, Blood relations, Direction sense, Seating arrangements, Puzzles, Coding-Decoding",
-    "parent_id": null,
-    "exam_stage": "PRELIMS",
-    "paper": "CSAT",
-    "subject": "CSAT",
-    "importance": "HIGH",
-    "display_order": 3,
-    "units": [
+      },
       {
-        "id": "upsc.prelims.csat.reasoning.analytical",
-        "name": "Analytical & Deductive Reasoning",
-        "slug": "analytical-deductive-reasoning",
-        "description": "Syllogisms (Venn Diagrams), Seating, Blood Relations, Directions",
-        "importance": "HIGH",
-        "display_order": 1,
+        "id": "csat-unit-03",
+        "name": "Basic Numeracy & Data Interpretation",
+        "slug": "basic-numeracy-di",
+        "description": "Class X level quantitative aptitude, percentages, ratios, permutations, charts, tables.",
+        "importance": "CRITICAL",
+        "display_order": 3,
         "topics": [
           {
-            "id": "upsc.prelims.csat.reasoning.analytical.syllogism",
-            "name": "Syllogisms & Deductive Logic",
-            "slug": "syllogisms-deductive",
-            "importance": "HIGH",
+            "id": "csat-top-03",
+            "name": "Quantitative Aptitude & Number Systems",
+            "slug": "quantitative-aptitude",
+            "importance": "CRITICAL",
             "display_order": 1,
             "subtopics": [
-              "Venn Diagram representation (All, Some, No, Some Not)",
-              "Possibility Cases & Either-Or Conditions"
+              "Number Systems: Divisibility rules, LCM/HCF, Unit digits, Remainders",
+              "Percentages, Profit and Loss, Simple and Compound Interest",
+              "Ratio, Proportion, Averages and Mixtures/Alligations",
+              "Time, Speed and Distance (Trains, Boats and Streams)",
+              "Time and Work, Pipes and Cisterns",
+              "Permutations, Combinations and Probability basics"
             ]
           },
           {
-            "id": "upsc.prelims.csat.reasoning.analytical.arrangements",
-            "name": "Linear, Circular Seating & Puzzles",
-            "slug": "seating-arrangements-puzzles",
+            "id": "csat-top-04",
+            "name": "Data Interpretation & Sufficiency",
+            "slug": "data-interpretation-sufficiency",
             "importance": "HIGH",
             "display_order": 2,
             "subtopics": [
-              "Circular arrangement facing center vs outward",
-              "Multi-variable matrix puzzles (Profession, City, Color)",
-              "Blood relations with coded operators (+, -, *, /)"
+              "Data Interpretation: Bar Charts, Pie Charts, Line Graphs, Data Tables",
+              "Data Sufficiency: Analyzing statement adequacy for problem solution"
             ]
           }
         ]

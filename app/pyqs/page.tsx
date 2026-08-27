@@ -4,12 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MistakeType, PYQQuestion } from "@/lib/core/types";
 import { safeArray } from "@/lib/core/utils";
-import { MISTAKE_TYPE_LABELS } from "@/lib/pyq/mistake-engine";
-import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
 import {
+  MISTAKE_TYPE_LABELS,
+  STATIC_PYQ_DATASET,
   diagnoseQuestionTraps,
   calculateEliminationProbability,
-} from "@/lib/pyq/elimination-engine";
+  getStoredPYQs,
+  saveUploadedPYQs,
+} from "@/lib/study/pyq-engine";
 import {
   broadcastSyncChange,
   subscribeToSyncChanges,
@@ -33,7 +35,10 @@ import { UserSessionManager } from "@/lib/core/user-context";
 import { dexieDb } from "@/lib/db/dexie";
 import { trackActivityEvent } from "@/lib/brain/activity-events";
 import { useNotesStore } from "@/store/useNotesStore";
-import { createNoteFromPrelimsQuestion, findRelatedNotesForPrelims } from "@/lib/notes/topic-linker";
+import { createNoteFromPrelimsQuestion, findRelatedNotesForPrelims } from "@/lib/study/notes-engine";
+import PrelimsPDFIngestionStudio from "@/components/pyq/PrelimsPDFIngestionStudio";
+import PrelimsChapterNavigator from "@/components/pyq/PrelimsChapterNavigator";
+import { ALL_TAXONOMY_SUBJECTS } from "@/lib/pyq/taxonomy";
 
 const LOCAL_STORAGE_PROGRESS_KEY = "redroom_pyq_progress";
 const LOCAL_STORAGE_ATTEMPTS_KEY = "redroom_pyq_user_attempts";
@@ -42,12 +47,18 @@ const LOCAL_STORAGE_STREAK_KEY = "redroom_pyq_streak";
 
 const SUBJECT_LIST = [
   "All Subjects",
+  "UPSC CSE Prelims 2025 GS Paper-I",
+  "Ancient History",
+  "Medieval History",
+  "Modern History",
+  "Art and Culture",
   "Polity",
-  "History",
-  "Economy",
-  "Environment",
+  "Indian Economy",
   "Geography",
-  "Science & Technology",
+  "Environment and Ecology",
+  "Science and Technology",
+  "International Relations and Current Affairs",
+  "General Knowledge (1995-2010)",
 ] as const;
 
 interface QuestionUserAttempt {
@@ -104,6 +115,7 @@ export default function PYQCommandCenter() {
   const [importantOnly, setImportantOnly] = useState<boolean>(false);
   const [pendingOnly, setPendingOnly] = useState<boolean>(false);
   const [bookmarksOnly, setBookmarksOnly] = useState<boolean>(false);
+  const [isIngestionStudioOpen, setIsIngestionStudioOpen] = useState<boolean>(false);
 
   // Notes Vault Integration
   const [noteSaveStatus, setNoteSaveStatus] = useState<Record<string, string>>({});
@@ -166,8 +178,33 @@ export default function PYQCommandCenter() {
 
       const savedStreak = localStorage.getItem(LOCAL_STORAGE_STREAK_KEY);
       if (savedStreak) setDailyStreak(parseInt(savedStreak, 10) || 1);
+
+      getStoredPYQs().then((stored) => {
+        if (stored && stored.length > 0) setQuestions(stored);
+      });
     } catch {}
   }, []);
+
+  // Upload user-provided questions
+  const handleUploadJson = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      if (!Array.isArray(parsed)) {
+        alert("Invalid format: expected JSON array of questions.");
+        return;
+      }
+      await saveUploadedPYQs(parsed);
+      setQuestions(parsed);
+      sound.playVictory();
+      alert(`Successfully imported ${parsed.length} authentic questions!`);
+    } catch (err: any) {
+      sound.playWrong();
+      alert(`Upload failed: ${err?.message || "Invalid JSON format"}`);
+    }
+  };
 
   // Fetch remote questions in background
   const fetchRemoteQuestions = useCallback(async () => {
@@ -210,29 +247,71 @@ export default function PYQCommandCenter() {
     return () => clearInterval(timer);
   }, [viewMode, examSubmitted, examTimeRemaining]);
 
+  // Subject Matching Helper for Canonical 11 Subjects & 2025 Paper
+  const matchQuestionSubject = useCallback((q: PYQQuestion, targetSub: string): boolean => {
+    const target = targetSub.trim().toLowerCase();
+    if (target === "all subjects") return true;
+
+    const qSub = (q.subject || "").trim().toLowerCase();
+    const qTopic = (q.topic || "").trim().toLowerCase();
+
+    if (target.includes("2025")) {
+      return qSub.includes("2025") || String(q.year) === "2025";
+    }
+    if (target === "ancient history") {
+      return qSub === "ancient history" || (qSub.includes("history") && (qTopic.includes("ancient") || qTopic.includes("harappan") || qTopic.includes("vedic") || qTopic.includes("mauryan") || qTopic.includes("gupta") || qTopic.includes("harsha")));
+    }
+    if (target === "medieval history") {
+      return qSub === "medieval history" || (qSub.includes("history") && (qTopic.includes("medieval") || qTopic.includes("sultanate") || qTopic.includes("mughal") || qTopic.includes("vijayanagara") || qTopic.includes("bhakti")));
+    }
+    if (target === "modern history") {
+      return qSub === "modern history" || (qSub.includes("history") && !qSub.includes("ancient") && !qSub.includes("medieval") && !qTopic.includes("ancient") && !qTopic.includes("medieval") && !qTopic.includes("harappan"));
+    }
+    if (target === "art and culture") {
+      return qSub.includes("art") || qSub.includes("culture");
+    }
+    if (target === "polity") {
+      return qSub.includes("polity") || qSub.includes("constitution") || qSub.includes("governance");
+    }
+    if (target === "indian economy") {
+      return qSub.includes("economy") || qSub.includes("economics");
+    }
+    if (target === "geography") {
+      return qSub.includes("geography");
+    }
+    if (target === "environment and ecology") {
+      return qSub.includes("environment") || qSub.includes("ecology");
+    }
+    if (target === "science and technology") {
+      return qSub.includes("science") || qSub.includes("tech");
+    }
+    if (target.includes("international relations") || target.includes("current affairs")) {
+      return qSub.includes("international") || qSub.includes("current affairs") || qSub.includes("ir");
+    }
+    if (target.includes("general knowledge")) {
+      return qSub.includes("general knowledge") || qSub.includes("gk") || (q.year >= 1995 && q.year <= 2010);
+    }
+
+    return qSub === target || qSub.includes(target);
+  }, []);
+
   // Dynamic Subject Counts with Robust Normalization
   const subjectCounts = useMemo(() => {
-    const counts: Record<string, number> = {
-      "All Subjects": questions.length,
-      Polity: 0,
-      History: 0,
-      Economy: 0,
-      Environment: 0,
-      Geography: 0,
-      "Science & Technology": 0,
-    };
+    const counts: Record<string, number> = {};
+    for (const s of SUBJECT_LIST) {
+      counts[s] = 0;
+    }
+    counts["All Subjects"] = questions.length;
 
     for (const q of questions) {
-      const sub = (q.subject || "").toLowerCase();
-      if (sub.includes("polity")) counts["Polity"]++;
-      else if (sub.includes("history")) counts["History"]++;
-      else if (sub.includes("economy")) counts["Economy"]++;
-      else if (sub.includes("environment")) counts["Environment"]++;
-      else if (sub.includes("geography")) counts["Geography"]++;
-      else if (sub.includes("science") || sub.includes("tech")) counts["Science & Technology"]++;
+      for (const s of SUBJECT_LIST) {
+        if (s !== "All Subjects" && matchQuestionSubject(q, s)) {
+          counts[s] = (counts[s] || 0) + 1;
+        }
+      }
     }
     return counts;
-  }, [questions]);
+  }, [questions, matchQuestionSubject]);
 
   // Available Years
   const availableYears = useMemo(() => {
@@ -244,41 +323,21 @@ export default function PYQCommandCenter() {
   const availableTopics = useMemo(() => {
     let filtered = questions;
     if (selectedSubject !== "All Subjects") {
-      const s = selectedSubject.toLowerCase();
-      filtered = questions.filter((q) => (q.subject || "").toLowerCase().includes(s));
+      filtered = questions.filter((q) => matchQuestionSubject(q, selectedSubject));
     }
     const topics = Array.from(new Set(filtered.map((q) => q.topic).filter(Boolean)));
     return ["All Topics", ...topics];
-  }, [questions, selectedSubject]);
+  }, [questions, selectedSubject, matchQuestionSubject]);
 
   // Filtered Questions Engine
   const filteredQuestions = useMemo(() => {
     const qText = search.trim().toLowerCase();
-    const targetSub = selectedSubject.trim().toLowerCase();
 
     return safeArray(questions).filter((q) => {
-      const qSub = (q.subject || "").trim().toLowerCase();
       const qTopic = (q.topic || "").trim().toLowerCase();
 
       // 1. Subject Match
-      let matchSub = false;
-      if (targetSub === "all subjects") {
-        matchSub = true;
-      } else if (targetSub.includes("history")) {
-        matchSub = qSub.includes("history") || qTopic.includes("ancient") || qTopic.includes("medieval");
-      } else if (targetSub.includes("polity")) {
-        matchSub = qSub.includes("polity");
-      } else if (targetSub.includes("economy")) {
-        matchSub = qSub.includes("economy");
-      } else if (targetSub.includes("environment")) {
-        matchSub = qSub.includes("environment") || qSub.includes("ecology");
-      } else if (targetSub.includes("geography")) {
-        matchSub = qSub.includes("geography");
-      } else if (targetSub.includes("science") || targetSub.includes("tech")) {
-        matchSub = qSub.includes("science") || qSub.includes("tech");
-      } else {
-        matchSub = qSub === targetSub;
-      }
+      const matchSub = matchQuestionSubject(q, selectedSubject);
 
       // 2. Topic Match
       const matchTopic =
@@ -982,14 +1041,27 @@ export default function PYQCommandCenter() {
               </button>
             </div>
 
-            {activeMainTab === "labs" && activeLabId && (
+            <div className="flex items-center gap-2">
               <button
-                onClick={() => setActiveLabId(null)}
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-white/70 hover:bg-white/10 hover:text-white"
+                onClick={() => {
+                  sound.playSelect();
+                  setIsIngestionStudioOpen(true);
+                }}
+                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#D8A63A] to-[#F4C95D] px-3.5 py-1.5 font-mono text-xs font-black text-black shadow-lg hover:shadow-[0_0_15px_rgba(216,166,58,0.5)] transition"
               >
-                ← Back to Labs Gallery
+                <span>📥</span>
+                <span>Ingest PDF / Questions</span>
               </button>
-            )}
+
+              {activeMainTab === "labs" && activeLabId && (
+                <button
+                  onClick={() => setActiveLabId(null)}
+                  className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-white/70 hover:bg-white/10 hover:text-white"
+                >
+                  ← Back to Labs Gallery
+                </button>
+              )}
+            </div>
           </section>
 
           {/* 3D LABS VIEW */}
@@ -1084,6 +1156,18 @@ export default function PYQCommandCenter() {
                 })}
               </section>
 
+              {/* 126-CHAPTER COMPENDIUM & NAVIGATOR */}
+              {selectedSubject !== "All Subjects" && (
+                <PrelimsChapterNavigator
+                  selectedSubject={selectedSubject}
+                  selectedTopic={selectedTopic}
+                  onSelectTopic={setSelectedTopic}
+                  onSelectSubject={handleSelectSubject}
+                  questions={questions}
+                  completedIds={completedIds}
+                />
+              )}
+
               {/* TOPIC CHIPS IF FILTERED */}
               {availableTopics.length > 2 && (
                 <section className="mb-4 flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono">
@@ -1174,7 +1258,46 @@ export default function PYQCommandCenter() {
               </section>
 
               {/* QUESTIONS LIST */}
-              {filteredQuestions.length === 0 ? (
+              {questions.length === 0 ? (
+                <div className="rounded-3xl border-2 border-dashed border-[#D8A63A]/40 bg-[#0d0d0d] p-10 text-center space-y-4">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#D8A63A]/10 text-3xl border border-[#D8A63A]/20">
+                    📤
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Upload Your UPSC Prelims Question Bank</h3>
+                  <p className="text-xs text-white/60 max-w-md mx-auto leading-relaxed">
+                    Upload your authentic UPSC question bank in JSON format to activate the Prelims Command Center with live strike elimination, trap heuristics, and active recall.
+                  </p>
+                  <div className="pt-2 flex flex-wrap justify-center gap-3">
+                    <label className="cursor-pointer rounded-2xl bg-[#D8A63A] hover:bg-[#F4C95D] px-6 py-3 font-mono text-xs font-black text-black shadow-xl transition inline-flex items-center gap-2">
+                      <span>📁 Select Question Bank (JSON)</span>
+                      <input
+                        type="file"
+                        accept=".json"
+                        className="hidden"
+                        onChange={handleUploadJson}
+                      />
+                    </label>
+                  </div>
+                  <div className="text-left rounded-2xl bg-black/40 border border-white/5 p-4 max-w-lg mx-auto text-[11px] font-mono text-white/50 space-y-1">
+                    <p className="font-bold text-white/80">Expected Question Object Schema:</p>
+                    <pre className="overflow-x-auto text-[10px] text-amber-300">
+{`[{
+  "id": "UPSC-2024-POL-01",
+  "year": 2024,
+  "subject": "Polity",
+  "topic": "Fundamental Rights",
+  "question": "Consider the following statements...",
+  "options": [
+    { "id": "A", "text": "Statement 1 only" },
+    { "id": "B", "text": "Statement 2 only" }
+  ],
+  "correctAnswer": "A",
+  "explanation": "..."
+}]`}
+                    </pre>
+                  </div>
+                </div>
+              ) : filteredQuestions.length === 0 ? (
                 <div className="rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-12 text-center">
                   <span className="text-3xl">🔍</span>
                   <p className="mt-3 text-base font-bold">No questions found for current filters</p>
@@ -1436,6 +1559,32 @@ export default function PYQCommandCenter() {
                               {q.explanation}
                             </p>
 
+                            {/* WHYNOTUPSC SUPER HINT BOX */}
+                            {q.superHint && (
+                              <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-amber-200">
+                                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-amber-400 font-mono">
+                                  <span>💡</span>
+                                  <span>WHYNOTUPSC SUPER HINT / ELIMINATION TECHNIQUE</span>
+                                </div>
+                                <p className="mt-1 text-xs leading-relaxed text-amber-100/90 font-sans">
+                                  {q.superHint}
+                                </p>
+                              </div>
+                            )}
+
+                            {/* WHYNOTUPSC EXTRA EDGE BOX */}
+                            {q.extraEdge && (
+                              <div className="mt-2.5 rounded-lg border border-cyan-500/30 bg-cyan-500/10 p-3 text-cyan-200">
+                                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-cyan-400 font-mono">
+                                  <span>⚡</span>
+                                  <span>WHYNOTUPSC EXTRA EDGE / HIGH-YIELD CONTEXT</span>
+                                </div>
+                                <p className="mt-1 text-xs leading-relaxed text-cyan-100/90 font-sans">
+                                  {q.extraEdge}
+                                </p>
+                              </div>
+                            )}
+
                             {hasAttempted && !isCorrect && (
                               <div className="mt-3 border-t border-red-500/20 pt-2 font-mono">
                                 <p className="text-[10px] font-bold uppercase tracking-wider text-pink-300">
@@ -1477,6 +1626,21 @@ export default function PYQCommandCenter() {
             </div>
           )}
         </div>
+
+        {/* PDF & CONTENT INGESTION STUDIO MODAL */}
+        <PrelimsPDFIngestionStudio
+          isOpen={isIngestionStudioOpen}
+          onClose={() => setIsIngestionStudioOpen(false)}
+          onQuestionsIngested={() => {
+            loadLocalState();
+            void fetchRemoteQuestions();
+          }}
+          initialSubjectId={
+            ALL_TAXONOMY_SUBJECTS.find(
+              (s) => s.name.toLowerCase() === selectedSubject.toLowerCase()
+            )?.id || "polity"
+          }
+        />
       </main>
     </AuthGuard>
   );

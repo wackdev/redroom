@@ -115,9 +115,8 @@ export const APP_ROUTES: AppRoute[] = [
   { path: "/3d-zone", label: "3D Simulation Zone", icon: "🌌", description: "10 Interactive 3D Visual Labs: Geography Globe, History Tunnel & Constitutional Atlas.", sector: "prelims", badge: "3D LABS" },
 
   // 3. Mains Sector
-  { path: "/mains-pyqs", label: "Mains PYQ & Model Copies", icon: "🏛️", description: "Topper Model Copies, PESTLE Frameworks & multi-dimensional answer blueprints.", sector: "mains", badge: "MAINS PYQ" },
+  { path: "/mains-pyqs", label: "Mains PYQ Command Center", icon: "🏛️", description: "Authentic UPSC Mains Archive with directive breakdowns, syllabus tags & rubrics.", sector: "mains", badge: "MAINS PYQ" },
   { path: "/mains-writing", label: "Mains Speed Lab & QCAB", icon: "⏱️", description: "Timed 10 & 15-marker answer lab with real-time WPM, diagram studio & QCAB sheets.", sector: "mains", badge: "SPEED LAB" },
-  { path: "/answer-lab", label: "Answer Writing Speed Lab", icon: "✍️", description: "Live WPM counter, target word pacing & model outline benchmarks.", sector: "mains", badge: "ANSWER LAB" },
   { path: "/essay", label: "Essay Studio & Lab", icon: "🖋️", description: "250-mark UPSC Essay frameworks, thesis hooks & AI multi-dimensional grading.", sector: "mains", badge: "ESSAY" },
   { path: "/ethics", label: "Ethics & Dilemma Simulator", icon: "⚖️", description: "GS-4 Case Studies, stakeholder mapping, ethical dilemmas & Nolan principles.", sector: "mains", badge: "ETHICS" },
   { path: "/optional", label: "500-Mark Optional Hub", icon: "🏛️", description: "25 Optional subjects catalogue, Paper 1 & 2 breakdown & Topper blueprints.", sector: "mains", badge: "OPTIONAL" },

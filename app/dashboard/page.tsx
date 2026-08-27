@@ -865,9 +865,8 @@ export default function DashboardPage() {
               <span className="text-[10px] text-white/40 uppercase font-black shrink-0">Quick Jump:</span>
               {[
                 { label: "5-MCQ Sprint", route: "/pyqs", icon: "🔥" },
-                { label: "Knowledge Vault", route: "/knowledge", icon: "🏛️" },
-                { label: "Timed QCAB Lab", route: "/mains-writing", icon: "⏱️" },
-                { label: "Answer Lab", route: "/answer-lab", icon: "✍️" },
+                { label: "Mains Speed Lab", route: "/mains-writing", icon: "⏱️" },
+                { label: "Mains PYQ Center", route: "/mains-pyqs", icon: "🏛️" },
                 { label: "CSAT Math", route: "/csat", icon: "📐" },
                 { label: "3D GIS Earth", route: "/3d-zone?lab=geography_globe", icon: "🌍" },
                 { label: "Spaced Recall", route: "/revision", icon: "🔄" },

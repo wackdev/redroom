@@ -22,7 +22,7 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { useNotesStore } from "@/store/useNotesStore";
-import { findRelatedPrelimsForNote, findRelatedMainsForNote } from "@/lib/notes/topic-linker";
+import { findRelatedPrelimsForNote, findRelatedMainsForNote } from "@/lib/study/notes-engine";
 import { PYQQuestion, MainsPYQQuestion } from "@/lib/core/types";
 import { sound } from "@/lib/audio/sound-engine";
 
@@ -572,7 +572,7 @@ export default function NotesPage() {
                                       }}
                                       className="rounded-lg border border-purple-500/40 bg-purple-500/10 px-2 py-1 text-[10px] font-bold text-purple-300 hover:bg-purple-500/20 transition cursor-pointer"
                                     >
-                                      🏆 Model Copy
+                                      🎯 Directive & Framework
                                     </button>
                                     <button
                                       onClick={() => {
@@ -973,7 +973,7 @@ export default function NotesPage() {
                 <span className="text-xl">🏛️</span>
                 <div>
                   <h3 className="text-sm font-black text-white uppercase">
-                    Mains Topper Model Blueprint // {activeMainsModalQuestion.paper} ({activeMainsModalQuestion.year})
+                    Mains Question & Directive Breakdown // {activeMainsModalQuestion.paper} ({activeMainsModalQuestion.year})
                   </h3>
                   <span className="text-[10px] text-purple-300 font-bold">
                     {activeMainsModalQuestion.marks} Marks • {activeMainsModalQuestion.wordLimit} Words • Directive: {activeMainsModalQuestion.directive}

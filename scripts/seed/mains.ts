@@ -1,8 +1,4 @@
-import gs1Data from "../../data/mains-pyq/gs1.json";
-import gs2Data from "../../data/mains-pyq/gs2.json";
-import gs3Data from "../../data/mains-pyq/gs3.json";
-import gs4Data from "../../data/mains-pyq/gs4.json";
-import essayData from "../../data/mains-pyq/essay.json";
+import { getStoredMainsPYQs } from "../../lib/mains-pyq/static-dataset";
 import { SeedResult } from "./syllabus";
 
 export async function seedMains(dryRun = false): Promise<SeedResult> {
@@ -15,19 +11,13 @@ export async function seedMains(dryRun = false): Promise<SeedResult> {
   };
 
   try {
-    const allMains = [
-      ...gs1Data,
-      ...gs2Data,
-      ...gs3Data,
-      ...gs4Data,
-      ...essayData,
-    ];
+    const allMains = getStoredMainsPYQs();
 
     result.totalProcessed = allMains.length;
     result.inserted = allMains.length;
 
     console.log(
-      `[SEED:MAINS] Loaded & validated ${allMains.length} Mains questions with dimensional frameworks and model answers.`
+      `[SEED:MAINS] Loaded & validated ${allMains.length} Mains questions.`
     );
 
     if (dryRun) {
@@ -35,10 +25,10 @@ export async function seedMains(dryRun = false): Promise<SeedResult> {
       return result;
     }
 
-    console.log(`[SEED:MAINS] Successfully seeded Mains question bank.`);
+    console.log(`[SEED:MAINS] Successfully processed Mains question bank.`);
   } catch (err: any) {
     result.errors.push(err.message || String(err));
-    console.error(`[SEED:MAINS] Error seeding Mains:`, err);
+    console.error(`[SEED:MAINS] Error seeding Mains questions:`, err);
   }
 
   return result;

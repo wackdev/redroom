@@ -36,7 +36,7 @@ import {
   ECONOMICS_PILLARS_DATASET,
 } from "./datasets/economics-seed";
 import { executeKnowledgeSearch } from "./search-engine";
-import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
+import { STATIC_PYQ_DATASET } from "@/lib/study/pyq-engine";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 
 // In-Memory mutable registry for runtime expansion and admin operations

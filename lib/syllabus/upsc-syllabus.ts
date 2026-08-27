@@ -1,123 +1,92 @@
-import { SyllabusSubject } from "../core/types";
+import { SyllabusSubject, SyllabusTopic, SyllabusSubtopic, GSPaper } from "../core/types";
+import { CANONICAL_UPSC_SYLLABUS, getFullHierarchicalSyllabus } from "./hierarchy-engine";
 
-export const UPSC_FULL_SYLLABUS: SyllabusSubject[] = [
-  {
-    id: "polity",
-    name: "Polity & Governance",
-    icon: "🏛️",
-    description: "Indian Constitution, Political System, Panchayati Raj, Public Policy, Rights Issues",
-    topics: [
-      { id: "polity-1", name: "Historical Background & Making of the Constitution", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-2", name: "Salient Features & Preamble of the Constitution", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-3", name: "Union and its Territory & Citizenship", subjectId: "polity", exam: "Prelims", paper: "GS-2", importance: "Medium" },
-      { id: "polity-4", name: "Fundamental Rights (Articles 12-35)", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-5", name: "Directive Principles of State Policy (DPSP)", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-6", name: "Fundamental Duties & Constitutional Amendments", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-7", name: "Basic Structure Doctrine & Judicial Review", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-8", name: "President & Vice-President", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-9", name: "Prime Minister & Council of Ministers", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "Medium" },
-      { id: "polity-10", name: "Parliament & Parliamentary Committees", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-11", name: "Supreme Court & High Courts", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-12", name: "Governor, Chief Minister & State Legislature", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-13", name: "Centre-State Relations & Inter-State Disputes", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-14", name: "Emergency Provisions", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "Medium" },
-      { id: "polity-15", name: "Constitutional & Statutory Bodies (ECI, UPSC, CAG, NHRC)", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-      { id: "polity-16", name: "Panchayati Raj & Urban Local Bodies (73rd/74th Amendments)", subjectId: "polity", exam: "Both", paper: "GS-2", importance: "High" },
-    ],
-  },
-  {
-    id: "history",
-    name: "History & Culture",
-    icon: "📜",
-    description: "Ancient, Medieval, Modern Indian History, Art & Culture, National Movement",
-    topics: [
-      { id: "hist-1", name: "Prehistoric India & Indus Valley Civilization", subjectId: "history", exam: "Prelims", paper: "GS-1", importance: "High" },
-      { id: "hist-2", name: "Vedic Age, Mahajanapadas, Buddhism & Jainism", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-3", name: "Mauryan Empire, Post-Mauryan & Gupta Age", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-4", name: "Sangam Age & South Indian Kingdoms (Cholas, Pallavas)", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-5", name: "Delhi Sultanate & Vijayanagara Empire", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-6", name: "Mughal Empire & Maratha Power", subjectId: "history", exam: "Both", paper: "GS-1", importance: "Medium" },
-      { id: "hist-7", name: "Bhakti & Sufi Movements, Temple Architecture & Art", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-8", name: "Advent of Europeans & British Expansion", subjectId: "history", exam: "Both", paper: "GS-1", importance: "Medium" },
-      { id: "hist-9", name: "Socio-Religious Reform Movements", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-10", name: "Revolt of 1857 & Early Resistance", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-11", name: "Indian National Congress: Moderate & Extremist Phase", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-12", name: "Gandhian Era: Non-Cooperation, Civil Disobedience, Quit India", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "hist-13", name: "Revolutionary Movement & INA", subjectId: "history", exam: "Both", paper: "GS-1", importance: "Medium" },
-      { id: "hist-14", name: "Constitutional Developments & Partition", subjectId: "history", exam: "Both", paper: "GS-1", importance: "High" },
-    ],
-  },
-  {
-    id: "economy",
-    name: "Indian Economy",
-    icon: "💰",
-    description: "Economic Development, National Income, Banking, Monetary & Fiscal Policy, Trade",
-    topics: [
-      { id: "eco-1", name: "National Income Accounting, GDP & Inclusive Growth", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-2", name: "Inflation, Price Indices (CPI, WPI) & Poverty", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-3", name: "Banking System, NPAs, IBC & Financial Sector Reforms", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-4", name: "Monetary Policy & RBI Framework", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-5", name: "Fiscal Policy, Union Budget & Taxation (GST)", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-6", name: "External Sector, BoP, Forex Reserves & Exchange Rate", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-7", name: "Agriculture Economics, Subsidies, MSP & Food Security", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "eco-8", name: "Industrial Policy, Manufacturing & Infrastructure (Logistics)", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "Medium" },
-      { id: "eco-9", name: "International Economic Institutions (IMF, World Bank, WTO)", subjectId: "economy", exam: "Both", paper: "GS-3", importance: "High" },
-    ],
-  },
-  {
-    id: "environment",
-    name: "Environment & Ecology",
-    icon: "🌱",
-    description: "Biodiversity, Climate Change, Environmental Pollution, Protected Areas, Treaties",
-    topics: [
-      { id: "env-1", name: "Ecology Fundamentals, Ecosystem Services & Biomes", subjectId: "environment", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "env-2", name: "Biodiversity Hotspots, Flora & Fauna of India", subjectId: "environment", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "env-3", name: "Protected Area Network: National Parks, Wildlife Sanctuaries, Biosphere Reserves", subjectId: "environment", exam: "Prelims", paper: "GS-3", importance: "High" },
-      { id: "env-4", name: "Climate Change, Global Warming, UNFCCC & COP Summits", subjectId: "environment", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "env-5", name: "Environmental Pollution (Air, Water, Plastic) & Solid Waste Management", subjectId: "environment", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "env-6", name: "Environmental Laws (WPA 1972, EPA 1986, Forest Conservation Act)", subjectId: "environment", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "env-7", name: "Renewable Energy & Sustainable Development Goals (SDGs)", subjectId: "environment", exam: "Both", paper: "GS-3", importance: "High" },
-    ],
-  },
-  {
-    id: "geography",
-    name: "Geography",
-    icon: "🌍",
-    description: "Physical Geography, Indian Geography, Geomorphology, Oceanography, Climate",
-    topics: [
-      { id: "geo-1", name: "Geomorphology: Earth Interior, Plate Tectonics, Earthquakes & Volcanoes", subjectId: "geography", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "geo-2", name: "Climatology: Atmosphere, Winds, Cyclones & Jet Streams", subjectId: "geography", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "geo-3", name: "Oceanography: Ocean Currents, Tides, Coral Reefs & Salinity", subjectId: "geography", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "geo-4", name: "Indian Physical Geography & Drainage Systems (Rivers)", subjectId: "geography", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "geo-5", name: "Indian Monsoon Mechanism, Climatic Regions & Soils", subjectId: "geography", exam: "Both", paper: "GS-1", importance: "High" },
-      { id: "geo-6", name: "Economic & Human Geography: Mineral Resources & Distribution", subjectId: "geography", exam: "Both", paper: "GS-1", importance: "Medium" },
-    ],
-  },
-  {
-    id: "science",
-    name: "Science & Technology",
-    icon: "🔬",
-    description: "Space Tech, Biotechnology, Defence, AI, Nanotechnology, Nuclear Energy",
-    topics: [
-      { id: "sci-1", name: "Space Technology, ISRO Missions (Gaganyaan, Chandrayaan, Aditya-L1)", subjectId: "science", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "sci-2", name: "Biotechnology: Genetic Engineering, CRISPR-Cas9, Stem Cells, Vaccines", subjectId: "science", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "sci-3", name: "Defense Technology & Missiles System of India", subjectId: "science", exam: "Both", paper: "GS-3", importance: "Medium" },
-      { id: "sci-4", name: "Information Tech: Artificial Intelligence, Quantum Computing, Blockchain, 5G/6G", subjectId: "science", exam: "Both", paper: "GS-3", importance: "High" },
-      { id: "sci-5", name: "Nuclear Technology & Renewable Energy Innovations", subjectId: "science", exam: "Both", paper: "GS-3", importance: "Medium" },
-    ],
-  },
-  {
-    id: "ethics",
-    name: "Ethics & Integrity",
-    icon: "⚖️",
-    description: "Ethics and Human Interface, Aptitude, Emotional Intelligence, Probity, Case Studies",
-    topics: [
-      { id: "eth-1", name: "Ethics and Human Interface: Essence, Determinants & Consequences", subjectId: "ethics", exam: "Mains", paper: "GS-4", importance: "High" },
-      { id: "eth-2", name: "Human Values & Lessons from Great Leaders, Reformers", subjectId: "ethics", exam: "Mains", paper: "GS-4", importance: "High" },
-      { id: "eth-3", name: "Attitude: Content, Structure, Function & Behavioral Influence", subjectId: "ethics", exam: "Mains", paper: "GS-4", importance: "High" },
-      { id: "eth-4", name: "Emotional Intelligence & Its Utility in Administration", subjectId: "ethics", exam: "Mains", paper: "GS-4", importance: "High" },
-      { id: "eth-5", name: "Probity in Governance, Citizen Charters, RTI & Code of Conduct", subjectId: "ethics", exam: "Mains", paper: "GS-4", importance: "High" },
-      { id: "eth-6", name: "Mains Case Studies Resolution Frameworks", subjectId: "ethics", exam: "Mains", paper: "GS-4", importance: "High" },
-    ],
-  },
-];
+const SUBJECT_ICONS: Record<string, string> = {
+  "ancient-indian-history": "🏛️",
+  "medieval-indian-history": "🏰",
+  "modern-indian-history": "🇮🇳",
+  "indian-art-culture": "🎭",
+  "physical-world-geography": "🌍",
+  "geography-of-india": "🗺️",
+  "indian-society": "👥",
+  "indian-constitution-polity": "⚖️",
+  "governance-public-policy": "📋",
+  "social-justice-welfare": "🤝",
+  "international-relations": "🌐",
+  "indian-economy-macroeconomics": "📈",
+  "agriculture-food-security": "🌾",
+  "science-and-technology": "🔬",
+  "environment-ecology-biodiversity": "🌱",
+  "internal-security-disaster": "🛡️",
+  "ethics-integrity-aptitude": "💡",
+  "csat-prelims-paper-2": "📐",
+};
+
+/**
+ * Transforms the 2026-27 hierarchical syllabus tree into the canonical SyllabusSubject[] structure.
+ */
+export function getFullSyllabusSubjects(): SyllabusSubject[] {
+  const hierarchicalTree = getFullHierarchicalSyllabus();
+  return hierarchicalTree.map((subj) => {
+    const topics: SyllabusTopic[] = [];
+
+    const mappedPaper: GSPaper =
+      subj.paper === "GS-1"
+        ? "GS-1"
+        : subj.paper === "GS-2"
+        ? "GS-2"
+        : subj.paper === "GS-3"
+        ? "GS-3"
+        : subj.paper === "GS-4"
+        ? "GS-4"
+        : subj.paper === "CSAT"
+        ? "CSAT"
+        : subj.paper === "OPTIONAL"
+        ? "Optional"
+        : "Essay";
+
+    (subj.units || []).forEach((unit) => {
+      (unit.topics || []).forEach((t) => {
+        const examStage: "Prelims" | "Mains" | "Both" =
+          subj.exam_stage === "PRELIMS"
+            ? "Prelims"
+            : subj.exam_stage === "MAINS"
+            ? "Mains"
+            : "Both";
+
+        const importance: "High" | "Medium" | "Low" =
+          t.importance === "CRITICAL" || t.importance === "HIGH"
+            ? "High"
+            : t.importance === "LOW"
+            ? "Low"
+            : "Medium";
+
+        const subtopics: SyllabusSubtopic[] = (t.subtopics || []).map((st, sIdx) => ({
+          id: `${t.id}-st-${sIdx + 1}`,
+          name: st,
+          importance,
+        }));
+
+        topics.push({
+          id: t.id,
+          name: `${unit.name}: ${t.name}`,
+          subjectId: subj.slug,
+          exam: examStage,
+          paper: mappedPaper,
+          importance,
+          subtopics,
+        });
+      });
+    });
+
+    return {
+      id: subj.slug,
+      name: subj.name,
+      icon: SUBJECT_ICONS[subj.slug] || "📚",
+      description: subj.description,
+      topics,
+    };
+  });
+}
+
+export const UPSC_FULL_SYLLABUS: SyllabusSubject[] = getFullSyllabusSubjects();

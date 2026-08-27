@@ -4,8 +4,7 @@ import {
   calculateExamReadiness,
   ReadinessScoreResult,
 } from "./scoring/readiness-engine";
-import { getAllPYQs, getUserPYQAttempts } from "@/lib/pyq/database";
-import { analyzeUserMistakes } from "@/lib/pyq/mistake-engine";
+import { getAllPYQs, getUserPYQAttempts, analyzeUserMistakes } from "@/lib/study/pyq-engine";
 import { getUserRevisionQueue } from "@/lib/revision/revision-engine";
 
 // ============================================================================
@@ -133,63 +132,36 @@ export async function calculateWeaknessScore(
       });
     }
 
-    // Default high-yield weak topic detection if no attempts recorded
-    if (weaknesses.length === 0) {
-      weaknesses.push(
-        {
-          subject: "Polity",
-          topic: "Fundamental Rights & Writs",
-          weaknessScore: 68,
-          accuracyPercent: 42,
-          attemptCount: 6,
-          reason:
-            "Polity accuracy is 42% on Article 14-32 exceptions and judicial review limitations.",
-          actionRoute: "/pyqs",
-        },
-        {
-          subject: "Economy",
-          topic: "Monetary Policy & Inflation Targeting",
-          weaknessScore: 62,
-          accuracyPercent: 48,
-          attemptCount: 5,
-          reason:
-            "Economy accuracy is 48% and you have not practiced this topic for 12 days.",
-          actionRoute: "/pyqs",
-        },
-        {
-          subject: "Environment",
-          topic: "Protected Areas & IUCN Red List Species",
-          weaknessScore: 58,
-          accuracyPercent: 50,
-          attemptCount: 4,
-          reason:
-            "Environment national park mapping accuracy is below benchmark (50%).",
-          actionRoute: "/pyqs",
+    // Extract strengths from topics where user had >= 2 attempts and >= 70% accuracy
+    if (Array.isArray(attempts) && attempts.length > 0) {
+      const qMap = new Map<string, (typeof questions)[0]>();
+      questions.forEach((q) => qMap.set(String(q.id), q));
+      const topicStats = new Map<string, { subject: string; topic: string; correct: number; total: number }>();
+      attempts.forEach((a) => {
+        const q = qMap.get(String(a.pyqId));
+        if (!q) return;
+        const key = `${q.subject}::${q.topic}`;
+        if (!topicStats.has(key)) {
+          topicStats.set(key, { subject: q.subject, topic: q.topic, correct: 0, total: 0 });
         }
-      );
+        const stat = topicStats.get(key)!;
+        stat.total += 1;
+        if (a.isCorrect) stat.correct += 1;
+      });
+      topicStats.forEach((stat) => {
+        const acc = Math.round((stat.correct / stat.total) * 100);
+        if (stat.total >= 2 && acc >= 70) {
+          strengths.push({
+            subject: stat.subject,
+            topic: stat.topic,
+            masteryScore: acc,
+            accuracyPercent: acc,
+            attemptCount: stat.total,
+            reason: `Consistent accuracy (${acc}%) across ${stat.total} practice questions.`,
+          });
+        }
+      });
     }
-
-    // Strengths calculation
-    strengths.push(
-      {
-        subject: "Modern History",
-        topic: "Freedom Struggle (1919-1947)",
-        masteryScore: 84,
-        accuracyPercent: 88,
-        attemptCount: 12,
-        reason:
-          "High accuracy (88%) on Gandhian phase movements and round table conferences.",
-      },
-      {
-        subject: "Geography",
-        topic: "Indian River Basins & Tributaries",
-        masteryScore: 78,
-        accuracyPercent: 82,
-        attemptCount: 9,
-        reason:
-          "Consistent accuracy (82%) on Himalayan vs Peninsular drainage systems.",
-      }
-    );
 
     return {
       weaknesses: safeArray(weaknesses),
@@ -198,27 +170,8 @@ export async function calculateWeaknessScore(
   } catch (err) {
     console.warn("calculateWeaknessScore fallback:", err);
     return {
-      weaknesses: [
-        {
-          subject: "Polity",
-          topic: "Fundamental Rights",
-          weaknessScore: 65,
-          accuracyPercent: 45,
-          attemptCount: 4,
-          reason: "Accuracy is 45% in recent practice sessions.",
-          actionRoute: "/pyqs",
-        },
-      ],
-      strengths: [
-        {
-          subject: "Modern History",
-          topic: "1857 Revolt & Congress Sessions",
-          masteryScore: 80,
-          accuracyPercent: 85,
-          attemptCount: 8,
-          reason: "Strong retention across chronological milestones.",
-        },
-      ],
+      weaknesses: [],
+      strengths: [],
     };
   }
 }
@@ -280,22 +233,8 @@ export async function calculateRevisionPriority(
       };
     });
 
-    // Default fallback if no queue initialized
-    if (topDue.length === 0) {
-      topDue.push({
-        id: "rev-default-1",
-        topicId: "polity_writs",
-        subject: "Polity",
-        topicName: "Writs Jurisdiction (Habeas Corpus, Mandamus)",
-        daysOverdue: 2,
-        retentionRiskPercent: 70,
-        reason:
-          "Last reviewed 14 days ago; memory decay threshold reached for constitutional remedies.",
-      });
-    }
-
     return {
-      dueCount: dueCount || 1,
+      dueCount,
       overdueCount,
       retentionHealthScore,
       reason,
@@ -304,21 +243,11 @@ export async function calculateRevisionPriority(
   } catch (err) {
     console.warn("calculateRevisionPriority fallback:", err);
     return {
-      dueCount: 2,
-      overdueCount: 1,
-      retentionHealthScore: 75,
-      reason: "2 topics scheduled for active recall.",
-      topDueItems: [
-        {
-          id: "rev-fallback-1",
-          topicId: "polity_fr",
-          subject: "Polity",
-          topicName: "Fundamental Rights & Writs",
-          daysOverdue: 1,
-          retentionRiskPercent: 65,
-          reason: "Scheduled review due based on SM-2 algorithm.",
-        },
-      ],
+      dueCount: 0,
+      overdueCount: 0,
+      retentionHealthScore: 100,
+      reason: "Spaced repetition queue is currently empty.",
+      topDueItems: [],
     };
   }
 }
@@ -337,8 +266,8 @@ export async function calculateStudyConsistency(
   reason: string;
 }> {
   try {
-    let streakDays = 4;
-    let totalMinutes = 340;
+    let streakDays = 0;
+    let totalMinutes = 0;
 
     if (typeof window !== "undefined" || dexieDb) {
       const plans = await dexieDb.study_plans.toArray();
@@ -356,16 +285,17 @@ export async function calculateStudyConsistency(
       }
     }
 
-    const consistencyScore = Math.min(
-      100,
-      Math.round(streakDays * 12 + (totalMinutes > 200 ? 40 : 20))
-    );
-    const dailyAverageMinutes = Math.round(totalMinutes / Math.max(1, streakDays));
+    const consistencyScore = streakDays > 0 
+      ? Math.min(100, Math.round(streakDays * 12 + (totalMinutes > 200 ? 40 : 20)))
+      : 0;
+    const dailyAverageMinutes = streakDays > 0 ? Math.round(totalMinutes / streakDays) : 0;
 
     const reason =
       streakDays >= 5
         ? `Exceptional ${streakDays}-day streak maintained! Daily average is ${Math.round(dailyAverageMinutes / 60)}h ${dailyAverageMinutes % 60}m.`
-        : `Active ${streakDays}-day streak. Target 4+ hours daily to achieve optimal Prelims readiness.`;
+        : streakDays > 0
+        ? `Active ${streakDays}-day streak. Target 4+ hours daily to achieve optimal Prelims readiness.`
+        : "No study sessions recorded yet. Launch your first sprint in Study Sanctuary to start your streak.";
 
     return {
       streakDays,
@@ -376,11 +306,11 @@ export async function calculateStudyConsistency(
     };
   } catch {
     return {
-      streakDays: 3,
-      consistencyScore: 72,
-      totalStudyMinutes: 240,
-      dailyAverageMinutes: 80,
-      reason: "Steady 3-day study momentum established.",
+      streakDays: 0,
+      consistencyScore: 0,
+      totalStudyMinutes: 0,
+      dailyAverageMinutes: 0,
+      reason: "No study sessions recorded yet. Start your first sprint in Study Sanctuary.",
     };
   }
 }

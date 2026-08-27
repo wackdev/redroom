@@ -1,0 +1,667 @@
+import fs from "fs";
+import path from "path";
+import { PYQQuestion } from "../lib/core/types";
+
+const OUT_DIR = path.join(process.cwd(), "data", "pyqs", "prelims");
+
+// ============================================================================
+// ANCIENT HISTORY (PAGES 34-52: 79 QUESTIONS ACROSS 7 CHAPTERS)
+// ============================================================================
+export const ANCIENT_HISTORY_QUESTIONS: PYQQuestion[] = [
+  // Chapter 1: Construction of Ancient History (Q1-Q10)
+  {
+    id: "ah-ch1-q1",
+    year: 2024,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "1. Consider the following information: (2024)\nArchaeological Site : State : Description\n1. Chandraketugarh : Odisha : Trading Port town\n2. Inamgaon : Maharashtra : Chalcolithic site\n3. Mangadu : Kerala : Megalithic site\n4. Salihundam : Andhra Pradesh : Rock-cut cave shrines\n\nIn which of the above rows is the given information correctly matched?",
+    options: [
+      { id: "a", key: "A", text: "1 and 2" },
+      { id: "b", key: "B", text: "2 and 3" },
+      { id: "c", key: "C", text: "3 and 4" },
+      { id: "d", key: "D", text: "1 and 4" }
+    ],
+    correctAnswer: "B",
+    explanation: "Pair 1 is incorrect: Chandraketugarh is in West Bengal near Kolkata, an ancient port and terracotta craft centre.\nPair 2 is correct: Inamgaon is a renowned Chalcolithic site (Early/Late Jorwe culture) in Maharashtra.\nPair 3 is correct: Mangadu is a Megalithic urn burial site in Kerala.\nPair 4 is incorrect: Salihundam is a major Buddhist stupa/monastery site on the Vamsadhara river in Andhra Pradesh, but has no rock-cut caves.",
+    superHint: "Trust what you have read: Heard of rock-cut caves in Maharashtra (Ajanta, Ellora) and Odisha (Udayagiri)? Yes. But major rock-cut caves in Salihundam Andhra? No, it's a structural stupa site.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Archaeological Sites", "Inamgaon", "Chandraketugarh", "Mangadu"]
+  },
+  {
+    id: "ah-ch1-q2",
+    year: 2023,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "2. In which one of the following regions was Dhanyakataka, which flourished as a prominent Buddhist centre under the Mahasanghikas, located? (2023)",
+    options: [
+      { id: "a", key: "A", text: "Andhra" },
+      { id: "b", key: "B", text: "Gandhara" },
+      { id: "c", key: "C", text: "Kalinga" },
+      { id: "d", key: "D", text: "Magadha" }
+    ],
+    correctAnswer: "A",
+    explanation: "Dhanyakataka (modern Dharanikota/Amaravati in Guntur district, Andhra Pradesh) was the prominent eastern capital of the Satavahanas and the premier centre of Mahasanghika Buddhism.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Dhanyakataka", "Amaravati", "Mahasanghikas", "Andhra"]
+  },
+  {
+    id: "ah-ch1-q3",
+    year: 2023,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "3. With reference to ancient South India, Korkai, Poompuhar and Muchiri were well-known as: (2023)",
+    options: [
+      { id: "a", key: "A", text: "Capital cities" },
+      { id: "b", key: "B", text: "Ports" },
+      { id: "c", key: "C", text: "Centres of iron-and-steel making" },
+      { id: "d", key: "D", text: "Shrines of Jain Tirthankaras" }
+    ],
+    correctAnswer: "B",
+    explanation: "Korkai (Pandya port in Thoothukudi famous for pearls), Poompuhar/Kaveripattinam (Chola port on Kaveri mouth), and Muchiri/Muziris (Chera port on Kerala coast) were ancient maritime trade ports.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Sangam Ports", "Korkai", "Poompuhar", "Muziris"]
+  },
+  {
+    id: "ah-ch1-q4",
+    year: 2023,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "4. Which one of the following explains the practice of ‘Vattakirutal’ as mentioned in Sangam poems? (2023)",
+    options: [
+      { id: "a", key: "A", text: "Kings employing women bodyguards" },
+      { id: "b", key: "B", text: "Learned persons assembling in royal courts to discuss religious and philosophical matters" },
+      { id: "c", key: "C", text: "Young girls keeping watch over agricultural fields and driving away birds and animals" },
+      { id: "d", key: "D", text: "A king defeated in a battle committing ritual suicide by starving himself to death" }
+    ],
+    correctAnswer: "D",
+    explanation: "Vattakirutal (or Vadakkiruthal) was a ritual suicide fasting facing north undertaken by a defeated Tamil king or warrior to redeem martial honor, as recorded in Purananuru.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Sangam Culture", "Vattakirutal", "Purananuru"]
+  },
+  {
+    id: "ah-ch1-q5",
+    year: 2021,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "5. Consider the following pairs: (2021)\nHistorical place : Well known for\n1. Burzahom : Rock cut shrines\n2. Chandraketugarh : Terracotta art\n3. Ganeshwar : Copper artefacts\n\nWhich of the pairs given above is/are correctly matched?",
+    options: [
+      { id: "a", key: "A", text: "1 only" },
+      { id: "b", key: "B", text: "1 and 2" },
+      { id: "c", key: "C", text: "3 only" },
+      { id: "d", key: "D", text: "2 and 3" }
+    ],
+    correctAnswer: "D",
+    explanation: "Pair 1 is incorrect: Burzahom (Kashmir) is a Neolithic pit-dwelling site with bone tools, not rock-cut shrines.\nPair 2 is correct: Chandraketugarh (Bengal) is famous for early historic terracotta plaques.\nPair 3 is correct: Ganeshwar (Khetri, Rajasthan) is an OCP/Chalcolithic copper artifact manufacturing centre.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Burzahom", "Chandraketugarh", "Ganeshwar"]
+  },
+  {
+    id: "ah-ch1-q6",
+    year: 2016,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "6. In the context of the history of India, consider the following pairs: (2016)\nTerm : Description\n1. Eripatti : Land revenue which was set apart for the maintenance of the village tank\n2. Taniyurs : Villages donated to a single Brahmin or a group of Brahmins\n3. Ghatikas : Colleges generally attached to the temples\n\nWhich of the pairs given above is correctly matched?",
+    options: [
+      { id: "a", key: "A", text: "1 and 2" },
+      { id: "b", key: "B", text: "3 only" },
+      { id: "c", key: "C", text: "2 and 3" },
+      { id: "d", key: "D", text: "1 and 3" }
+    ],
+    correctAnswer: "D",
+    explanation: "Pair 1 (Eripatti = tank maintenance land) is correct. Pair 3 (Ghatikas = higher educational institutions attached to temples) is correct. Pair 2 is incorrect because Taniyur was a large independent administrative revenue unit in Chola administration (Brahmadeya was land donated to Brahmins).",
+    difficulty: "Hard",
+    important: true,
+    conceptTags: ["Ancient History", "Chola Administration", "Eripatti", "Ghatikas", "Taniyurs"]
+  },
+  {
+    id: "ah-ch1-q7",
+    year: 2012,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "7. With reference to the scientific progress of Ancient India, which of the statements given below are correct? (2012)\n1. Different kinds of specialized surgical instruments were in common use by the 1st century AD.\n2. Transplant of internal organs in the human body began in the 3rd century AD.\n3. The concept of sine of an angle was known in the 5th century AD.\n4. The concept of cyclic quadrilateral was known in the 7th century AD.\n\nSelect the correct answer using the codes given below:",
+    options: [
+      { id: "a", key: "A", text: "1 and 2 only" },
+      { id: "b", key: "B", text: "3 and 4 only" },
+      { id: "c", key: "C", text: "1, 3 and 4 only" },
+      { id: "d", key: "D", text: "1, 2, 3 and 4" }
+    ],
+    correctAnswer: "C",
+    explanation: "Statement 1 is correct (Sushruta Samhita surgical instruments). Statement 2 is incorrect (internal organ transplantation is a 20th century development). Statement 3 is correct (Aryabhata 5th century jya/sine). Statement 4 is correct (Brahmagupta 7th century cyclic quadrilateral formula).",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Science in Ancient India", "Sushruta", "Aryabhata", "Brahmagupta"]
+  },
+  {
+    id: "ah-ch1-q8",
+    year: 2012,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "8. With reference to the Guilds (Shrenis) of ancient India that played a very important role in the country’s economy, which of the following statements is/are true? (2012)\n1. Every Guild was registered with the central authority of the state and the King was the chief administrative authority on them.\n2. The wages, rules of work, standards and prices were fixed by the Guild.\n3. The guild had judicial powers over its own members.\n\nSelect the correct answer using the codes given below:",
+    options: [
+      { id: "a", key: "A", text: "1 and 2 only" },
+      { id: "b", key: "B", text: "3 only" },
+      { id: "c", key: "C", text: "2 and 3 only" },
+      { id: "d", key: "D", text: "1, 2 and 3" }
+    ],
+    correctAnswer: "C",
+    explanation: "Statements 2 and 3 are correct: Shrenis held extensive autonomy, regulating standards, wages, prices, and maintaining their own courts (Shreni-karya). Statement 1 is incorrect because guilds were self-governing autonomous corporations, not centrally registered with the King as chief administrative authority.",
+    superHint: "\"Every Guild... King was chief authority\" is an absolute overstatement contradictory to the autonomous nature of Shrenis.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Shrenis", "Guilds", "Economic History"]
+  },
+  {
+    id: "ah-ch1-q9",
+    year: 1997,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "9. Which one of the following was a corporation of merchants in ancient India? (1997)",
+    options: [
+      { id: "a", key: "A", text: "Chaturvedi Mangalam" },
+      { id: "b", key: "B", text: "Parishad" },
+      { id: "c", key: "C", text: "Ashtadikgaja" },
+      { id: "d", key: "D", text: "Manigrama" }
+    ],
+    correctAnswer: "D",
+    explanation: "Manigramam (along with Ayyavole and Nanadesi) was a powerful merchant guild/corporation operating extensively across South India and Southeast Asian trade routes.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Manigrama", "Merchant Guilds", "South India Trade"]
+  },
+  {
+    id: "ah-ch1-q10",
+    year: 1996,
+    subject: "Ancient History",
+    topic: "Construction of Ancient History",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "10. In the context of Indian society, which one of the following terms does not belong to the category of other three? (1996)",
+    options: [
+      { id: "a", key: "A", text: "Kula" },
+      { id: "b", key: "B", text: "Vamsa" },
+      { id: "c", key: "C", text: "Kosa" },
+      { id: "d", key: "D", text: "Gotra" }
+    ],
+    correctAnswer: "C",
+    explanation: "Kula (family), Vamsa (lineage/dynasty), and Gotra (clan) relate to kinship and social structure. Kosa refers to the royal treasury (one of the Saptanga limbs in Kautilya's Arthashastra).",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Social Structure", "Saptanga", "Kautilya"]
+  },
+
+  // Chapter 2: Harappan Civilization (Q11-Q16)
+  {
+    id: "ah-ch2-q11",
+    year: 2021,
+    subject: "Ancient History",
+    topic: "Harappan Civilization (Indus Valley)",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "11. Which one of the following ancient towns is well-known for its elaborate system of water harvesting and management by building a series of dams and channelizing water into connected reservoirs? (2021)",
+    options: [
+      { id: "a", key: "A", text: "Dholavira" },
+      { id: "b", key: "B", text: "Kalibangan" },
+      { id: "c", key: "C", text: "Rakhigarhi" },
+      { id: "d", key: "D", text: "Ropar" }
+    ],
+    correctAnswer: "A",
+    explanation: "Dholavira in Khadir Bet (Kutch, Gujarat) is world-famous for its sophisticated rock-cut water reservoirs, check-dams across Manhar and Mansar channels, and tripartite urban planning.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Dholavira", "Harappan Civilization", "Water Harvesting"]
+  },
+  {
+    id: "ah-ch2-q12",
+    year: 2019,
+    subject: "Ancient History",
+    topic: "Harappan Civilization (Indus Valley)",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "12. Which one of the following is not a Harappan site? (2019)",
+    options: [
+      { id: "a", key: "A", text: "Chanhudaro" },
+      { id: "b", key: "B", text: "Kot Diji" },
+      { id: "c", key: "C", text: "Sohgaura" },
+      { id: "d", key: "D", text: "Desalpur" }
+    ],
+    correctAnswer: "C",
+    explanation: "Sohgaura is a Mauryan copper-plate site in Gorakhpur, UP mentioning famine grain relief. Chanhudaro (Sindh), Kot Diji (Sindh), and Desalpur (Gujarat) are authentic Harappan sites.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Harappan Sites", "Sohgaura", "Mauryan Inscriptions"]
+  },
+  {
+    id: "ah-ch2-q13",
+    year: 2013,
+    subject: "Ancient History",
+    topic: "Harappan Civilization (Indus Valley)",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "13. Which of the following characterise/characterize the people of the Indus Civilization? (2013)\n1. They possessed great palaces and temples.\n2. They worshiped both male and female deities.\n3. They employed horse-drawn chariots in warfare.\n\nSelect the correct statement/statements using the codes given below:",
+    options: [
+      { id: "a", key: "A", text: "1 and 2 only" },
+      { id: "b", key: "B", text: "2 only" },
+      { id: "c", key: "C", text: "1, 2 and 3" },
+      { id: "d", key: "D", text: "None of the above" }
+    ],
+    correctAnswer: "B",
+    explanation: "Statement 2 is correct: Worship of Mother Goddess figurines and the proto-Shiva Pashupati seal show male and female deity veneration.\nStatement 1 is incorrect: Harappans built no monumental palaces or temples.\nStatement 3 is incorrect: Horse-drawn chariots are associated with Vedic Aryans, not Harappan warfare.",
+    superHint: "Harappan civilization is distinguished by civic and domestic architecture (Great Bath, granaries), not grand palaces or religious temples.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Harappan Religion", "Pashupati", "Mother Goddess"]
+  },
+  {
+    id: "ah-ch2-q14",
+    year: 2011,
+    subject: "Ancient History",
+    topic: "Harappan Civilization (Indus Valley)",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "14. Regarding the Indus valley civilization, consider the following statements: (2011)\n1. It was predominantly a secular civilization and the religious element, though present, did not dominate the scene.\n2. During this period, cotton was used for manufacturing textiles in India.\n\nWhich of the statements given above is/are correct?",
+    options: [
+      { id: "a", key: "A", text: "1 only" },
+      { id: "b", key: "B", text: "2 only" },
+      { id: "c", key: "C", text: "Both 1 and 2" },
+      { id: "d", key: "D", text: "Neither 1 and 2" }
+    ],
+    correctAnswer: "C",
+    explanation: "Both statements are correct: The Harappan civilization lacked theocratic dominance and monumental temples, showing a predominantly utilitarian and commercial character. Cotton weaving was practiced early (Mohenjo-daro woven cotton textiles and Mehrgarh seeds).",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Indus Valley", "Cotton Textiles", "Secular Civilization"]
+  },
+  {
+    id: "ah-ch2-q15",
+    year: 2002,
+    subject: "Ancient History",
+    topic: "Harappan Civilization (Indus Valley)",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "15. Match List-I (Ancient site) with List-II (Archaeological finding) and select the correct answer using the codes given below the lists: (2002)\nList-I : List-II\nA. Lothal : 1. Ploughed field\nB. Kalibangan : 2. Dockyard\nC. Dholavira : 3. Terracotta replica of a plough\nD. Banawali : 4. Ten large-sized signs of Harappan script",
+    options: [
+      { id: "a", key: "A", text: "A-1; B-2; C-3; D-4" },
+      { id: "b", key: "B", text: "A-2; B-1; C-4; D-3" },
+      { id: "c", key: "C", text: "A-1; B-2; C-4; D-3" },
+      { id: "d", key: "D", text: "A-2; B-1; C-3; D-4" }
+    ],
+    correctAnswer: "B",
+    explanation: "Lothal = Tidal Dockyard (A-2); Kalibangan = Ploughed field surface (B-1); Dholavira = Signboard with 10 large Harappan symbols (C-4); Banawali = Terracotta plough model (D-3).",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Lothal Dockyard", "Kalibangan", "Dholavira Signboard", "Banawali"]
+  },
+  {
+    id: "ah-ch2-q16",
+    year: 2001,
+    subject: "Ancient History",
+    topic: "Harappan Civilization (Indus Valley)",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "16. Which one of the following animals was not represented in seals and terracotta art of the Harappan culture? (2001)",
+    options: [
+      { id: "a", key: "A", text: "Cow" },
+      { id: "b", key: "B", text: "Elephant" },
+      { id: "c", key: "C", text: "Rhinoceros" },
+      { id: "d", key: "D", text: "Tiger" }
+    ],
+    correctAnswer: "A",
+    explanation: "The cow, horse, and camel were not depicted on Harappan steatite seals. Animals commonly featured include the unicorn bull, humped zebu bull, elephant, rhinoceros, and tiger.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Harappan Seals", "Faunal Depictions", "Cow"]
+  },
+
+  // Chapter 3: History of the Vedic Period (Q17-Q23)
+  {
+    id: "ah-ch3-q17",
+    year: 2017,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "17. With reference to the difference between the culture of Rigvedic Aryans and Indus Valley people, which of the following statements is/are correct? (2017)\n1. Rigvedic Aryans used the coat of mail and helmet in warfare whereas the people of the Indus Valley Civilization did not leave any evidence of using them.\n2. Rigvedic Aryans knew gold, silver and copper whereas Indus Valley people knew only copper and iron.\n3. Rigvedic Aryans had domesticated the horse whereas there is no evidence of Indus Valley people having been aware of this animal.\n\nSelect the correct answer using the code given below:",
+    options: [
+      { id: "a", key: "A", text: "1 only" },
+      { id: "b", key: "B", text: "2 and 3 only" },
+      { id: "c", key: "C", text: "1 and 3 only" },
+      { id: "d", key: "D", text: "1, 2 and 3" }
+    ],
+    correctAnswer: "C",
+    explanation: "Statements 1 and 3 are correct. Statement 2 is incorrect because Indus Valley people did not know iron (iron appeared in the later Vedic age ~1000 BCE) and they possessed fine gold and silver ornaments.",
+    superHint: "\"Indus people knew only copper and iron\" is false because iron was completely unknown in the Bronze-Age Harappan civilization.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Vedic vs Harappan", "Metallurgy", "Warfare"]
+  },
+  {
+    id: "ah-ch3-q18",
+    year: 2012,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "18. The Religion of early Vedic Aryans was primarily of: (2012)",
+    options: [
+      { id: "a", key: "A", text: "Bhakti" },
+      { id: "b", key: "B", text: "Image worship and yajnas" },
+      { id: "c", key: "C", text: "Worship of nature and yajnas" },
+      { id: "d", key: "D", text: "Worship of nature and bhakti" }
+    ],
+    correctAnswer: "C",
+    explanation: "Early Rigvedic religion centered on the personification and worship of cosmic forces of nature (Indra, Agni, Varuna, Soma) combined with sacrificial rituals and yajnas. Bhakti and temple image worship developed much later.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Rigvedic Religion", "Yajnas", "Nature Worship"]
+  },
+  {
+    id: "ah-ch3-q19",
+    year: 2011,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "19. The \"dharma\" and \"rita\" depict a central idea of ancient Vedic civilization of India. In this context, consider the following statements: (2011)\n1. Dharma was a conception of obligations and of the discharge of one's duties to oneself and to others.\n2. Rita was the fundamental moral law governing the functioning of the universe and all it contained.\n\nWhich of the statements given above is/are correct ?",
+    options: [
+      { id: "a", key: "A", text: "1 only" },
+      { id: "b", key: "B", text: "2 only" },
+      { id: "c", key: "C", text: "Both 1 and 2" },
+      { id: "d", key: "D", text: "Neither 1 nor 2" }
+    ],
+    correctAnswer: "C",
+    explanation: "Both statements are correct: In Vedic philosophy, Dharma denotes moral and individual righteous duties, while Rita denotes the universal cosmic order and cosmic balance guarded by Varuna.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Vedic Philosophy", "Dharma", "Rita", "Varuna"]
+  },
+  {
+    id: "ah-ch3-q20",
+    year: 2004,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "20. Which one of the following four Vedas contains an account of magical charms and spells? (2004)",
+    options: [
+      { id: "a", key: "A", text: "Rigveda" },
+      { id: "b", key: "B", text: "Yajurveda" },
+      { id: "c", key: "C", text: "Atharvaveda" },
+      { id: "d", key: "D", text: "Samaveda" }
+    ],
+    correctAnswer: "C",
+    explanation: "Atharvaveda contains chants, incantations, magical charms, and folk medicine for warding off diseases, evil spirits, and curses.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Vedas", "Atharvaveda", "Magical Charms"]
+  },
+  {
+    id: "ah-ch3-q21",
+    year: 1999,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "21. The term ‘Aryan’ denotes: (1999)",
+    options: [
+      { id: "a", key: "A", text: "An ethnic group" },
+      { id: "b", key: "B", text: "A nomadic people" },
+      { id: "c", key: "C", text: "A speech group" },
+      { id: "d", key: "D", text: "A superior race" }
+    ],
+    correctAnswer: "C",
+    explanation: "In linguistic and historical analysis, 'Aryan' strictly designates an Indo-European linguistic/speech community, not a biological race.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Aryan", "Linguistics", "Indo-European"]
+  },
+  {
+    id: "ah-ch3-q22",
+    year: 1996,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "22. The river most mentioned in early Vedic literature is: (1996)",
+    options: [
+      { id: "a", key: "A", text: "Sindhu" },
+      { id: "b", key: "B", text: "Sutudri" },
+      { id: "c", key: "C", text: "Sarasvati" },
+      { id: "d", key: "D", text: "Ganga" }
+    ],
+    correctAnswer: "A",
+    explanation: "The river Sindhu (Indus) is mentioned most frequently in the Rigveda (over 150 times). Saraswati is celebrated as the holiest river (Naditama).",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Vedic Rivers", "Sindhu", "Saraswati"]
+  },
+  {
+    id: "ah-ch3-q23",
+    year: 1995,
+    subject: "Ancient History",
+    topic: "History of the Vedic Period",
+    chapterNumber: 3,
+    paper: "GS-1",
+    question: "23. Who among the following was a Brahmavadini who composed some hymns of the Vedas? (1995)",
+    options: [
+      { id: "a", key: "A", text: "Lopamudra" },
+      { id: "b", key: "B", text: "Gargi" },
+      { id: "c", key: "C", text: "Leelavati" },
+      { id: "d", key: "D", text: "Savitri" }
+    ],
+    correctAnswer: "A",
+    explanation: "Lopamudra (wife of sage Agastya), along with Apala, Viswavara, and Ghosha, was a revered Vedic Brahmavadini who composed hymns in the Rigveda.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Brahmavadini", "Lopamudra", "Vedic Women Scholars"]
+  }
+];
+
+// Chapter 4: History of Mauryan Age
+export const MAURYAN_AGE_SAMPLE: PYQQuestion[] = [
+  {
+    id: "ah-ch4-q24",
+    year: 2022,
+    subject: "Ancient History",
+    topic: "History of Mauryan Age",
+    chapterNumber: 4,
+    paper: "GS-1",
+    question: "24. According to Kautilya’s Arthashastra, which of the following are correct? (2022)\n1. A person could be a slave as a result of a judicial punishment.\n2. If a female slave bore her master a son, she was legally free.\n3. If a son born to a female slave was fathered by her master the son was entitled to the legal status of the master’s son.\n\nWhich of the statements given above are correct?",
+    options: [
+      { id: "a", key: "A", text: "1 and 2 only" },
+      { id: "b", key: "B", text: "2 and 3 only" },
+      { id: "c", key: "C", text: "1 and 3 only" },
+      { id: "d", key: "D", text: "1, 2 and 3" }
+    ],
+    correctAnswer: "B",
+    explanation: "Under Kautilya's Arthashastra on Dasas (slaves):\nStatement 2 is correct: A slave woman bearing her master a child became legally emancipated along with her child.\nStatement 3 is correct: The child fathered by the master was recognized as a legitimate son with inheritance rights.\n(UPSC official answer key marked B, while detailed texts corroborate 1, 2 and 3).",
+    difficulty: "Hard",
+    important: true,
+    conceptTags: ["Ancient History", "Arthashastra", "Kautilya", "Slavery in Ancient India"]
+  },
+  {
+    id: "ah-ch4-q25",
+    year: 2020,
+    subject: "Ancient History",
+    topic: "History of Mauryan Age",
+    chapterNumber: 4,
+    paper: "GS-1",
+    question: "25. Who among the following rulers advised his subjects through this inscription? (2020)\n\"Whosoever praises his religious sect or blames other sects out of excessive devotion to his own sect, with the view of glorifying his own sect, he rather injures his own sect very severely.\"",
+    options: [
+      { id: "a", key: "A", text: "Ashoka" },
+      { id: "b", key: "B", text: "Samudragupta" },
+      { id: "c", key: "C", text: "Harshavardhana" },
+      { id: "d", key: "D", text: "Krishnadeva Raya" }
+    ],
+    correctAnswer: "A",
+    explanation: "This celebrated plea for inter-faith harmony and religious tolerance is inscribed in Emperor Ashoka's Major Rock Edict XII.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Ancient History", "Ashoka", "Major Rock Edict XII", "Religious Tolerance"]
+  },
+  {
+    id: "ah-ch4-q26",
+    year: 2019,
+    subject: "Ancient History",
+    topic: "History of Mauryan Age",
+    chapterNumber: 4,
+    paper: "GS-1",
+    question: "26. In which of the following relief sculpture inscriptions is ‘Ranyo Ashoka’ (King Ashoka) mentioned along with the stone portrait of Ashoka? (2019)",
+    options: [
+      { id: "a", key: "A", text: "Kanaganahalli" },
+      { id: "b", key: "B", text: "Sanchi" },
+      { id: "c", key: "C", text: "Shahbazgarhi" },
+      { id: "d", key: "D", text: "Sohgaura" }
+    ],
+    correctAnswer: "A",
+    explanation: "At the Kanaganahalli stupa site in Gulbarga, Karnataka, an excavated stone slab depicts Emperor Ashoka with his queens inscribed with the label 'Ranyo Asoko' in Brahmi.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Ancient History", "Kanaganahalli", "Ranyo Ashoka", "Mauryan Art"]
+  }
+];
+
+// Write Ancient History JSON
+const ALL_ANCIENT = [...ANCIENT_HISTORY_QUESTIONS, ...MAURYAN_AGE_SAMPLE];
+fs.writeFileSync(
+  path.join(OUT_DIR, "ancient-history.json"),
+  JSON.stringify(ALL_ANCIENT, null, 2),
+  "utf-8"
+);
+console.log(`✓ Wrote ${ALL_ANCIENT.length} questions to data/pyqs/prelims/ancient-history.json`);
+
+// ============================================================================
+// MEDIEVAL HISTORY (PAGES 53-75: ACROSS 7 CHAPTERS)
+// ============================================================================
+export const MEDIEVAL_HISTORY_SAMPLE: PYQQuestion[] = [
+  {
+    id: "mh-ch1-q1",
+    year: 2022,
+    subject: "Medieval History",
+    topic: "Early Medieval Period",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "1. Consider the following pairs: (2022)\nKing : Dynasty\n1. Nannuka : Chandela\n2. Jayashakti : Paramara\n3. Nagabhata II : Gurjara-Pratihara\n4. Bhoja : Rashtrakuta\n\nHow many pairs given above are correctly matched?",
+    options: [
+      { id: "a", key: "A", text: "Only one pair" },
+      { id: "b", key: "B", text: "Only two pairs" },
+      { id: "c", key: "C", text: "Only three pairs" },
+      { id: "d", key: "D", text: "All four pairs" }
+    ],
+    correctAnswer: "B",
+    explanation: "Pair 1 is correct: Nannuka founded the Chandela dynasty in Bundelkhand.\nPair 3 is correct: Nagabhata II was a powerful Gurjara-Pratihara emperor.\nPair 2 is incorrect: Jayashakti (Jeja) was a Chandela ruler after whom Jejakabhukti was named.\nPair 4 is incorrect: King Bhoja / Mihira Bhoja was a Gurjara-Pratihara ruler (or Bhoja of Malwa was Paramara), not Rashtrakuta.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Medieval History", "Early Medieval Dynasties", "Chandelas", "Gurjara-Pratiharas"]
+  },
+  {
+    id: "mh-ch1-q2",
+    year: 2020,
+    subject: "Medieval History",
+    topic: "Early Medieval Period",
+    chapterNumber: 1,
+    paper: "GS-1",
+    question: "2. Which of the following phrases defines the nature of the ‘Hundi’ generally referred to in the sources of the post-Harsha period? (2020)",
+    options: [
+      { id: "a", key: "A", text: "An advisory issued by the king to his subordinates" },
+      { id: "b", key: "B", text: "A diary to be maintained for daily accounts" },
+      { id: "c", key: "C", text: "A bill of exchange" },
+      { id: "d", key: "D", text: "An order from the feudal lord to his subordinates" }
+    ],
+    correctAnswer: "C",
+    explanation: "A Hundi was a traditional Indian financial credit instrument and bill of exchange used to transfer money safely and obtain credit in merchant networks.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Medieval History", "Hundi", "Bill of Exchange", "Trade & Commerce"]
+  },
+  {
+    id: "mh-ch2-q6",
+    year: 2022,
+    subject: "Medieval History",
+    topic: "The Delhi Sultanate",
+    chapterNumber: 2,
+    paper: "GS-1",
+    question: "6. With reference to Indian history, consider the following statements: (2022)\n1. The first Mongol invasion of India happened during the reign of Jalalud-din Khalji.\n2. During the reign of Ala-ud-din Khalji, one Mongol assault marched up to Delhi and besieged the city.\n3. Muhammad-bin-Tughlaq temporarily lost portions of the north-west of his kingdom to Mongols.\n\nWhich of the statements given above is/are correct?",
+    options: [
+      { id: "a", key: "A", text: "1 and 2" },
+      { id: "b", key: "B", text: "2 only" },
+      { id: "c", key: "C", text: "1 and 3" },
+      { id: "d", key: "D", text: "3 only" }
+    ],
+    correctAnswer: "B",
+    explanation: "Statement 2 is correct: Targhi's Mongol army marched up to Delhi and besieged it during Alauddin Khalji's reign in 1303.\nStatement 1 is incorrect: The first Mongol incursion on the Indus occurred under Shamsuddin Iltutmish (1221) pursuing Jalaluddin Mangabarni.\nStatement 3 is incorrect: Muhammad bin Tughlaq repulsed the invasion of Tarmashirin and maintained frontier control.",
+    superHint: "Earlier Delhi Sultans like Iltutmish faced Genghis Khan in early 1200s, far earlier than Jalaluddin Khalji.",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Medieval History", "Delhi Sultanate", "Mongol Invasions", "Alauddin Khalji"]
+  },
+  {
+    id: "mh-ch4-q40",
+    year: 2024,
+    subject: "Medieval History",
+    topic: "Vijayanagara Empire",
+    chapterNumber: 4,
+    paper: "GS-1",
+    question: "40. Who of the following rulers of medieval India gave permission to the Portuguese to build a fort at Bhatkal? (2024)",
+    options: [
+      { id: "a", key: "A", text: "Krishnadevaraya" },
+      { id: "b", key: "B", text: "Narasimha Saluva" },
+      { id: "c", key: "C", text: "Muhammad Shah III" },
+      { id: "d", key: "D", text: "Yusuf Adil Shah" }
+    ],
+    correctAnswer: "A",
+    explanation: "Emperor Krishnadevaraya of the Tuluva dynasty granted permission to Portuguese Viceroy Afonso de Albuquerque in 1510 to build a fort at Bhatkal in exchange for a monopoly on Portuguese warhorse supplies.",
+    difficulty: "Easy",
+    important: true,
+    conceptTags: ["Medieval History", "Vijayanagara", "Krishnadevaraya", "Portuguese", "Bhatkal Fort"]
+  },
+  {
+    id: "mh-ch4-q41",
+    year: 2023,
+    subject: "Medieval History",
+    topic: "Vijayanagara Empire",
+    chapterNumber: 4,
+    paper: "GS-1",
+    question: "41. Who among the following rulers of Vijayanagara Empire constructed a large dam across Tungabhadra River and a canal-cum-aqueduct several kilometres long from the river to the capital city? (2023)",
+    options: [
+      { id: "a", key: "A", text: "Devaraya I" },
+      { id: "b", key: "B", text: "Mallikarjuna" },
+      { id: "c", key: "C", text: "Vira Vijaya" },
+      { id: "d", key: "D", text: "Virupaksha" }
+    ],
+    correctAnswer: "A",
+    explanation: "Deva Raya I (1406–1422 CE) of the Sangama dynasty built a massive barrage across the Tungabhadra river and a stone aqueduct bringing fresh water directly into Vijayanagara (Hampi).",
+    difficulty: "Medium",
+    important: true,
+    conceptTags: ["Medieval History", "Vijayanagara", "Deva Raya I", "Tungabhadra Dam", "Hampi"]
+  }
+];
+
+fs.writeFileSync(
+  path.join(OUT_DIR, "medieval-history.json"),
+  JSON.stringify(MEDIEVAL_HISTORY_SAMPLE, null, 2),
+  "utf-8"
+);
+console.log(`✓ Wrote ${MEDIEVAL_HISTORY_SAMPLE.length} questions to data/pyqs/prelims/medieval-history.json`);

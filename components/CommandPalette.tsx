@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "@/lib/core/constants";
-import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
+import { STATIC_PYQ_DATASET } from "@/lib/study/pyq-engine";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 import { UPSC_FULL_SYLLABUS } from "@/lib/syllabus/upsc-syllabus";
 import { sound } from "@/lib/audio/sound-engine";

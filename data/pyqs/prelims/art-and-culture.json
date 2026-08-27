@@ -1,0 +1,419 @@
+[
+  {
+    "id": "ac-ch1-q1",
+    "year": 2023,
+    "subject": "Art and Culture",
+    "topic": "Indian Architecture",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "1. With reference to ancient India, consider the following statements: (2023)\n1. The concept of Stupa is Buddhist in origin.\n2. Stupa was generally a repository of relics.\n3. Stupa was a votive and commemorative structure in Buddhist tradition.\n\nHow many of the statements given above are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "All three"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None of the above"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 1 is incorrect: The concept of stupa predates Buddhism, originating in pre-Buddhist Vedic/megalithic funerary burial tumuli.\nStatements 2 and 3 are correct: Stupas enshrined sacred bodily relics (dhatu-garbha in the harmika) and served as votive or commemorative shrines (e.g. Dhamek Stupa at Sarnath commemorating the Buddha's first sermon).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Indian Architecture",
+      "Stupas",
+      "Buddhism",
+      "Sarnath"
+    ]
+  },
+  {
+    "id": "ac-ch1-q2",
+    "year": 2022,
+    "subject": "Art and Culture",
+    "topic": "Indian Architecture",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "2. Consider the following pairs: (2022)\nSite of Ashoka’s major rock edicts : Location in the State of\nA. Dhauli : Odisha\nB. Erragudi : Andhra Pradesh\nC. Jaugada : Madhya Pradesh\nD. Kalsi : Karnataka\n\nHow many pairs given above are correctly matched?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one pair"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two pairs"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Only three pairs"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "All four pairs"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Pair A (Dhauli, Odisha) is correct. Pair B (Erragudi, Andhra Pradesh) is correct. Pair C is incorrect (Jaugada is in Ganjam, Odisha). Pair D is incorrect (Kalsi is in Dehradun, Uttarakhand). Hence, exactly two pairs are correct.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Ashokan Edicts",
+      "Dhauli",
+      "Erragudi",
+      "Kalsi"
+    ]
+  },
+  {
+    "id": "ac-ch1-q4",
+    "year": 2021,
+    "subject": "Art and Culture",
+    "topic": "Indian Architecture",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "4. Which one of the following statements is correct? (2021)\n(a) Ajanta Caves lie in the gorge of the Waghora River.\n(b) Sanchi Stupa lies in the gorge of the Chambal River.\n(c) Pandu-Lena Cave Shrines lie in the gorge of the Narmada River.\n(d) Amaravati Stupa lies in the gorge of the Godavari River.",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Ajanta Caves lie in the gorge of the Waghora River."
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Sanchi Stupa lies in the gorge of the Chambal River."
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Pandu-Lena Cave Shrines lie in the gorge of the Narmada River."
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Amaravati Stupa lies in the gorge of the Godavari River."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Ajanta Caves are carved into a horseshoe cliff overlooking the gorge of the Waghora River in Aurangabad, Maharashtra.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Ajanta Caves",
+      "Waghora River",
+      "Cave Architecture"
+    ]
+  },
+  {
+    "id": "ac-ch2-q10",
+    "year": 2021,
+    "subject": "Art and Culture",
+    "topic": "Temple Architecture",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "10. With reference to Chausath Yogini Temple situated near Morena, consider the following statements: (2021)\n1. It is a circular temple built during the reign of the Kachchhapaghata Dynasty.\n2. It is the only circular temple built in India.\n3. It was meant to promote the Vaishnava cult in the region.\n4. Its design has given rise to a popular belief that it was the inspiration behind the Indian Parliament building.\n\nWhich of the statements given above are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 and 2"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 4"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "2, 3 and 4"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Statements 1 and 4 are correct: Built by Kachchhapaghata King Devapala in the 14th century, its hypaethral circular design inspired Lutyens and Baker's Parliament House.\nStatement 2 is incorrect (not the only circular temple). Statement 3 is incorrect (dedicated to the 64 Yogini Tantric Shaivite/Shakta cult, not Vaishnava).",
+    "superHint": "\"Only circular temple in India\" is an absolute flag. Statement 3 claiming Vaishnavism contradicts the Yogini Shaivite cult.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Temple Architecture",
+      "Chausath Yogini",
+      "Morena",
+      "Kachchhapaghata"
+    ]
+  },
+  {
+    "id": "ac-ch2-q11",
+    "year": 2019,
+    "subject": "Art and Culture",
+    "topic": "Temple Architecture",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "11. Building ‘Kalyana Mandapam’ was a notable feature in the temple construction in the kingdom of: (2019)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Chalukya"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Chandela"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Rashtrakuta"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Vijayanagara"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Kalyana Mandapams (elaborate open pillared halls for conducting the divine marriage ceremonies of deities) were the hallmark architectural creation of Vijayanagara temples (e.g. Virupaksha and Vitthala at Hampi).",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Vijayanagara Architecture",
+      "Kalyana Mandapam",
+      "Hampi"
+    ]
+  },
+  {
+    "id": "ac-ch3-q16",
+    "year": 2018,
+    "subject": "Art and Culture",
+    "topic": "Indian Painting",
+    "chapterNumber": 3,
+    "paper": "GS-1",
+    "question": "16. The well-known painting “Bani Thani” belongs to the: (2018)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Bundi school"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Jaipur school"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Kangra school"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Kishangarh school"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Bani Thani, painted by Nihal Chand under King Sawant Singh, belongs to the Kishangarh school of Rajasthani miniature painting, celebrated as the 'Mona Lisa of India'.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Indian Painting",
+      "Bani Thani",
+      "Kishangarh School",
+      "Nihal Chand"
+    ]
+  },
+  {
+    "id": "ac-ch5-q25",
+    "year": 2014,
+    "subject": "Art and Culture",
+    "topic": "Indian Dance Forms",
+    "chapterNumber": 5,
+    "paper": "GS-1",
+    "question": "25. With reference to the famous Sattriya dance, consider the following statements: (2014)\n1. Sattriya is a combination of music, dance and drama.\n2. It is a centuries old living tradition of Vaishnavites of Assam.\n3. It is based on classical Ragas and Talas of devotional songs composed by Tulsidas, Kabir and Mirabai.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "1 and 2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "1, 2 and 3"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statements 1 and 2 are correct: Sattriya is a 15th-century Vaishnavite monastic dance-drama of Assam cultivated in Sattras.\nStatement 3 is incorrect: Its repertoire is based on the Borgeets composed by Mahapurusha Srimanta Sankaradeva and Madhavadeva, not Tulsidas, Kabir, or Mirabai.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Classical Dance",
+      "Sattriya",
+      "Sankaradeva",
+      "Assam"
+    ]
+  },
+  {
+    "id": "ac-ch8-q49",
+    "year": 2024,
+    "subject": "Art and Culture",
+    "topic": "Literature",
+    "chapterNumber": 8,
+    "paper": "GS-1",
+    "question": "49. Which one of the following is a work attributed to playwright Bhasa? (2024)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Kavyalankara"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Natyashastra"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Madhyama-vyayoga"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Mahabhashya"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Madhyama-vyayoga is one of the 13 classical Sanskrit plays composed by Bhasa based on the Mahabharata (Ghatotkacha episode). Kavyalankara is by Bhamaha, Natyashastra is by Bharata Muni, and Mahabhashya is by Patanjali.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Sanskrit Literature",
+      "Bhasa",
+      "Madhyama-vyayoga"
+    ]
+  },
+  {
+    "id": "ac-ch9-q62",
+    "year": 2024,
+    "subject": "Art and Culture",
+    "topic": "Buddhism and Jainism",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "62. With reference to ancient India, Gautama Buddha was generally known by which of the following epithets? (2024)\n1. Nayaputta\n2. Shakyamuni\n3. Tathagata\n\nSelect the correct answer using the code given below:",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 only"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 and 3 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1, 2 and 3"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "None of the above are epithets of Gautama Buddha"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Shakyamuni ('Sage of the Shakyas') and Tathagata ('Thus-Gone') are epithets of Gautama Buddha. 'Nayaputta' (Nataputta) is an epithet of Vardhamana Mahavira of Jainism.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Buddhism",
+      "Gautama Buddha",
+      "Shakyamuni",
+      "Tathagata"
+    ]
+  },
+  {
+    "id": "ac-ch9-q83",
+    "year": 2009,
+    "subject": "Art and Culture",
+    "topic": "Buddhism and Jainism",
+    "chapterNumber": 9,
+    "paper": "GS-1",
+    "question": "83. Anekantavada is a core theory and philosophy of which one of the following? (2009)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Buddhism"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Jainism"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Sikhism"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Vaishnavism"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Anekantavada (doctrine of manifold viewpoints / non-absolutism) along with Syadvada (theory of conditioned predication) is the foundational epistemological philosophy of Jainism.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Art and Culture",
+      "Jainism",
+      "Anekantavada",
+      "Philosophy"
+    ]
+  }
+]

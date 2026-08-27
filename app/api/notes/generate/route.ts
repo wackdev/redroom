@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateUPSCNotes } from "@/lib/notes/notes-engine";
+import { generateUPSCNotes } from "@/lib/study/notes-engine";
 import { ApiResponse } from "@/lib/core/types";
 
 export const runtime = "nodejs";

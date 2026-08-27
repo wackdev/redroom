@@ -1,5 +1,7 @@
-import { ProductionPYQQuestion } from "@/lib/pyq/importer";
-import { STATIC_PYQS } from "@/lib/pyq/static-dataset";
+import { PYQQuestion } from "@/lib/core/types";
+import { STATIC_PYQS } from "@/lib/study/pyq-engine";
+
+export type ProductionPYQQuestion = PYQQuestion;
 
 export interface RelationalTest {
   id: string;
@@ -55,7 +57,7 @@ export class QuestionBankService {
       if (filters.year && q.year !== filters.year) {
         return false;
       }
-      if (filters.questionType && q.questionType !== filters.questionType) {
+      if (filters.questionType && (q as any).questionType !== filters.questionType) {
         return false;
       }
       return true;

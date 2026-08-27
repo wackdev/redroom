@@ -1,15 +1,41 @@
 import { MainsPYQQuestion } from "../core/types";
 
-import gs1Questions from "../../data/mains-pyq/gs1.json";
-import gs2Questions from "../../data/mains-pyq/gs2.json";
-import gs3Questions from "../../data/mains-pyq/gs3.json";
-import gs4Questions from "../../data/mains-pyq/gs4.json";
-import essayQuestions from "../../data/mains-pyq/essay.json";
+export const LOCAL_STORAGE_CUSTOM_MAINS_PYQS_KEY = "redroom_mains_pyqs_custom";
 
-export const STATIC_MAINS_PYQ_DATASET: MainsPYQQuestion[] = [
-  ...(gs1Questions as unknown as MainsPYQQuestion[]),
-  ...(gs2Questions as unknown as MainsPYQQuestion[]),
-  ...(gs3Questions as unknown as MainsPYQQuestion[]),
-  ...(gs4Questions as unknown as MainsPYQQuestion[]),
-  ...(essayQuestions as unknown as MainsPYQQuestion[]),
-];
+/**
+ * Baseline static mains questions. Defaults to empty until candidate uploads questions.
+ */
+export const STATIC_MAINS_PYQ_DATASET: MainsPYQQuestion[] = [];
+
+/**
+ * Retrieves candidate uploaded Mains questions from browser storage.
+ */
+export function getStoredMainsPYQs(): MainsPYQQuestion[] {
+  if (typeof window === "undefined") return STATIC_MAINS_PYQ_DATASET;
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_MAINS_PYQS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (err) {
+    console.warn("Failed to load custom mains questions from storage:", err);
+  }
+  return STATIC_MAINS_PYQ_DATASET;
+}
+
+/**
+ * Saves candidate uploaded Mains questions into browser storage.
+ */
+export function saveUploadedMainsPYQs(questions: MainsPYQQuestion[]): number {
+  if (typeof window === "undefined" || !Array.isArray(questions)) return 0;
+  try {
+    localStorage.setItem(LOCAL_STORAGE_CUSTOM_MAINS_PYQS_KEY, JSON.stringify(questions));
+    return questions.length;
+  } catch (err) {
+    console.error("Failed to save uploaded mains questions:", err);
+    throw err;
+  }
+}

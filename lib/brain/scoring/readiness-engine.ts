@@ -125,11 +125,11 @@ export async function calculateExamReadiness(userId?: string): Promise<Readiness
     };
 
     return {
-      overallScore: 50,
-      prelimsScore: 50,
-      mainsScore: 50,
+      overallScore: 0,
+      prelimsScore: 0,
+      mainsScore: 0,
       isNewUser: true,
-      statusMessage: "Your preparation profile is being built.",
+      statusMessage: "Uncalibrated Baseline (0%)",
       prelimsBreakdown: starterBreakdown,
       mainsBreakdown: starterMains,
       whyThisScore: {

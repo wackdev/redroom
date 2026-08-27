@@ -36,5 +36,8 @@
       "description": "Engage WHY AI Mentor"
     }
   ],
-  "categories": ["education", "productivity"]
+  "categories": [
+    "education",
+    "productivity"
+  ]
 }

@@ -96,11 +96,14 @@ export interface PYQQuestion {
   subject: string;
   topic: string;
   subtopic?: string;
+  chapterNumber?: number;
   paper?: "GS-1" | "CSAT";
   question: string;
   options: PYQOption[];
   correctAnswer: "A" | "B" | "C" | "D";
   explanation: string;
+  superHint?: string;
+  extraEdge?: string;
   difficulty: "Easy" | "Medium" | "Hard";
   important: boolean;
   conceptTags?: string[];

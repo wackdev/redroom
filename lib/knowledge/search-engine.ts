@@ -4,7 +4,7 @@ import {
   KnowledgeSearchResultItem,
   KnowledgeSearchResponse,
 } from "./types";
-import { STATIC_PYQ_DATASET } from "@/lib/pyq/static-dataset";
+import { STATIC_PYQ_DATASET } from "@/lib/study/pyq-engine";
 import { STATIC_MAINS_PYQ_DATASET } from "@/lib/mains-pyq/static-dataset";
 
 // Global Acronym Dictionary for instant UPSC query expansion

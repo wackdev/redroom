@@ -2,7 +2,7 @@ import assert from "node:assert";
 import {
   diagnoseQuestionTraps,
   calculateEliminationProbability,
-} from "../lib/pyq/elimination-engine";
+} from "../lib/study/pyq-engine";
 import { PYQQuestion } from "../lib/core/types";
 
 export function runEliminationEngineTests() {

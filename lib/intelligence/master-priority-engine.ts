@@ -1,8 +1,7 @@
 import { DailyIntelligence, WeaknessInsight } from "../core/types";
 import { getDateKey } from "../core/utils";
 import { getUserRevisionQueue } from "../revision/revision-engine";
-import { getAllPYQs, getUserPYQAttempts } from "../pyq/database";
-import { analyzeUserMistakes } from "../pyq/mistake-engine";
+import { getAllPYQs, getUserPYQAttempts, analyzeUserMistakes } from "../study/pyq-engine";
 
 /**
  * Aggregates all user signals to generate the Master REDROOM Intelligence state.
@@ -21,19 +20,7 @@ export async function computeMasterIntelligence(userId?: string): Promise<DailyI
   const mistakeAnalysis = analyzeUserMistakes(attempts, questions);
 
   const weakTopics: WeaknessInsight[] =
-    mistakeAnalysis.weakestTopics.length > 0
-      ? mistakeAnalysis.weakestTopics
-      : [
-          {
-            subject: "Polity",
-            topic: "Fundamental Rights & Writs",
-            weaknessScore: 65,
-            accuracyPercent: 35,
-            attemptCount: 3,
-            recentMistakes: ["conceptual_error", "extreme_word_trap"],
-            recommendation: "Focus on Article 14-32 exceptions and judicial review limitations.",
-          },
-        ];
+    Array.isArray(mistakeAnalysis.weakestTopics) ? mistakeAnalysis.weakestTopics : [];
 
   // 3. Recommended PYQ Subject (based on weak topics or due subjects)
   const recommendedPYQSubject = weakTopics[0]?.subject || "Polity";
@@ -45,23 +32,25 @@ export async function computeMasterIntelligence(userId?: string): Promise<DailyI
       `You have ${dueRevisionsCount} topics overdue in your Spaced Repetition queue.`
     );
   }
-  if (mistakeAnalysis.wrongCount > mistakeAnalysis.correctCount && mistakeAnalysis.totalAttempts > 4) {
+  if (mistakeAnalysis.wrongCount > mistakeAnalysis.correctCount && mistakeAnalysis.totalAttempts > 3) {
     backlogWarnings.push(
-      "Your recent PYQ accuracy is under 50%. Review concept notes before attempting new tests."
+      "Your overall PYQ accuracy is under 50%. Review concepts before attempting new tests."
     );
   }
 
-  // 5. Determine #1 Highest Priority Task
-  let topPriorityTask: DailyIntelligence["topPriorityTask"] = {
-    title: "Daily Spaced Repetition Revision",
-    description: `Complete ${dueRevisionsCount} due flashcards to prevent Ebbinghaus memory loss.`,
-    subject: "Revision",
-    reason: "Scheduled review due today based on SM-2 algorithm.",
-    urgency: "Immediate",
-    actionRoute: "/revision",
-  };
+  // 5. Dynamic Daily Task Allocation based on urgency
+  let topPriorityTask: DailyIntelligence["topPriorityTask"];
 
-  if (dueRevisionsCount === 0 && weakTopics.length > 0) {
+  if (dueRevisionsCount > 0) {
+    topPriorityTask = {
+      title: "Daily Spaced Active Recall",
+      description: `Complete ${dueRevisionsCount} due flashcards to consolidate memory retention.`,
+      subject: "Revision",
+      reason: "Scheduled review due today based on SM-2 algorithm.",
+      urgency: "Immediate",
+      actionRoute: "/revision",
+    };
+  } else if (weakTopics.length > 0) {
     topPriorityTask = {
       title: `Consolidate Weak Topic: ${weakTopics[0].topic}`,
       description: weakTopics[0].recommendation,
@@ -70,12 +59,12 @@ export async function computeMasterIntelligence(userId?: string): Promise<DailyI
       urgency: "High",
       actionRoute: "/pyqs",
     };
-  } else if (dueRevisionsCount === 0 && weakTopics.length === 0) {
+  } else {
     topPriorityTask = {
-      title: "Daily NextIAS Current Affairs & Quiz",
-      description: "Read today's high-yield UPSC editorials and solve daily practice MCQs.",
+      title: "Daily Editorial Analysis & High-Yield Quiz",
+      description: "Read today's UPSC editorial briefs and complete the speed quiz.",
       subject: "Current Affairs",
-      reason: "Stay up-to-date with daily dynamic syllabus events.",
+      reason: "Daily current events synchronization for GS-2 and GS-3.",
       urgency: "Normal",
       actionRoute: "/current-affairs",
     };
@@ -88,9 +77,9 @@ export async function computeMasterIntelligence(userId?: string): Promise<DailyI
     dueRevisionsCount,
     recommendedPYQSubject,
     dailyStudyHoursTarget: 6.0,
-    streakDays: 4,
+    streakDays: 0,
     backlogWarnings,
-    overallSyllabusProgressPercent: 28,
-    recentTestAccuracy: mistakeAnalysis.overallAccuracy || 72,
+    overallSyllabusProgressPercent: 0,
+    recentTestAccuracy: mistakeAnalysis.overallAccuracy || 0,
   };
 }

@@ -1,0 +1,210 @@
+[
+  {
+    "id": "mh-ch1-q1",
+    "year": 2022,
+    "subject": "Medieval History",
+    "topic": "Early Medieval Period",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "1. Consider the following pairs: (2022)\nKing : Dynasty\n1. Nannuka : Chandela\n2. Jayashakti : Paramara\n3. Nagabhata II : Gurjara-Pratihara\n4. Bhoja : Rashtrakuta\n\nHow many pairs given above are correctly matched?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Only one pair"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Only two pairs"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Only three pairs"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "All four pairs"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Pair 1 is correct: Nannuka founded the Chandela dynasty in Bundelkhand.\nPair 3 is correct: Nagabhata II was a powerful Gurjara-Pratihara emperor.\nPair 2 is incorrect: Jayashakti (Jeja) was a Chandela ruler after whom Jejakabhukti was named.\nPair 4 is incorrect: King Bhoja / Mihira Bhoja was a Gurjara-Pratihara ruler (or Bhoja of Malwa was Paramara), not Rashtrakuta.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Medieval History",
+      "Early Medieval Dynasties",
+      "Chandelas",
+      "Gurjara-Pratiharas"
+    ]
+  },
+  {
+    "id": "mh-ch1-q2",
+    "year": 2020,
+    "subject": "Medieval History",
+    "topic": "Early Medieval Period",
+    "chapterNumber": 1,
+    "paper": "GS-1",
+    "question": "2. Which of the following phrases defines the nature of the ‘Hundi’ generally referred to in the sources of the post-Harsha period? (2020)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "An advisory issued by the king to his subordinates"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "A diary to be maintained for daily accounts"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "A bill of exchange"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "An order from the feudal lord to his subordinates"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "A Hundi was a traditional Indian financial credit instrument and bill of exchange used to transfer money safely and obtain credit in merchant networks.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Medieval History",
+      "Hundi",
+      "Bill of Exchange",
+      "Trade & Commerce"
+    ]
+  },
+  {
+    "id": "mh-ch2-q6",
+    "year": 2022,
+    "subject": "Medieval History",
+    "topic": "The Delhi Sultanate",
+    "chapterNumber": 2,
+    "paper": "GS-1",
+    "question": "6. With reference to Indian history, consider the following statements: (2022)\n1. The first Mongol invasion of India happened during the reign of Jalalud-din Khalji.\n2. During the reign of Ala-ud-din Khalji, one Mongol assault marched up to Delhi and besieged the city.\n3. Muhammad-bin-Tughlaq temporarily lost portions of the north-west of his kingdom to Mongols.\n\nWhich of the statements given above is/are correct?",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "1 and 2"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "2 only"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "1 and 3"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "3 only"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Statement 2 is correct: Targhi's Mongol army marched up to Delhi and besieged it during Alauddin Khalji's reign in 1303.\nStatement 1 is incorrect: The first Mongol incursion on the Indus occurred under Shamsuddin Iltutmish (1221) pursuing Jalaluddin Mangabarni.\nStatement 3 is incorrect: Muhammad bin Tughlaq repulsed the invasion of Tarmashirin and maintained frontier control.",
+    "superHint": "Earlier Delhi Sultans like Iltutmish faced Genghis Khan in early 1200s, far earlier than Jalaluddin Khalji.",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Medieval History",
+      "Delhi Sultanate",
+      "Mongol Invasions",
+      "Alauddin Khalji"
+    ]
+  },
+  {
+    "id": "mh-ch4-q40",
+    "year": 2024,
+    "subject": "Medieval History",
+    "topic": "Vijayanagara Empire",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "40. Who of the following rulers of medieval India gave permission to the Portuguese to build a fort at Bhatkal? (2024)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Krishnadevaraya"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Narasimha Saluva"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Muhammad Shah III"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Yusuf Adil Shah"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Emperor Krishnadevaraya of the Tuluva dynasty granted permission to Portuguese Viceroy Afonso de Albuquerque in 1510 to build a fort at Bhatkal in exchange for a monopoly on Portuguese warhorse supplies.",
+    "difficulty": "Easy",
+    "important": true,
+    "conceptTags": [
+      "Medieval History",
+      "Vijayanagara",
+      "Krishnadevaraya",
+      "Portuguese",
+      "Bhatkal Fort"
+    ]
+  },
+  {
+    "id": "mh-ch4-q41",
+    "year": 2023,
+    "subject": "Medieval History",
+    "topic": "Vijayanagara Empire",
+    "chapterNumber": 4,
+    "paper": "GS-1",
+    "question": "41. Who among the following rulers of Vijayanagara Empire constructed a large dam across Tungabhadra River and a canal-cum-aqueduct several kilometres long from the river to the capital city? (2023)",
+    "options": [
+      {
+        "id": "a",
+        "key": "A",
+        "text": "Devaraya I"
+      },
+      {
+        "id": "b",
+        "key": "B",
+        "text": "Mallikarjuna"
+      },
+      {
+        "id": "c",
+        "key": "C",
+        "text": "Vira Vijaya"
+      },
+      {
+        "id": "d",
+        "key": "D",
+        "text": "Virupaksha"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Deva Raya I (1406–1422 CE) of the Sangama dynasty built a massive barrage across the Tungabhadra river and a stone aqueduct bringing fresh water directly into Vijayanagara (Hampi).",
+    "difficulty": "Medium",
+    "important": true,
+    "conceptTags": [
+      "Medieval History",
+      "Vijayanagara",
+      "Deva Raya I",
+      "Tungabhadra Dam",
+      "Hampi"
+    ]
+  }
+]

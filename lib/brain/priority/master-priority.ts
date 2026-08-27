@@ -1,8 +1,7 @@
 import { DailyIntelligence, WeaknessInsight } from "@/lib/core/types";
 import { getDateKey } from "@/lib/core/utils";
 import { getUserRevisionQueue } from "@/lib/revision/revision-engine";
-import { getAllPYQs, getUserPYQAttempts } from "@/lib/pyq/database";
-import { analyzeUserMistakes } from "@/lib/pyq/mistake-engine";
+import { getAllPYQs, getUserPYQAttempts, analyzeUserMistakes } from "@/lib/study/pyq-engine";
 
 /**
  * Computes Master Priority calculations combining:
@@ -26,19 +25,7 @@ export async function computeMasterPriority(userId?: string): Promise<DailyIntel
   const mistakeAnalysis = analyzeUserMistakes(attempts, questions);
 
   const weakTopics: WeaknessInsight[] =
-    Array.isArray(mistakeAnalysis.weakestTopics) && mistakeAnalysis.weakestTopics.length > 0
-      ? mistakeAnalysis.weakestTopics
-      : [
-          {
-            subject: "Polity",
-            topic: "Fundamental Rights & Writs",
-            weaknessScore: 65,
-            accuracyPercent: 42,
-            attemptCount: 5,
-            recentMistakes: ["extreme_word_trap", "conceptual_error"],
-            recommendation: "Review Article 14-32 exceptions and judicial review limits in Constitutional Atlas.",
-          },
-        ];
+    Array.isArray(mistakeAnalysis.weakestTopics) ? mistakeAnalysis.weakestTopics : [];
 
   const recommendedPYQSubject = weakTopics[0]?.subject || "Polity";
 

@@ -1,0 +1,952 @@
+import fs from "fs";
+import path from "path";
+
+const gs1Subjects = [
+  {
+    id: "gs1-ancient-history",
+    name: "Ancient Indian History",
+    slug: "ancient-indian-history",
+    description: "From Pre-historic Stone Ages, Indus Valley, Vedic culture to Imperial Guptas & Harsha.",
+    parent_id: null,
+    exam_stage: "BOTH",
+    paper: "GS-1",
+    subject: "History",
+    importance: "CRITICAL",
+    display_order: 1,
+    units: [
+      {
+        id: "ah-unit-01",
+        name: "Pre Historic Cultures in India",
+        slug: "pre-historic-cultures",
+        description: "Sources, periodization, Stone Age, Chalcolithic & early metal cultures.",
+        importance: "HIGH",
+        display_order: 1,
+        topics: [
+          {
+            id: "ah-top-01",
+            name: "Stone Age Classifications & Sites",
+            slug: "stone-age-classifications",
+            importance: "HIGH",
+            display_order: 1,
+            subtopics: [
+              "Sources of Pre History",
+              "Periodization of Indian Pre History",
+              "Palaeolithic (2 million BC – 10,000 BC)",
+              "Mesolithic (10,000 BC – 8,000 BC)",
+              "Neolithic (8000 BC – 4000 BC)",
+              "Chalcolithic Age (4000 BC – 1500 BC)",
+              "Iron Age (1500 BC - 200 BC)",
+              "Impact of Iron technology on agriculture & urbanization"
+            ]
+          },
+          {
+            id: "ah-top-02",
+            name: "Pastoral & Farming Communities",
+            slug: "pastoral-farming-communities",
+            importance: "MEDIUM",
+            display_order: 2,
+            subtopics: [
+              "Neolithic Phase settlements (Mehrgarh, Burzahom)",
+              "Chalcolithic farming cultures (Jorwe, Malwa, Ahar)",
+              "Early Iron Phase developments",
+              "Geographical Distribution and regional characteristics"
+            ]
+          }
+        ]
+      },
+      {
+        id: "ah-unit-02",
+        name: "Indus Valley Civilization (Bronze Age)",
+        slug: "indus-valley-civilization",
+        description: "Urban planning, trade networks, seals, script, material culture and decline.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "ah-top-03",
+            name: "Harappan Urbanism & Economy",
+            slug: "harappan-urbanism-economy",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Major Cities Town Planning (Mohenjo-daro, Harappa, Dholavira, Lothal)",
+              "Harappan Internal & Foreign Trade (Mesopotamia / Dilmun)",
+              "Agriculture and irrigation techniques",
+              "Domestication of animals and craft production",
+              "Weights and Measures standardisation",
+              "Harappan Economy and maritime trade"
+            ]
+          },
+          {
+            id: "ah-top-04",
+            name: "Harappan Society, Art & Decline",
+            slug: "harappan-society-art-decline",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Harappan Script and Language enigma",
+              "Harappan Society & stratification",
+              "Harappan Religion (Pashupati, Mother Goddess, Fire Altars)",
+              "Harappan Burial Systems (Cemeteries, urns, coffins)",
+              "Harappan Art & Architecture (Bronze dancing girl, Priest King, Terracotta)",
+              "Theories of Decline (Aryan invasion, ecological shift, flooding, Saraswati drying)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "ah-unit-03",
+        name: "Vedic Society & Epic Age",
+        slug: "vedic-society",
+        description: "Early vs Later Vedic transformations, literature, polity, varna system.",
+        importance: "CRITICAL",
+        display_order: 3,
+        topics: [
+          {
+            id: "ah-top-05",
+            name: "Rig Vedic vs Later Vedic Society",
+            slug: "rig-vedic-later-vedic",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Original Home of Aryans debate",
+              "Features of Aryan Culture",
+              "Vedic Texts & Upanishads (Samhitas, Brahmanas, Aranyakas)",
+              "Sources for Reconstructing Vedic Society and Culture",
+              "Geography of Rig Vedic Period & later Vedic phases (Sapta Sindhu to Ganga-Yamuna)",
+              "Economic Conditions (Pastoralism to settled agriculture)",
+              "Political Organisation and Evolution of Monarchy (Sabha, Samiti, Vidatha)",
+              "Social Organisation, Gotra and Varna System emergence",
+              "Religion, Rituals and Philosophical Thought"
+            ]
+          }
+        ]
+      },
+      {
+        id: "ah-unit-04",
+        name: "Pre-Mauryan Mahajanapadas & Heterodox Sects",
+        slug: "pre-mauryan-heterodox",
+        description: "Second urbanization, 16 Mahajanapadas, rise of Magadha, Jainism and Buddhism.",
+        importance: "CRITICAL",
+        display_order: 4,
+        topics: [
+          {
+            id: "ah-top-06",
+            name: "Second Urbanization & Rise of Magadha",
+            slug: "second-urbanization-magadha",
+            importance: "HIGH",
+            display_order: 1,
+            subtopics: [
+              "Age of 2nd Urbanisation in Ganga Valley",
+              "Formation of territorial states (Janapadas to Mahajanapadas)",
+              "The Sixteen Mahajanapadas and their capitals",
+              "Gana Sanghas or Republics (Lichhavis, Shakyas)",
+              "Rise of urban trade centres and Guilds",
+              "Evolution of Punch-Marked Coins",
+              "Haryanka Dynasty (Bimbisara, Ajatashatru)",
+              "Shishunaga Dynasty",
+              "Nanda Dynasty and standing army"
+            ]
+          },
+          {
+            id: "ah-top-07",
+            name: "Growth of Jainism & Buddhism",
+            slug: "jainism-and-buddhism",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Causes for origin of religious reform movements",
+              "Jainism: Mahavira life, Triratna, Agamas, Digambara vs Svetambara",
+              "Buddhism: Gautama Buddha, Four Noble Truths, Eightfold Path, Pratityasamutpada",
+              "Buddhist Councils (First to Fourth Councils) and Schisms",
+              "Socio-economic impact of heterodox sects on trade and caste"
+            ]
+          }
+        ]
+      },
+      {
+        id: "ah-unit-05",
+        name: "The Mauryan Empire",
+        slug: "the-mauryan-empire",
+        description: "Chandragupta, Kautilya, Ashoka, Edicts, Dhamma, administration and art.",
+        importance: "CRITICAL",
+        display_order: 5,
+        topics: [
+          {
+            id: "ah-top-08",
+            name: "Mauryan Statecraft, Dhamma & Art",
+            slug: "mauryan-statecraft-dhamma-art",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Chandragupta and Bindusara conquests",
+              "The Arthasastra of Kautilya: Saptanga theory & espionage",
+              "Megasthenes Indica: 7 castes, city administration",
+              "Ashoka and His Successors: Kalinga War and transformation",
+              "Ashoka's Inscriptions, Major/Minor Rock Edicts & Pillar Edicts",
+              "Ashoka's Dhamma: Nature, policy, and Dhamma Mahamattas",
+              "Mauryan Central, Provincial & Local Administration",
+              "Economy, Revenue system (Bhaga, Bali) and Society",
+              "Mauryan Court Art & Pillars (Lion Capital, Yaksha figures)",
+              "Causes of Decline of the Mauryan Empire"
+            ]
+          }
+        ]
+      },
+      {
+        id: "ah-unit-06",
+        name: "Post-Mauryan India, Guptas & Harshavardhana",
+        slug: "post-mauryan-guptas-harsha",
+        description: "Indo-Greeks, Kushanas, Satavahanas, Sangam Age, Imperial Guptas, Harsha.",
+        importance: "CRITICAL",
+        display_order: 6,
+        topics: [
+          {
+            id: "ah-top-09",
+            name: "Post-Mauryan Invasions, Satavahanas & Trade",
+            slug: "post-mauryan-satavahanas",
+            importance: "HIGH",
+            display_order: 1,
+            subtopics: [
+              "Arrival of Indo-Greeks, Shakas, Parthians & Kushanas",
+              "Reign of Kanishka and Fourth Buddhist Council",
+              "Commercial Contacts with the Roman Empire and Chinese Silk Route",
+              "Satavahanas of Deccan (Gautamiputra Satakarni) & land grants",
+              "Society: Proliferation of Jatis and untouchability",
+              "Schools of Art: Gandhara, Mathura, and Amravati"
+            ]
+          },
+          {
+            id: "ah-top-10",
+            name: "Sangam Age & South Indian Dynasties",
+            slug: "sangam-age-south-india",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Sangam Literature (Ettuthokai, Pattupattu, Tolkappiyam, Silappadikaram)",
+              "South Indian Dynasties: Early Cholas, Cheras, Pandyas",
+              "Sangam Polity, War ethics, Tinai landscape concept",
+              "Economy, Ports (Muziris, Arikamedu) and Roman trade"
+            ]
+          },
+          {
+            id: "ah-top-11",
+            name: "Imperial Guptas & Harsha Empire",
+            slug: "imperial-guptas-harsha",
+            importance: "CRITICAL",
+            display_order: 3,
+            subtopics: [
+              "Sources of Gupta Rule (Prayag Prashasti, coins)",
+              "Political history: Chandragupta I, Samudragupta, Chandragupta II",
+              "Fa-hien accounts of Indian society",
+              "Gupta Administration: Decentralization and Feudal tendencies",
+              "Development of Art, Architecture, Literature & Science (Aryabhata, Kalidasa)",
+              "Debate on Golden Age of Guptas & Agrarian changes",
+              "Harshavardhana: Early conquests, Administration, Kannauj assembly",
+              "Huen Tsang accounts and Nalanda University flourishing",
+              "Decline of Harsha and emergence of regional kingdoms"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "gs1-medieval-history",
+    name: "Medieval Indian History",
+    slug: "medieval-indian-history",
+    description: "Delhi Sultanate, Vijayanagar, Regional kingdoms, Mughal Empire, and Marathas.",
+    parent_id: null,
+    exam_stage: "BOTH",
+    paper: "GS-1",
+    subject: "History",
+    importance: "HIGH",
+    display_order: 2,
+    units: [
+      {
+        id: "mh-unit-01",
+        name: "Early Medieval Dynasties & Cholas (750–1200)",
+        slug: "early-medieval-dynasties",
+        description: "Tripartite struggle, Rajput clans, Imperial Cholas, feudalism.",
+        importance: "HIGH",
+        display_order: 1,
+        topics: [
+          {
+            id: "mh-top-01",
+            name: "Tripartite Struggle & Indian Feudalism",
+            slug: "tripartite-struggle-feudalism",
+            importance: "MEDIUM",
+            display_order: 1,
+            subtopics: [
+              "The Pratiharas of Malwa (8th to 10th Century)",
+              "The Palas of Bengal and patronization of Buddhism",
+              "The Tripartite Conflict over Kannauj",
+              "The Senas of Bengal",
+              "Origin and rise of Rajput clans",
+              "Pallavas, Chalukyas of Badami & Kalyani, Rashtrakutas",
+              "Indian Feudalism: Debate, land grants, sub-infeudation, decline of trade"
+            ]
+          },
+          {
+            id: "mh-top-02",
+            name: "Imperial Cholas & South Indian Polity",
+            slug: "imperial-cholas-south-india",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Rajaraja I and Rajendra I maritime expeditions",
+              "Chola Local Self-Government (Uttaramerur Inscription, Ur, Sabha)",
+              "Socio-Economic Life and Temple economy (Brihadisvara Temple)",
+              "Education, Literature (Kamban Ramayana) and Bronze sculpture",
+              "Contact with Sri Lanka and Srivijaya (SE Asia)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "mh-unit-02",
+        name: "Delhi Sultanate & Vijayanagar Empire",
+        slug: "delhi-sultanate-vijayanagar",
+        description: "Turco-Afghan rule, administrative machinery, Vijayanagar-Bahmani kingdoms.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "mh-top-03",
+            name: "Delhi Sultanate (1206–1526 AD)",
+            slug: "delhi-sultanate-dynasties-admin",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Arab Conquest of Sindh, Mahmud of Ghazni, Muhammad Ghori invasions",
+              "Slave Dynasty: Qutbuddin Aibak, Iltutmish (Iqta system), Balban (Blood & Iron)",
+              "Khalji Dynasty: Alauddin Khalji market regulations, agrarian reforms & Deccan campaigns",
+              "Tughlaq Dynasty: Muhammad bin Tughlaq experiments & Firoz Shah Tughlaq public works",
+              "Sayyid and Lodi Dynasties",
+              "Mongol threat and defense strategies",
+              "Sultanate Administration: Diwan-i-Wizarat, Diwan-i-Arz, Diwan-i-Insha",
+              "Sultanate Economy, Urbanization, Currency reforms and decline"
+            ]
+          },
+          {
+            id: "mh-top-04",
+            name: "Vijayanagar & Bahmani Kingdoms",
+            slug: "vijayanagar-bahmani-kingdoms",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Foundation of Vijayanagar (Sangama, Saluva, Tuluva, Aravidu dynasties)",
+              "Reign of Krishnadeva Raya (Amuktamalyada, Ashtadiggajas)",
+              "Nayankara and Ayagar administrative system",
+              "Social and Cultural Life, Hampi architecture and temple complexes",
+              "Conflicts with Bahmani Sultanate and Deccan Sultanates (Battle of Talikota 1565)",
+              "Foreign Travellers accounts (Ibn Battuta, Nicolo Conti, Abdur Razzaq, Domingo Paes)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "mh-unit-03",
+        name: "The Mughal Empire & Marathas",
+        slug: "mughal-empire-marathas",
+        description: "Babur to Aurangzeb, Mansabdari, land revenue, religious policies, Shivaji, 18th century.",
+        importance: "CRITICAL",
+        display_order: 3,
+        topics: [
+          {
+            id: "mh-top-05",
+            name: "Foundations & Sher Shah Suri",
+            slug: "babur-humayun-sher-shah",
+            importance: "HIGH",
+            display_order: 1,
+            subtopics: [
+              "Central Asian politics, Timurids and Babur's advent into India (Panipat, Khanwa)",
+              "Humayun's struggle with Afghans and Bahadur Shah of Gujarat",
+              "Sher Shah Suri and the Sur Empire (1540–56)",
+              "Sher Shah's administrative reforms: Sarkar, Pargana, Grand Trunk Road, Rupiya currency",
+              "Agrarian land assessment (Zabt) of Sher Shah"
+            ]
+          },
+          {
+            id: "mh-top-06",
+            name: "Akbar the Great: Administration & Religion",
+            slug: "akbar-administration-religion",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Second Battle of Panipat (1556) and early expansions",
+              "Akbar's concept of Suzerainty and Rajput policy",
+              "Central & Provincial administration: Vikalat, Mir Bakshi, Qazi, Subas, Sarkars",
+              "Land Revenue System: Ain-i-Dahsala and Todar Mal's Bandobast",
+              "Mansabdari and Jagirdari system: Zat, Sawar ranks, Dahbishi rule",
+              "Religious Views: Ibadat Khana, Mahzar (1579), Sulh-i-Kul, Din-i-Ilahi"
+            ]
+          },
+          {
+            id: "mh-top-07",
+            name: "Later Mughals, Deccan & Maratha Supremacy",
+            slug: "later-mughals-deccan-marathas",
+            importance: "CRITICAL",
+            display_order: 3,
+            subtopics: [
+              "Jahangir and Shah Jahan: Deccan policies, architecture, European traders",
+              "Aurangzeb: Religious policies, temple destruction debate, Deccan ulcer, Jagirdari crisis",
+              "Rise of the Marathas: Chhatrapati Shivaji Maharaj, Guerilla warfare, Swarajya administration",
+              "Ashtapradhan Council, Chauth and Sardeshmukhi taxes",
+              "Peshwa hegemony (Balaji Vishwanath, Baji Rao I) and Maratha expansion into North India",
+              "Third Battle of Panipat (1761) and its geopolitical fallout",
+              "Decline of Mughals, Regional states (Awadh, Bengal, Hyderabad) & Nadir Shah invasion"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "gs1-modern-history",
+    name: "Modern Indian History (1757–1947)",
+    slug: "modern-indian-history",
+    description: "Colonial rule, 1857 Revolt, Socio-Religious reforms, National Movement & Freedom struggle.",
+    parent_id: null,
+    exam_stage: "BOTH",
+    paper: "GS-1",
+    subject: "History",
+    importance: "CRITICAL",
+    display_order: 3,
+    units: [
+      {
+        id: "modh-unit-01",
+        name: "British Expansion & Colonial Policies",
+        slug: "british-expansion-colonial-policies",
+        description: "Battles of Plassey/Buxar, subsidiary alliance, doctrine of lapse, drain of wealth.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "modh-top-01",
+            name: "British Conquest & Economic Drain",
+            slug: "british-conquest-economic-drain",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Advent of European powers (Portuguese, Dutch, French, British)",
+              "Carnatic Wars and Anglo-French rivalry",
+              "Battle of Plassey (1757) and Battle of Buxar (1764)",
+              "Treaty of Allahabad and Dual Government in Bengal",
+              "Subsidiary Alliance (Wellesley) and Doctrine of Lapse (Dalhousie)",
+              "Anglo-Mysore, Anglo-Maratha, and Anglo-Sikh wars",
+              "Colonial Land Revenue Systems: Zamindari, Ryotwari, Mahalwari",
+              "Commercialization of agriculture, deindustrialization & ruin of handicrafts",
+              "Drain of Wealth theory (Dadabhai Naoroji, R.C. Dutt)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "modh-unit-02",
+        name: "Revolt of 1857 & Early Nationalism",
+        slug: "revolt-1857-early-nationalism",
+        description: "1857 Sepoy Mutiny, Crown rule, Moderates, Extremists, Swadeshi movement.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "modh-top-02",
+            name: "Revolt of 1857 & Socio-Religious Reforms",
+            slug: "revolt-1857-reform-movements",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Causes of the Revolt of 1857 (Political, Economic, Military, Social)",
+              "Major storm centres and leaders (Nana Saheb, Rani Lakshmibai, Kunwar Singh, Begum Hazrat Mahal)",
+              "Suppression and causes of failure of the Revolt",
+              "Consequences: Government of India Act 1858, Queen's Proclamation, Army reorganization",
+              "Socio-Religious Reform Movements (Brahmo Samaj, Arya Samaj, Ramakrishna Mission, Aligarh Movement)",
+              "Lower caste movements (Jyotirao Phule's Satyashodhak Samaj, Sri Narayana Guru)"
+            ]
+          },
+          {
+            id: "modh-top-03",
+            name: "Moderates, Extremists & Swadeshi Movement",
+            slug: "moderates-extremists-swadeshi",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Pre-Congress political associations",
+              "Foundation of Indian National Congress (1885)",
+              "Moderate Phase (1885–1905): Demands, constitutional methods, economic critique",
+              "Extremist Phase (Lal-Bal-Pal, Aurobindo Ghosh): Passive resistance",
+              "Partition of Bengal (1905) and Swadeshi & Boycott Movement",
+              "Surat Split (1907) and revolutionary nationalism Phase I",
+              "Morley-Minto Reforms (Government of India Act 1909) and separate electorates",
+              "Home Rule League Movement (Tilak and Annie Besant), Lucknow Pact (1916)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "modh-unit-03",
+        name: "Gandhian Era & Mass National Movements",
+        slug: "gandhian-mass-movements",
+        description: "Non-Cooperation, Civil Disobedience, Quit India, INA, and Independence.",
+        importance: "CRITICAL",
+        display_order: 3,
+        topics: [
+          {
+            id: "modh-top-04",
+            name: "Gandhi's Advent, Non-Cooperation & Civil Disobedience",
+            slug: "gandhian-struggle-ncm-cdm",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Emergence of Gandhi: South African experiments, Champaran, Kheda, Ahmedabad Mill Strike",
+              "Rowlatt Act, Satyagraha and Jallianwala Bagh Massacre (1919)",
+              "Montagu-Chelmsford Reforms (Government of India Act 1919) and Dyarchy",
+              "Khilafat and Non-Cooperation Movement (1920–22), Chauri Chaura incident",
+              "Swaraj Party (C.R. Das, Motilal Nehru) vs No-Changers",
+              "Revolutionary Movement Phase II (HRA, HSRA, Bhagat Singh, Surya Sen)",
+              "Simon Commission boycott, Nehru Report (1928), Jinnah's 14 points",
+              "Poorna Swaraj declaration (Lahore Session 1929)",
+              "Civil Disobedience Movement (Dandi Salt March 1930)",
+              "Round Table Conferences, Gandhi-Irwin Pact, Poona Pact (1932)"
+            ]
+          },
+          {
+            id: "modh-top-05",
+            name: "Quit India, INA & Partition of India",
+            slug: "quit-india-ina-partition",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Government of India Act 1935 (Provincial Autonomy, Federal scheme)",
+              "Elections of 1937 and 28 months of Congress Ministries",
+              "Second World War outbreak, August Offer (1940), Individual Satyagraha",
+              "Cripps Mission (1942) and its failure",
+              "Quit India Movement (1942): 'Do or Die', underground leaders, parallel governments",
+              "Subhas Chandra Bose, Forward Bloc and Indian National Army (INA)",
+              "INA Trials, Royal Indian Navy (RIN) Mutiny (1946)",
+              "Wavell Plan, Shimla Conference, Cabinet Mission Plan (1946)",
+              "Direct Action Day, communal violence, Mountbatten Plan (3rd June 1947)",
+              "Indian Independence Act 1947 and Partition of India"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "gs1-culture",
+    name: "Indian Art & Culture",
+    slug: "indian-art-culture",
+    description: "Architecture, sculpture, paintings, dance, music, theatre, literature, and UNESCO heritage.",
+    parent_id: null,
+    exam_stage: "BOTH",
+    paper: "GS-1",
+    subject: "Culture",
+    importance: "CRITICAL",
+    display_order: 4,
+    units: [
+      {
+        id: "cul-unit-01",
+        name: "Indian Architecture & Sculptural Art",
+        slug: "indian-architecture-sculpture",
+        description: "Harappan, Mauryan, Temple styles (Nagara, Dravida, Vesara), Indo-Islamic, Modern.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "cul-top-01",
+            name: "Ancient & Classical Architecture",
+            slug: "ancient-classical-architecture",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Harappan Town Planning, Great Bath, Granary, drainage",
+              "Mauryan Pillars, Stupas (Sanchi), Rock-cut caves (Barabar)",
+              "Post-Mauryan Rock-cut Architecture (Karle, Bhaja, Kanheri, Ajanta, Ellora)",
+              "Temple Architecture styles: Nagara (Odisha, Khajuraho, Solanki), Dravida (Chola, Pallava, Vijayanagar, Nayaka), Vesara (Hoysala, Rashtrakuta, Chalukya)",
+              "Cave architecture: Ajanta, Ellora, Elephanta, Udayagiri-Khandagiri"
+            ]
+          },
+          {
+            id: "cul-top-02",
+            name: "Indo-Islamic & Colonial Architecture",
+            slug: "indo-islamic-colonial-architecture",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Imperial Style (Slave, Khalji, Tughlaq, Sayyid, Lodi architecture)",
+              "Provincial Styles (Bengal, Gujarat, Malwa, Jaunpur, Deccan)",
+              "Mughal Architecture (Humayun's Tomb, Fatehpur Sikri, Taj Mahal, Red Fort)",
+              "Sikh and Rajput Architectural styles",
+              "Colonial Architecture: Neo-Classical, Indo-Saracenic, Gothic Revival",
+              "Post-Independence Modern Architecture (Le Corbusier Chandigarh)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "cul-unit-02",
+        name: "Visual Arts, Performing Arts & Literature",
+        slug: "visual-performing-arts-literature",
+        description: "Paintings, classical & folk dances, music, theatre, puppetry, languages.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "cul-top-03",
+            name: "Indian Paintings & Pottery Traditions",
+            slug: "paintings-and-pottery",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Prehistoric Rock Paintings (Bhimbetka, Jogimara)",
+              "Mural Paintings (Ajanta, Ellora, Sittanavasal, Lepakshi)",
+              "Miniature Paintings (Pala, Apabhramsa, Mughal, Rajput, Pahari/Kangra, Deccan)",
+              "Folk Paintings (Madhubani, Pattachitra, Warli, Kalamkari, Cheriyal, Thangka)",
+              "Pottery Traditions: Ochre Coloured (OCP), Black and Red Ware (BRW), Painted Grey Ware (PGW), NBPW"
+            ]
+          },
+          {
+            id: "cul-top-04",
+            name: "Performing Arts: Music, Dance & Theatre",
+            slug: "music-dance-theatre",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Classical Dances: 8 Sangeet Natak Akademi forms (Bharatnatyam, Kathak, Kathakali, Kuchipudi, Odissi, Manipuri, Mohiniyattam, Sattriya)",
+              "Folk Dances across Indian States (Garba, Bihu, Lavani, Kalbelia, Chhau)",
+              "Classical Music: Hindustani (Dhrupad, Khayal, Thumri) vs Carnatic (Kriti, Varna)",
+              "Traditional Musical Instruments: Tata, Sushira, Avanaddha, Ghana",
+              "Traditional Theatre forms (Bhavai, Nautanki, Yakshagana, Kudiyattam, Jatra)",
+              "Puppetry Traditions: String (Kathputli), Shadow (Togalu Gombeyaata), Rod, Glove",
+              "Martial Arts forms (Kalaripayattu, Silambam, Thang-Ta, Gatka)"
+            ]
+          },
+          {
+            id: "cul-top-05",
+            name: "Languages, Literature, Philosophy & Heritage",
+            slug: "languages-literature-heritage",
+            importance: "CRITICAL",
+            display_order: 3,
+            subtopics: [
+              "Classical Languages of India criteria and recognized languages",
+              "Sanskrit, Pali, Prakrit, Tamil, Persian and Urdu Literature",
+              "Six Schools of Indian Philosophy (Shad-Darshanas): Samkhya, Yoga, Nyaya, Vaisheshika, Mimamsa, Vedanta",
+              "UNESCO Intangible Cultural Heritage List & World Heritage Sites in India",
+              "Fairs, Festivals, Handicrafts and GI Tagged cultural products",
+              "Contemporary issues in Art Heritage and restitution of stolen antiquities"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "gs1-geography",
+    name: "Physical & World Geography",
+    slug: "physical-world-geography",
+    description: "Geomorphology, Climatology, Oceanography, Biogeography, world resources & industries.",
+    parent_id: null,
+    exam_stage: "BOTH",
+    paper: "GS-1",
+    subject: "Geography",
+    importance: "CRITICAL",
+    display_order: 5,
+    units: [
+      {
+        id: "geo-unit-01",
+        name: "Geomorphology & Earth Systems",
+        slug: "geomorphology-earth-systems",
+        description: "Earth's interior, plate tectonics, volcanoes, earthquakes, landforms evolution.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "geo-top-01",
+            name: "Earth's Interior, Plate Tectonics & Orogeny",
+            slug: "earth-interior-plate-tectonics",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Origin of the Earth (Nebular, Big Bang theory), Geological Time Scale",
+              "Earth's Interior: Crust, Mantle, Core, Seismic discontinuities, Shadow zones",
+              "Minerals and Rocks: Igneous, Sedimentary, Metamorphic, Rock Cycle",
+              "Continental Drift Theory (Wegener) and Seafloor Spreading (Harry Hess)",
+              "Plate Tectonics: Divergent, Convergent, Transform boundaries, Movement of Indian Plate",
+              "Earthquakes: Causes, types, seismic waves (P, S, L), epicenter, tsunami generation",
+              "Volcanism: Shield, Composite, Caldera, Flood basalt, Intrusive forms (Batholiths, Laccoliths, Dykes, Sills)"
+            ]
+          },
+          {
+            id: "geo-top-02",
+            name: "Geomorphic Processes & Landform Evolution",
+            slug: "geomorphic-processes-landforms",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Endogenic forces vs Exogenic forces (Weathering: physical, chemical, biological)",
+              "Mass Movements (Solifluction, Landslides, Mudflows, Debris avalanche)",
+              "Fluvial Landforms: Valleys, Gorges, Potholes, Meanders, Oxbow lakes, Deltas",
+              "Karst Topography: Sinkholes, Lapies, Stalactites, Stalagmites, Caves",
+              "Glacial Landforms: Cirques, Aretes, Fiords, Moraines, Eskers, Drumlins",
+              "Aeolian Landforms: Pediments, Yardangs, Mushroom rocks, Barchans, Seifs, Loess",
+              "Coastal Landforms: Cliffs, Caves, Stacks, Beaches, Bars, Spits"
+            ]
+          }
+        ]
+      },
+      {
+        id: "geo-unit-02",
+        name: "Climatology & Atmosphere Dynamics",
+        slug: "climatology-atmosphere",
+        description: "Heat budget, wind systems, cyclones, jet streams, El Nino, world climatic regions.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "geo-top-03",
+            name: "Atmosphere Structure, Heat Budget & Winds",
+            slug: "atmosphere-heat-budget-winds",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Composition and Structure of Atmosphere (Troposphere to Exosphere)",
+              "Solar Radiation, Insolation, Terrestrial Radiation and Heat Budget of the Earth",
+              "Temperature distribution, Inversion of temperature and Urban Heat Islands",
+              "Atmospheric Pressure Belts and Planetary Winds (Trade winds, Westerlies, Polar easterlies)",
+              "Local Winds (Loo, Chinook, Foehn, Sirocco, Mistral, Harmattan), Land & Sea breezes",
+              "Atmospheric Humidity, Condensation forms (Dew, Frost, Fog, Clouds classification)"
+            ]
+          },
+          {
+            id: "geo-top-04",
+            name: "Cyclones, Jet Streams & World Climatic Zones",
+            slug: "cyclones-jet-streams-climates",
+            importance: "CRITICAL",
+            display_order: 2,
+            subtopics: [
+              "Air Masses, Fronts and Frontogenesis",
+              "Tropical Cyclones: Formation conditions, structure (Eye, Eyewall), naming",
+              "Temperate / Extra-Tropical Cyclones and comparison with tropical cyclones",
+              "Jet Streams, Rossby waves and impact on aviation and monsoons",
+              "Polar Vortex, Ozone depletion and Arctic warming",
+              "El Nino, La Nina, ENSO cycle, and Indian Ocean Dipole (IOD)",
+              "World Climatic Types (Equatorial, Monsoon, Savanna, Hot Desert, Mediterranean, Steppe, China Type, British, Taiga, Tundra)"
+            ]
+          }
+        ]
+      },
+      {
+        id: "geo-unit-03",
+        name: "Oceanography, Biogeography & Resources",
+        slug: "oceanography-biogeography-resources",
+        description: "Ocean relief, salinity, currents, tides, marine resources, soils, world biomes.",
+        importance: "CRITICAL",
+        display_order: 3,
+        topics: [
+          {
+            id: "geo-top-05",
+            name: "Ocean Floor, Salinity, Waves & Currents",
+            slug: "ocean-relief-currents-tides",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Relief of Ocean Floor: Continental Shelf, Slope, Abyssal Plain, Trenches, Ridges",
+              "Temperature and Salinity of Ocean Waters (Vertical & Horizontal distribution)",
+              "Ocean Currents: Factors influencing, Major warm and cold currents of Atlantic, Pacific, Indian Oceans",
+              "Atlantic Meridional Overturning Circulation (AMOC) slowdown",
+              "Tides: Gravitational forces, Spring and Neap tides, Tidal energy",
+              "Ocean Resources: Polymetallic nodules, gas hydrates, marine fisheries, UNCLOS zones"
+            ]
+          },
+          {
+            id: "geo-top-06",
+            name: "Biogeography, Soils & Global Economic Resources",
+            slug: "biogeography-soils-resources",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Soil formation factors (Pedogenesis), soil horizons and global soil classification",
+              "Global biomes: Tropical rainforests, temperate deciduous, grasslands, deserts",
+              "Distribution of metallic and non-metallic minerals across the world",
+              "Distribution of Energy Resources: Coal fields, Petroleum basins, Uranium, Rare Earth Elements",
+              "Locational factors of Primary, Secondary and Tertiary sector industries (Iron & Steel, Cotton textile, Automobile, Electronics)",
+              "Global trade routes, canals (Suez, Panama), maritime straits"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "gs1-indian-geography",
+    name: "Geography of India",
+    slug: "geography-of-india",
+    description: "Physiography, drainage basins, Indian monsoon, soils, natural vegetation, and disasters.",
+    parent_id: null,
+    exam_stage: "BOTH",
+    paper: "GS-1",
+    subject: "Geography",
+    importance: "CRITICAL",
+    display_order: 6,
+    units: [
+      {
+        id: "indgeo-unit-01",
+        name: "Physiography & Drainage of India",
+        slug: "physiography-drainage-india",
+        description: "Himalayas, Northern Plains, Peninsular Plateau, Coastal plains, Islands, River systems.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "indgeo-top-01",
+            name: "Physiographic Divisions & River Basins",
+            slug: "physiographic-divisions-rivers",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Geological structure and physiographic divisions of India",
+              "The Northern Mountains: Himalayas origin, ranges, longitudinal divisions, passes",
+              "The Great Northern Plains: Bhabar, Terai, Bhangar, Khadar",
+              "The Peninsular Plateau: Malwa, Deccan, Chota Nagpur, Western & Eastern Ghats",
+              "Coastal Plains (Konkan, Malabar, Coromandel) and Island groups (Andaman-Nicobar, Lakshadweep)",
+              "Himalayan Drainage: Indus system and tributaries, Ganga basin, Brahmaputra system",
+              "Peninsular Drainage: East-flowing (Godavari, Krishna, Cauvery, Mahanadi) vs West-flowing (Narmada, Tapi)",
+              "Inter-linking of Rivers projects, disputes and National Waterways"
+            ]
+          }
+        ]
+      },
+      {
+        id: "indgeo-unit-02",
+        name: "Climate, Soils & Vegetation of India",
+        slug: "climate-soils-vegetation-india",
+        description: "Monsoon mechanism, seasonal rhythm, ICAR soil classifications, forests, conservation.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "indgeo-top-02",
+            name: "Indian Monsoon Mechanism & Seasons",
+            slug: "monsoon-mechanism-seasons",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Mechanism of Indian Monsoon: Thermal concept, ITCZ shift, Tibetan plateau heating, Somali Jet, Tropical Easterly Jet",
+              "Role of El Nino, La Nina, and Indian Ocean Dipole on Monsoon variability",
+              "Western Disturbances and winter precipitation in North India",
+              "Rhythm of Seasons: Hot weather season, Southwest monsoon, Retreating monsoon, Winter season",
+              "Koppen's classification of Indian climatic regions, Drought and Flood prone areas"
+            ]
+          },
+          {
+            id: "indgeo-top-03",
+            name: "Soils, Natural Vegetation & Forests of India",
+            slug: "soils-vegetation-forests-india",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Classification of Indian Soils (Alluvial, Black/Regur, Red & Yellow, Laterite, Arid, Saline, Peaty, Forest)",
+              "Soil degradation, erosion, desertification and conservation measures",
+              "Types of Natural Vegetation: Tropical Evergreen, Deciduous, Thorn, Montane, Mangroves/Littoral",
+              "State of Forest Report (ISFR) findings, forest cover distribution and afforestation schemes"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "gs1-indian-society",
+    name: "Indian Society",
+    slug: "indian-society",
+    description: "Salient features, diversity, women's empowerment, poverty, urbanization, secularism.",
+    parent_id: null,
+    exam_stage: "MAINS",
+    paper: "GS-1",
+    subject: "Society",
+    importance: "CRITICAL",
+    display_order: 7,
+    units: [
+      {
+        id: "soc-unit-01",
+        name: "Salient Features, Diversity & Stratification",
+        slug: "salient-features-diversity",
+        description: "Unity in diversity, caste system, joint family, linguistic and religious diversity.",
+        importance: "CRITICAL",
+        display_order: 1,
+        topics: [
+          {
+            id: "soc-top-01",
+            name: "Features of Indian Society & Unity in Diversity",
+            slug: "society-features-diversity",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Salient features of Indian Society: Family, kinship, caste, marriage, religious pluralism",
+              "Forms of Diversity in India: Linguistic, religious, ethnic, regional",
+              "Unity in Diversity: Bonds of unity, challenges to integration, composite culture",
+              "Caste System: Features, changing dynamics, caste and politics, Sanskritization debate"
+            ]
+          }
+        ]
+      },
+      {
+        id: "soc-unit-02",
+        name: "Women, Population & Vulnerable Sections",
+        slug: "women-population-vulnerable",
+        description: "Women's organizations, gender inequality, demographic issues, aging, children.",
+        importance: "CRITICAL",
+        display_order: 2,
+        topics: [
+          {
+            id: "soc-top-02",
+            name: "Women's Organizations & Gender Issues",
+            slug: "women-organizations-gender",
+            importance: "CRITICAL",
+            display_order: 1,
+            subtopics: [
+              "Role of women's organizations in India from freedom struggle to contemporary times",
+              "SHGs, Microfinance institutions and female economic empowerment",
+              "Gender issues: Female labor force participation, unpaid care work, wage gap",
+              "Violence against women, cyber-crimes, domestic abuse, surrogacy ethics",
+              "Women in governance, Women's Reservation Act (Nari Shakti Vandan Adhiniyam)"
+            ]
+          },
+          {
+            id: "soc-top-03",
+            name: "Poverty, Population & Urbanization Dynamics",
+            slug: "poverty-population-urbanization",
+            importance: "HIGH",
+            display_order: 2,
+            subtopics: [
+              "Poverty and developmental issues: Rural vs urban poverty, multidimensional poverty",
+              "Population dynamics: Demographic dividend vs demographic burden, aging population, silver economy",
+              "Urbanization issues: Slums, urban poverty, housing, sanitation, urban flooding, smart cities",
+              "Internal and distress migration: Push and pull factors, migrant welfare, one nation one ration card"
+            ]
+          },
+          {
+            id: "soc-top-04",
+            name: "Social Empowerment, Communalism, Regionalism & Secularism",
+            slug: "empowerment-communalism-secularism",
+            importance: "CRITICAL",
+            display_order: 3,
+            subtopics: [
+              "Social Empowerment of vulnerable groups (SC, ST, OBC, Minorities, Transgenders, PwD)",
+              "Effects of Globalization on Indian Society: Food, clothing, family values, youth culture, gig economy",
+              "Communalism: Causes, historical roots, communal violence, majoritarian vs minority communalism",
+              "Regionalism: Sons of the soil doctrine, sub-nationalism, interstate disputes",
+              "Secularism: Indian model (principled distance) vs Western model of secularism, challenges"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const outputPath = path.join(process.cwd(), "data", "syllabus", "gs1-heritage-geography-society.json");
+fs.writeFileSync(outputPath, JSON.stringify(gs1Subjects, null, 2), "utf-8");
+console.log("Successfully generated GS-1 Syllabus at:", outputPath, "with", gs1Subjects.length, "Subjects.");

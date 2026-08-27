@@ -28,7 +28,7 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import AppUniversalHeader from "@/components/AppUniversalHeader";
 import { UserSessionManager } from "@/lib/core/user-context";
 import { useNotesStore } from "@/store/useNotesStore";
-import { createNoteFromMainsQuestion, findRelatedNotesForMains } from "@/lib/notes/topic-linker";
+import { createNoteFromMainsQuestion, findRelatedNotesForMains } from "@/lib/study/notes-engine";
 
 const LOCAL_STORAGE_MAINS_KEY = "redroom_mains_pyqs_custom";
 
@@ -1066,33 +1066,6 @@ export default function MainsPYQCommandCenter() {
                             </div>
                           )}
 
-                          {/* 5. VERBATIM FULL MODEL ANSWER (WORD LIMIT COMPLIANT) */}
-                          {q.framework.fullModelAnswer && (
-                            <div className="mt-4 rounded-2xl border border-pink-500/40 bg-black/50 p-4">
-                              <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-2.5">
-                                <div className="flex items-center gap-2">
-                                  <span className="font-bold text-pink-300">📝 Verbatim Model Answer</span>
-                                  <span className="rounded bg-pink-500/20 px-2 py-0.5 text-[10px] font-bold text-pink-300">
-                                    Target: {q.wordLimit} Words
-                                  </span>
-                                </div>
-                                <button
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(q.framework?.fullModelAnswer || "");
-                                    sound.playClick();
-                                    alert("✓ Full Model Answer copied to clipboard!");
-                                  }}
-                                  className="rounded-lg bg-pink-600/30 px-2.5 py-1 text-[11px] font-bold text-pink-200 hover:bg-pink-600/50 transition"
-                                >
-                                  📋 Copy Model Answer
-                                </button>
-                              </div>
-                              <div className="font-mono text-xs text-white/90 leading-relaxed whitespace-pre-line max-h-80 overflow-y-auto pr-2">
-                                {q.framework.fullModelAnswer}
-                              </div>
-                            </div>
-                          )}
-
                           {/* KEYWORDS */}
                           {q.framework.keywords && q.framework.keywords.length > 0 && (
                             <div className="mt-4 border-t border-white/10 pt-3">
@@ -1110,9 +1083,9 @@ export default function MainsPYQCommandCenter() {
                       ) : (
                         <button
                           onClick={() => handleToggleFramework(q.id)}
-                          className="text-xs font-bold text-pink-300 hover:text-white transition flex items-center gap-1"
+                          className="text-xs font-bold text-[#F4C95D] hover:text-white transition flex items-center gap-1"
                         >
-                          <span>🏆 View Complete Model Answer ({q.wordLimit} Words) & Blueprint ▼</span>
+                          <span>🎯 View Question Directive & Framework Guidance ▼</span>
                         </button>
                       )}
                     </div>
@@ -1393,42 +1366,6 @@ export default function MainsPYQCommandCenter() {
                 <div className="space-y-4 text-xs sm:text-sm leading-relaxed">
                   {activeWritingQ.framework ? (
                     <>
-                      {/* VERBATIM MODEL ANSWER CONTAINER */}
-                      {activeWritingQ.framework.fullModelAnswer && (
-                        <div className="rounded-2xl border border-pink-500/40 bg-pink-500/5 p-4 space-y-2">
-                          <div className="flex items-center justify-between border-b border-pink-500/20 pb-2">
-                            <span className="font-bold text-pink-300">
-                              🏆 Complete Model Answer ({activeWritingQ.wordLimit} Words)
-                            </span>
-                            <div className="flex gap-2">
-                              <button
-                                onClick={() => {
-                                  navigator.clipboard.writeText(activeWritingQ.framework?.fullModelAnswer || "");
-                                  sound.playClick();
-                                  alert("✓ Full Model Answer copied!");
-                                }}
-                                className="rounded-lg border border-pink-500/30 bg-black/40 px-2 py-1 text-[11px] font-bold text-pink-200 hover:bg-pink-500/20"
-                              >
-                                📋 Copy
-                              </button>
-                              <button
-                                onClick={() => {
-                                  const text = activeWritingQ.framework?.fullModelAnswer || "";
-                                  setActiveDraftText((prev) => (prev ? `${prev}\n\n${text}` : text));
-                                  setActiveTab("editor");
-                                  sound.playVictory();
-                                }}
-                                className="rounded-lg bg-pink-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-pink-500 shadow"
-                              >
-                                + Insert into Draft
-                              </button>
-                            </div>
-                          </div>
-                          <div className="font-mono text-xs text-white/90 leading-relaxed whitespace-pre-line max-h-72 overflow-y-auto pr-2 bg-black/40 p-3 rounded-xl border border-white/5">
-                            {activeWritingQ.framework.fullModelAnswer}
-                          </div>
-                        </div>
-                      )}
 
                       {/* SPATIAL MAP BLUEPRINT */}
                       {activeWritingQ.framework.mapDiagram && (
